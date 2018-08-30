@@ -7,6 +7,6 @@
 <title>Insert title here</title>
 </head>
 <body>
-
+	<h1>메소드 추가 및 수정 - 서진</h1>
 </body>
 </html>
