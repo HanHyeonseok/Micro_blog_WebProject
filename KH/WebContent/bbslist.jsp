@@ -11,25 +11,17 @@
 <meta name="author" content="https://www.Zerotheme.com">
 
 <title></title>
+<!-- Font Awesome -->
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+<!-- Bootstrap core CSS -->
+<link href="resources(bootstrap4_Ori)/css/bootstrap.min.css"
+	rel="stylesheet">
+<!-- Material Design Bootstrap -->
+<link href="resources(bootstrap4_Ori)/css/mdb.min.css" rel="stylesheet">
+<!-- Your custom styles (optional) -->
+<link href="resources(bootstrap4_Ori)/css/style.css" rel="stylesheet">
 
-<!-- Bootstrap Core CSS -->
-<link href="resources/css/bootstrap.min.css" rel="stylesheet"
-	type="text/css">
-
-<!-- Custom CSS -->
-<link href="resources/css/style.css" rel="stylesheet">
-
-<!-- Animate.css -->
-<link href="resources/css/animate.css" rel="stylesheet" media="all"
-	type="text/css">
-
-<!-- Lightbox.css -->
-<link href="resources/css/lightbox.min.css" rel="stylesheet" media="all"
-	type="text/css">
-
-<!-- Custom Fonts -->
-<link href="resources/font-awesome/css/font-awesome.min.css"
-	rel="stylesheet" type="text/css">
 
 
 
@@ -99,30 +91,22 @@
 			</nav>
 			<!--// Navigation-->
 
-			<!-- BbsList Navbar head -->
-			<nav id="menu" class="navbar">
-			<div style="margin-left: 15%; margin-right: 15%">
-				<div style="width: 70%; background-color: gray">
-					<a href="bbslist.jsp">All posts</a> <a href="bbslist.jsp">All
-						posts</a>
-				</div>
-			</div>
-			</nav>
-
-			<!-- // BbsList Navbar head -->
-
 		</div>
 		<!--- // Main Header ---> </header>
 		<!-- // Header -->
 
-		<ul class="nav justify-content-center grey lighten-4 py-4">
-			<li class="nav-item"><a class="nav-link active" href="#!">Active</a>
-			</li>
-			<li class="nav-item"><a class="nav-link" href="#!">Link</a></li>
-			<li class="nav-item"><a class="nav-link" href="#!">Link</a></li>
-			<li class="nav-item"><a class="nav-link disabled" href="#!">Disabled</a>
-			</li>
+		<!-- BbsList Navbar head -->
+		<ul class="nav justify-content-center md-pills pills-unique">
+			<li class="nav-item"><a class="nav-link indigo-text" href="#!">All
+					Posts</a></li>
+			<li class="nav-item"><form
+					class="form-inline md-form form-sm active-pink-2">
+					<input class="form-control form-control-sm mr-3 w-75" type="text"
+						placeholder="Search" aria-label="Search"> <i
+						class="fa fa-search" aria-hidden="true"></i>
+				</form></li>
 		</ul>
+		<!-- // BbsList Navbar head -->
 
 		<!-- Main Container -->
 		<section id="page-content" class="index-page"> <!-- Content Box 01 -->
@@ -157,18 +141,8 @@
 				class="fa fa-angle-double-up"></i></a>
 		</div>
 		<!-- // Mark Up -->
-
-		<!-- ========== Scripts ========== -->
-		<script type="text/javascript" src="resources/js/jquery-3.1.1.min.js"></script>
-		<script type="text/javascript" src="resources/js/bootstrap.min.js"></script>
-		<script type="text/javascript"
-			src="resources/js/jquery.localScroll.min.js"></script>
-		<script type="text/javascript"
-			src="resources/js/jquery.scrollTo.min.js"></script>
-		<script type="text/javascript" src="resources/js/SmoothScroll.js"></script>
-		<script type="text/javascript" src="resources/js/wow.min.js"></script>
-		<script type="text/javascript" src="resources/js/isotope.pkgd.min.js"></script>
-		<script type="text/javascript" src="resourcesjs/lightbox.min.js"></script>
+		
+		
 
 		<!-- Definity JS -->
 		<script type="text/javascript" src="resources/js/main.js"></script>
