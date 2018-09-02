@@ -15,7 +15,7 @@
     <!-- Card body -->
     <div class="card-body">
 	<form action="MemberController">
-            <p class="h4 text-center py-4">Sign up</p>
+            <p class="h4 text-center py-4">Sign in</p>
 
             <!-- Material input text -->
             <div class="md-form">
