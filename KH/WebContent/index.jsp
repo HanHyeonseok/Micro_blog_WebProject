@@ -115,11 +115,11 @@ body {
 
 			<!-- Links -->
 			<ul class="navbar-nav">
-				<li class="nav-item hoverable"><a class="nav-link" href="#"
+				<li class="nav-item hoverable"><a class="nav-link" href="index.jsp"
 					style="color: black; padding-left: 25px; padding-right: 25px;">Home</a></li>
 				<li class="nav-item hoverable"><a class="nav-link" href="#"
 					style="color: black; padding-left: 25px; padding-right: 25px;">Event</a></li>
-				<li class="nav-item hoverable"><a class="nav-link" href="#"
+				<li class="nav-item hoverable"><a class="nav-link" href="bbslist.jsp"
 					style="color: black; padding-left: 25px; padding-right: 25px;">Board</a></li>
 				<li class="nav-item hoverable"><a class="nav-link" href="#"
 					style="color: black; padding-left: 25px; padding-right: 25px;">Login</a></li>
