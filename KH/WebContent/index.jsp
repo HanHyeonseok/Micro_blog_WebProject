@@ -1,5 +1,11 @@
+<%@page import="dto.MemberDto"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%
+MemberDto mem = (MemberDto)session.getAttribute("login");
+
+%>
+	
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html lang="en">
 
@@ -90,6 +96,8 @@ body {
 </style>
 </head>
 <body>
+
+
 	<div class="container">
 		<!--Main Navigation-->
 		<header>
@@ -117,13 +125,37 @@ body {
 			<ul class="navbar-nav">
 				<li class="nav-item hoverable"><a class="nav-link" href="index.jsp"
 					style="color: black; padding-left: 25px; padding-right: 25px;">Home</a></li>
-				<li class="nav-item hoverable"><a class="nav-link" href="#"
+				<li class="nav-item hoverable"><a class="nav-link" href="calendar.jsp"
 					style="color: black; padding-left: 25px; padding-right: 25px;">Event</a></li>
 				<li class="nav-item hoverable"><a class="nav-link" href="bbslist.jsp"
 					style="color: black; padding-left: 25px; padding-right: 25px;">Board</a></li>
-				<li class="nav-item hoverable"><a class="nav-link" href="#"
+					
+					
+				<%
+				if(mem != null && !mem.getId().equals("")){
+				%>
+				<li class="nav-item hoverable"><a class="nav-link" href="mypage.jsp"
+					style="color: black; padding-left: 25px; padding-right: 25px;">MyPage</a></li>
+					
+				<%
+				} else{
+				%>
+				<li class="nav-item hoverable"><a class="nav-link" href="login.jsp"
 					style="color: black; padding-left: 25px; padding-right: 25px;">Login</a></li>
-
+				<%
+				}
+				%>
+			
+			
+				<%
+				if(mem != null && mem.getAuth() == 1){
+				%>
+				<li class="nav-item hoverable"><a class="nav-link" href="userinfo.jsp"
+					style="color: black; padding-left: 25px; padding-right: 25px;">Management</a></li>
+				<%
+				}
+				%> 
+				
 				<!-- Dropdown -->
 				<!-- <li class="nav-item dropdown"><a
 					class="nav-link dropdown-toggle" id="navbarDropdownMenuLink"
