@@ -26,17 +26,16 @@
 </style>
 </head>
 <body>
-	<div class="container">
+	<div class="container" style="padding: 0px">
 		<!--Main layout-->
-		<div>
+		<div style="padding-left: 10px; padding-right: 10px">
 
 			<!-- Search Bar -->
-			<div class="row"
-				style="padding-left: 15px; padding-right: 15px; margin-top: 25px; margin-bottom: 50px">
-				<div class="col-md-8" id="allpost">
+			<div class="row" style="margin-bottom: 20px; padding: 20px">
+				<div class="col-md-8" id="allpost" style="padding: 10px">
 					<a href="bbslist.jsp" class="grey-text">All Posts</a>
 				</div>
-				<div class="col-md-4">
+				<div class="col-md-4" style="padding: 0px">
 					<form class="form-inline form-sm active-pink-2">
 						<input class="form-control form-control-sm mr-3 w-75" type="text"
 							placeholder="Search" aria-label="Search"> <a href="#"><i
@@ -48,7 +47,7 @@
 
 			<!-- Main Content -->
 			<div id="main_content" class="row"
-				style="margin-top: 15px; padding-left: 15px; padding-right: 15px; padding-bottom: 15px">
+				style="margin-top: 15px; padding-bottom: 15px">
 
 				<!-- BbsWrite layer -->
 				<div class="col-md-3 sticky_column" data-sticky_column
@@ -63,8 +62,7 @@
 							</h4>
 						</div>
 						<!-- layer title -->
-						<div class="card-body d-flex flex-row"
-							style="padding: 10px; padding-top: 25px">
+						<div class="card-body d-flex flex-row" style="padding: 10px">
 							<!-- Avatar -->
 							<img
 								src="https://mdbootstrap.com/img/Photos/Avatars/avatar-8.jpg"
@@ -72,12 +70,14 @@
 								alt="avatar">
 
 							<!-- userId -->
-							<h4 style="font-family: inherit"># 작성자ID</h4>
+							<h5 style="font-family: inherit; margin: 0; padding-top: 10px">#
+								작성자ID</h5>
 						</div>
 						<!-- input title -->
 						<div class="z-depth-1" style="padding: 10px">
 							<div class="md-form mb-5" style="margin-top: 10px;">
-								<input type="text" id="title" class="form-control validate">
+								<input type="text" id="title" class="form-control validate"
+									style="margin-top: 20px; padding-top: 10px; padding-bottom: 10px">
 								<label data-error="wrong" data-success="right" for="form32">Title</label>
 							</div>
 							<!-- input content -->
@@ -141,7 +141,7 @@
 						</div>
 
 						<!-- Card image -->
-						<div class="view overlay" style="padding: 10px">
+						<div class="view overlay" style="margin: 10px">
 							<a href="bbsdetail.jsp"> <img
 								src="https://mdbootstrap.com/img/Photos/Horizontal/Food/full page/2.jpg"
 								class="img-fluid " alt="placeholder">
@@ -198,7 +198,7 @@
 						</div>
 
 						<!-- Card image -->
-						<div class="view overlay" style="padding: 10px">
+						<div class="view overlay" style="margin: 10px">
 							<a href="bbsdetail.jsp"> <img
 								src="https://mdbootstrap.com/img/Photos/Horizontal/Food/full page/2.jpg"
 								class="img-fluid " alt="placeholder">
@@ -258,8 +258,8 @@
 							<!-- Content -->
 							<div>
 								<!-- Title -->
-								<h4 class="card-title font-weight-bold mb-2">New spicy
-									meals</h4>
+								<h4 class="card-title font-weight-bold mb-2"># User ID
+									</h4>
 								<!-- Subtitle -->
 								<p class="card-text">
 									<i class="fa fa-clock-o pr-2"></i>07/24/2018
@@ -268,13 +268,13 @@
 						</div>
 						<div class="btn-group btn-group-sm" role="group"
 							aria-label="Basic example" style="padding-left: 10px">
-							<button type="button" class="btn btn-unique btn-sm">Like
+							<button type="button" class="btn btn-unique btn-sm" disabled>Like
 								: 125</button>
-							<button type="button" class="btn btn-unique btn-sm">View
+							<button type="button" class="btn btn-unique btn-sm" disabled>View
 								: 1920</button>
 						</div>
 						<!-- Card image -->
-						<div class="view overlay" style="padding: 10px">
+						<div class="view overlay" style="margin: 10px">
 							<a href="bbsdetail.jsp"> <img
 								src="https://mdbootstrap.com/img/Photos/Horizontal/Food/full page/2.jpg"
 								class="img-fluid " alt="placeholder">
@@ -297,5 +297,5 @@
 		<script type="text/javascript">
 			$(".sticky_column").stick_in_parent();
 		</script>
-		</body>
+</body>
 </html>

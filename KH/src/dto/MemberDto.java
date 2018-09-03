@@ -1,7 +1,25 @@
 package dto;
 
+/*	
+// 테이블 삭제
+DROP TABLE MEMBER
+CASCADE CONSTRAINTS;
+
+// 테이블 생성
+CREATE TABLE MEMBER(
+
+    ID VARCHAR2(50) PRIMARY KEY,
+    PWD VARCHAR2(50) NOT NULL,
+    NAME VARCHAR2(50) NOT NULL,
+    EMAIL VARCHAR2(100) UNIQUE,
+    ADDRESS VARCHAR2(200) NOT NULL,
+    PHONE VARCHAR2(20) NOT NULL,
+    IMG VARCHAR2(200),
+    AUTH NUMBER(1) NOT NULL
+    );
+*/
+
 public class MemberDto {
-	
 	private String id;
 	private String pwd;
 	private String name;
@@ -11,20 +29,13 @@ public class MemberDto {
 	private String img;
 	private int auth;
 	
-	private void Memeber() {
-		// TODO Auto-generated method stub
-
-	}
-	
-	
+	public MemberDto() {}
 	
 	public MemberDto(String id, String pwd) {
 		super();
 		this.id = id;
 		this.pwd = pwd;
 	}
-
-
 
 	public MemberDto(String id, String pwd, String name, String email, String address, String phone, String img,
 			int auth) {
@@ -108,9 +119,4 @@ public class MemberDto {
 		return "MemberDto [id=" + id + ", pwd=" + pwd + ", name=" + name + ", email=" + email + ", address=" + address
 				+ ", phone=" + phone + ", img=" + img + ", auth=" + auth + "]";
 	}
-	
-	
-	
-	
-
 }

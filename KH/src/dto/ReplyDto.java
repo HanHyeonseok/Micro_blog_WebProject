@@ -1,5 +1,96 @@
 package dto;
 
-public class ReplyDto {
+/*	
+// 테이블 삭제
+DROP TABLE REPLY
+CASCADE CONSTRAINTS;
 
+// 시퀀스 삭제
+DROP SEQUENCE R_SEQ;
+
+// 테이블 생성
+CREATE TABLE REPLY(
+    SEQ NUMBER(10),
+    ID VARCHAR2(50),
+    PARENT NUMBER(10),
+    CONTENT VARCHAR2(500) NOT NULL,
+    WDATE DATE NOT NULL,
+    
+    CONSTRAINT PK_REPLY_SEQ PRIMARY KEY(SEQ),
+    CONSTRAINT FK_REPLY_ID FOREIGN KEY(ID) REFERENCES MEMBER(ID)
+    );
+    
+ALTER TABLE REPLY
+ADD CONSTRAINT FK_REPLY_PARENT FOREIGN KEY (PARENT) REFERENCES BBS(SEQ) ON DELETE CASCADE;
+
+// 시퀀스 생성
+CREATE SEQUENCE R_SEQ
+INCREMENT BY 1
+START WITH 1
+MAXVALUE 9999;
+*/
+
+public class ReplyDto {
+	private int seq;
+	private String id;
+	private int parent;
+	private String content;
+	private String wdate;
+	
+	public ReplyDto() {}
+
+	public ReplyDto(int seq, String id, int parent, String content, String wdate) {
+		super();
+		this.seq = seq;
+		this.id = id;
+		this.parent = parent;
+		this.content = content;
+		this.wdate = wdate;
+	}
+
+	public int getSeq() {
+		return seq;
+	}
+
+	public void setSeq(int seq) {
+		this.seq = seq;
+	}
+
+	public String getid() {
+		return id;
+	}
+
+	public void setid(String id) {
+		this.id = id;
+	}
+
+	public int getParent() {
+		return parent;
+	}
+
+	public void setParent(int parent) {
+		this.parent = parent;
+	}
+
+	public String getContent() {
+		return content;
+	}
+
+	public void setContent(String content) {
+		this.content = content;
+	}
+
+	public String getWdate() {
+		return wdate;
+	}
+
+	public void setWdate(String wdate) {
+		this.wdate = wdate;
+	}
+
+	@Override
+	public String toString() {
+		return "ReplyDto [seq=" + seq + ", id=" + id + ", parent=" + parent + ", content=" + content
+				+ ", wdate=" + wdate + "]";
+	}
 }
