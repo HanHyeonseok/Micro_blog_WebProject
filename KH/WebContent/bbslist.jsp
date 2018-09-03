@@ -2,28 +2,20 @@
 	pageEncoding="UTF-8"%>
 <%@ include file="/WEB-INF/include/header.jsp"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
-<html lang="en">
+<html>
 <head>
-
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta charset="utf-8">
 <meta name="viewport"
 	content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <meta http-equiv="x-ua-compatible" content="ie=edge">
-
 <title>Honey Jam</title>
-
-<!-- Font Awesome -->
-<link rel="stylesheet"
-	href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
-<!-- Bootstrap core CSS -->
-<link href="resources/css/bootstrap.min.css" rel="stylesheet">
-<!-- Material Design Bootstrap -->
-<link href="resources/css/mdb.min.css" rel="stylesheet">
-<!-- Your custom styles (optional) -->
-<link href="resources/css/style.css" rel="stylesheet">
-
-<style type="text/css">
-</style>
+<%
+if(mem == null){
+	RequestDispatcher rd = request.getRequestDispatcher("login.jsp");
+	rd.forward(request, response);
+}
+%>
 </head>
 <body>
 	<div class="container" style="padding: 0px">
@@ -291,6 +283,7 @@
 			<!-- //  Main Content -->
 		</div>
 		<!-- // Main layout-->
+		</div>
 		<%@ include file="/WEB-INF/include/footer.jsp"%>
 		<!-- JQuery -->
 		<script type="text/javascript" src="resources/js/sticky-kit.min.js"></script>
