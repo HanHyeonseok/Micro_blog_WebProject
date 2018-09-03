@@ -102,7 +102,7 @@ body {
 			<ul class="navbar-nav">
 				<li class="nav-item hoverable"><a class="nav-link" href="index.jsp"
 					style="color: black; padding-left: 25px; padding-right: 25px;">Home</a></li>
-				<li class="nav-item hoverable"><a class="nav-link" href="#"
+				<li class="nav-item hoverable"><a class="nav-link" href="calendar.jsp"
 					style="color: black; padding-left: 25px; padding-right: 25px;">Event</a></li>
 				<li class="nav-item hoverable"><a class="nav-link" href="bbslist.jsp"
 					style="color: black; padding-left: 25px; padding-right: 25px;">Board</a></li>
@@ -129,28 +129,6 @@ body {
 				<%
 				}
 				%>
-				
-			<%-- 	<%
-				if(mem.getAuth() == 1){
-				%>
-				<li class="nav-item hoverable"><a class="nav-link" href="userinfo.jsp"
-					style="color: black; padding-left: 25px; padding-right: 25px;">Management</a></li>
-				<%
-				}
-				%> --%>
-
-				<!-- Dropdown -->
-				<!-- <li class="nav-item dropdown"><a
-					class="nav-link dropdown-toggle" id="navbarDropdownMenuLink"
-					data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Dropdown</a>
-					<div class="dropdown-menu dropdown-primary"
-						aria-labelledby="navbarDropdownMenuLink">
-						<a class="dropdown-item" href="#">Action</a> <a
-							class="dropdown-item" href="#">Another action</a> <a
-							class="dropdown-item" href="#">Something else here</a>
-					</div>
-				</li> -->
-
 			</ul>
 			<!-- Links -->
 
