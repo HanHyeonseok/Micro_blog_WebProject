@@ -1,4 +1,7 @@
+<%@ include file="/WEB-INF/include/header.jsp" %>
+
 <html lang="en"><head>
+
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -7,17 +10,18 @@
 	
     <title>Detail Data</title>
 	
+	
     <!-- Bootstrap Core CSS -->
-    <link href="css/bootstrap.min.css" rel="stylesheet" type="text/css">
+    <link href="resources/css/bootstrap.min.css" rel="stylesheet" type="text/css">
 	
 	<!-- Custom CSS -->
-	<link href="css/style.css" rel="stylesheet">
+	<link href="resources/css/style.css" rel="stylesheet">
 	
 	<!-- Animate.css -->
-	<link href="css/animate.css" rel="stylesheet" media="all" type="text/css">
+	<!-- <link href="resources/css/animate.css" rel="stylesheet" media="all" type="text/css"> -->
 	
 	<!-- Custom Fonts -->
-    <link href="font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <!-- <link href="resources/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css"> -->
 	
 	
 	<!-- Font Awesome -->
@@ -50,114 +54,11 @@
 </style>
 </head>
 <body id="page-top" class="index-page">
-<header>
-		<div class="div-hearder-navbar" align="center">
-			<img
-				src="https://user-images.githubusercontent.com/38531104/44904424-3f8a1800-ad4a-11e8-8bde-fbbbff45912b.png"
-				class="img-fluid" alt="Responsive image">
-		</div>
-		<!--Navbar--> <nav class="navbar navbar-expand-lg navbar-dark"
-			style="backgroud-color : white; margin-left : auto; margin-right : auto; margin-bottom : 15px;">
 
-		<!-- Collapse button -->
-		<button class="navbar-toggler" type="button" data-toggle="collapse"
-			data-target="#basicExampleNav" aria-controls="basicExampleNav"
-			aria-expanded="false" aria-label="Toggle navigation">
-			<span class="navbar-toggler-icon"></span>
-		</button>
-		
-		<!-- Collapsible content -->
-		<div
-			class="collapse navbar-collapse justify-content-center font-weight-bold"
-			id="basicExampleNav">
-
-			<!-- Links -->
-			<ul class="navbar-nav">
-				<li class="nav-item hoverable"><a class="nav-link" href="#"
-					style="color: black; padding-left: 25px; padding-right: 25px;">Home</a></li>
-				<li class="nav-item hoverable"><a class="nav-link" href="#"
-					style="color: black; padding-left: 25px; padding-right: 25px;">Event</a></li>
-				<li class="nav-item hoverable"><a class="nav-link" href="#"
-					style="color: black; padding-left: 25px; padding-right: 25px;">Board</a></li>
-				<li class="nav-item hoverable"><a class="nav-link" href="#"
-					style="color: black; padding-left: 25px; padding-right: 25px;">Login</a></li>
-
-
-			</ul>
-			<!-- Links -->
-
-		</div>
-		</nav> <!--/.Navbar--> </header>
 
 <div class="wrap-body">
 
-	<!--////////////////////////////////////Header-->
-	<header>
-		<!---Main Header--->
-		<div class="main-header">
-			<div class="logo">
-				<img src="images/logo.png" class="img-responsive">
-			</div>
-			<!--Navigation-->
-			<!-- <nav id="menu" class="navbar-light default-color lighten-4">
-				<div class="container-fluid">
-					<div class="navbar-header">
-					  <span id="heading" class="visible-xs">Categories</span>
-					  <button type="button" class="btn btn-navbar navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse"><i class="fa fa-bars"></i></button>
-						
-					</div>
-					<div class="collapse navbar-collapse navbar-ex1-collapse">
-						<ul class="nav navbar-nav">
-							<li class="active"><a href="index.html">Home</a></li>
-							<li><a href="single.html">About Us</a></li>
-							<li class="dropdown"><a href="#" data-toggle="dropdown">Category <i class="fa fa-chevron-down"></i></a>
-								<div class="dropdown-menu" style="margin-left: -203.625px;">
-									<div class="dropdown-inner">
-										<ul class="list-unstyled">
-											<li><a href="archive.html">Text 301</a></li>
-											<li><a href="archive.html">Text 302</a></li>
-											<li><a href="archive.html">Text 303</a></li>
-											<li><a href="archive.html">Text 304</a></li>
-											<li><a href="archive.html">Text 305</a></li>
-										</ul>
-										<ul class="list-unstyled">
-											<li><a href="archive.html">Text 306</a></li>
-											<li><a href="archive.html">Text 307</a></li>
-											<li><a href="archive.html">Text 308</a></li>
-											<li><a href="archive.html">Text 309</a></li>
-											<li><a href="archive.html">Text 310</a></li>
-										</ul>
-										<ul class="list-unstyled">
-											<li><a href="archive.html">Text 311</a></li>
-											<li><a href="archive.html">Text 312</a></li>
-											<li><a href="archive.html#">Text 313</a></li>
-											<li><a href="archive.html#">Text 314</a></li>
-											<li><a href="archive.html">Text 315</a></li>
-										</ul>
-									</div>
-								</div>
-							</li>
-							<li><a href="archive.html">Blog</a></li>
-							<li><a href="contact.html">Contact</a></li>
-						</ul>
-					</div>
-				</div>
-			</nav> -->
-			<div class="hero-background">
-				<!-- Static Header -->
-				<div class="header-text remove">
-					
-					
-					<!-- <div class="header-text-inner">
-						<h1>Article</h1>
-					</div> -->
-					
-					
-				</div><!-- /header-text -->
-			</div>
-		</div>
-	</header>
-	<!-- /Section: intro -->
+
 	
 	<!-- /////////////////////////////////////////Content -->
 	<div id="page-content">
@@ -168,14 +69,14 @@
 				<article class="single-post">
 					<div class="wrap-post"><!--Start Box-->
 						<div class="entry-header text-center">
-							<h1 class="entry-title">RETRO GALLERY: FRAGMENTING PERSISTENT FLIGHT AND PATHOLOGY</h1>
-							<span class="entry-meta">
+							<h1 class="entry-title">Title</h1>
+							<!-- <span class="entry-meta">
 								<ul class="list-inline link">
 									<li>By <a href="#">Tufo</a></li>
 									<li><a href="#">September, 22 2017</a></li>
 									<li><a href="#">0 comments</a></li>
 								</ul>
-							</span>
+							</span> -->
 						</div>
 						<!--Carousel Wrapper-->
 <div id="carousel-example-1z" class="carousel slide carousel-fade" data-ride="carousel">
@@ -216,6 +117,24 @@
     </a>
     <!--/.Controls-->
 </div>
+<!-- card Content -->
+<div class="card-body text-center wow fadeIn" data-wow-delay="0.2s" style="animation-name: none; visibility: visible;">
+          
+						
+						<div class="btn-group" role="group" aria-label="Basic example">
+						    <button type="button" class="btn btn-purple btn-rounded btn-sm"><i class="fa fa-television" aria-hidden="true"></i>&nbsp View : 123</button>
+						    <button type="button" class="btn btn-purple btn-rounded btn-sm heart"><i class="fa fa-heart-o heart-1" aria-hidden="true"></i>&nbsp Like : 123</button>
+						    <button type="button" class="btn btn-purple btn-rounded btn-sm"><i class="fa fa-pencil" aria-hidden="true"></i>&nbsp Date : 1989/11/11</button>
+						    <button type="button" class="btn btn-purple btn-rounded btn-sm"><i class="fa fa-user fa-sm pr-2" aria-hidden="true"></i>&nbsp Author : Seojin</button>
+						</div>
+						
+						
+</div>
+                
+                
+<!-- / card Content -->
+
+
 <!--/.Carousel Wrapper-->
 						<div class="entry-content">
 							<div class="excerpt"><p>Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum exercitation ullamco laboris nisi ut aliquip.</p></div>
@@ -246,11 +165,7 @@
 		
 	</div>
 		
-	<!-- Footer -->
-<footer class="page-footer font-small mdb-color lighten-3 pt-4">
 
-  <!-- Footer Elements -->
-  <div class="container">
 
     <!--Grid row-->
     <div class="row">
@@ -342,20 +257,10 @@
     </div>
     <!--Grid row-->
 
-  </div>
-  <!-- Footer Elements -->
 
-  <!-- Copyright -->
-  <div class="footer-copyright text-center py-3">© 2018 Copyright:
-    <a href="https://mdbootstrap.com/bootstrap-tutorial/"> MDBootstrap.com</a>
-  </div>
-  <!-- Copyright -->
-
-</footer>
-<!-- Footer -->
-	<div id="page-top"><a href="#page-top" class="btn btn-toTop"><i class="fa fa-angle-double-up"></i></a></div>
-	
-	<!-- JS -->
+		
+		
+		<!-- JS -->
 	<!-- ========== Scripts ========== -->
 	
 	
@@ -369,9 +274,101 @@
 <!-- MDB core JavaScript -->
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.5.9/js/mdb.min.js"></script>
 	
+<script type="text/javascript">
+
+			$(function () {
+				
+			
+			$(".heart").click(function() {
+
+ 					$(".heart-1").replaceWith("<i class='fa fa-heart' aria-hidden='true'></i>");
+
+			}), (function() {
+
+ 					$(".heart-1").replaceWith("<i class='fa fa-heart-o' aria-hidden='true'></i>");
+
+			});	
+			
+			});
+						
+</script>	
+
 	<!-- Definity JS -->
-	<script src="js/main.js"></script>
+	<script src="resources2/js/main.js"></script>
 
 </div>	
 
-</body></html>
+</body>
+</html>
+
+<%@ include file="/WEB-INF/include/footer.jsp" %>
+
+
+
+
+
+<!-- Java Script  업데이트 완료 버튼 후 "수정완료" 메세지 모달
+
+ 
+$("#centralModalSuccess").on('show.bs.modal', function(){
+    alert("Hello World!");
+}); 
+
+
+ -->
+ 
+ 
+ <!-- 
+ 
+--Central Modal Medium Success
+
+<div class="modal fade" id="centralModalSuccess" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-notify modal-success" role="document">
+        
+        --Content
+        
+        <div class="modal-content">
+            
+            --Header
+            <div class="modal-header">
+                <p class="heading lead">Modal Success</p>
+
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                            <span aria-hidden="true" class="white-text">&times;</span>
+                                        </button>
+            </div>
+
+            --Body
+            
+            <div class="modal-body">
+                <div class="text-center">
+                    <i class="fa fa-check fa-4x mb-3 animated rotateIn"></i>
+                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Impedit iusto nulla aperiam
+                        blanditiis ad consequatur in dolores culpa, dignissimos, eius non possimus fugiat.
+                        Esse ratione fuga, enim, ab officiis totam.</p>
+                </div>
+            </div>
+
+            --Footer
+            
+            <div class="modal-footer justify-content-center">
+                <a type="button" class="btn btn-primary">Get it now <i class="fa fa-diamond ml-1"></i></a>
+                <a type="button" class="btn btn-outline-primary waves-effect" data-dismiss="modal">No, thanks</a>
+            </div>
+        </div>
+        
+        --Content
+        
+    </div>
+</div>
+
+<!-- Central Modal Medium Success-->
+
+
+<!-- Button trigger modal 
+
+<div class="text-center">
+    <a href="" class="btn btn-default btn-rounded" data-toggle="modal" data-target="#centralModalSuccess">Launch Modal Success <i class="fa fa-eye ml-1"></i></a>
+</div>
+ 
+  -->
