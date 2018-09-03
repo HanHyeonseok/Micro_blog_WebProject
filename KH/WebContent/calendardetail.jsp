@@ -5,6 +5,7 @@
 <%@page import="java.text.SimpleDateFormat"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ include file="/WEB-INF/include/header.jsp" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -61,19 +62,22 @@ CalendarDto dto = dao.getDay(seq);
 <tr>
 	<td>내용</td>
 	<td>
-		<textarea rows="20" cols="60" readonly="readonly"><%-- <%=dto.getContent() %> --%>
+		<textarea rows="20" cols="60" readonly="readonly"><%=dto.getContent() %> 
 		</textarea>
 	</td>
 </tr>
 
 <tr>
 	<td colspan="2" align="center">
-		<input type="button" value="수정" <%-- onclick="location.href='calendarupdate.jsp?seq=<%=dto.getSeq() %>' --%>">
-		 <input type="hidden" name="seq" value="<%=dto.getSeq() %>">
-        <input type="button" value="삭제" onclick="location.href='caldel.jsp?seq=<%=dto.getSeq()%>&rdate=<%=dto.getRdate()%>'">
+		<input type="button" value="수정" onclick="location.href='CalendarController?command=update&seq=<%=dto.getSeq() %>'">
+        <input type="button" value="삭제" onclick="location.href='CalendarController?command=delete&seq=<%=dto.getSeq()%>'">
         <input type="button" value="취소" onclick="location.href='calendar.jsp'">		
+        
 	</td>
 </tr>
 
+</table>
+<br><br><br>
+<%@ include file="/WEB-INF/include/footer.jsp" %>
 </body>
 </html>

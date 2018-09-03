@@ -10,7 +10,7 @@ public interface CalendarDAOImpl {
 	boolean addCalendar(CalendarDto cal);
 	
 	//일정 수정
-	boolean updateDay(CalendarDto dto);
+	boolean updateDay(CalendarDto dto, int seq);
 	
 	boolean deleteDay(int seq);
 	

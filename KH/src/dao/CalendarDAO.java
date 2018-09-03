@@ -120,7 +120,7 @@ public class CalendarDAO implements CalendarDAOImpl{
 
 	// 수정하기
 	@Override
-	public boolean updateDay(CalendarDto dto) {
+	public boolean updateDay(CalendarDto dto, int seq) {
 		  /*UPDATE CALENDAR
         SET TITLE='설날2' , CONTENT='설날2'
         WHERE SEQ=23;*/
@@ -142,7 +142,7 @@ public class CalendarDAO implements CalendarDAOImpl{
 
 			psmt.setString(1, dto.getTitle());
 			psmt.setString(2, dto.getContent());
-			psmt.setInt(3, dto.getSeq());
+			psmt.setInt(3, seq);
 			System.out.println("2/6 updateDay success");
 
 			count = psmt.executeUpdate();
