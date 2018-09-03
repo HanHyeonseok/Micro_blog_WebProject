@@ -6,11 +6,10 @@
 <%@page import="java.util.List"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ include file="/WEB-INF/include/header.jsp" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>calendar.jsp</title>
 </head>
 <body>
 
@@ -94,7 +93,7 @@ public String makeTable(int year, int month, int day,
 
 %>
 
-<h1>달력</h1>
+<h1 align="center">달력</h1>
 
 <%
 Calendar cal = Calendar.getInstance();
@@ -218,5 +217,32 @@ for(int i = 0;i < (7 - (dayOfWeek + lastDay - 1)%7 )%7 ; i++){
 </table>
 </div>
 
+<br><br><br>
+<script type='text/javascript'>
+
+	$(document).ready(function() {
+	
+		var date = new Date();
+		var d = date.getDate();
+		var m = date.getMonth();
+		var y = date.getFullYear();
+		
+		$('#calendar').fullCalendar({
+			header: {
+				left: 'prev,next today',
+				center: 'title',
+				right: 'month,basicWeek,basicDay'
+			},
+			editable: true,
+			events: [
+				
+			]
+		});
+		
+	});
+
+</script>
+<div id='calendar'></div>
+<%@ include file="/WEB-INF/include/footer.jsp" %>
 </body>
 </html>
