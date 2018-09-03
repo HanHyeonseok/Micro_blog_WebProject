@@ -70,8 +70,10 @@ CalendarDto dto = dao.getDay(seq);
 	<td colspan="2" align="center">
 		<input type="button" value="수정" <%-- onclick="location.href='calendarupdate.jsp?seq=<%=dto.getSeq() %>' --%>">
 		 <input type="hidden" name="seq" value="<%=dto.getSeq() %>">
-        <input type="button" value="삭제" onclick="location.href='caldel.jsp?seq=<%=dto.getSeq()%>&rdate=<%=dto.getRdate()%>'">
+        <input type="button" value="삭제" onclick="location.href='calendar.jsp?seq=<%=dto.getSeq()%>&rdate=<%=dto.getRdate()%>'">
+        <input type="hidden" name="command" value="delete">
         <input type="button" value="취소" onclick="location.href='calendar.jsp'">		
+        
 	</td>
 </tr>
 

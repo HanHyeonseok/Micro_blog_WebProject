@@ -38,13 +38,13 @@ public class CalendarController extends HttpServlet {
 			//String id = mem.getId();
 			resp.setContentType("text/html; charset=utf-8");
 
-
-			String rdate = ""+req.getParameter("year")+formatTwo(req.getParameter("month"))+formatTwo(req.getParameter("day"))+formatTwo(req.getParameter("hour"))+formatTwo(req.getParameter("min"));
-
+			String rdate = ""+req.getParameter("year")
+							+formatTwo(req.getParameter("month"))
+							+formatTwo(req.getParameter("day"))
+							+formatTwo(req.getParameter("hour"))
+							+formatTwo(req.getParameter("min"));
 			String title = req.getParameter("title");
-
 			String content = req.getParameter("content");
-
 			CalendarDto dto = new CalendarDto("111", title, content, rdate);
 
 			boolean result = dao.addCalendar(dto);
@@ -55,13 +55,38 @@ public class CalendarController extends HttpServlet {
 						
 				out.println("<script>alert(\"성공적으로 일정을 입력했습니다.\");location.href = \"calendar.jsp\"</script>");		
 				
-				
 			}else{
 				PrintWriter out = resp.getWriter();
 				
 				out.println("<script>alert(\"성공적으로 일정을 입력했습니다.\");location.href = \"calendar.jsp\"</script>");		
 			}
-		}		
+		}
+		else if(command.equals("delete")) {
+			req.setCharacterEncoding("utf-8");
+			//MemberDto mem = (MemberDto)session.getAttribute("login");
+			//String id = mem.getId();
+			resp.setContentType("text/html; charset=utf-8");
+				
+			String rdate = req.getParameter("rdate");			
+			String title = req.getParameter("title");
+			String content = req.getParameter("content");
+		
+			CalendarDto dto = new CalendarDto("111", title, content, rdate);
+
+			boolean result = dao.addCalendar(dto);
+			if(result == true){
+
+				PrintWriter out = resp.getWriter();
+						
+				out.println("<script>alert(\"삭제했습니다.\");location.href = \"calendar.jsp\"</script>");		
+				
+				
+			}else{
+				PrintWriter out = resp.getWriter();
+				
+				out.println("<script>alert(\"삭제 실패 했습니다.\");location.href = \"calendar.jsp\"</script>");		
+			}
+		}
 		
 	}
 
