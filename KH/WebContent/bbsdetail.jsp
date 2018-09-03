@@ -1,6 +1,11 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
+	
 <%@ include file="/WEB-INF/include/header.jsp" %>
 
-<html lang="en"><head>
+<html lang="en">
+
+<head>
 
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -51,8 +56,37 @@
 
 /* Necessary for full page carousel*/
 
+
+/* comment classes */
+
+.media .avatar {
+    width: 64px;
+}
+.shadow-textarea textarea.form-control::placeholder {
+    font-weight: 300;
+}
+.shadow-textarea textarea.form-control {
+    padding-left: 0.8rem;
+}
 </style>
+
+
+
 </head>
+
+<!-- <script>
+	(function () {
+		var scripts = ["/static/general/bf-core.min.js", "/static/containers/QMI797.js"];
+		for(var i = 0; i < scripts.length; i++){
+			var script = document.createElement("scripts");
+			script.src = "//brandflow.net" + scripts[i] + "?ts=" + Date.now() + "#";
+			script.async = false;
+			document.head.appendChild(script);
+		}
+	})();
+</script> -->
+
+
 <body id="page-top" class="index-page">
 
 
@@ -121,7 +155,7 @@
 <div class="card-body text-center wow fadeIn" data-wow-delay="0.2s" style="animation-name: none; visibility: visible;">
           
 						
-						<div class="btn-group" role="group" aria-label="Basic example">
+						<div align="left" class="btn-group" role="group" aria-label="Basic example">
 						    <button type="button" class="btn btn-purple btn-rounded btn-sm"><i class="fa fa-television" aria-hidden="true"></i>&nbsp View : 123</button>
 						    <button type="button" class="btn btn-purple btn-rounded btn-sm heart"><i class="fa fa-heart-o heart-1" aria-hidden="true"></i>&nbsp Like : 123</button>
 						    <button type="button" class="btn btn-purple btn-rounded btn-sm"><i class="fa fa-pencil" aria-hidden="true"></i>&nbsp Date : 1989/11/11</button>
@@ -129,6 +163,14 @@
 						</div>
 						
 						
+						&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+						&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+						
+						
+						<!-- 사진 추가/수정 -->
+			
+						<button id="image-upload" type="button" class="btn btn-default">Image</button>
+					
 </div>
                 
                 
@@ -164,8 +206,46 @@
 		</div>
 		
 	</div>
+	
+	<!-- 내용 수정 -->
+	
+<div align="right">
+	<button type="button" data-toggle="modal" data-target="#updateModal" class="btn btn-secondary">내용 수정</button>
+</div>
 		
+		
+		
+<div class="media">
+    <img class="d-flex rounded-circle avatar z-depth-1-half mr-3" src="https://mdbootstrap.com/img/Photos/Avatars/avatar-5.jpg" alt="Avatar">
+    <div class="media-body">
+        <h5 class="mt-0 font-weight-bold blue-text">Anna Smith</h5>
+        Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque ante sollicitudin. Cras purus odio, vestibulum in vulputate at, tempus viverra turpis. Fusce condimentum nunc ac nisi vulputate fringilla. Donec lacinia congue felis in faucibus.
 
+        <div class="media mt-3 shadow-textarea">
+            <img class="d-flex rounded-circle avatar z-depth-1-half mr-3" src="https://mdbootstrap.com/img/Photos/Avatars/avatar-8.jpg" alt="Generic placeholder image">
+            <div class="media-body">
+                
+               
+               <!-- reply 작성자 --> 
+                <h5 class="mt-0 font-weight-bold blue-text">Danny Tatuum</h5>
+                <div class="form-group basic-textarea rounded-corners">
+                    <textarea class="form-control z-depth-1" id="exampleFormControlTextarea3" rows="3" placeholder="Write your comment...">
+						</textarea><div align="right"><button type="button" class="btn btn-info">등록</button></div>
+                </div>
+                
+                
+                
+            </div>
+        </div>
+    </div>
+</div>
+<div class="media">
+    <img class="d-flex rounded-circle avatar z-depth-1-half mr-3" src="https://mdbootstrap.com/img/Photos/Avatars/avatar-10.jpg" alt="Avatar">
+    <div class="media-body">
+        <h5 class="mt-0 font-weight-bold blue-text">Caroline Horwitz</h5>
+        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Corporis odit minima eaque dignissimos recusandae officiis commodi nulla est, tempore atque voluptas non quod maxime, iusto, debitis aliquid? Iure ipsum, itaque.
+    </div>
+</div><br><br>
 
     <!--Grid row-->
     <div class="row">
@@ -257,7 +337,40 @@
     </div>
     <!--Grid row-->
 
+<!-- Modal -->
+<div class="modal fade" id="updateModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
 
+    <!-- Add .modal-dialog-centered to .modal-dialog to vertically center the modal -->
+    <div class="modal-dialog modal-dialog-centered" role="document">
+
+
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLongTitle">Tekapo</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum exercitation ullamco laboris nisi ut aliquip.
+
+Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum.
+
+Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet vultatup duista.
+
+Duis autem vel eum iriure dolor in hendrerit in vulputate velit esse molestie consequat, vel illum dolore eu feugiat nulla facilisis at vero eros et accumsan et iusto odio dignissim qui blandit praesent luptatum zzril.
+
+Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat. Duis autem vel eum iriure dolor in hendrerit in vulputate velit esse lorem ipsum dolor sit amet.
+
+Consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum hendrerit in vulputate velit esse molestie.
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary">Save changes</button>
+            </div>
+        </div>
+    </div>
+</div>
 		
 		
 		<!-- JS -->
@@ -273,8 +386,8 @@
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.3/js/bootstrap.min.js"></script>
 <!-- MDB core JavaScript -->
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.5.9/js/mdb.min.js"></script>
-	
-<script type="text/javascript">
+
+		<script type="text/javascript">
 
 			$(function () {
 				
@@ -290,15 +403,17 @@
 			});	
 			
 			});
-						
-</script>	
+				
+			
+			
+			
+			
+			
+			
+		</script>
 
-	<!-- Definity JS -->
-	<script src="resources2/js/main.js"></script>
-
-</div>	
-
-</body>
+		<!-- Definity JS -->
+		<script src="resources2/js/main.js"></script></body>
 </html>
 
 <%@ include file="/WEB-INF/include/footer.jsp" %>
