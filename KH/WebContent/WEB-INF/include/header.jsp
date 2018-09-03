@@ -117,7 +117,7 @@ body {
 					<div class="dropdown-menu dropdown-primary"
 						aria-labelledby="navbarDropdownMenuLink">
 						<a class="dropdown-item" href="mypage.jsp">Mypage</a> 
-						<a class="dropdown-item" href="#">로그아웃</a>
+						<a class="dropdown-item" href="MemberController?command=logout">로그아웃</a>
 					</div>
 				</li>
 					

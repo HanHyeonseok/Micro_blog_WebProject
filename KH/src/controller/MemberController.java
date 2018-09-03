@@ -71,7 +71,12 @@ public class MemberController extends HttpServlet{
 			String pwd = req.getParameter("pwd");
 			String name = req.getParameter("name");
 			String email = req.getParameter("email");
-			String address= req.getParameter("address");
+			/*address_num , address , Detail_Address
+			658-서울특별시-*/ 
+			String addressnum= req.getParameter("address_num");
+			String address1= req.getParameter("address");
+			String addressDtaile = req.getParameter("Detail_Address");			
+			String address= addressnum+"-"+address1+"-"+addressDtaile;
 			String phone = req.getParameter("phone");
 			
 			System.out.println("id = " + id);
