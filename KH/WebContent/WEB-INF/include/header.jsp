@@ -12,7 +12,6 @@ MemberDto mem = (MemberDto)session.getAttribute("login");
 <meta name="viewport"
 	content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <meta http-equiv="x-ua-compatible" content="ie=edge">
-<title>Material Design Bootstrap</title>
 <!-- Font Awesome -->
 <link rel="stylesheet"
 	href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
@@ -67,30 +66,12 @@ body {
   border-color: #E6E5E3;
   background-color: #E6E5E3;
 }
-@media ( min-width : 800px) and (max-width: 850px) {
-	.navbar
-	
-	:not
-	
-	(
-	.top-nav-collapse
-	
-	)
-	{
-	background
-	
-	:
-	
-	
-	#1C2331
-	
-	!
-	important
-	
-	;
-}
-}
-}
+
+@media (min-width: 800px) and (max-width: 850px) {
+      .navbar:not(.top-nav-collapse) {
+          background: #1C2331!important;
+      }
+  }
 </style>
 </head>
 <body>
@@ -130,8 +111,15 @@ body {
 				<%
 				if(mem != null && !mem.getId().equals("")){
 				%>
-				<li class="nav-item hoverable"><a class="nav-link" href="mypage.jsp"
-					style="color: black; padding-left: 25px; padding-right: 25px;">MyPage</a></li>
+				<li class="nav-item dropdown"><a
+					class="nav-link dropdown-toggle" id="navbarDropdownMenuLink"
+					data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="color: black">Welcome</a>
+					<div class="dropdown-menu dropdown-primary"
+						aria-labelledby="navbarDropdownMenuLink">
+						<a class="dropdown-item" href="mypage.jsp">Mypage</a> 
+						<a class="dropdown-item" href="#">로그아웃</a>
+					</div>
+				</li>
 					
 				<%
 				} else{
