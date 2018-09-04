@@ -44,7 +44,8 @@
 				<!-- BbsWrite layer -->
 				<div class="col-md-3 sticky_column" data-sticky_column
 					style="height: 640px;">
-					<form action="BbsController?command=bbsWrite" method="post" id="regi_bbs">
+					<form action="BbsController?command=bbsWrite" method="post"
+						id="regi_bbs" enctype="multipart/form-data">
 
 						<!-- layer header -->
 						<div
@@ -67,25 +68,23 @@
 						</div>
 						<!-- input title -->
 						<div class="z-depth-1" style="padding: 10px">
-							<div class="md-form mb-5" style="margin-top: 10px;">
-								<input type="text" name="title" class="form-control validate"
-									style="margin-top: 20px; padding-top: 10px; padding-bottom: 10px">
-								<label data-error="wrong" data-success="right" for="form32">Title</label>
-							</div>
+							<input class="form-control form-control-sm" type="text"
+								placeholder="Title"
+								style="margin-top: 20px; padding-top: 10px; padding-bottom: 10px" name="title">
 							<!-- input content -->
-							<div class="md-form" style="margin-bottom: 10px">
-								<textarea type="text" name="content"
-									class="md-textarea form-control" rows="4"></textarea>
-								<label data-error="wrong" data-success="right" for="form8">Your
-									message</label>
+							<div class="form-group shadow-textarea" style="margin-top: 10px;">
+								<textarea name="content" class="form-control z-depth-1"
+									id="exampleFormControlTextarea6" rows="3"
+									placeholder="Content" style="height: 200px"></textarea>
 							</div>
 							<!-- Hash Tag -->
 							<input class="form-control form-control-sm" type="text"
-								placeholder="#HashCode" name="hashtag" style="margin-bottom: 10px">
+								placeholder="#HashCode" name="hashtag"
+								style="margin-bottom: 10px">
 
 							<!-- write layer buttons -->
 							<div style="margin: 5px; font-size: 10px">
-								<input type="file" name="files" multiple>
+								<input type="file" name="files">
 							</div>
 							<div align="center">
 								<a href="#"
