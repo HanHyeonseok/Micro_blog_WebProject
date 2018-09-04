@@ -1,3 +1,5 @@
+<%@page import="dao.CalendarDAO"%>
+<%@page import="dao.CalendarDAOImpl"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ include file="/WEB-INF/include/header.jsp"%>
@@ -73,6 +75,11 @@
 			</a>
 			<!--/.Controls-->
 		</div>
+		
+		<%
+		CalendarDAOImpl caldao = CalendarDAO.getInstance();
+		
+		%>
 		<!--/.Carousel Wrapper-->
 		<!-- List Table -->
 		<div class="z-depth-1" style="margin-bottom: 15px; display: flex; flex-wrap: wrap;">

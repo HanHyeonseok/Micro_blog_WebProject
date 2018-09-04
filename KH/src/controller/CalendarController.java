@@ -31,16 +31,16 @@ public class CalendarController extends HttpServlet {
 		req.setCharacterEncoding("utf-8");
 		resp.setContentType("text/html; charset=utf-8");
 		
-		String tempid = "111";
-		//나중에 아이디 세션에서 받으시면 		
+		
 		
 		if(command.equals("write")) {
-			
-			req.setCharacterEncoding("utf-8");
+		
 			//MemberDto mem = (MemberDto)session.getAttribute("login");
 			//String id = mem.getId();
 			resp.setContentType("text/html; charset=utf-8");
 
+			
+			String id = req.getParameter("id");
 			String rdate = ""+req.getParameter("year")
 							+formatTwo(req.getParameter("month"))
 							+formatTwo(req.getParameter("day"))
@@ -50,7 +50,7 @@ public class CalendarController extends HttpServlet {
 			String title = req.getParameter("title");
 			String content = req.getParameter("content");
 			
-			CalendarDto dto = new CalendarDto("111", title, content, rdate);
+			CalendarDto dto = new CalendarDto(id, title, content, rdate);
 
 			boolean result = dao.addCalendar(dto);
 
@@ -65,7 +65,7 @@ public class CalendarController extends HttpServlet {
 			}
 		}
 		else if(command.equals("delete")) {
-			req.setCharacterEncoding("utf-8");
+			
 			//MemberDto mem = (MemberDto)session.getAttribute("login");
 			//String id = mem.getId();
 			resp.setContentType("text/html; charset=utf-8");
@@ -80,7 +80,6 @@ public class CalendarController extends HttpServlet {
 				PrintWriter out = resp.getWriter();						
 				out.println("<script>alert(\"삭제했습니다.\");location.href = \"calendar.jsp\"</script>");		
 				
-				
 			}else{
 				PrintWriter out = resp.getWriter();				
 				out.println("<script>alert(\"삭제 실패 했습니다.\");location.href = \"calendar.jsp\"</script>");		
@@ -88,10 +87,8 @@ public class CalendarController extends HttpServlet {
 		}
 		else if(command.equals("update")) {
 			
-			
 			String sseq = req.getParameter("seq");
 			int seq = Integer.parseInt(sseq);
-
 			
 			CalendarDto dto = dao.getDay(seq);
 			
@@ -99,7 +96,9 @@ public class CalendarController extends HttpServlet {
 			
 			this.dispatch("calendarupdate.jsp", req, resp);
 			
-		}else if(command.equals("updateAF")) {
+		}
+		else if(command.equals("updateAF")) {
+			
 			String rdate = ""+req.getParameter("year")
 			+formatTwo(req.getParameter("month"))
 			+formatTwo(req.getParameter("day"))
@@ -125,6 +124,16 @@ public class CalendarController extends HttpServlet {
 				PrintWriter out = resp.getWriter();				
 				out.println("<script>alert(\"수정 실패 했습니다.\");location.href = \"calendar.jsp\"</script>");		
 			}
+		}
+		else if(command.equals("list")) {
+			String sseq = req.getParameter("seq");
+			int seq = Integer.parseInt(sseq);
+
+			CalendarDto dto = dao.getDay(seq);
+			
+			req.setAttribute("dto", dto);
+			
+			this.dispatch("calendarlist.jsp", req, resp);
 		}
 	}
 

@@ -18,8 +18,8 @@ String year = request.getParameter("year");
 String month = request.getParameter("month");
 String day = request.getParameter("day");
 
-//MemberDto user = new MemberDto("111","111",null,null,3); 
-// MemberDto user = (MemberDto)session.getAttribute("login");
+
+MemberDto user = (MemberDto)session.getAttribute("login");
 
 Calendar cal = Calendar.getInstance();
 int tyear = cal.get(Calendar.YEAR);
@@ -31,6 +31,7 @@ int tmin = cal.get(Calendar.MINUTE);
 
 <form action="CalendarController" method="post">
 <input type="hidden" name="command" value="write">
+<input type="hidden" name="id" value="<%=user.getId() %>">
 
 <table border="1">
 <col width="200"><col width="500">
