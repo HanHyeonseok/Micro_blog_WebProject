@@ -139,7 +139,7 @@ public class CalendarDAO implements CalendarDAOImpl{
 
 		String sql = " INSERT INTO CALENDAR(" 
 				+ " SEQ, ID, TITLE, CONTENT, RDATE, WDATE) " 
-				+ " VALUES(SEQ_CAL.NEXTVAL, "
+				+ " VALUES(C_SEQ.NEXTVAL, "
 				+ " ?, ?, ?, ?, SYSDATE) ";
 
 		Connection conn = null;
@@ -295,11 +295,51 @@ public class CalendarDAO implements CalendarDAOImpl{
 		return count > 0 ? true:false;
 	}
 
+	// index 화면 일정 불러오기
 	@Override
 	public List<CalendarDto> indexCalList() {
 		String sql = " SELECT SEQ, ID, TITLE, CONTENT, RDATE, WDATE " 
 				+ " FROM CALENDAR "
-				+ " WHERE SEQ=? ";
+				+ " where rdate > to_char(sysdate, 'yyyymmddhh24mi') "
+				+ " ORDER BY RDATE ASC ";
+	
+		Connection conn = null;
+		PreparedStatement psmt = null;
+		ResultSet rs = null;
+		
+		List<CalendarDto> list = new ArrayList<CalendarDto>();
+		
+		try {
+			conn = DBConnection.makeConnection();
+			System.out.println("1/6 getCalendarList success");
+				
+			psmt = conn.prepareStatement(sql);
+			System.out.println("2/6 getCalendarList success");
+			
+			rs = psmt.executeQuery();
+			System.out.println("3/6 getCalendarList success");
+			
+			while(rs.next()) {
+				CalendarDto dto = new CalendarDto();
+				dto.setSeq(rs.getInt(1));
+				dto.setId(rs.getString(2));
+				dto.setTitle(rs.getString(3));
+				dto.setContent(rs.getString(4));
+				dto.setRdate(rs.getString(5));
+				dto.setWdate(rs.getString(6));
+				
+				list.add(dto);				
+			}		
+			System.out.println("4/6 getCalendarList success");
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			
+			DBClose.close(psmt, conn, rs);
+			System.out.println("5/6 getCalendarList success");
+		}		
 		
 		return list;
 	}

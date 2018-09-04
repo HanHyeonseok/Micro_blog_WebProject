@@ -18,7 +18,7 @@ public interface CalendarDAOImpl {
 	List<CalendarDto> getDayList(String id, String dates); //일정 리스트로 상세보기
 
 
-	// index 일정 리스트
+	// index화면 일정 불러오기
 	public List<CalendarDto> indexCalList();
 
 

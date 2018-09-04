@@ -2,6 +2,7 @@ package controller;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.List;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -36,6 +37,7 @@ public class MemberController extends HttpServlet{
 		String command = req.getParameter("command");
 		
 		MemberDAOImpl memDao = MemberDAO.getInstance();
+		PrintWriter out = resp.getWriter();
 		
 		if(command.equals("login")) {
 			System.out.println("doProcess 실행");	
@@ -55,6 +57,7 @@ public class MemberController extends HttpServlet{
 					session.setAttribute("login", mem);
 					session.setMaxInactiveInterval(30*60);
 					dispatch("index.jsp", req, resp);
+					
 				
 				}
 				
@@ -89,14 +92,17 @@ public class MemberController extends HttpServlet{
 			
 			boolean b = memDao.addMember(new MemberDto(id, pwd, name, email, address, phone, null, 0));
 			
-			PrintWriter out = resp.getWriter();
+			
 			if(b) {
+				
+				
 				System.out.println("회원가입 성공");
 				dispatch("index.jsp", req, resp);
 			}
 			else {
 				
 				System.out.println("회원가입 실패");
+				
 				dispatch("index.jsp", req, resp);
 			}
 			
@@ -134,16 +140,62 @@ public class MemberController extends HttpServlet{
 			if(req.getSession(false) == null) {
 				System.out.println("세션이 만료되었습니다");
 				
+				System.out.println("로그아웃 성공");
+				
 				dispatch("index.jsp", req, resp);
-			}		
+			}
+		}
+		else if(command.equals("update")) {
+			System.out.println("doProcess update실행");	
+						
+			dispatch("memUpdate.jsp", req, resp);
+			
+		}else if(command.equals("memberUpdate")) {
+			
+			
+			String id = req.getParameter("id");
+			String pwd = req.getParameter("pwd");
+			String name = req.getParameter("name");
+			String email = req.getParameter("email");
+			String phone = req.getParameter("phone");
+			
+			/*주소 합치기*/
+			String address_num = req.getParameter("address_num");
+			String add = req.getParameter("address");
+			String Detail_Address = req.getParameter("Detail_Address");
+			
+			String address = address_num+"-"+add+"-"+Detail_Address;
+			MemberDto mem = new MemberDto(id, pwd, name, email, address, phone, null, 0);
+			boolean b = memDao.updateMember(mem);
+			
+			
+			if(b) {
+				HttpSession session = null;
+				session = req.getSession(true);
+				session.setAttribute("login", mem);
+				session.setMaxInactiveInterval(30*60);
+				System.out.println("멤버 업데이트 완료");
+				dispatch("mypage.jsp", req, resp);
+			}else {
+				System.out.println("멤버 업데이트 실패");
+				dispatch("memUpdate.jsp", req, resp);
+				
+			}
+			
+		}
+		
+		else if(command.equals("userinfo")) {
+			System.out.println("doProcess 실행");
+			
+			List<MemberDto> uesrList = memDao.getUserList();
+			
+			req.setAttribute("uesrList", uesrList );
+			
+			dispatch("userinfo.jsp", req, resp);
 			
 			
 		}
 		
-		
-		
-		
-				
 		
 	}
 	

@@ -4,6 +4,8 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 import db.DBClose;
 import db.DBConnection;
@@ -114,37 +116,43 @@ public class MemberDAO implements MemberDAOImpl{
 	}
 
 	// 멤버 수정
-	@Override
-	public boolean updateMember(String id) {
-		String sql = " UPDATE MEMBER "
-				+ " SET NAME=2"
-				+ " WHERE ID=? ";
-		
-		Connection conn = null;
-		PreparedStatement psmt = null;
-		System.out.println("1");
-		int count = 0;
-		
-		try {
-			conn = DBConnection.makeConnection();
-			psmt = conn.prepareStatement(sql);
+		@Override
+		public boolean updateMember(MemberDto dto) {
+			String sql = " UPDATE MEMBER "
+					+ " SET ID=?, PWD=?, NAME=?, EMAIL=?, ADDRESS=?, PHONE=?, IMG=?, AUTH=0"
+					+ " WHERE ID=? ";
 			
-			System.out.println("2");
-			psmt.setString(1, id);
-		
+			Connection conn = null;
+			PreparedStatement psmt = null;
+			System.out.println("1updateMember");
+			int count = 0;
 			
-			System.out.println("3");
-			count = psmt.executeUpdate();
-			System.out.println("4");
-		}catch (SQLException e) {
-			System.out.println("updateMember fail");
-		}finally {
-			DBClose.close(psmt, conn, null);			
+			try {
+				conn = DBConnection.makeConnection();
+				psmt = conn.prepareStatement(sql);
+				
+				System.out.println("2updateMember");
+				psmt.setString(1, dto.getId());
+				psmt.setString(2, dto.getPwd());
+				psmt.setString(3, dto.getName());
+				psmt.setString(4, dto.getEmail());
+				psmt.setString(5, dto.getAddress());
+				psmt.setString(6, dto.getPhone());
+				psmt.setString(7, dto.getImg());
+				psmt.setString(8, dto.getId());		
+				
+				System.out.println("3updateMember");
+				count = psmt.executeUpdate();
+				System.out.println("4updateMember");
+			}catch (SQLException e) {
+				System.out.println("updateMember fail");
+			}finally {
+				DBClose.close(psmt, conn, null);			
+			}
+			System.out.println("End addMember success");
+			
+			return count>0?true:false;
 		}
-		System.out.println("End addMember success");
-		
-		return count>0?true:false;
-	}
 
 	@Override
 	public boolean deleteMember(MemberDto dto) {
@@ -184,5 +192,52 @@ public class MemberDAO implements MemberDAOImpl{
 		
 		return findId;
 
+	}
+
+	// 멤버 리스트 가져오기
+	@Override
+	public List<MemberDto> getUserList() {
+		String sql = " SELECT ID, PWD, NAME, EMAIL, ADDRESS, PHONE, IMG, AUTH "
+				+ " FROM MEMBER "
+				+ " ORDER BY ID ASC ";
+		
+		Connection conn = null;
+		PreparedStatement psmt = null;
+		ResultSet rs = null;
+		
+		List<MemberDto> list = new ArrayList<>();
+		
+		
+		try {
+			conn = DBConnection.makeConnection();
+			psmt = conn.prepareStatement(sql);
+			System.out.println("1/6 getBbsList success");
+			
+			rs = psmt.executeQuery();
+			System.out.println("2/6 getBbsList success");
+			
+			while(rs.next()) {
+				int i = 1;
+				
+				MemberDto dto = new MemberDto(rs.getString(i++), 
+									rs.getString(i++),
+									rs.getString(i++),
+									rs.getString(i++),
+									rs.getString(i++),
+									rs.getString(i++),
+									rs.getString(i++),
+									rs.getInt(i++));				
+				
+				list.add(dto);				
+			}
+			System.out.println("3/6 getBbsList success");
+			
+		} catch (SQLException e) {
+			System.out.println("getBbsList fail");
+		} finally {
+			DBClose.close(psmt, conn, rs);			
+		}
+				
+		return list;
 	}
 }

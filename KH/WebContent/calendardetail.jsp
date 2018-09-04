@@ -6,6 +6,10 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ include file="/WEB-INF/include/header.jsp" %>
+
+<%
+MemberDto user = (MemberDto)session.getAttribute("login");
+%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -69,9 +73,12 @@ CalendarDto dto = dao.getDay(seq);
 
 <tr>
 	<td colspan="2" align="center">
+		<%if(user.getAuth()==1){ %>
 		<input type="button" value="수정" onclick="location.href='CalendarController?command=update&seq=<%=dto.getSeq() %>'">
         <input type="button" value="삭제" onclick="location.href='CalendarController?command=delete&seq=<%=dto.getSeq()%>'">
-        <input type="button" value="취소" onclick="location.href='calendar.jsp'">		
+		
+		<%} %>
+        <input type="button" value="목록" onclick="location.href='calendar.jsp'">		
         
 	</td>
 </tr>

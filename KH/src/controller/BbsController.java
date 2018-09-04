@@ -56,7 +56,7 @@ public class BbsController extends HttpServlet {
 			String yourTempDirectory = fupload;
 			
 			int yourMaxRequestSize = 100 * 1024 * 1024;
-			int yourMaxMemorySize = 100 * 1024;
+			int yourMaxMemorySize = 1000 * 1024;
 
 			boolean isMultipart = ServletFileUpload.isMultipartContent(req);
 			
