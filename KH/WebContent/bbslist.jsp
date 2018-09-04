@@ -11,10 +11,10 @@
 <meta http-equiv="x-ua-compatible" content="ie=edge">
 <title>Honey Jam</title>
 <%
-if(mem == null){
-	RequestDispatcher rd = request.getRequestDispatcher("login.jsp");
-	rd.forward(request, response);
-}
+	if (mem == null) {
+		RequestDispatcher rd = request.getRequestDispatcher("login.jsp");
+		rd.forward(request, response);
+	}
 %>
 </head>
 <body>
@@ -44,7 +44,7 @@ if(mem == null){
 				<!-- BbsWrite layer -->
 				<div class="col-md-3 sticky_column" data-sticky_column
 					style="height: 640px;">
-					<form id="regi_bbs" action="#" method="get">
+					<form action="BbsController?command=bbsWrite" method="post" id="regi_bbs">
 
 						<!-- layer header -->
 						<div
@@ -62,42 +62,36 @@ if(mem == null){
 								alt="avatar">
 
 							<!-- userId -->
-							<h5 style="font-family: inherit; margin: 0; padding-top: 10px">#
-								작성자ID</h5>
+							<input type="hidden" name="userId" value="<%=mem.getId()%>">
+							<h5 style="font-family: inherit; margin: 0; padding-top: 10px"><%=mem.getId()%></h5>
 						</div>
 						<!-- input title -->
 						<div class="z-depth-1" style="padding: 10px">
 							<div class="md-form mb-5" style="margin-top: 10px;">
-								<input type="text" id="title" class="form-control validate"
+								<input type="text" name="title" class="form-control validate"
 									style="margin-top: 20px; padding-top: 10px; padding-bottom: 10px">
 								<label data-error="wrong" data-success="right" for="form32">Title</label>
 							</div>
 							<!-- input content -->
 							<div class="md-form" style="margin-bottom: 10px">
-								<textarea type="text" id="content"
+								<textarea type="text" name="content"
 									class="md-textarea form-control" rows="4"></textarea>
 								<label data-error="wrong" data-success="right" for="form8">Your
 									message</label>
 							</div>
 							<!-- Hash Tag -->
 							<input class="form-control form-control-sm" type="text"
-								placeholder="Small input" style="margin-bottom: 10px">
+								placeholder="#HashCode" name="hashtag" style="margin-bottom: 10px">
 
-							<!-- file List -->
-							<div style="border: 1px solid #BEBDBD; padding: 10px">
-								<h6>
-									<i class="fa fa-save" aria-hidden="true"></i> Image-files-name
-								</h6>
-							</div>
 							<!-- write layer buttons -->
-							<div class="btn-group" role="group" aria-label="Basic example"
-								style="margin-top: 15px">
-								<button type="button" class="btn btn-outline-info waves-effect"
-									style="margin-right: 7px; padding: 15px; width: 100px">이미지</button>
+							<div style="margin: 5px; font-size: 10px">
+								<input type="file" name="files" multiple>
+							</div>
+							<div align="center">
 								<a href="#"
 									onclick="document.getElementById('regi_bbs').submit()"><button
 										type="button" class="btn btn-outline-info waves-effect"
-										style="padding: 15px; width: 100px">글쓰기</button></a>
+										style="padding: 5px; width: 100px">게시글 올리기</button></a>
 							</div>
 						</div>
 					</form>
@@ -250,8 +244,7 @@ if(mem == null){
 							<!-- Content -->
 							<div>
 								<!-- Title -->
-								<h4 class="card-title font-weight-bold mb-2"># User ID
-									</h4>
+								<h4 class="card-title font-weight-bold mb-2"># User ID</h4>
 								<!-- Subtitle -->
 								<p class="card-text">
 									<i class="fa fa-clock-o pr-2"></i>07/24/2018
@@ -283,12 +276,12 @@ if(mem == null){
 			<!-- //  Main Content -->
 		</div>
 		<!-- // Main layout-->
-		</div>
-		<%@ include file="/WEB-INF/include/footer.jsp"%>
-		<!-- JQuery -->
-		<script type="text/javascript" src="resources/js/sticky-kit.min.js"></script>
-		<script type="text/javascript">
-			$(".sticky_column").stick_in_parent();
-		</script>
+	</div>
+	<%@ include file="/WEB-INF/include/footer.jsp"%>
+	<!-- JQuery -->
+	<script type="text/javascript" src="resources/js/sticky-kit.min.js"></script>
+	<script type="text/javascript">
+		$(".sticky_column").stick_in_parent();
+	</script>
 </body>
 </html>

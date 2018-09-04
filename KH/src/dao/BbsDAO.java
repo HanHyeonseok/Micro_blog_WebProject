@@ -14,14 +14,10 @@ public class BbsDAO implements BbsDAOImpl{
 		public static BbsDAO getInstance() {
 			return bbsDAO;
 		}
-	
-	
-	
-	@Override
-	public boolean addReply(int bbsSeq) {
-	
-		
-	
-	}
 
+		@Override
+		public boolean addReply(int bbsSeq) {
+			// TODO Auto-generated method stub
+			return false;
+		}
 }
