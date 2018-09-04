@@ -21,6 +21,17 @@
   	<url-pattern>/MemberController</url-pattern>
   </servlet-mapping>
   
+  
+  <servlet>
+  	<servlet-name>BbsController</servlet-name>
+  	<servlet-class>controller.BbsController</servlet-class>
+  </servlet>
+  
+   <servlet-mapping>
+  	<servlet-name>BbsController</servlet-name>
+  	<url-pattern>/BbsController</url-pattern>
+  </servlet-mapping>
+  
   <servlet>
   	<servlet-name>CalendarController</servlet-name>
   	<servlet-class>controller.CalendarController</servlet-class>

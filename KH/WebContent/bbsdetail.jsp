@@ -169,10 +169,21 @@
 						
 						<!-- 사진 추가/수정 -->
 			
-						<button id="image-upload" type="button" class="btn btn-default">Image</button>
+						
+									
 					
 </div>
-                
+               		    <form class="md-form">
+						    <div class="file-field big">
+						        <a class="btn-floating btn-lg pink lighten-1 mt-0 float-left">
+						            <i class="fa fa-paperclip" aria-hidden="true"></i>
+						            <input type="file" multiple>
+						        </a>
+						        <div class="file-path-wrapper">
+						           <input class="file-path validate" type="text" placeholder="Upload one or more files">
+						        </div>
+						    </div>
+						</form>
                 
 <!-- / card Content -->
 
@@ -229,8 +240,7 @@
                <!-- reply 작성자 --> 
                 <h5 class="mt-0 font-weight-bold blue-text">Danny Tatuum</h5>
                 <div class="form-group basic-textarea rounded-corners">
-                    <textarea class="form-control z-depth-1" id="exampleFormControlTextarea3" rows="3" placeholder="Write your comment...">
-						</textarea><div align="right"><button type="button" class="btn btn-info">등록</button></div>
+                    <textarea class="form-control z-depth-1" id="reply" rows="3" placeholder="Write your comment..."></textarea><div align="right"><button type="button" class="btn btn-info">등록</button></div>
                 </div>
                 
                 
