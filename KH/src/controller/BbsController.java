@@ -38,17 +38,14 @@ public class BbsController extends HttpServlet {
 		resp.setContentType("text/html; charset=utf-8");
 
 		String command = req.getParameter("command");
+		BbsDAOImpl bbsDao = BbsDAO.getInstance();
 		
 		if(command.equals("addreply")) {
-
-		BbsDAOImpl bbsDao = BbsDAO.getInstance();
 
 		}
 
 		// 게시판글 작성
 		else if (command.equals("bbsWrite")) {
-			
-			BbsDAOImpl bbsDao = BbsDAO.getInstance();
 
 			String savePath = req.getServletContext().getRealPath("/upload");
 			

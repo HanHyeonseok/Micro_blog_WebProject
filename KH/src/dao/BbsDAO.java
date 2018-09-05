@@ -84,7 +84,6 @@ public class BbsDAO implements BbsDAOImpl {
 		int count = 0;
 
 		try {
-			// DBConnection.initConnect();
 			conn = DBConnection.makeConnection();
 			System.out.println("1/6 setContent success");
 
@@ -143,6 +142,7 @@ public class BbsDAO implements BbsDAOImpl {
 			System.out.println("getBbsList fail");
 		} finally {
 			DBClose.close(psmt, conn, rs);
+			System.out.println("END getBbsList Success");
 		}
 		return list;
 	}

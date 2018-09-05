@@ -223,8 +223,7 @@
 							<a href="bbsdetail.jsp"> <img
 								src="https://mdbootstrap.com/img/Photos/Horizontal/Food/full page/2.jpg"
 								class="img-fluid " alt="placeholder">
-								<div
-									class="mask flex-center waves-effect waves-light rgba-red-slight">
+								<div class="mask flex-center waves-effect waves-light rgba-red-slight">
 									<p class="white-text">[클릭] 게시글 보기</p>
 								</div>
 							</a>
