@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Insert title here</title>
+<title>Honey Jam</title>
 </head>
 
 <body>
@@ -14,7 +14,7 @@
 
     <!-- Card body -->
     <div class="card-body">
-	<form action="MemberController" method="post">
+	<form action="MemberController?command=login" method="post">
             <p class="h4 text-center py-4">Sign in</p>
 
             <!-- Material input text -->
@@ -36,7 +36,6 @@
             <div class="text-center py-4 mt-3">
       			<button class="btn btn-primary" type="submit">Sign in</button>
                 <button type="button" class="btn btn-primary" onclick="location.href='join.jsp'">Sign up</button>
-                <input type="hidden" name="command" value="login">
             </div>
         </form>
         

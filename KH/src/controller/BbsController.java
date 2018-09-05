@@ -38,17 +38,14 @@ public class BbsController extends HttpServlet {
 		resp.setContentType("text/html; charset=utf-8");
 
 		String command = req.getParameter("command");
+		BbsDAOImpl bbsDao = BbsDAO.getInstance();
 		
 		if(command.equals("addreply")) {
-
-		BbsDAOImpl bbsDao = BbsDAO.getInstance();
 
 		}
 
 		// 게시판글 작성
 		else if (command.equals("bbsWrite")) {
-			
-			BbsDAOImpl bbsDao = BbsDAO.getInstance();
 
 			String savePath = req.getServletContext().getRealPath("/upload");
 			
@@ -62,9 +59,6 @@ public class BbsController extends HttpServlet {
 			String hashtag = multi.getParameter("hashtag");
 			
 			String fileName = multi.getFilesystemName("files");
-			
-			String m_fileFullPath = savePath + "/" + fileName;
-			System.out.println("m_fileFullPath = " + m_fileFullPath);
 			
 			BbsDto dto = new BbsDto(0, id, title, content, null, 0, 0, 0, fileName, 0, hashtag);
 			

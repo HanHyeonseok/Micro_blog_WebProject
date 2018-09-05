@@ -47,7 +47,6 @@ public class MemberController extends HttpServlet{
 			
 			MemberDto mem = memDao.login(new MemberDto(id, pwd));
 			
-			
 			if(mem != null && !mem.getId().equals("")) {
 				HttpSession session = null;
 				
@@ -55,6 +54,7 @@ public class MemberController extends HttpServlet{
 					
 					session = req.getSession(true);
 					session.setAttribute("login", mem);
+					System.out.println(mem.toString());
 					session.setMaxInactiveInterval(30*60);
 					dispatch("index.jsp", req, resp);
 					

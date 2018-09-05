@@ -19,44 +19,27 @@
 <meta http-equiv="x-ua-compatible" content="ie=edge">
 <title>Honey Jam</title>
 
-<!-- Font Awesome -->
-<link rel="stylesheet"
-	href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
-<!-- Bootstrap core CSS -->
-<link href="resources/css/bootstrap.min.css" rel="stylesheet">
-<!-- Material Design Bootstrap -->
-<link href="resources/css/mdb.min.css" rel="stylesheet">
-<!-- Your custom styles (optional) -->
-<link href="resources/css/style.css" rel="stylesheet">
-
 <style type="text/css">
 .sortable tr {
-    cursor: pointer;
+	cursor: pointer;
 }
 </style>
 
-<script src="https://code.jquery.com/jquery-3.3.1.js"
-  integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60="
-  crossorigin="anonymous">
-</script>
-  
 </head>
 <body>
-<%!
-public String toDates(String mdate){
-	SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-	
-	String s = mdate.substring(0, 4) + "-" 	// yyyy
-			+ mdate.substring(4, 6) + "-"	// MM
-			+ mdate.substring(6, 8) + " " 	// dd
-			+ mdate.substring(8, 10) + ":"	// hh
-			+ mdate.substring(10, 12) + ":00"; 
-	
-	Timestamp d = Timestamp.valueOf(s);
-	
-	return sdf.format(d);	
-}
-%>
+	<%!public String toDates(String mdate) {
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+
+		String s = mdate.substring(0, 4) + "-" // yyyy
+				+ mdate.substring(4, 6) + "-" // MM
+				+ mdate.substring(6, 8) + " " // dd
+				+ mdate.substring(8, 10) + ":" // hh
+				+ mdate.substring(10, 12) + ":00";
+
+		Timestamp d = Timestamp.valueOf(s);
+
+		return sdf.format(d);
+	}%>
 	<!--Main layout-->
 	<div class="container" style="padding: 0px">
 		<!--Carousel Wrapper-->
@@ -113,15 +96,16 @@ public String toDates(String mdate){
 		List<CalendarDto> list = caldao.indexCalList();
 		
 		BbsDAOImpl bbsdao = BbsDAO.getInstance();
-		
+
 		%>
-		
+
 		<!--/.Carousel Wrapper-->
-		
-		
-		
+
+
+
 		<!-- List Table -->
-		<div class="z-depth-1" style="margin-bottom: 15px; display: flex; flex-wrap: wrap;">
+		<div class="z-depth-1"
+			style="margin-bottom: 15px; display: flex; flex-wrap: wrap;">
 			<!-- Calendar List Table -->
 			<div class="col-md-6" style="padding: 5px;">
 				<table class="table table-hover sortable">
@@ -136,36 +120,25 @@ public String toDates(String mdate){
 						</tr>
 					</thead>
 					<tbody>
-						<tr class="toDetail">
-							<td>2018-07-27</td>
-							<td>★ 현석이탄생일..!!</td>
-						</tr>
-						<tr class="toDetail">
-							<td>2018-09-25</td>
-							<td>추석명절 이벤트..!!</td>
-						</tr>
-						<tr class="toDetail">
-							<td>2018-12-25</td>
-							<td>크리스마스 이벤트..!!</td>
-						</tr>
+						<%
+							if (list == null || list.size() == 0) {
+						%>
 						<tr>
-							<td colspan="2" align="center"># 여기는 페이징 단축키</td>
+							<td colspan="2">일정이 없습니다</td>
 						</tr>
+						<%
+							}
+							for (int i = 0; i < list.size(); i++) {
+						%>
+						<tr>
+							<th><%=toDates(list.get(i).getRdate())%></th>
+							<th><a
+								href="calendardetail.jsp?seq=<%=list.get(i).getSeq()%>"><%=list.get(i).getTitle()%></a></th>
+						</tr>
+						<%
+							}
+						%>
 
-					<%if(list == null || list.size() == 0){%>
-					<tr>
-						<td colspan="2">일정이 없습니다</td>
-					</tr>
-					<%}
-					for(int i = 0; i < list.size(); i++){
-						CalendarDto caldto = list.get(i);
-					%>
-					<tr>
-						<th><%=toDates(caldto.getRdate()) %></th>
-						<th><a href="calendardetail.jsp?seq=<%=caldto.getSeq() %>"><%=caldto.getTitle() %></a></th>
-					</tr>				
-					<%}%>
-			
 						<!-- <td colspan="2" align="center"># 여기는 페이징 단축키</td>
 						</tr> -->
 
@@ -207,17 +180,21 @@ public String toDates(String mdate){
 		</div>
 		<!-- // List Table -->
 	</div>
-	
-	
+
+
 	<script type="text/javascript">
-		$(function () {
-			$(".toDetail").click(function () {
+		$(function() {
+			$(".toDetail").click(function() {
 				window.location.href = 'bbsdetail.jsp';
 			});
-		});	
+		});
 	</script>
-	
-	
+	<script src="https://code.jquery.com/jquery-3.3.1.js"
+		integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60="
+		crossorigin="anonymous">
+		
+	</script>
+
 	<!-- // Main layout-->
 	<%@ include file="/WEB-INF/include/footer.jsp"%>
 </body>

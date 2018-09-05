@@ -72,7 +72,8 @@ public class MemberDAO implements MemberDAOImpl{
 		} catch (SQLException e) {
 			System.out.println("login fail");
 		} finally {
-			DBClose.close(psmt, conn, rs);			
+			DBClose.close(psmt, conn, rs);
+			System.out.println("END login success");
 		}						
 		
 		return mem;
