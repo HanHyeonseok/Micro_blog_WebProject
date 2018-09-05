@@ -7,6 +7,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ include file="/WEB-INF/include/header.jsp" %>
+<%
+request.setCharacterEncoding("utf-8");
+%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -16,7 +19,6 @@
 <body>
 
 <%!
-
 public String toDates(String mdate){
 	SimpleDateFormat sdf = new SimpleDateFormat("yyyy년 MM월 dd일 hh시 mm분");
 	
@@ -36,6 +38,9 @@ public String toOne(String msg){	// 08 -> 8
 %>
 
 <%
+request.setCharacterEncoding("utf-8");
+
+
 CalendarDto dto = (CalendarDto)request.getAttribute("dto");
 
 CalendarDAOImpl dao = CalendarDAO.getInstance();
@@ -67,7 +72,7 @@ int tmin = cal.get(Calendar.MINUTE);
 <input type="hidden" name="command" value="updateAF">
 <input type="hidden" name="seq" value="<%=dto.getSeq() %>">
 
-<table border="1">
+<table border="1" align="center">
 <col width="200"><col width="500">
 
 <tr>
