@@ -29,7 +29,7 @@ public class BbsController extends HttpServlet{
 		
 		String command = req.getParameter("command");
 		
-		BbsDAOImpl 
+		
 		
 		
 		if(command.equals("addreply")) {

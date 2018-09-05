@@ -16,6 +16,7 @@ public class MemberDAO implements MemberDAOImpl{
 	private static MemberDAO memberDAO = new MemberDAO();
 	
 	private MemberDAO() {
+		
 		DBConnection.initConnect();
 	}
 	
@@ -26,6 +27,7 @@ public class MemberDAO implements MemberDAOImpl{
 	// 로그인
 	@Override
 	public MemberDto login(MemberDto dto) {
+		
 		String sql = " SELECT ID, NAME, EMAIL, ADDRESS, PHONE, IMG, AUTH "
 				+ " FROM MEMBER "
 				+ " WHERE ID=? AND PWD=? ";

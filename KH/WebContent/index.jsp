@@ -20,6 +20,18 @@
 <link href="resources/css/mdb.min.css" rel="stylesheet">
 <!-- Your custom styles (optional) -->
 <link href="resources/css/style.css" rel="stylesheet">
+
+<style type="text/css">
+.sortable tr {
+    cursor: pointer;
+}
+</style>
+
+<script src="https://code.jquery.com/jquery-3.3.1.js"
+  integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60="
+  crossorigin="anonymous">
+</script>
+  
 </head>
 <body>
 	<!--Main layout-->
@@ -74,11 +86,14 @@
 			<!--/.Controls-->
 		</div>
 		<!--/.Carousel Wrapper-->
+		
+		
+		
 		<!-- List Table -->
 		<div class="z-depth-1" style="margin-bottom: 15px; display: flex; flex-wrap: wrap;">
 			<!-- Calendar List Table -->
 			<div class="col-md-6" style="padding: 5px;">
-				<table class="table table-hover">
+				<table class="table table-hover sortable">
 					<colgroup>
 						<col style="width: 30%">
 						<col style="width: 70%">
@@ -90,15 +105,15 @@
 						</tr>
 					</thead>
 					<tbody>
-						<tr>
+						<tr class="toDetail">
 							<td>2018-07-27</td>
 							<td>★ 현석이탄생일..!!</td>
 						</tr>
-						<tr>
+						<tr class="toDetail">
 							<td>2018-09-25</td>
 							<td>추석명절 이벤트..!!</td>
 						</tr>
-						<tr>
+						<tr class="toDetail">
 							<td>2018-12-25</td>
 							<td>크리스마스 이벤트..!!</td>
 						</tr>
@@ -110,7 +125,7 @@
 			</div>
 			<!-- // Calendar List Table -->
 			<div class="col-md-6" style="padding: 5px;">
-				<table class="table table-hover">
+				<table class="table table-hover sortable">
 					<colgroup>
 						<col style="width: 30%">
 						<col style="width: 70%">
@@ -122,15 +137,15 @@
 						</tr>
 					</thead>
 					<tbody>
-						<tr>
+						<tr class="toDetail">
 							<td>1</td>
 							<td>서울 남산 야경에 빠져..</td>
 						</tr>
-						<tr>
+						<tr class="toDetail">
 							<td>2</td>
 							<td>부산 광안리 해변에 앉아 맥주한잔..</td>
 						</tr>
-						<tr>
+						<tr class="toDetail">
 							<td>3</td>
 							<td>제주도 서귀포 드라이브 풍경..</td>
 						</tr>
@@ -143,6 +158,17 @@
 		</div>
 		<!-- // List Table -->
 	</div>
+	
+	
+	<script type="text/javascript">
+		$(function () {
+			$(".toDetail").click(function () {
+				window.location.href = 'bbsdetail.jsp';
+			});
+		});	
+	</script>
+	
+	
 	<!-- // Main layout-->
 	<%@ include file="/WEB-INF/include/footer.jsp"%>
 </body>
