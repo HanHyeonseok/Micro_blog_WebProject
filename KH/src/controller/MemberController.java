@@ -44,9 +44,8 @@ public class MemberController extends HttpServlet{
 			
 			String id = req.getParameter("id");
 			String pwd = req.getParameter("pwd");
-			System.out.println(id+" "+pwd);
-			MemberDto mem = memDao.login(new MemberDto(id, pwd));
 			
+			MemberDto mem = memDao.login(new MemberDto(id, pwd));
 			
 			if(mem != null && !mem.getId().equals("")) {
 				HttpSession session = null;

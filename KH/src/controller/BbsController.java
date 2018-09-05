@@ -60,9 +60,6 @@ public class BbsController extends HttpServlet {
 			
 			String fileName = multi.getFilesystemName("files");
 			
-			String m_fileFullPath = savePath + "/" + fileName;
-			System.out.println("m_fileFullPath = " + m_fileFullPath);
-			
 			BbsDto dto = new BbsDto(0, id, title, content, null, 0, 0, 0, fileName, 0, hashtag);
 			
 			boolean isS = bbsDao.addBbs(dto);
