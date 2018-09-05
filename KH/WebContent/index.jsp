@@ -131,35 +131,20 @@ public String toDates(String mdate){
 						</tr>
 					</thead>
 					<tbody>
-						<tr class="toDetail">
-							<td>2018-07-27</td>
-							<td>★ 현석이탄생일..!!</td>
-						</tr>
-						<tr class="toDetail">
-							<td>2018-09-25</td>
-							<td>추석명절 이벤트..!!</td>
-						</tr>
-						<tr class="toDetail">
-							<td>2018-12-25</td>
-							<td>크리스마스 이벤트..!!</td>
-						</tr>
-						<tr>
-							<td colspan="2" align="center"># 여기는 페이징 단축키</td>
-						</tr>
-
 					<%if(list == null || list.size() == 0){%>
 					<tr>
 						<td colspan="2">일정이 없습니다</td>
 					</tr>
 					<%}
 					for(int i = 0; i < list.size(); i++){
-						CalendarDto caldto = list.get(i);
 					%>
 					<tr>
-						<th><%=toDates(caldto.getRdate()) %></th>
-						<th><a href="calendardetail.jsp?seq=<%=caldto.getSeq() %>"><%=caldto.getTitle() %></a></th>
+						<th><%=toDates(list.get(i).getRdate()) %></th>
+						<th><a href="calendardetail.jsp?seq=<%=list.get(i).getSeq() %>"><%=list.get(i).getTitle() %></a></th>
 					</tr>				
-					<%}%>
+					<%
+					}
+					%>
 			
 						<!-- <td colspan="2" align="center"># 여기는 페이징 단축키</td>
 						</tr> -->
