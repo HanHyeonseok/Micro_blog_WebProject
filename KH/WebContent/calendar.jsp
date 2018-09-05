@@ -168,7 +168,7 @@ List<CalendarDto> list = dao.getCalendarList(user.getId(), year + two(month+ "")
 <col width="100"><col width="100"><col width="100"><col width="100">
 <col width="100"><col width="100"><col width="100">
 
-<tr height="100">
+<tr height="50">
 <td colspan="7" align="center" style="font-size: 20px">
 
 <%=pp %><%=p %>
@@ -182,7 +182,7 @@ List<CalendarDto> list = dao.getCalendarList(user.getId(), year + two(month+ "")
 </td>
 </tr>
 
-<tr height="100">
+<tr height="80">
 <td align="center">일</td>
 <td align="center">월</td>
 <td align="center">화</td>
@@ -204,7 +204,7 @@ int lastDay = cal.getActualMaximum(Calendar.DAY_OF_MONTH);
 for(int i = 1; i <= lastDay; i++){ //달에 있는 일수 만큼
 	%>	
 	
-	<td><%=callist(year, month, i) %>&nbsp;
+	<td class="hoverable"><%=callist(year, month, i) %>&nbsp;
 	
 	<%
 	if(user.getAuth() == 1){
