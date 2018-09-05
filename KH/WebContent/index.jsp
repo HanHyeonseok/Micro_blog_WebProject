@@ -1,3 +1,5 @@
+<%@page import="dao.BbsDAO"%>
+<%@page import="dao.BbsDAOImpl"%>
 <%@page import="java.sql.Timestamp"%>
 <%@page import="java.text.SimpleDateFormat"%>
 <%@page import="java.util.List"%>
@@ -109,6 +111,9 @@ public String toDates(String mdate){
 		<%
 		CalendarDAOImpl caldao = CalendarDAO.getInstance();
 		List<CalendarDto> list = caldao.indexCalList();
+		
+		BbsDAOImpl bbsdao = BbsDAO.getInstance();
+		
 		%>
 		
 		<!--/.Carousel Wrapper-->
