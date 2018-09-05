@@ -12,13 +12,12 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.jsp.JspWriter;
 
-import org.apache.commons.fileupload.FileItem;
-import org.apache.commons.fileupload.FileUploadException;
-import org.apache.commons.fileupload.disk.DiskFileItemFactory;
-import org.apache.commons.fileupload.servlet.ServletFileUpload;
+import com.oreilly.servlet.MultipartRequest;
+import com.oreilly.servlet.multipart.DefaultFileRenamePolicy;
 
 import dao.BbsDAO;
 import dao.BbsDAOImpl;
+import dto.BbsDto;
 
 public class BbsController extends HttpServlet {
 
@@ -46,91 +45,36 @@ public class BbsController extends HttpServlet {
 
 		// 게시판글 작성
 		else if (command.equals("bbsWrite")) {
-			String id = "";
-			String title = "";
-			String content = "";
-			String hashtag = "";
-			String filename = "";
-
-			String fupload = req.getSession().getServletContext().getRealPath("/upload");
-			String yourTempDirectory = fupload;
+			String savePath = req.getServletContext().getRealPath("/upload");
 			
-			int yourMaxRequestSize = 100 * 1024 * 1024;
-			int yourMaxMemorySize = 1000 * 1024;
-
-			boolean isMultipart = ServletFileUpload.isMultipartContent(req);
+			int sizeLimit = 1024*1024*15;
 			
-			if (isMultipart) {
-				DiskFileItemFactory factory = new DiskFileItemFactory();
-				
-				factory.setSizeThreshold(yourMaxMemorySize);
-				factory.setRepository(new File(yourTempDirectory));
-
-				ServletFileUpload upload = new ServletFileUpload(factory);
-				upload.setSizeMax(yourMaxRequestSize);
-
-				try {
-					List<FileItem> items = upload.parseRequest(req);
-					
-					Iterator<FileItem> it = items.iterator();
-					
-					while (it.hasNext()) {
-						FileItem item = it.next();
-						if (item.isFormField()) {
-							if (item.getFieldName().equals("userId")) {
-								id = item.getString("utf-8");
-								System.out.println("userId:" + id);
-							} else if (item.getFieldName().equals("title")) {
-								title = item.getString("utf-8");
-								System.out.println("title:" + title);
-							} else if (item.getFieldName().equals("content")) {
-								content = item.getString("utf-8");
-								System.out.println("content:" + content);
-							}else if (item.getFieldName().equals("hashtag")) {
-								hashtag = item.getString("utf-8");
-								System.out.println("hashtag:" + hashtag);
-							}
-						} else {
-							if (item.getFieldName().equals("files")) {
-								filename = processUploadFile(item, fupload, null);
-								System.out.println("filename:" + filename);
-							}
-						}
-					}
-				} catch (FileUploadException e) {
-					e.printStackTrace();
-				}
-			} else {
-				
+			MultipartRequest multi = new MultipartRequest(req, savePath, sizeLimit, "utf-8", new DefaultFileRenamePolicy());
+			
+			String id = multi.getParameter("userId");
+			String title = multi.getParameter("title");
+			String content = multi.getParameter("title");
+			String hashtag = multi.getParameter("hashtag");
+			
+			String fileName = multi.getFilesystemName("files");
+			
+			String m_fileFullPath = savePath + "/" + fileName;
+			System.out.println("m_fileFullPath = " + m_fileFullPath);
+			
+			BbsDto dto = new BbsDto(0, id, title, content, null, 0, 0, 0, fileName, 0, hashtag);
+			
+			boolean isS = bbsDao.addBbs(dto);
+			
+			if(isS) {
+				// 성공
+			}else {
+				req.setAttribute("bbsWriteResult", "false");
 			}
-			
-			
+			dispatch("bbslist.jsp", req, resp);
 		}
 
 	}
-
-	// fileName 가공
-	public String processUploadFile(FileItem fileItem, String dir, JspWriter out) throws IOException {
-		String fileName = fileItem.getName();
-		long sizeInBytes = fileItem.getSize();
-
-		if (sizeInBytes > 0) {
-			int idx = fileName.lastIndexOf("\\");
-			if (idx == -1) {
-				idx = fileName.lastIndexOf("/");
-			}
-			fileName = fileName.substring(idx + 1);
-
-			try {
-				File uploadFile = new File(dir, fileName);
-				fileItem.write(uploadFile);
-			} catch (Exception e) {
-			}
-		}
-
-		return fileName;
-	}
-
+	
 	// dispatch method
 	public void dispatch(String urls, HttpServletRequest req, HttpServletResponse resp)
 			throws ServletException, IOException {
