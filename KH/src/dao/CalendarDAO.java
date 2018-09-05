@@ -33,7 +33,7 @@ public class CalendarDAO implements CalendarDAOImpl{
 				+ "								ORDER BY RDATE ASC) RN, "
 				+ "			SEQ, ID, TITLE, CONTENT, RDATE, WDATE "
 				+ "		FROM CALENDAR "
-				+ "		WHERE ID=? AND SUBSTR(RDATE, 1, 6)=? ) "
+				+ "		WHERE  SUBSTR(RDATE, 1, 6)=? ) "
 				+ "	WHERE RN BETWEEN 1 AND 5";
 		
 		Connection conn = null;
@@ -47,8 +47,8 @@ public class CalendarDAO implements CalendarDAOImpl{
 			System.out.println("1/6 getCalendarList success");
 				
 			psmt = conn.prepareStatement(sql);
-			psmt.setString(1, id.trim());
-			psmt.setString(2, yyyyMM.trim());
+			//psmt.setString(1, id.trim());
+			psmt.setString(1, yyyyMM.trim());
 			System.out.println("2/6 getCalendarList success");
 			
 			rs = psmt.executeQuery();
@@ -79,13 +79,67 @@ public class CalendarDAO implements CalendarDAOImpl{
 		return list;
 	}
 	
+	//리스트로 일정 불러오기
+	@Override
+	public List<CalendarDto> getDayList(String id, String dates) {
+	     /*SELECT SEQ, ID, TITLE, CONTENT, RDATE, WDATE  
+        FROM CALENDAR
+        WHERE ID='bbb' AND RDATE LIKE '20180216%';*/
+        
+        String sql = " SELECT SEQ, ID, TITLE, CONTENT, RDATE, WDATE "
+                + " FROM CALENDAR "
+                + " WHERE ID=? "
+                + " AND "
+                + " RDATE LIKE '"+dates+"%'";
+        
+        Connection conn = null;
+        PreparedStatement psmt = null;
+        ResultSet rs = null;
+        
+        List<CalendarDto> list = new ArrayList<CalendarDto>();
+        
+        try {
+            conn = DBConnection.makeConnection();
+            System.out.println("1/6 getDayList success");
+        
+            psmt = conn.prepareStatement(sql);
+            psmt.setString(1, id);
+            //psmt.setString(2, dates);
+            System.out.println("2/6 getDayList success");
+            
+            rs = psmt.executeQuery();
+            System.out.println("3/6 getDayList success");
+            
+            while(rs.next()) {
+            	int i = 1;
+            	
+            	CalendarDto dto = new CalendarDto(
+            					rs.getInt(i++),
+            					rs.getString(i++),	//seq
+            					rs.getString(i++),	//id
+            					rs.getString(i++),	//title
+            					rs.getString(i++),	//content
+            					rs.getString(i++));	//wdate
+            	list.add(dto);
+			}
+			System.out.println("4/6 getDayList success");
+		} catch (SQLException e) {
+			e.printStackTrace();
+			System.out.println("fail getDayList");
+		} finally {
+			DBClose.close(psmt, conn, rs);
+			System.out.println("5/6 getDayList success");
+		}
+		return list;
+	}
+
 	//일정추가하기
 	@Override
 	public boolean addCalendar(CalendarDto cal) {
 
 		String sql = " INSERT INTO CALENDAR(" 
 				+ " SEQ, ID, TITLE, CONTENT, RDATE, WDATE) " 
-				+ " VALUES(SEQ_CAL.NEXTVAL, "
+				+ " VALUES(C_SEQ.NEXTVAL, "
 				+ " ?, ?, ?, ?, SYSDATE) ";
 
 		Connection conn = null;
@@ -239,6 +293,54 @@ public class CalendarDAO implements CalendarDAOImpl{
 			System.out.println("4/6 deleteDay success");
 		}
 		return count > 0 ? true:false;
+	}
 
+	// index 화면 일정 불러오기
+	@Override
+	public List<CalendarDto> indexCalList() {
+		String sql = " SELECT SEQ, ID, TITLE, CONTENT, RDATE, WDATE " 
+				+ " FROM CALENDAR "
+				+ " where rdate > to_char(sysdate, 'yyyymmddhh24mi') "
+				+ " ORDER BY RDATE ASC ";
+	
+		Connection conn = null;
+		PreparedStatement psmt = null;
+		ResultSet rs = null;
+		
+		List<CalendarDto> list = new ArrayList<CalendarDto>();
+		
+		try {
+			conn = DBConnection.makeConnection();
+			System.out.println("1/6 getCalendarList success");
+				
+			psmt = conn.prepareStatement(sql);
+			System.out.println("2/6 getCalendarList success");
+			
+			rs = psmt.executeQuery();
+			System.out.println("3/6 getCalendarList success");
+			
+			while(rs.next()) {
+				CalendarDto dto = new CalendarDto();
+				dto.setSeq(rs.getInt(1));
+				dto.setId(rs.getString(2));
+				dto.setTitle(rs.getString(3));
+				dto.setContent(rs.getString(4));
+				dto.setRdate(rs.getString(5));
+				dto.setWdate(rs.getString(6));
+				
+				list.add(dto);				
+			}		
+			System.out.println("4/6 getCalendarList success");
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			
+			DBClose.close(psmt, conn, rs);
+			System.out.println("5/6 getCalendarList success");
+		}		
+		
+		return list;
 	}
 }

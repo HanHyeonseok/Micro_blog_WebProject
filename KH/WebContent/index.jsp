@@ -1,3 +1,9 @@
+<%@page import="java.sql.Timestamp"%>
+<%@page import="java.text.SimpleDateFormat"%>
+<%@page import="java.util.List"%>
+<%@page import="dto.CalendarDto"%>
+<%@page import="dao.CalendarDAO"%>
+<%@page import="dao.CalendarDAOImpl"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ include file="/WEB-INF/include/header.jsp"%>
@@ -34,6 +40,21 @@
   
 </head>
 <body>
+<%!
+public String toDates(String mdate){
+	SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+	
+	String s = mdate.substring(0, 4) + "-" 	// yyyy
+			+ mdate.substring(4, 6) + "-"	// MM
+			+ mdate.substring(6, 8) + " " 	// dd
+			+ mdate.substring(8, 10) + ":"	// hh
+			+ mdate.substring(10, 12) + ":00"; 
+	
+	Timestamp d = Timestamp.valueOf(s);
+	
+	return sdf.format(d);	
+}
+%>
 	<!--Main layout-->
 	<div class="container" style="padding: 0px">
 		<!--Carousel Wrapper-->
@@ -85,6 +106,11 @@
 			</a>
 			<!--/.Controls-->
 		</div>
+		<%
+		CalendarDAOImpl caldao = CalendarDAO.getInstance();
+		List<CalendarDto> list = caldao.indexCalList();
+		%>
+		
 		<!--/.Carousel Wrapper-->
 		
 		
@@ -100,8 +126,8 @@
 					</colgroup>
 					<thead>
 						<tr style="background-color: #F6F6F6;">
-							<th scope="col">일정</th>
-							<th scope="col">행사내용</th>
+							<th scope="col" align="center">일정</th>
+							<th scope="col" align="center">행사</th>
 						</tr>
 					</thead>
 					<tbody>
@@ -120,6 +146,24 @@
 						<tr>
 							<td colspan="2" align="center"># 여기는 페이징 단축키</td>
 						</tr>
+
+					<%if(list == null || list.size() == 0){%>
+					<tr>
+						<td colspan="2">일정이 없습니다</td>
+					</tr>
+					<%}
+					for(int i = 0; i < list.size(); i++){
+						CalendarDto caldto = list.get(i);
+					%>
+					<tr>
+						<th><%=toDates(caldto.getRdate()) %></th>
+						<th><a href="calendardetail.jsp?seq=<%=caldto.getSeq() %>"><%=caldto.getTitle() %></a></th>
+					</tr>				
+					<%}%>
+			
+						<!-- <td colspan="2" align="center"># 여기는 페이징 단축키</td>
+						</tr> -->
+
 					</tbody>
 				</table>
 			</div>

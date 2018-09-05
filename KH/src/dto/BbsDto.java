@@ -10,21 +10,21 @@ DROP SEQUENCE B_SEQ;
 
 // 테이블 생성
 CREATE TABLE BBS(
-	    SEQ NUMBER(10),
-	    ID VARCHAR2(50),
-	    TITLE VARCHAR2(200) NOT NULL,
-	    CONTENT VARCHAR2(4000) NOT NULL,
-	    WDATE DATE NOT NULL,
-	    DEL NUMBER(1) NOT NULL,
-	    READCOUNT NUMBER(10) NOT NULL,
-	    REPLYCNT NUMBER(10) NOT NULL,
-	    FILENAME NUMBER(1) NOT NULL,
-	    FAVORITE NUMBER(10) NOT NULL,
-	    HASHTAG VARCHAR2(50) NOT NULL,
-	    
-	    CONSTRAINT PK_BBS_SEQ PRIMARY KEY(SEQ),
-	    CONSTRAINT FK_BBS_ID FOREIGN KEY(ID) REFERENCES MEMBER(ID)
-	    );
+    SEQ NUMBER(10),
+    ID VARCHAR2(50),
+    TITLE VARCHAR2(200) NOT NULL,
+    CONTENT VARCHAR2(4000) NOT NULL,
+    WDATE DATE NOT NULL,
+    DEL NUMBER(1) NOT NULL,
+    READCOUNT NUMBER(10) NOT NULL,
+    REPLYCNT NUMBER(10) NOT NULL,
+    FILENAME VARCHAR2(200),
+    FAVORITE NUMBER(10) NOT NULL,
+    HASHTAG VARCHAR2(50) NOT NULL,
+    
+    CONSTRAINT PK_BBS_SEQ PRIMARY KEY(SEQ),
+    CONSTRAINT FK_BBS_ID FOREIGN KEY(ID) REFERENCES MEMBER(ID)
+    );
 
 // 시퀀스 생성
 CREATE SEQUENCE B_SEQ
@@ -42,7 +42,7 @@ public class BbsDto {
 	private int del;
 	private int readcount;
 	private int replycnt;
-	private int filename;
+	private String filename;
 	private int favorite;
 	private String hashtag;
 
@@ -50,7 +50,7 @@ public class BbsDto {
 	}
 
 	public BbsDto(int seq, String id, String title, String content, String wdate, int del, int readcount, int replycnt,
-			int filename, int favorite, String hashtag) {
+			String filename, int favorite, String hashtag) {
 		super();
 		this.seq = seq;
 		this.id = id;
@@ -129,11 +129,11 @@ public class BbsDto {
 		this.replycnt = replycnt;
 	}
 
-	public int getFilename() {
+	public String getFilename() {
 		return filename;
 	}
 
-	public void setFilename(int filename) {
+	public void setFilename(String filename) {
 		this.filename = filename;
 	}
 

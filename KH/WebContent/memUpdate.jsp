@@ -1,16 +1,27 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+    pageEncoding="UTF-8"%>
 <%@ include file="/WEB-INF/include/header.jsp"%>
 
+<%
+MemberDto mypageMem = (MemberDto)session.getAttribute("login");
+System.out.println(mypageMem.getId());
+System.out.println(mypageMem.getPwd());
+System.out.println(mypageMem.getName());
+System.out.println(mypageMem.getEmail());
+System.out.println(mypageMem.getAddress());
+System.out.println(mypageMem.getPhone());
+System.out.println(mypageMem.getImg());
+System.out.println(mypageMem.getAuth());
+%>
 
 <!DOCTYPE html>
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>JAM</title>
+<title>Member Update</title>
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-	</head>
+</head>
 <body>
 	<!-- Card -->
 	<div class="card">
@@ -19,20 +30,14 @@
 		<div class="card-body">
 
 			<!-- Material form register -->
-			<form action="MemberController" onsubmit="return joincheck()">
-				<p class="h4 text-center py-4">Sign up</p>
+			<form action="MemberController">
+				<p class="h4 text-center py-4">Member Update</p>
 
-				<!-- Material input text -->
+				<!-- Material input text -->			
 				<div class="md-form">
 					<i class="fa fa-user prefix grey-text"></i> <input type="text"
-						name="id" id="id" class="form-control"> <label for="id"
-						class="font-weight-light">Your id</label>
-					<div align="left">
-						<button class="btn btn-primary" type="button" onclick="idcheck()">id
-							check</button>
-					</div>
-				</div>
-
+						name="id" id="id" class="form-control" value="<%=mypageMem.getId() %>" readonly="readonly">					
+				</div>		
 
 				<!-- Material input password -->
 				<div class="md-form">
@@ -57,54 +62,54 @@
 						for="pwdname" class="font-weight-light"></label>
 				</div>
 
-				<!-- Material input name -->
+				<!-- Material input name -->			
 				<div class="md-form">
 					<i class="fa fa-user prefix grey-text"></i> <input type="text"
-						name="name" id="" name"" class="form-control"> <label
-						for="name" class="font-weight-light">Confirm your name</label>
+						name="name" id="name" class="form-control" value="<%=mypageMem.getName() %>">
 				</div>
-
-
+				
 				<!-- Material input email -->
 				<div class="md-form">
 					<i class="fa fa-envelope prefix grey-text"></i> <input type="text"
-						name="email" id="email" class="form-control"> <label
-						for="email" class="font-weight-light">Confirm your email</label>
+						name="email" id="email" class="form-control" value="<%=mypageMem.getEmail() %>">
 				</div>
-
 
 				<!-- Material input phone -->
 				<div class="md-form">
 					<i class="fa fa-phone-square prefix grey-text"></i> <input
-						type="text" name="phone" id="phone" class="form-control">
-					<label for="phone" class="font-weight-light">Confirm your
-						phone</label>
+						type="text" name="phone" id="phone" class="form-control" value="<%=mypageMem.getPhone() %>">				
 				</div>
-
-
+				<!-- address '-'split -->
+				<%
+				String add = mypageMem.getAddress();
+				String[] addSplit = add.split("-");
+				String address_num = addSplit[0];
+				String address = addSplit[1];
+				String Detail_Address = addSplit[2];
+				%>
 				<!-- Material input address -->
 				<div class="md-form" style="float: left;">
 					<i class="fa fa-address-book prefix grey-text"></i>
 					<input class="form-control" type="text" id ="address_num" name="address_num"
-					 placeholder="Address Number" readonly="readonly">									
+					 placeholder="Address Number" readonly="readonly" value="<%=address_num %>">									
 				</div>
-						<!-- address search button -->	
+						<!-- address search button -->						
 				<div class="md-form" style="padding-top: 20px">										
 				<button type="button" class="btn btn-outline-default waves-effect" onclick="sample6_execDaumPostcode()"><i class="fa fa-search" aria-hidden="true"></i></button>
 				</div>				
 				<div class="md-form">				
 					<input class="form-control" type="text" id ="address" name="address"
-					 placeholder="Confirm your address" readonly="readonly">				
+					 placeholder="Confirm your address" readonly="readonly" value="<%=address %>">				
 				</div>
 				<div class="md-form">
-					<input class="form-control" type="text" id ="Detail_Address" name="Detail_Address"
+					<input class="form-control" type="text" id ="Detail_Address" name="Detail_Address" value="<%=Detail_Address %>"
 					 placeholder="Address Detail">						
 				</div>				
 			
 				<!-- Sign up -->
 				<div class="text-center py-4 mt-3">
-					<button class="btn btn-primary" type="submit">Sign Up</button>
-					<input type="hidden" name="command" value="join">
+					<button class="btn btn-primary" type="submit">Update Complete</button>
+					<input type="hidden" name="command" value="memberUpdate">
 				</div>
 			</form>
 			<!-- Material form register -->
@@ -262,22 +267,3 @@
 	<%@ include file="/WEB-INF/include/footer.jsp"%>
 </body>
 </html>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

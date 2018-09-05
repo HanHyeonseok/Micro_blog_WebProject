@@ -129,6 +129,24 @@ body {
 				<%
 				}
 				%>
+				<%
+				if(mem != null && mem.getAuth()==1){
+				%>
+				<li class="nav-item dropdown"><a
+					class="nav-link dropdown-toggle" id="navbarDropdownMenuLink"
+					data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="color: black">Manage</a>
+					<div class="dropdown-menu dropdown-primary"
+						aria-labelledby="navbarDropdownMenuLink">
+						<a class="dropdown-item" href="MemberController?command=userinfo">User info</a> 
+						<a class="dropdown-item" href="calendar.jsp">Event update</a>
+						
+					</div>
+				</li>
+				
+				<%
+				}
+				%>
+				
 			</ul>
 			<!-- Links -->
 

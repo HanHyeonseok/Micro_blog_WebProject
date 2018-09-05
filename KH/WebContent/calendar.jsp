@@ -7,6 +7,15 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ include file="/WEB-INF/include/header.jsp" %>
+<%
+request.setCharacterEncoding("utf-8");
+MemberDto user = (MemberDto)session.getAttribute("login");
+if (mem == null) {
+	RequestDispatcher rd = request.getRequestDispatcher("login.jsp");
+	rd.forward(request, response);
+}
+%>
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -24,7 +33,7 @@ public String callist(int year, int month, int day){
 	String s = "";
 	
 	s += String.format("<a href='%s?year=%d&month=%d&day=%d'>",
-						"callist.jsp", year, month, day);
+						"calendarlist.jsp", year, month, day);
 	s += String.format("%2d", day);
 	s += "</a>";
 	
@@ -36,7 +45,7 @@ public String showPen(int year, int month, int day){
 	
 	String s = "";
 	String url = "calendarwrite.jsp";
-	String image = "<img src='image/pen.gif'>";
+	String image = "<img src='https://user-images.githubusercontent.com/41100556/45011163-1b7d4e00-b04c-11e8-98dc-447a810526f3.gif'>";
 	
 	s = String.format("<a href='%s?year=%d&month=%d&day=%d'>%s</a>",
 								url, year, month, day, image);	
@@ -90,12 +99,12 @@ public String makeTable(int year, int month, int day,
 	
 	return s;
 }
-
 %>
 
 <h1 align="center">달력</h1>
 
 <%
+request.setCharacterEncoding("utf-8");
 Calendar cal = Calendar.getInstance();
 int tmpday = cal.get(Calendar.DATE);
 cal.set(Calendar.DATE, 1);
@@ -129,26 +138,26 @@ cal.set(year, month-1, 1);	// 연월일 셋팅
 int dayOfWeek = cal.get(Calendar.DAY_OF_WEEK);	// 요일 1 ~ 7
 
 // <<
-String pp = String.format("<a href='%s?year=%d&month=%d'><img src='image/left.gif'></a>", 
+String pp = String.format("<a href='%s?year=%d&month=%d'><img src='https://user-images.githubusercontent.com/41100556/45011651-a101fd80-b04e-11e8-9118-20b11ea365bd.png' style='margin: 2px;'></a>", 
 		"calendar.jsp", year-1, month);
 
 // <
-String p = String.format("<a href='%s?year=%d&month=%d'><img src='image/prec.gif'></a>", 
+String p = String.format("<a href='%s?year=%d&month=%d'><img src='https://user-images.githubusercontent.com/41100556/45011549-0a354100-b04e-11e8-9687-b557d362b0ad.png' style='margin: 2px;'></a>", 
 		"calendar.jsp", year, month-1);
 // >
-String n = String.format("<a href='%s?year=%d&month=%d'><img src='image/next.gif'></a>", 
+String n = String.format("<a href='%s?year=%d&month=%d'><img src='https://user-images.githubusercontent.com/41100556/45011539-00134280-b04e-11e8-9c15-591a577f8236.png' style='margin: 2px;'></a>", 
 		"calendar.jsp", year, month+1);
 
 // >>
-String nn = String.format("<a href='%s?year=%d&month=%d'><img src='image/last.gif'></a>", 
+String nn = String.format("<a href='%s?year=%d&month=%d'><img src='https://user-images.githubusercontent.com/41100556/45011644-97789580-b04e-11e8-9a4c-70869021556f.png' style='margin: 2px;'></a>", 
 		"calendar.jsp", year+1, month);
 
 
-//MemberDto user = (MemberDto)session.getAttribute("login");
+
 
 CalendarDAOImpl dao = CalendarDAO.getInstance();
 
-List<CalendarDto> list = dao.getCalendarList("111", year + two(month+ ""));
+List<CalendarDto> list = dao.getCalendarList(user.getId(), year + two(month+ ""));
 
 
 %>
@@ -160,11 +169,11 @@ List<CalendarDto> list = dao.getCalendarList("111", year + two(month+ ""));
 <col width="100"><col width="100"><col width="100">
 
 <tr height="100">
-<td colspan="7" align="center">
+<td colspan="7" align="center" style="font-size: 20px">
 
 <%=pp %><%=p %>
 
-<font color="black" style="font-size: 50">
+<font color="black">
 <%=String.format("%d년&nbsp;&nbsp;%d월", year, month) %>
 </font>
 
@@ -195,7 +204,14 @@ int lastDay = cal.getActualMaximum(Calendar.DAY_OF_MONTH);
 for(int i = 1; i <= lastDay; i++){ //달에 있는 일수 만큼
 	%>	
 	
-	<td><%=callist(year, month, i) %>&nbsp;<%=showPen(year, month, i) %>
+	<td><%=callist(year, month, i) %>&nbsp;
+	
+	<%
+	if(user.getAuth() == 1){
+	%>
+	<%=showPen(year, month, i) %>
+	<%
+	}%>
 	<%=makeTable(year, month, i, list) %>
 	</td>	
 	<%
@@ -216,8 +232,6 @@ for(int i = 0;i < (7 - (dayOfWeek + lastDay - 1)%7 )%7 ; i++){
 </tr>
 </table>
 </div>
-
-<br><br><br>
 <script type='text/javascript'>
 
 	$(document).ready(function() {
@@ -242,6 +256,7 @@ for(int i = 0;i < (7 - (dayOfWeek + lastDay - 1)%7 )%7 ; i++){
 	});
 
 </script>
+<br><br><br>
 <div id='calendar'></div>
 <%@ include file="/WEB-INF/include/footer.jsp" %>
 </body>
