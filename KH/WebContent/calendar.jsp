@@ -7,8 +7,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ include file="/WEB-INF/include/header.jsp" %>
-
 <%
+request.setCharacterEncoding("utf-8");
 MemberDto user = (MemberDto)session.getAttribute("login");
 if (mem == null) {
 	RequestDispatcher rd = request.getRequestDispatcher("login.jsp");
@@ -99,12 +99,12 @@ public String makeTable(int year, int month, int day,
 	
 	return s;
 }
-
 %>
 
 <h1 align="center">달력</h1>
 
 <%
+request.setCharacterEncoding("utf-8");
 Calendar cal = Calendar.getInstance();
 int tmpday = cal.get(Calendar.DATE);
 cal.set(Calendar.DATE, 1);
@@ -138,18 +138,18 @@ cal.set(year, month-1, 1);	// 연월일 셋팅
 int dayOfWeek = cal.get(Calendar.DAY_OF_WEEK);	// 요일 1 ~ 7
 
 // <<
-String pp = String.format("<a href='%s?year=%d&month=%d'><img src='https://user-images.githubusercontent.com/41100556/45011651-a101fd80-b04e-11e8-9118-20b11ea365bd.png'></a>", 
+String pp = String.format("<a href='%s?year=%d&month=%d'><img src='https://user-images.githubusercontent.com/41100556/45011651-a101fd80-b04e-11e8-9118-20b11ea365bd.png' style='margin: 2px;'></a>", 
 		"calendar.jsp", year-1, month);
 
 // <
-String p = String.format("<a href='%s?year=%d&month=%d'><img src='https://user-images.githubusercontent.com/41100556/45011549-0a354100-b04e-11e8-9687-b557d362b0ad.png'></a>", 
+String p = String.format("<a href='%s?year=%d&month=%d'><img src='https://user-images.githubusercontent.com/41100556/45011549-0a354100-b04e-11e8-9687-b557d362b0ad.png' style='margin: 2px;'></a>", 
 		"calendar.jsp", year, month-1);
 // >
-String n = String.format("<a href='%s?year=%d&month=%d'><img src='https://user-images.githubusercontent.com/41100556/45011539-00134280-b04e-11e8-9c15-591a577f8236.png'></a>", 
+String n = String.format("<a href='%s?year=%d&month=%d'><img src='https://user-images.githubusercontent.com/41100556/45011539-00134280-b04e-11e8-9c15-591a577f8236.png' style='margin: 2px;'></a>", 
 		"calendar.jsp", year, month+1);
 
 // >>
-String nn = String.format("<a href='%s?year=%d&month=%d'><img src='https://user-images.githubusercontent.com/41100556/45011644-97789580-b04e-11e8-9a4c-70869021556f.png'></a>", 
+String nn = String.format("<a href='%s?year=%d&month=%d'><img src='https://user-images.githubusercontent.com/41100556/45011644-97789580-b04e-11e8-9a4c-70869021556f.png' style='margin: 2px;'></a>", 
 		"calendar.jsp", year+1, month);
 
 
@@ -169,11 +169,11 @@ List<CalendarDto> list = dao.getCalendarList(user.getId(), year + two(month+ "")
 <col width="100"><col width="100"><col width="100">
 
 <tr height="100">
-<td colspan="7" align="center">
+<td colspan="7" align="center" style="font-size: 20px">
 
 <%=pp %><%=p %>
 
-<font color="black" style="font-size: 50">
+<font color="black">
 <%=String.format("%d년&nbsp;&nbsp;%d월", year, month) %>
 </font>
 

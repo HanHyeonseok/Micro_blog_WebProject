@@ -1,3 +1,5 @@
+<%@page import="java.sql.Timestamp"%>
+<%@page import="java.text.SimpleDateFormat"%>
 <%@page import="java.util.List"%>
 <%@page import="dto.CalendarDto"%>
 <%@page import="dao.CalendarDAO"%>
@@ -16,6 +18,21 @@
 <title>Honey Jam</title>
 </head>
 <body>
+<%!
+public String toDates(String mdate){
+	SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+	
+	String s = mdate.substring(0, 4) + "-" 	// yyyy
+			+ mdate.substring(4, 6) + "-"	// MM
+			+ mdate.substring(6, 8) + " " 	// dd
+			+ mdate.substring(8, 10) + ":"	// hh
+			+ mdate.substring(10, 12) + ":00"; 
+	
+	Timestamp d = Timestamp.valueOf(s);
+	
+	return sdf.format(d);	
+}
+%>
 	<!--Main layout-->
 	<div class="container" style="padding: 0px">
 		<!--Carousel Wrapper-->
@@ -71,6 +88,7 @@
 		CalendarDAOImpl caldao = CalendarDAO.getInstance();
 		List<CalendarDto> list = caldao.indexCalList();
 		%>
+		
 		<!--/.Carousel Wrapper-->
 		<!-- List Table -->
 		<div class="z-depth-1" style="margin-bottom: 15px; display: flex; flex-wrap: wrap;">
@@ -83,8 +101,8 @@
 					</colgroup>
 					<thead>
 						<tr style="background-color: #F6F6F6;">
-							<th scope="col">일정</th>
-							<th scope="col">행사제목</th>
+							<th scope="col" align="center">일정</th>
+							<th scope="col" align="center">행사</th>
 						</tr>
 					</thead>
 					<tbody>
@@ -97,12 +115,12 @@
 						CalendarDto caldto = list.get(i);
 					%>
 					<tr>
-						<th><%=caldto.getRdate() %></th>
-						<th><%=caldto.getTitle() %></th>
+						<th><%=toDates(caldto.getRdate()) %></th>
+						<th><a href="calendardetail.jsp?seq=<%=caldto.getSeq() %>"><%=caldto.getTitle() %></a></th>
 					</tr>				
 					<%}%>
 			
-						<!-- 	<td colspan="2" align="center"># 여기는 페이징 단축키</td>
+						<!-- <td colspan="2" align="center"># 여기는 페이징 단축키</td>
 						</tr> -->
 					</tbody>
 				</table>

@@ -6,7 +6,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ include file="/WEB-INF/include/header.jsp" %>
-
+<%
+request.setCharacterEncoding("utf-8");
+%>
 <%
 MemberDto user = (MemberDto)session.getAttribute("login");
 %>
@@ -18,9 +20,7 @@ MemberDto user = (MemberDto)session.getAttribute("login");
 </head>
 <body>
 
-
 <%!
-
 public String toDates(String mdate){
 	SimpleDateFormat sdf = new SimpleDateFormat("yyyy년 MM월 dd일 hh시 mm분");
 	
@@ -48,25 +48,25 @@ CalendarDto dto = dao.getDay(seq);
 
 %> 
 
-<h1>디테일 보기</h1>
+<h1 align="center">디테일 보기</h1>
 <hr>
-<table border="1">
+<table border="1" align="center">
 <col width="200"><col width="500">
 
 <tr>
-	<td>제목</td>
-	 <td><%=dto.getTitle() %></td> 
+	<td align="center">제목</td>
+	 <td> <%=dto.getTitle() %></td> 
 </tr>
 
 <tr>
-	<td>일정</td>
+	<td align="center">일정</td>
 	<td><%=toDates(dto.getRdate()) %></td>
 </tr>
 
 <tr>
-	<td>내용</td>
+	<td align="center">내용</td>
 	<td>
-		<textarea rows="20" cols="60" readonly="readonly"><%=dto.getContent() %> 
+		<textarea rows="20" cols="60" readonly="readonly"> <%=dto.getContent() %> 
 		</textarea>
 	</td>
 </tr>
