@@ -15,10 +15,30 @@ if (mem == null) {
 	rd.forward(request, response);
 }
 %>
-
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
+<style type="text/css">
+#calendar .bor{
+  border: 1px solid #ccc;
+  margin-right: -1px;
+  margin-bottom: -1px;
+}
+/* 요일  */
+#calendar tr.weekdays {
+  height: 40px;
+  background: #fff5ee;
+}
+#calendar tr.weekdays td {
+  text-align: center;
+  text-transform: uppercase;
+  line-height: 20px;
+  border: none !important;
+  padding: 10px 6px;
+  color: black;
+  font-size: 13px;
+}
+</style>
 </head>
 <body>
 
@@ -40,7 +60,7 @@ public String callist(int year, int month, int day){
 	return s;
 }
 
-// 일정을 추가 하기 위해서 pen이미지를 클릭하면, calwrite.jsp로 이동시킬 함수
+// 일정을 추가 하기 위해서 pen이미지를 클릭하면, calendarwrite.jsp로 이동시킬 함수
 public String showPen(int year, int month, int day){
 	
 	String s = "";
@@ -77,22 +97,24 @@ public String makeTable(int year, int month, int day,
 	String s = "";
 	String dates = (year+"") + two(month+"") + two(day+"");	// 20180827
 	
-	s = "<table>";
+	s = "<table width='100%'>";
 	s += "<col width='98'>";
 	
 	for(CalendarDto dto : list){
 		
 		if(dto.getRdate().substring(0, 8).equals(dates)){
 			
-			s += "<tr bgcolor='pink'>";
-			s += "<td>";
+			s += "<tr bgcolor='FFF0F0'>";
+			s += "<td width='100'>"; 
+	
 			s += "<a href='calendardetail.jsp?seq=" + dto.getSeq() + "'>";
-			s += "<font style='font-size:8; color:red'>";
+			
+			/* s += "<font style='font-size:8; color:red'>"; */
 			s += dot3(dto.getTitle());
-			s += "</font>";
+			/* s += "</font>"; */			
 			s += "</a>";
 			s += "</td>";
-			s += "</tr>";			
+			s += "</tr>";	
 		}			
 	}	
 	s += "</table>";
@@ -101,7 +123,7 @@ public String makeTable(int year, int month, int day,
 }
 %>
 
-<h1 align="center">달력</h1>
+<h2 align="center">행사 일정</h2>
 
 <%
 request.setCharacterEncoding("utf-8");
@@ -137,6 +159,7 @@ cal.set(year, month-1, 1);	// 연월일 셋팅
 
 int dayOfWeek = cal.get(Calendar.DAY_OF_WEEK);	// 요일 1 ~ 7
 
+//////////// 위에 날짜, 년도 화살표
 // <<
 String pp = String.format("<a href='%s?year=%d&month=%d'><img src='https://user-images.githubusercontent.com/41100556/45011651-a101fd80-b04e-11e8-9118-20b11ea365bd.png' style='margin: 2px;'></a>", 
 		"calendar.jsp", year-1, month);
@@ -153,36 +176,30 @@ String nn = String.format("<a href='%s?year=%d&month=%d'><img src='https://user-
 		"calendar.jsp", year+1, month);
 
 
-
-
 CalendarDAOImpl dao = CalendarDAO.getInstance();
 
 List<CalendarDto> list = dao.getCalendarList(user.getId(), year + two(month+ ""));
 
-
 %>
+<div id="calendar-wrap">
+<div align="center" id="calendar">
 
-<div align="center">
+<table border="1" class="bor" align="center">
+<col width="200"><col width="200"><col width="200"><col width="200">
+<col width="200"><col width="200"><col width="200">
 
-<table border="1">
-<col width="100"><col width="100"><col width="100"><col width="100">
-<col width="100"><col width="100"><col width="100">
-
-<tr height="100">
-<td colspan="7" align="center" style="font-size: 20px">
+<!-- <<날짜 있는 부분>> -->
 
 <%=pp %><%=p %>
 
 <font color="black">
 <%=String.format("%d년&nbsp;&nbsp;%d월", year, month) %>
 </font>
-
 <%=n %><%=nn %>
+<br><br>
 
-</td>
-</tr>
-
-<tr height="100">
+<!--요일  -->
+<tr height="80" class="weekdays">
 <td align="center">일</td>
 <td align="center">월</td>
 <td align="center">화</td>
@@ -193,6 +210,7 @@ List<CalendarDto> list = dao.getCalendarList(user.getId(), year + two(month+ "")
 </tr>
 
 <tr height="100" align="left" valign="top">
+
 <%
 for(int i = 1; i < dayOfWeek; i++){ //처음에 빈칸들
 	%>
@@ -201,19 +219,21 @@ for(int i = 1; i < dayOfWeek; i++){ //처음에 빈칸들
 }
 
 int lastDay = cal.getActualMaximum(Calendar.DAY_OF_MONTH); 
+
 for(int i = 1; i <= lastDay; i++){ //달에 있는 일수 만큼
 	%>	
-	
-	<td><%=callist(year, month, i) %>&nbsp;
-	
+	<td class="hoverable"><%=callist(year, month, i) %>&nbsp;
 	<%
 	if(user.getAuth() == 1){
 	%>
 	<%=showPen(year, month, i) %>
+	
 	<%
-	}%>
-	<%=makeTable(year, month, i, list) %>
-	</td>	
+	}
+	%>                           
+		<%=makeTable(year, month, i, list) %>
+	</td>
+	
 	<%
 	if((i + dayOfWeek - 1) % 7 == 0 && i != lastDay){//줄바꿈
 		%>	
@@ -232,6 +252,7 @@ for(int i = 0;i < (7 - (dayOfWeek + lastDay - 1)%7 )%7 ; i++){
 </tr>
 </table>
 </div>
+
 <script type='text/javascript'>
 
 	$(document).ready(function() {
@@ -249,15 +270,15 @@ for(int i = 0;i < (7 - (dayOfWeek + lastDay - 1)%7 )%7 ; i++){
 			},
 			editable: true,
 			events: [
-				
 			]
 		});
-		
 	});
-
 </script>
+</div>
 <br><br><br>
+
 <div id='calendar'></div>
 <%@ include file="/WEB-INF/include/footer.jsp" %>
+
 </body>
 </html>

@@ -43,15 +43,14 @@ public class BbsController extends HttpServlet {
 		if(command.equals("addreply")) {
 
 		}
-
+		
 		// 게시판글 작성
 		else if (command.equals("bbsWrite")) {
-
-			String savePath = req.getServletContext().getRealPath("/upload");
-			
-			int sizeLimit = 1024*1024*15;
-			
-			MultipartRequest multi = new MultipartRequest(req, savePath, sizeLimit, "utf-8", new DefaultFileRenamePolicy());
+            String savePath = req.getServletContext().getRealPath("/upload");
+           
+            int sizeLimit = 1024*1024*15;
+            
+            MultipartRequest multi = new MultipartRequest(req, savePath, sizeLimit, "utf-8", new DefaultFileRenamePolicy());
 			
 			String id = multi.getParameter("userId");
 			String title = multi.getParameter("title");

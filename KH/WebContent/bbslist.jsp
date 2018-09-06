@@ -27,6 +27,8 @@
 	
 	BbsDAOImpl dao = BbsDAO.getInstance();
 	List<BbsDto> list = dao.getBbsList();
+	
+	String ipAddress = "\\"+"\\"+"192.168.10.34\\upload";
 %>
 </head>
 <body>
@@ -144,7 +146,7 @@
 							<!-- Card image -->
 							<div class="view overlay" style="margin: 10px" align="center">
 								<a href="bbsdetail.jsp"> <img
-									src="upload/<%=list.get(i).getFilename() %>"
+									src="upload/<%=list.get(i).getFilename()%>"
 									class="img-fluid " alt="이미지 없음">
 									<div
 										class="mask flex-center waves-effect waves-light rgba-red-slight">
@@ -223,8 +225,7 @@
 							<a href="bbsdetail.jsp"> <img
 								src="https://mdbootstrap.com/img/Photos/Horizontal/Food/full page/2.jpg"
 								class="img-fluid " alt="placeholder">
-								<div
-									class="mask flex-center waves-effect waves-light rgba-red-slight">
+								<div class="mask flex-center waves-effect waves-light rgba-red-slight">
 									<p class="white-text">[클릭] 게시글 보기</p>
 								</div>
 							</a>
