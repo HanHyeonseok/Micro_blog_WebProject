@@ -144,6 +144,7 @@ public class BbsDAO implements BbsDAOImpl {
 			DBClose.close(psmt, conn, rs);
 			System.out.println("END getBbsList Success");
 		}
+		
 		return list;
 	}
 }

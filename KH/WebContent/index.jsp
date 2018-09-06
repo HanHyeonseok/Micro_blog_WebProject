@@ -1,3 +1,5 @@
+<%@page import="java.util.ArrayList"%>
+<%@page import="dto.BbsDto"%>
 <%@page import="dao.BbsDAO"%>
 <%@page import="dao.BbsDAOImpl"%>
 <%@page import="java.sql.Timestamp"%>
@@ -9,6 +11,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ include file="/WEB-INF/include/header.jsp"%>
+
+
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -24,9 +29,18 @@
 	cursor: pointer;
 }
 </style>
-
+<!-- <link href="BbsController?command=bbsList"> -->
 </head>
 <body>
+
+<%-- 
+	<%
+	
+	List<BbsDto> bbslist = (List<BbsDto>)request.getAttribute("bbslist");
+	
+	%> --%>
+
+
 	<%!public String toDates(String mdate) {
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 
@@ -96,7 +110,8 @@
 		List<CalendarDto> list = caldao.indexCalList();
 		
 		BbsDAOImpl bbsdao = BbsDAO.getInstance();
-
+		List<BbsDto> bbslist = bbsdao.getBbsList();
+	
 		%>
 
 		<!--/.Carousel Wrapper-->
@@ -159,18 +174,39 @@
 						</tr>
 					</thead>
 					<tbody>
-						<tr class="toDetail">
-							<td>1</td>
-							<td>서울 남산 야경에 빠져..</td>
-						</tr>
-						<tr class="toDetail">
-							<td>2</td>
-							<td>부산 광안리 해변에 앉아 맥주한잔..</td>
-						</tr>
-						<tr class="toDetail">
-							<td>3</td>
-							<td>제주도 서귀포 드라이브 풍경..</td>
-						</tr>
+						<div>
+							
+								<tr>
+									<a href="BbsController?command=detail&sequence=<%=bbslist.get(0).getSeq() %>">
+										<td>1</td>
+										<td><%=bbslist.get(0).getTitle() %></td>
+									</a>
+								</tr>
+							
+						</div>
+						
+						<div>
+							
+								<tr>
+									<a href="BbsController?command=detail&sequence=<%=bbslist.get(1).getSeq() %>">
+										<td>2</td>
+										<td><%=bbslist.get(1).getTitle() %></td>
+									</a>
+								</tr>
+							
+						</div>
+						
+						<div>
+							
+								<tr>
+									<a href="BbsController?command=detail&sequence=<%=bbslist.get(2).getSeq() %>">
+										<td>3</td>
+										<td><%=bbslist.get(2).getTitle() %></td>
+									</a>
+								</tr>
+							
+						</div>
+						
 						<tr>
 							<td colspan="2" align="center"># 여기는 페이징 단축키</td>
 						</tr>
@@ -180,6 +216,10 @@
 		</div>
 		<!-- // List Table -->
 	</div>
+	<script src="https://code.jquery.com/jquery-3.3.1.js"
+		integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60="
+		crossorigin="anonymous">
+	</script>
 
 
 	<script type="text/javascript">
@@ -189,12 +229,8 @@
 			});
 		});
 	</script>
-	<script src="https://code.jquery.com/jquery-3.3.1.js"
-		integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60="
-		crossorigin="anonymous">
-		
-	</script>
-
+	
+	
 	<!-- // Main layout-->
 	<%@ include file="/WEB-INF/include/footer.jsp"%>
 </body>

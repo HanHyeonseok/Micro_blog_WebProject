@@ -72,6 +72,23 @@ public class BbsController extends HttpServlet {
 			
 			dispatch("bbslist.jsp", req, resp);
 			}
+		
+			// 게시판 리스트
+			else if(command.equals("bbsList")) {
+				
+				List<BbsDto> bbslist = bbsDao.getBbsList();
+			
+				req.setAttribute("bbslist", bbslist);
+				
+				dispatch("index.jsp", req, resp);
+			}
+		
+			else if(command.equals("detail")) {
+				System.out.println("왔따");
+				System.out.println(req.getParameter("sequence"));
+				
+			}
+		
 		}
 
 	

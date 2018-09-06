@@ -413,13 +413,7 @@ Consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et
 			});	
 			
 			});
-				
-			
-			
-			
-			
-			
-			
+							
 		</script>
 
 		<!-- Definity JS -->

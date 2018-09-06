@@ -189,7 +189,7 @@ public class MemberController extends HttpServlet{
 			
 			List<MemberDto> uesrList = memDao.getUserList();
 			
-			req.setAttribute("uesrList", uesrList );
+			req.setAttribute("uesrList", uesrList);
 			
 			dispatch("userinfo.jsp", req, resp);
 			
