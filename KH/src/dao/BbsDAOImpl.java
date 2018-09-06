@@ -13,4 +13,6 @@ public interface BbsDAOImpl {
 	public List<BbsDto> getBbsList();
 	
 	public BbsDto getContent(int seq);
+
+	public List<BbsDto> getBestList();
 }

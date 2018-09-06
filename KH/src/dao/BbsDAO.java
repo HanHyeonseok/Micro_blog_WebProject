@@ -164,4 +164,45 @@ public class BbsDAO implements BbsDAOImpl {
 		
 		return list;
 	}
+
+	@Override
+	public List<BbsDto> getBestList() {
+		String sql = " SELECT SEQ, ID, TITLE, CONTENT, WDATE, DEL, READCOUNT, REPLYCNT, FILENAME, FAVORITE, HASHTAG "
+				+ " FROM BBS " 
+				+ " ORDER BY FAVORITE DESC, READCOUNT DESC, WDATE DESC";
+
+		Connection conn = null;
+		PreparedStatement psmt = null;
+		ResultSet rs = null;
+
+		List<BbsDto> list = new ArrayList<BbsDto>();
+
+		try {
+			conn = DBConnection.makeConnection();
+			System.out.println("1/6 getBbsList Success");
+
+			psmt = conn.prepareStatement(sql);
+			System.out.println("2/6 getBbsList Success");
+
+			rs = psmt.executeQuery();
+			System.out.println("3/6 getBbsList Success");
+
+			while (rs.next()) {
+				BbsDto dto = new BbsDto(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getString(4),
+						rs.getString(5), rs.getInt(6), rs.getInt(7), rs.getInt(8), rs.getString(9), rs.getInt(10),
+						rs.getString(11));
+				list.add(dto);
+			}
+			System.out.println("4/6 getBbsList Success");
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+			System.out.println("getBbsList fail");
+		} finally {
+			DBClose.close(psmt, conn, rs);
+			System.out.println("END getBbsList Success");
+		}
+		
+		return list;
+	}
 }
