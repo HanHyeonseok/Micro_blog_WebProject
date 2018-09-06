@@ -27,8 +27,7 @@
 	
 	BbsDAOImpl dao = BbsDAO.getInstance();
 	List<BbsDto> list = dao.getBbsList();
-	
-	String ipAddress = "\\"+"\\"+"192.168.10.34\\upload";
+	List<BbsDto> bestList = dao.getBestList();
 %>
 </head>
 <body>
@@ -71,10 +70,23 @@
 						<!-- layer title -->
 						<div class="card-body d-flex flex-row" style="padding: 10px">
 							<!-- Avatar -->
+							<%
+								if(mem.getImg() == null){
+									%>
 							<img
-								src="https://mdbootstrap.com/img/Photos/Avatars/avatar-8.jpg"
+								src="https://user-images.githubusercontent.com/38531104/45137275-e0615300-b1e2-11e8-9dbb-05378ea956b6.png"
 								class="rounded-circle mr-3" height="50px" width="50px"
 								alt="avatar">
+							<%
+								}else{
+							%>
+							<img
+								src="upload/<%=mem.getImg()%>"
+								class="rounded-circle mr-3" height="50px" width="50px"
+								alt="avatar">
+							<%
+							}
+							%>
 
 							<!-- userId -->
 							<input type="hidden" name="userId" value="<%=mem.getId()%>">
@@ -118,65 +130,80 @@
 					<%
 						for(int i = 0; i < list.size(); i++){
 							%>
-							<div class="card promoting-card" style="margin-bottom: 15px">
+					<div class="card promoting-card" style="margin-bottom: 15px">
 
-							<!-- Card content -->
-							<div class="card-body d-flex flex-row">
+						<!-- Card content -->
+						<div class="card-body d-flex flex-row">
 
-								<!-- Avatar -->
-								<img
-									src="https://mdbootstrap.com/img/Photos/Avatars/avatar-8.jpg"
-									class="rounded-circle mr-3" height="50px" width="50px"
-									alt="avatar">
+							<!-- Avatar -->
+							<%
+								if(list.get(i).getFilename() == null){
+									%>
+							<img
+								src="https://user-images.githubusercontent.com/38531104/45137275-e0615300-b1e2-11e8-9dbb-05378ea956b6.png"
+								class="rounded-circle mr-3" height="50px" width="50px"
+								alt="avatar">
+							<%
+								}else{
+							%>
+							<img
+								src="upload/<%=list.get(i).getFilename()%>"
+								class="rounded-circle mr-3" height="50px" width="50px"
+								alt="avatar">
+							<%
+							}
+							%>
 
-								<!-- Content -->
-								<div>
+							<!-- Content -->
+							<div>
 
-									<!-- Title -->
-									<h4 class="card-title font-weight-bold mb-2"><%=list.get(i).getId() %></h4>
-									<!-- Subtitle -->
-									<p class="card-text">
-										<i class="fa fa-clock-o pr-2"></i><%=list.get(i).getWdate() %>
-									</p>
-
-								</div>
+								<!-- Title -->
+								<h4 class="card-title font-weight-bold mb-2"><%=list.get(i).getId() %></h4>
+								<!-- Subtitle -->
+								<p class="card-text">
+									<i class="fa fa-clock-o pr-2"></i><%=list.get(i).getWdate() %>
+								</p>
 
 							</div>
 
-							<!-- Card image -->
-							<div class="view overlay" style="margin: 10px" align="center">
-								<a href="bbsdetail.jsp"> <img
-									src="upload/<%=list.get(i).getFilename()%>"
-									class="img-fluid " alt="이미지 없음">
-									<div
-										class="mask flex-center waves-effect waves-light rgba-red-slight">
-										<p class="white-text">[클릭] 게시글 보기</p>
-									</div>
-								</a>
-							</div>
-							
-							<!-- Card content -->
-							<div align="right" style="padding-right: 10px; margin-top: 5px; margin-bottom: 5px;">
-								<div class="btn-group btn-group-sm" role="group"
-									aria-label="Basic example">
-									<button type="button" class="btn btn-unique btn-sm">
-										<i class="fa fa-heart" aria-hidden="true"></i> <%=list.get(i).getFavorite() %>
-									</button>
+						</div>
+
+						<!-- Card image -->
+						<div class="view overlay" style="margin: 10px" align="center">
+							<a href="bbsdetail.jsp"> <img
+								src="upload/<%=list.get(i).getFilename()%>" class="img-fluid "
+								alt="이미지 없음">
+								<div
+									class="mask flex-center waves-effect waves-light rgba-red-slight">
+									<p class="white-text">[클릭] 게시글 보기</p>
 								</div>
-							</div>
-							<div class="card-body" style="padding-top: 0px">
-								<div>
-									<!-- Text -->
-									<p>
-										<%=list.get(i).getTitle() %>
-									</p>
-								</div>
+							</a>
+						</div>
+
+						<!-- Card content -->
+						<div align="right"
+							style="padding-right: 10px; margin-top: 5px; margin-bottom: 5px;">
+							<div class="btn-group btn-group-sm" role="group"
+								aria-label="Basic example">
+								<button type="button" class="btn btn-unique btn-sm">
+									<i class="fa fa-heart" aria-hidden="true"></i>
+									<%=list.get(i).getFavorite() %>
+								</button>
 							</div>
 						</div>
-						<%
+						<div class="card-body" style="padding-top: 0px">
+							<div>
+								<!-- Text -->
+								<p>
+									<%=list.get(i).getTitle() %>
+								</p>
+							</div>
+						</div>
+					</div>
+					<%
 						}
 					%>
-					
+
 				</div>
 				<!-- // View BBS -->
 
@@ -191,48 +218,71 @@
 							best 3
 						</h3>
 					</div>
+					<%
+						for(int i = 0; i < 3; i++ ){
+							%>
 					<!-- first -->
-					<div class="card promoting-card">
+					<div class="card promoting-card" style="margin-bottom: 10px">
 
 						<!-- Card content -->
 						<div class="card-body d-flex flex-row">
 
 							<!-- Avatar -->
+							<%
+								if(bestList.get(i).getFilename() == null){
+									%>
 							<img
-								src="https://mdbootstrap.com/img/Photos/Avatars/avatar-8.jpg"
+								src="https://user-images.githubusercontent.com/38531104/45137275-e0615300-b1e2-11e8-9dbb-05378ea956b6.png"
 								class="rounded-circle mr-3" height="50px" width="50px"
 								alt="avatar">
+							<%
+								}else{
+							%>
+							<img
+								src="upload/<%=bestList.get(i).getFilename()%>"
+								class="rounded-circle mr-3" height="50px" width="50px"
+								alt="avatar">
+							<%
+							}
+							%>
 
 							<!-- Content -->
 							<div>
 								<!-- Title -->
-								<h4 class="card-title font-weight-bold mb-2"># User ID</h4>
+								<h4 class="card-title font-weight-bold mb-2"><%=bestList.get(i).getId() %></h4>
 								<!-- Subtitle -->
 								<p class="card-text">
-									<i class="fa fa-clock-o pr-2"></i>07/24/2018
+									<i class="fa fa-clock-o pr-2"></i><%=bestList.get(i).getWdate() %>
 								</p>
 							</div>
 						</div>
 						<div class="btn-group btn-group-sm" role="group"
 							aria-label="Basic example" style="padding-left: 10px">
-							<button type="button" class="btn btn-unique btn-sm" disabled>Like
-								: 125</button>
-							<button type="button" class="btn btn-unique btn-sm" disabled>View
-								: 1920</button>
+							<button type="button" class="btn btn-unique btn-sm" disabled>
+								Like :
+								<%=bestList.get(i).getFavorite() %></button>
+							<button type="button" class="btn btn-unique btn-sm" disabled>
+								View :
+								<%=bestList.get(i).getReadcount() %></button>
 						</div>
 						<!-- Card image -->
 						<div class="view overlay" style="margin: 10px">
 							<a href="bbsdetail.jsp"> <img
-								src="https://mdbootstrap.com/img/Photos/Horizontal/Food/full page/2.jpg"
+								src="upload/<%=bestList.get(i).getFilename()%>"
 								class="img-fluid " alt="placeholder">
-								<div class="mask flex-center waves-effect waves-light rgba-red-slight">
+								<div
+									class="mask flex-center waves-effect waves-light rgba-red-slight">
 									<p class="white-text">[클릭] 게시글 보기</p>
 								</div>
 							</a>
 						</div>
 					</div>
+					<%
+						}
+					%>
 				</div>
 				<!-- // best bbsList -->
+
 			</div>
 			<!-- //  Main Content -->
 		</div>
