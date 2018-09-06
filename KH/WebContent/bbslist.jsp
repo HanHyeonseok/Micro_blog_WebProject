@@ -20,7 +20,7 @@
 		request.setAttribute("bbsWriteResult", "");
 	}
 
-	if (mem == null) {
+	if (mem == null) { 
 		RequestDispatcher rd = request.getRequestDispatcher("login.jsp");
 		rd.forward(request, response);
 	}
@@ -170,7 +170,7 @@
 
 						<!-- Card image -->
 						<div class="view overlay" style="margin: 10px" align="center">
-							<a href="bbsdetail.jsp"> <img
+							<a href="BbsController?command=detail&sequence=<%=list.get(i).getSeq()%>"> <img
 								src="upload/<%=list.get(i).getFilename()%>" class="img-fluid "
 								alt="이미지 없음">
 								<div
@@ -267,7 +267,7 @@
 						</div>
 						<!-- Card image -->
 						<div class="view overlay" style="margin: 10px">
-							<a href="bbsdetail.jsp"> <img
+							<a href="BbsController?command=detail&sequence=<%=list.get(i).getSeq()%>"> <img
 								src="upload/<%=bestList.get(i).getFilename()%>"
 								class="img-fluid " alt="placeholder">
 								<div

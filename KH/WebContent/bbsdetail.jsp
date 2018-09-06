@@ -129,19 +129,19 @@
     <div class="carousel-inner" role="listbox">
         <!--First slide-->
         <div class="carousel-item active">
-            <img class="d-block w-100" src="https://mdbootstrap.com/img/Photos/Slides/img%20(130).jpg" alt="First slide">
+            <img class="d-block w-100" src="upload/<%=dto.getFilename() %>" alt="이미지가 없습니다">
         </div>
         <!--/First slide-->
         <!--Second slide-->
-        <div class="carousel-item">
+      <!--   <div class="carousel-item">
             <img class="d-block w-100" src="https://mdbootstrap.com/img/Photos/Slides/img%20(129).jpg" alt="Second slide">
         </div>
-        <!--/Second slide-->
-        <!--Third slide-->
+        /Second slide
+        Third slide
         <div class="carousel-item">
             <img class="d-block w-100" src="https://mdbootstrap.com/img/Photos/Slides/img%20(70).jpg" alt="Third slide">
-        </div>
-        <!--/Third slide-->
+        </div>  /Third slide -->
+        
     </div>
     <!--/.Slides-->
     <!--Controls-->
@@ -407,7 +407,7 @@ Consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et
 			$(".heart").click(function() {
 
  					$(".heart-1").replaceWith("<i class='fa fa-heart' aria-hidden='true'></i>");
-
+					
 			}), (function() {
 
  					$(".heart-1").replaceWith("<i class='fa fa-heart-o' aria-hidden='true'></i>");
@@ -493,3 +493,21 @@ $("#centralModalSuccess").on('show.bs.modal', function(){
 </div>
  
   -->
+
+  
+<!-- 
+
+1. 좋아요 누를시 해당 seq게시물의 favorite +1 구현 
+
+2. 내용 수정시 모달 프레임에 해당 게시물 content , title 구현
+
+3. image 파일 수정/삽입 버튼 누를시 해당 게시물의 image fileName 변경 구현
+
+4. 댓글 how 구상
+
+5. 게시글 footer 부분 "다음글 보기"로 할것인지 구상
+
+
+
+-->  
+  
