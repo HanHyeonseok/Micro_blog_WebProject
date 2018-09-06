@@ -46,11 +46,11 @@ public class BbsController extends HttpServlet {
 		
 		// 게시판글 작성
 		else if (command.equals("bbsWrite")) {
-			String ipAddress = "\\"+"\\"+"192.168.10.34\\upload";
-			
-			int sizeLimit = 1024*1024*15;
-			
-			MultipartRequest multi = new MultipartRequest(req, ipAddress, sizeLimit, "utf-8", new DefaultFileRenamePolicy());
+            String savePath = req.getServletContext().getRealPath("/upload");
+           
+            int sizeLimit = 1024*1024*15;
+            
+            MultipartRequest multi = new MultipartRequest(req, savePath, sizeLimit, "utf-8", new DefaultFileRenamePolicy());
 			
 			String id = multi.getParameter("userId");
 			String title = multi.getParameter("title");
