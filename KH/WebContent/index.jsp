@@ -33,7 +33,7 @@
 </head>
 <body>
 
-<%-- 
+	<%-- 
 	<%
 	
 	List<BbsDto> bbslist = (List<BbsDto>)request.getAttribute("bbslist");
@@ -106,12 +106,11 @@
 			<!--/.Controls-->
 		</div>
 		<%
-		CalendarDAOImpl caldao = CalendarDAO.getInstance();
-		List<CalendarDto> list = caldao.indexCalList();
-		
-		BbsDAOImpl bbsdao = BbsDAO.getInstance();
-		List<BbsDto> bbslist = bbsdao.getBbsList();
-	
+			CalendarDAOImpl caldao = CalendarDAO.getInstance();
+			List<CalendarDto> list = caldao.indexCalList();
+
+			BbsDAOImpl bbsdao = BbsDAO.getInstance();
+			List<BbsDto> bbslist = bbsdao.getBbsList();
 		%>
 
 		<!--/.Carousel Wrapper-->
@@ -155,7 +154,7 @@
 						%>
 
 						<!-- <td colspan="2" align="center"># 여기는 페이징 단축키</td>
-						</tr> -->
+	</tr> -->
 
 					</tbody>
 				</table>
@@ -175,38 +174,42 @@
 					</thead>
 					<tbody>
 						<div>
-							
-								<tr>
-									<a href="BbsController?command=detail&sequence=<%=bbslist.get(0).getSeq() %>">
-										<td>1</td>
-										<td><%=bbslist.get(0).getTitle() %></td>
-									</a>
-								</tr>
-							
+
+							<tr>
+
+								<td>1</td>
+								<td><a
+									href="BbsController?command=detail&sequence=<%=bbslist.get(0).getSeq()%>"><%=bbslist.get(0).getTitle()%></a></td>
+
+							</tr>
+
 						</div>
-						
+
 						<div>
-							
-								<tr>
-									<a href="BbsController?command=detail&sequence=<%=bbslist.get(1).getSeq() %>">
-										<td>2</td>
-										<td><%=bbslist.get(1).getTitle() %></td>
-									</a>
-								</tr>
-							
+
+							<tr>
+
+								<td>2</td>
+								<td><a
+									href="BbsController?command=detail&sequence=<%=bbslist.get(1).getSeq()%>"><%=bbslist.get(1).getTitle()%></a>
+								</td>
+								
+							</tr>
+
 						</div>
-						
+
 						<div>
-							
-								<tr>
-									<a href="BbsController?command=detail&sequence=<%=bbslist.get(2).getSeq() %>">
-										<td>3</td>
-										<td><%=bbslist.get(2).getTitle() %></td>
-									</a>
-								</tr>
-							
+
+							<tr>
+								
+									<td>3</td>
+									<td><a
+									href="BbsController?command=detail&sequence=<%=bbslist.get(2).getSeq()%>"><%=bbslist.get(2).getTitle()%></a></td>
+								
+							</tr>
+
 						</div>
-						
+
 						<tr>
 							<td colspan="2" align="center"># 여기는 페이징 단축키</td>
 						</tr>
@@ -219,18 +222,18 @@
 	<script src="https://code.jquery.com/jquery-3.3.1.js"
 		integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60="
 		crossorigin="anonymous">
-	</script>
+</script>
 
 
 	<script type="text/javascript">
-		$(function() {
-			$(".toDetail").click(function() {
-				window.location.href = 'bbsdetail.jsp';
-			});
-		});
-	</script>
-	
-	
+$(function() {
+	$(".toDetail").click(function() {
+		window.location.href = 'bbsdetail.jsp';
+	});
+});
+</script>
+
+
 	<!-- // Main layout-->
 	<%@ include file="/WEB-INF/include/footer.jsp"%>
 </body>

@@ -33,32 +33,49 @@ public class BbsDAO implements BbsDAOImpl {
 			return bbsDAO;
 		}
 		
-		public BbsDto getContent() {
+		public BbsDto getContent(int seq) {
 			
-			String sql = " SELECT CONTENT, TITLE FROM BBS"
+			String sql = " SELECT SEQ, ID, TITLE, CONTENT, WDATE, DEL, READCOUNT, REPLYCNT, "
+					+ " FILENAME, FAVORITE, HASHTAG FROM BBS"
 					+ " WHERE SEQ = ? ";
 			
 			Connection conn = null;
 			PreparedStatement psmt = null;
 			ResultSet rs = null;
 			
-			BbsDto dto = new BbsDto();
+			BbsDto dto = null;
 			
-			System.out.println("1/6 login success");
+			System.out.println("1/6 getBbsDetail success");
 			
 			conn = DBConnection.makeConnection();
 			
 			try {
 				psmt = conn.prepareStatement(sql);
-				System.out.println("2/6 login success");
-
+				System.out.println("2/6 getBbsDetail success");
+				
+				psmt.setInt(1, seq);
+				
 				rs = psmt.executeQuery();
-				System.out.println("3/6 login success");
+				System.out.println("3/6 getBbsDetail success");
+				
+				while(rs.next()) {
+					dto = new BbsDto(rs.getInt(1), rs.getString(2), 
+									rs.getString(3), rs.getString(4), 
+									rs.getString(5), rs.getInt(6), 
+									rs.getInt(7), rs.getInt(8), 
+									rs.getString(9),rs.getInt(10),
+									rs.getString(11));
+				}
+				
+				System.out.println("4/6 getBbsDetail success");
+				
 			} catch (SQLException e) {
-				// TODO Auto-generated catch block
+				System.out.println("getBbsDetail failed");	
 				e.printStackTrace();
+			} finally {
+
 			}
-			
+				
 			return dto;
 		}
 	

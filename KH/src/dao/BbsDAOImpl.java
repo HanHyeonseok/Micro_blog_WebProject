@@ -11,4 +11,6 @@ public interface BbsDAOImpl {
 	public boolean addBbs(BbsDto dto);
 	
 	public List<BbsDto> getBbsList();
+	
+	public BbsDto getContent(int seq);
 }

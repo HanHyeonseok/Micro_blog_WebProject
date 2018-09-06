@@ -41,7 +41,7 @@ public class BbsController extends HttpServlet {
 		BbsDAOImpl bbsDao = BbsDAO.getInstance();
 		
 		if(command.equals("addreply")) {
-
+				
 		}
 		
 		// 게시판글 작성
@@ -83,8 +83,16 @@ public class BbsController extends HttpServlet {
 			}
 		
 			else if(command.equals("detail")) {
-				System.out.println("왔따");
-				System.out.println(req.getParameter("sequence"));
+				
+				String sequence = req.getParameter("sequence");
+				int seq = Integer.parseInt(sequence);
+				
+				BbsDAOImpl bbsdao = BbsDAO.getInstance();
+				BbsDto dto = bbsdao.getContent(seq);
+				
+				req.setAttribute("dto", dto);
+				
+				dispatch("bbsdetail.jsp", req, resp);
 				
 			}
 		
