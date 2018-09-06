@@ -36,15 +36,9 @@ public String toOne(String msg){	// 08 -> 8
 	return msg.charAt(0)=='0'?msg.charAt(1) + "": msg.trim();
 }
 %>
-
 <%
-request.setCharacterEncoding("utf-8");
-
-
 CalendarDto dto = (CalendarDto)request.getAttribute("dto");
-
 CalendarDAOImpl dao = CalendarDAO.getInstance();
-
 %> 
 
 <%
@@ -66,7 +60,7 @@ int thour = cal.get(Calendar.HOUR);
 int tmin = cal.get(Calendar.MINUTE);
 %>
 
-<h1>수정하기</h1>
+<h1 align="center">수정하기</h1>
 <hr>
 <form action="CalendarController" method="post">
 <input type="hidden" name="command" value="updateAF">
@@ -153,11 +147,10 @@ int tmin = cal.get(Calendar.MINUTE);
 <tr>
 <td colspan="2"><input type="submit" value="수정"></td>
 </tr>
-
-
 </table>
 </form>
 <br><br><br>
+
 <%@ include file="/WEB-INF/include/footer.jsp" %>
 </body>
 </html>
