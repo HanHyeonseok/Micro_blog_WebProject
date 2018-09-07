@@ -12,8 +12,37 @@
 	pageEncoding="UTF-8"%>
 <%@ include file="/WEB-INF/include/header.jsp"%>
 
+<%
+CalendarDAOImpl dao = CalendarDAO.getInstance();
+int paging = Integer.parseInt(request.getParameter("page"));
+int jcount = dao.getcountlist();
 
+List<CalendarDto> indexCalList = dao.indexCalList(paging);
+int pagecount = jcount/3;
+System.out.println(jcount);
+if(pagecount%jcount>0){
+	pagecount++;
+}
 
+int startPage = 0;
+int endPage = 0;
+if(paging > 3){
+	startPage = paging-2;
+}
+if(pagecount<3){
+	
+}else if(pagecount < paging+2){
+	startPage = pagecount-5;
+}
+if(pagecount < 2){
+	startPage = 0;
+}
+if(paging <3){
+	endPage = 5;
+}else{
+	endPage = paging+2;
+}
+%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -32,8 +61,6 @@
 
 </head>
 <body>
-
-
 
 	<%!public String toDates(String mdate) {
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
@@ -101,15 +128,13 @@
 		</div>
 		<%
 			CalendarDAOImpl caldao = CalendarDAO.getInstance();
-			List<CalendarDto> list = caldao.indexCalList();
+			List<CalendarDto> list = caldao.indexCalList(paging);
 
 			BbsDAOImpl bbsdao = BbsDAO.getInstance();
 			List<BbsDto> bbslist = bbsdao.getBbsList();
 		%>
 
 		<!--/.Carousel Wrapper-->
-
-
 
 		<!-- List Table -->
 		<div class="z-depth-1"
@@ -136,21 +161,51 @@
 						</tr>
 						<%
 							}
-							for (int i = 0; i < 3; i++) {
+							for (int i = 0; i < list.size(); i++) {
 						%>
 						<tr>
 							<th><%=toDates(list.get(i).getRdate())%></th>
-							<th><a
-								href="calendardetail.jsp?seq=<%=list.get(i).getSeq()%>"><%=list.get(i).getTitle()%></a></th>
+							<th><a href="calendardetail.jsp?seq=<%=list.get(i).getSeq()%>"><%=list.get(i).getTitle()%></a></th>
 						</tr>
 						<%
 							}
 						%>
-
-						<!-- <td colspan="2" align="center"># 여기는 페이징 단축키</td>
-	</tr> -->
-
+						<tr>
+						<td align="center">
+						<div>
+							<%
+							if(paging != 1 || pagecount ==0){
+							%>
+							<a href="./index.jsp?page=<%=paging-1 %>">&lt;</a>
+							<%
+						}
+						%>
+						<%
+						for(int i = startPage; i < pagecount; i++){
+						if(i+1 != paging){%>
+							<a href="./index.jsp?page=<%=i+1 %>"><%=i+1 %></a>
+							<%
+							}else{
+							%>
+							<strong><%=paging %></strong>
+							<%
+							}
+							if(i+1 == endPage){
+							break;
+							}
+						}
+						if(paging != pagecount || pagecount ==0){
+						%>
+							<a href="./index.jsp?page=<%=paging+1 %>">&gt;</a>
+						<%
+							}
+						%>
+						</div>
+						</td>
+						</tr>
+						
 					</tbody>
+					
 				</table>
 			</div>
 			<!-- // Calendar List Table -->
@@ -181,16 +236,13 @@
 						<div>
 		
 							<tr>
-
 								<td>1</td>
-								<td><a
-									href="BbsController?command=detail&sequence=<%=bbslist.get(i).getSeq()%>"><%=bbslist.get(i).getTitle()%></a></td>
+								<td><a href="BbsController?command=detail&sequence=<%=bbslist.get(i).getSeq()%>"><%=bbslist.get(i).getTitle()%></a></td>
 							</tr>
 							
+						<% 	} %>	
 						</div>
-					<% 	} %>
-						
-
+					
 						<tr>
 							<td colspan="2" align="center"># 여기는 페이징 단축키</td>
 						</tr>
