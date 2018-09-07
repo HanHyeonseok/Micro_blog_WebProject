@@ -92,8 +92,8 @@ public class BbsDAO implements BbsDAOImpl {
 	@Override
 	public boolean addBbs(BbsDto dto) {
 		String sql = " INSERT INTO BBS "
-				+ " (SEQ, ID, TITLE, CONTENT, WDATE, DEL, READCOUNT, REPLYCNT, FILENAME, khjgjh,FAVORITE, HASHTAG) "
-				+ " VALUES(B_SEQ.NEXTVAL,?,?,?,SYSDATE,0,0,0,?,0,?) ";
+				+ " (SEQ, ID, TITLE, CONTENT, WDATE, DEL, READCOUNT, REPLYCNT, FILENAME, PROFILENAME, FAVORITE, HASHTAG) "
+				+ " VALUES(B_SEQ.NEXTVAL,?,?,?,SYSDATE,0,0,0,?,?,0,?) ";
 
 		Connection conn = null;
 		PreparedStatement psmt = null;
@@ -111,7 +111,8 @@ public class BbsDAO implements BbsDAOImpl {
 			psmt.setString(2, dto.getTitle());
 			psmt.setString(3, dto.getContent());
 			psmt.setString(4, dto.getFilename());
-			psmt.setString(5, dto.getHashtag());
+			psmt.setString(5, dto.getProfilename());
+			psmt.setString(6, dto.getHashtag());
 
 			count = psmt.executeUpdate();
 			System.out.println("3/6 setContent success");
