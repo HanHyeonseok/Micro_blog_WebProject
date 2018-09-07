@@ -16,7 +16,7 @@
 	<div class="card">
 
 		<!-- Card body -->
-		<div class="card-body">
+		<div class="card-body "style="padding: 25%; padding-top: 5%; padding-bottom: 5%">
 
 			<!-- Material form register -->
 			<form action="MemberController" onsubmit="return joincheck()">
@@ -25,7 +25,7 @@
 				<!-- Material input text -->
 				<div class="md-form">
 					<i class="fa fa-user prefix grey-text"></i> <input type="text"
-						name="id" id="id" class="form-control"> <label for="id"
+						name="id" id="id" class="form-control" required> <label for="id"
 						class="font-weight-light">Your id</label>
 					<div align="left">
 						<button class="btn btn-primary" type="button" onclick="idcheck()">id
@@ -37,14 +37,14 @@
 				<!-- Material input password -->
 				<div class="md-form">
 					<i class="fa fa-lock prefix grey-text"></i> <input type="password"
-						name="pwd" id="pwd" class="form-control" onkeyup="pwcheck()">
+						name="pwd" id="pwd" class="form-control" onkeyup="pwcheck()" required>
 					<label for="pwd" class="font-weight-light">Your password</label>
 				</div>
 
 				<!-- Material input password confirm -->
 				<div class="md-form">
 					<i class="fa fa-lock prefix grey-text"></i> <input type="password"
-						id="pwd2" class="form-control" onkeyup="pwcheck()"> <label
+						id="pwd2" class="form-control" onkeyup="pwcheck()" required> <label
 						for="pwd2" class="font-weight-light">Your password confirm</label>
 				</div>
 
@@ -60,7 +60,7 @@
 				<!-- Material input name -->
 				<div class="md-form">
 					<i class="fa fa-user prefix grey-text"></i> <input type="text"
-						name="name" id="" name"" class="form-control"> <label
+						name="name" id="name" class="form-control" required> <label
 						for="name" class="font-weight-light">Confirm your name</label>
 				</div>
 
@@ -68,15 +68,23 @@
 				<!-- Material input email -->
 				<div class="md-form">
 					<i class="fa fa-envelope prefix grey-text"></i> <input type="text"
-						name="email" id="email" class="form-control"> <label
+						name="email" id="email" class="form-control" onkeyup="emailCheck()" required> <label
 						for="email" class="font-weight-light">Confirm your email</label>
+				</div>
+				
+				<!-- Material input email confirm message -->
+				<div class="md-form">
+					<i class="fa fa-exclamation-triangle prefix grey-text"></i> <input
+						type="text" id="emailname" class="form-control" value=""
+						placeholder="이메일 중복확인" disabled> <label
+						for="pwdname" class="font-weight-light"></label>
 				</div>
 
 
 				<!-- Material input phone -->
 				<div class="md-form">
 					<i class="fa fa-phone-square prefix grey-text"></i> <input
-						type="text" name="phone" id="phone" class="form-control">
+						type="text" name="phone" id="phone" class="form-control" required>
 					<label for="phone" class="font-weight-light">Confirm your
 						phone</label>
 				</div>
@@ -86,7 +94,7 @@
 				<div class="md-form" style="float: left;">
 					<i class="fa fa-address-book prefix grey-text"></i>
 					<input class="form-control" type="text" id ="address_num" name="address_num"
-					 placeholder="Address Number" readonly="readonly">									
+					 placeholder="Address Number" readonly="readonly" required>									
 				</div>
 						<!-- address search button -->	
 				<div class="md-form" style="padding-top: 20px">										
@@ -94,11 +102,11 @@
 				</div>				
 				<div class="md-form">				
 					<input class="form-control" type="text" id ="address" name="address"
-					 placeholder="Confirm your address" readonly="readonly">				
+					 placeholder="Confirm your address" readonly="readonly" required>				
 				</div>
 				<div class="md-form">
 					<input class="form-control" type="text" id ="Detail_Address" name="Detail_Address"
-					 placeholder="Address Detail">						
+					 placeholder="Address Detail" required>						
 				</div>				
 			
 				<!-- Sign up -->
@@ -169,6 +177,7 @@
 	<script type="text/javascript">
 		var idok = "false";
 		var passwordcheck = "false";
+		var emailcheck="false";
 
 		function idcheck() {
 
@@ -176,7 +185,7 @@
 
 			if (id == "" || null) {
 
-				alert("빈칸은 허용하지않습니다.");
+				alert("이메일을 입력하세요.");
 
 				return false;
 
@@ -227,6 +236,11 @@
 
 				return false;
 			}
+			
+			if(emailcheck == "false"){
+				alert("email을 확인하세요");
+				 return false;
+			}
 
 			return true;
 
@@ -255,8 +269,46 @@
 
 		}
 
-		function addCheck() {
+		function emailCheck() {
 
+			var email = $("#email").val();
+			
+			if (email == "" || null) {
+
+				$("#emailname").val("빈칸은 허용하지 않습니다").css("color", "red");
+
+				return false;
+
+			}
+			
+			
+			$.ajax({
+				url : "MemberController?command=emailCheck",
+				type : "get",
+				data : {
+					email : $("#email").val()
+				},
+				success : function(obj) {
+
+					var jsonObj = JSON.parse(obj);
+					if (jsonObj.duplicated) {
+						$("#emailname").val("이메일이 중복되었습니다").css("color", "red");
+						//$("#email").val("");
+						emailcheck = "false";
+					}
+
+					else {
+						$("#emailname").val("이메일이 사용가능").css("color", "blue");
+						emailcheck = "ok";
+
+					}
+
+				},
+
+				error : function(xhr, status) {
+					alert(xhr + " : " + status)
+				}
+			})
 		}
 	</script>
 	<%@ include file="/WEB-INF/include/footer.jsp"%>

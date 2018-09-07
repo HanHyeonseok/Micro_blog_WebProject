@@ -20,11 +20,11 @@
 		request.setAttribute("bbsWriteResult", "");
 	}
 
-	if (mem == null) { 
+	if (mem == null) {
 		RequestDispatcher rd = request.getRequestDispatcher("login.jsp");
 		rd.forward(request, response);
 	}
-	
+
 	BbsDAOImpl dao = BbsDAO.getInstance();
 	List<BbsDto> list = dao.getBbsList();
 	List<BbsDto> bestList = dao.getBestList();
@@ -69,24 +69,22 @@
 						</div>
 						<!-- layer title -->
 						<div class="card-body d-flex flex-row" style="padding: 10px">
-							<input type="hidden" name="userImg" value="<%=mem.getImg() %>">
+							<input type="hidden" name="userImg" value="<%=mem.getImg()%>">
 							<!-- Avatar -->
 							<%
-								if(mem.getImg() == null){
-									%>
+								if (mem.getImg() == null) {
+							%>
 							<img
 								src="https://user-images.githubusercontent.com/38531104/45137275-e0615300-b1e2-11e8-9dbb-05378ea956b6.png"
 								class="rounded-circle mr-3" height="50px" width="50px"
 								alt="avatar">
 							<%
-								}else{
+								} else {
 							%>
-							<img
-								src="upload/<%=mem.getImg()%>"
-								class="rounded-circle mr-3" height="50px" width="50px"
-								alt="avatar">
+							<img src="upload/<%=mem.getImg()%>" class="rounded-circle mr-3"
+								height="50px" width="50px" alt="avatar">
 							<%
-							}
+								}
 							%>
 
 							<!-- userId -->
@@ -129,8 +127,8 @@
 				<div class="col-md-6">
 					<!-- 1번 -->
 					<%
-						for(int i = 0; i < list.size(); i++){
-							%>
+						for (int i = 0; i < list.size(); i++) {
+					%>
 					<div class="card promoting-card" style="margin-bottom: 15px">
 
 						<!-- Card content -->
@@ -138,31 +136,29 @@
 
 							<!-- Avatar -->
 							<%
-								if(list.get(i).getFilename() == null){
-									%>
-							<img
-								src="https://user-images.githubusercontent.com/38531104/45137275-e0615300-b1e2-11e8-9dbb-05378ea956b6.png"
-								class="rounded-circle mr-3" height="50px" width="50px"
-								alt="avatar">
-							<%
-								}else{
+								if (list.get(i).getProfilename().equals("null")) {
 							%>
 							<img
-								src="upload/<%=list.get(i).getFilename()%>"
-								class="rounded-circle mr-3" height="50px" width="50px"
-								alt="avatar">
+								src="https://user-images.githubusercontent.com/38531104/45137275-e0615300-b1e2-11e8-9dbb-05378ea956b6.png"
+								class="rounded-circle mr-3" height="50px" width="50px" alt="">
 							<%
-							}
+								} else {
+							%>
+							<img src="upload/<%=list.get(i).getProfilename()%>"
+								class="rounded-circle mr-3" height="50px" width="50px"
+								alt="https://user-images.githubusercontent.com/38531104/45137275-e0615300-b1e2-11e8-9dbb-05378ea956b6.png">
+							<%
+								}
 							%>
 
 							<!-- Content -->
 							<div>
 
 								<!-- Title -->
-								<h4 class="card-title font-weight-bold mb-2"><%=list.get(i).getId() %></h4>
+								<h4 class="card-title font-weight-bold mb-2"><%=list.get(i).getId()%></h4>
 								<!-- Subtitle -->
 								<p class="card-text">
-									<i class="fa fa-clock-o pr-2"></i><%=list.get(i).getWdate() %>
+									<i class="fa fa-clock-o pr-2"></i><%=list.get(i).getWdate()%>
 								</p>
 
 							</div>
@@ -171,9 +167,10 @@
 
 						<!-- Card image -->
 						<div class="view overlay" style="margin: 10px" align="center">
-							<a href="BbsController?command=detail&sequence=<%=list.get(i).getSeq()%>"> <img
-								src="upload/<%=list.get(i).getFilename()%>" class="img-fluid "
-								alt="이미지 없음">
+							<a
+								href="BbsController?command=detail&sequence=<%=list.get(i).getSeq()%>">
+								<img src="upload/<%=list.get(i).getFilename()%>"
+								class="img-fluid " alt="이미지 없음">
 								<div
 									class="mask flex-center waves-effect waves-light rgba-red-slight">
 									<p class="white-text">[클릭] 게시글 보기</p>
@@ -188,7 +185,7 @@
 								aria-label="Basic example">
 								<button type="button" class="btn btn-unique btn-sm">
 									<i class="fa fa-heart" aria-hidden="true"></i>
-									<%=list.get(i).getFavorite() %>
+									<%=list.get(i).getFavorite()%>
 								</button>
 							</div>
 						</div>
@@ -196,7 +193,7 @@
 							<div>
 								<!-- Text -->
 								<p>
-									<%=list.get(i).getTitle() %>
+									<%=list.get(i).getTitle()%>
 								</p>
 							</div>
 						</div>
@@ -220,8 +217,10 @@
 						</h3>
 					</div>
 					<%
-						for(int i = 0; i < 3; i++ ){
-							%>
+						if (bestList.size() > 0 && bestList.size() < 3) {
+
+							for (int i = 0; i < bestList.size(); i++) {
+					%>
 					<!-- first -->
 					<div class="card promoting-card" style="margin-bottom: 10px">
 
@@ -230,30 +229,28 @@
 
 							<!-- Avatar -->
 							<%
-								if(bestList.get(i).getFilename() == null){
-									%>
-							<img
-								src="https://user-images.githubusercontent.com/38531104/45137275-e0615300-b1e2-11e8-9dbb-05378ea956b6.png"
-								class="rounded-circle mr-3" height="50px" width="50px"
-								alt="avatar">
-							<%
-								}else{
+								if (bestList.get(i).getProfilename().equals("null")) {
 							%>
 							<img
-								src="upload/<%=bestList.get(i).getFilename()%>"
-								class="rounded-circle mr-3" height="50px" width="50px"
-								alt="avatar">
+								src="https://user-images.githubusercontent.com/38531104/45137275-e0615300-b1e2-11e8-9dbb-05378ea956b6.png"
+								class="rounded-circle mr-3" height="50px" width="50px" alt="">
 							<%
-							}
+								} else {
+							%>
+							<img src="upload/<%=bestList.get(i).getProfilename()%>"
+								class="rounded-circle mr-3" height="50px" width="50px"
+								alt="https://user-images.githubusercontent.com/38531104/45137275-e0615300-b1e2-11e8-9dbb-05378ea956b6.png">
+							<%
+								}
 							%>
 
 							<!-- Content -->
 							<div>
 								<!-- Title -->
-								<h4 class="card-title font-weight-bold mb-2"><%=bestList.get(i).getId() %></h4>
+								<h4 class="card-title font-weight-bold mb-2"><%=bestList.get(i).getId()%></h4>
 								<!-- Subtitle -->
 								<p class="card-text">
-									<i class="fa fa-clock-o pr-2"></i><%=bestList.get(i).getWdate() %>
+									<i class="fa fa-clock-o pr-2"></i><%=bestList.get(i).getWdate()%>
 								</p>
 							</div>
 						</div>
@@ -261,15 +258,16 @@
 							aria-label="Basic example" style="padding-left: 10px">
 							<button type="button" class="btn btn-unique btn-sm" disabled>
 								Like :
-								<%=bestList.get(i).getFavorite() %></button>
+								<%=bestList.get(i).getFavorite()%></button>
 							<button type="button" class="btn btn-unique btn-sm" disabled>
 								View :
-								<%=bestList.get(i).getReadcount() %></button>
+								<%=bestList.get(i).getReadcount()%></button>
 						</div>
 						<!-- Card image -->
 						<div class="view overlay" style="margin: 10px">
-							<a href="BbsController?command=detail&sequence=<%=list.get(i).getSeq()%>"> <img
-								src="upload/<%=bestList.get(i).getFilename()%>"
+							<a
+								href="BbsController?command=detail&sequence=<%=list.get(i).getSeq()%>">
+								<img src="upload/<%=bestList.get(i).getFilename()%>"
 								class="img-fluid " alt="placeholder">
 								<div
 									class="mask flex-center waves-effect waves-light rgba-red-slight">
@@ -279,6 +277,67 @@
 						</div>
 					</div>
 					<%
+						}
+						} else if (bestList.size() >= 3) {
+							for (int i = 0; i < 3; i++) {
+					%>
+					<!-- first -->
+					<div class="card promoting-card" style="margin-bottom: 10px">
+
+						<!-- Card content -->
+						<div class="card-body d-flex flex-row">
+
+							<!-- Avatar -->
+							<%
+								if (bestList.get(i).getProfilename().equals("null")) {
+							%>
+							<img
+								src="https://user-images.githubusercontent.com/38531104/45137275-e0615300-b1e2-11e8-9dbb-05378ea956b6.png"
+								class="rounded-circle mr-3" height="50px" width="50px" alt="">
+							<%
+								} else {
+							%>
+							<img src="upload/<%=bestList.get(i).getProfilename()%>"
+								class="rounded-circle mr-3" height="50px" width="50px"
+								alt="https://user-images.githubusercontent.com/38531104/45137275-e0615300-b1e2-11e8-9dbb-05378ea956b6.png">
+							<%
+								}
+							%>
+
+							<!-- Content -->
+							<div>
+								<!-- Title -->
+								<h4 class="card-title font-weight-bold mb-2"><%=bestList.get(i).getId()%></h4>
+								<!-- Subtitle -->
+								<p class="card-text">
+									<i class="fa fa-clock-o pr-2"></i><%=bestList.get(i).getWdate()%>
+								</p>
+							</div>
+						</div>
+						<div class="btn-group btn-group-sm" role="group"
+							aria-label="Basic example" style="padding-left: 10px">
+							<button type="button" class="btn btn-unique btn-sm" disabled>
+								Like :
+								<%=bestList.get(i).getFavorite()%></button>
+							<button type="button" class="btn btn-unique btn-sm" disabled>
+								View :
+								<%=bestList.get(i).getReadcount()%></button>
+						</div>
+						<!-- Card image -->
+						<div class="view overlay" style="margin: 10px">
+							<a
+								href="BbsController?command=detail&sequence=<%=list.get(i).getSeq()%>">
+								<img src="upload/<%=bestList.get(i).getFilename()%>"
+								class="img-fluid " alt="placeholder">
+								<div
+									class="mask flex-center waves-effect waves-light rgba-red-slight">
+									<p class="white-text">[클릭] 게시글 보기</p>
+								</div>
+							</a>
+						</div>
+					</div>
+					<%
+						}
 						}
 					%>
 				</div>

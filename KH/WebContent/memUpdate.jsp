@@ -36,20 +36,20 @@ System.out.println(mypageMem.getAuth());
 				<!-- Material input text -->			
 				<div class="md-form">
 					<i class="fa fa-user prefix grey-text"></i> <input type="text"
-						name="id" id="id" class="form-control" value="<%=mypageMem.getId() %>" readonly="readonly">					
+						name="id" id="id" class="form-control" value="<%=mypageMem.getId() %>" readonly="readonly" required>					
 				</div>		
 
 				<!-- Material input password -->
 				<div class="md-form">
 					<i class="fa fa-lock prefix grey-text"></i> <input type="password"
-						name="pwd" id="pwd" class="form-control" onkeyup="pwcheck()">
+						name="pwd" id="pwd" class="form-control" onkeyup="pwcheck()" required>
 					<label for="pwd" class="font-weight-light">Your password</label>
 				</div>
 
 				<!-- Material input password confirm -->
 				<div class="md-form">
 					<i class="fa fa-lock prefix grey-text"></i> <input type="password"
-						id="pwd2" class="form-control" onkeyup="pwcheck()"> <label
+						id="pwd2" class="form-control" onkeyup="pwcheck()" required> <label
 						for="pwd2" class="font-weight-light">Your password confirm</label>
 				</div>
 
@@ -65,19 +65,19 @@ System.out.println(mypageMem.getAuth());
 				<!-- Material input name -->			
 				<div class="md-form">
 					<i class="fa fa-user prefix grey-text"></i> <input type="text"
-						name="name" id="name" class="form-control" value="<%=mypageMem.getName() %>">
+						name="name" id="name" class="form-control" value="<%=mypageMem.getName() %>" required>
 				</div>
 				
 				<!-- Material input email -->
 				<div class="md-form">
 					<i class="fa fa-envelope prefix grey-text"></i> <input type="text"
-						name="email" id="email" class="form-control" value="<%=mypageMem.getEmail() %>">
+						name="email" id="email" class="form-control" value="<%=mypageMem.getEmail() %>" required>
 				</div>
 
 				<!-- Material input phone -->
 				<div class="md-form">
 					<i class="fa fa-phone-square prefix grey-text"></i> <input
-						type="text" name="phone" id="phone" class="form-control" value="<%=mypageMem.getPhone() %>">				
+						type="text" name="phone" id="phone" class="form-control" value="<%=mypageMem.getPhone() %>" required>				
 				</div>
 				<!-- address '-'split -->
 				<%
@@ -91,7 +91,7 @@ System.out.println(mypageMem.getAuth());
 				<div class="md-form" style="float: left;">
 					<i class="fa fa-address-book prefix grey-text"></i>
 					<input class="form-control" type="text" id ="address_num" name="address_num"
-					 placeholder="Address Number" readonly="readonly" value="<%=address_num %>">									
+					 placeholder="Address Number" readonly="readonly" value="<%=address_num %>" required>									
 				</div>
 						<!-- address search button -->						
 				<div class="md-form" style="padding-top: 20px">										
@@ -99,17 +99,18 @@ System.out.println(mypageMem.getAuth());
 				</div>				
 				<div class="md-form">				
 					<input class="form-control" type="text" id ="address" name="address"
-					 placeholder="Confirm your address" readonly="readonly" value="<%=address %>">				
+					 placeholder="Confirm your address" readonly="readonly" value="<%=address %>" required>				
 				</div>
 				<div class="md-form">
 					<input class="form-control" type="text" id ="Detail_Address" name="Detail_Address" value="<%=Detail_Address %>"
-					 placeholder="Address Detail">						
+					 placeholder="Address Detail" required>						
 				</div>				
 			
 				<!-- Sign up -->
 				<div class="text-center py-4 mt-3">
 					<button class="btn btn-primary" type="submit">Update Complete</button>
 					<input type="hidden" name="command" value="memberUpdate">
+					<input type="hidden" name="auth" value="<%=mem.getAuth() %>">
 				</div>
 			</form>
 			<!-- Material form register -->
