@@ -127,7 +127,7 @@ public class BbsDAO implements BbsDAOImpl {
 
 	@Override
 	public List<BbsDto> getBbsList() {
-		String sql = " SELECT SEQ, ID, TITLE, CONTENT, WDATE, DEL, READCOUNT, REPLYCNT, FILENAME, FAVORITE, HASHTAG"
+		String sql = " SELECT SEQ, ID, TITLE, CONTENT, WDATE, DEL, READCOUNT, REPLYCNT, FILENAME, PROFILENAME, FAVORITE, HASHTAG"
 				+ " FROM BBS " + " ORDER BY WDATE DESC";
 
 		Connection conn = null;
@@ -160,6 +160,13 @@ public class BbsDAO implements BbsDAOImpl {
 		} finally {
 			DBClose.close(psmt, conn, rs);
 			System.out.println("END getBbsList Success");
+		}
+		
+		if (list == null) {
+			System.out.println("리스트 널");
+		}
+		else {
+			System.out.println("리스트 있음");
 		}
 		
 		return list;

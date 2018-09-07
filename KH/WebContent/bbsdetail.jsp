@@ -69,6 +69,11 @@
 .shadow-textarea textarea.form-control {
     padding-left: 0.8rem;
 }
+
+.green-border-focus .form-control:focus {
+    border: 1px solid #8bc34a;
+    box-shadow: 0 0 0 0.2rem rgba(139, 195, 74, .25);
+}
 </style>
 
 
@@ -358,15 +363,18 @@
 
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLongTitle"><%=dto.getTitle() %></h5>
+                <h5 class="modal-title" id="exampleModalLongTitle">내용 수정</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
             <div class="modal-body">
-            	<textarea rows="" cols=""> 
-				<%=dto.getContent() %>
-				</textarea>
+            
+            <div class="form-group green-border-focus">
+			    <label for="exampleFormControlTextarea5"><input type="text" value="<%=dto.getTitle() %>"></label>
+			    <textarea class="form-control" id="exampleFormControlTextarea5" rows="15"><%=dto.getContent() %></textarea>
+			</div>
+			
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
