@@ -96,6 +96,10 @@ public class BbsController extends HttpServlet {
 				
 			}
 		
+			else if(command.equals("update")) {
+				
+			}
+		
 		}
 
 	

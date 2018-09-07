@@ -29,16 +29,10 @@
 	cursor: pointer;
 }
 </style>
-<!-- <link href="BbsController?command=bbsList"> -->
+
 </head>
 <body>
 
-	<%-- 
-	<%
-	
-	List<BbsDto> bbslist = (List<BbsDto>)request.getAttribute("bbslist");
-	
-	%> --%>
 
 
 	<%!public String toDates(String mdate) {
