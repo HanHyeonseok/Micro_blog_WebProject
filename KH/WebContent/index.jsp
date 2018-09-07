@@ -136,7 +136,7 @@
 						</tr>
 						<%
 							}
-							for (int i = 0; i < list.size(); i++) {
+							for (int i = 0; i < 3; i++) {
 						%>
 						<tr>
 							<th><%=toDates(list.get(i).getRdate())%></th>
