@@ -15,18 +15,25 @@
 <meta http-equiv="x-ua-compatible" content="ie=edge">
 <title>Honey Jam</title>
 <%
-	if (request.getAttribute("bbsWriteResult") == "false") {
-		out.println("<script type='text/javascript'>alert('게시글 등록에 실패하였습니다.');</script>");
-		request.setAttribute("bbsWriteResult", "");
-	}
-
 	if (mem == null) {
 		RequestDispatcher rd = request.getRequestDispatcher("login.jsp");
 		rd.forward(request, response);
 	}
 
 	BbsDAOImpl dao = BbsDAO.getInstance();
-	List<BbsDto> list = dao.getBbsList();
+	
+	List<BbsDto> list = null;
+	String search = request.getParameter("search");
+	if(search != null){
+		list = dao.getSearchList(search);
+		if(list.size() == 0){
+			list = dao.getBbsList();
+			out.println("<script>alert('검색된 내용이 없습니다');</script>");
+		}
+	}else{
+		list = dao.getBbsList();
+	}
+	
 	List<BbsDto> bestList = dao.getBestList();
 %>
 </head>
@@ -41,11 +48,11 @@
 					<a href="bbslist.jsp" class="grey-text">All Posts</a>
 				</div>
 				<div class="col-md-4" style="padding: 0px">
-					<form action="BbsController?command=search" method="post" id="_search" class="form-inline form-sm active-pink-2">
+					<form class="form-inline form-sm active-pink-2">
 						<input class="form-control form-control-sm mr-3 w-75" type="text"
-							placeholder="Search" aria-label="Search" name="search"> <a href="#" 
-							onclick="document.getElementById('_search').submit()"><i
-							class="fa fa-search" aria-hidden="true"></i></a>
+							placeholder="제목+본문" aria-label="제목+본문" id="search"> <a
+							href="#" onclick="searchBbs()"><i class="fa fa-search"
+							aria-hidden="true"></i></a>
 					</form>
 				</div>
 			</div>
@@ -327,7 +334,7 @@
 						<!-- Card image -->
 						<div class="view overlay" style="margin: 10px" align="center">
 							<a
-								href="BbsController?command=detail&sequence=<%=list.get(i).getSeq()%>">
+								href="BbsController?command=detail&sequence=<%=bestList.get(i).getSeq()%>">
 								<img src="upload/<%=bestList.get(i).getFilename()%>"
 								class="img-fluid " alt="placeholder">
 								<div
@@ -354,6 +361,12 @@
 	<script type="text/javascript" src="resources/js/sticky-kit.min.js"></script>
 	<script type="text/javascript">
 		$(".sticky_column").stick_in_parent();
+		
+		function searchBbs() {
+			var word = document.getElementById("search").value;
+			location.href = "bbslist.jsp?search=" + word;	
+		}
 	</script>
+
 </body>
 </html>

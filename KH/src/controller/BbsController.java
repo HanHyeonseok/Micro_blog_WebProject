@@ -2,6 +2,7 @@ package controller;
 
 import java.io.File;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.Iterator;
 import java.util.List;
 
@@ -37,8 +38,11 @@ public class BbsController extends HttpServlet {
 		resp.setContentType("text/html; charset=utf-8");
 
 		String command = req.getParameter("command");
+		
 		BbsDAOImpl bbsDao = BbsDAO.getInstance();
-
+		
+		PrintWriter out = resp.getWriter();
+		
 		if (command.equals("addreply")) {
 
 		}
@@ -65,9 +69,9 @@ public class BbsController extends HttpServlet {
 			boolean isS = bbsDao.addBbs(dto);
 
 			if (!isS) {
-				req.setAttribute("bbsWriteResult", "false");
+				out.println("<script>alert('게시글등록 실패'); location.href='bbslist.jsp';</script>");
+				out.flush();
 			}
-
 			dispatch("bbslist.jsp", req, resp);
 		}
 
@@ -77,8 +81,7 @@ public class BbsController extends HttpServlet {
 			String sequence = req.getParameter("sequence");
 			int seq = Integer.parseInt(sequence);
 
-			BbsDAOImpl bbsdao = BbsDAO.getInstance();
-			BbsDto dto = bbsdao.getContent(seq);
+			BbsDto dto = bbsDao.getContent(seq);
 
 			req.setAttribute("dto", dto);
 
@@ -91,13 +94,7 @@ public class BbsController extends HttpServlet {
 
 		}
 		
-		// 검색기능
-		else if(command.equals("search")) {
-			String search = req.getParameter("search");
-			
-			
-		}
-
+		out.close();	// printwriter 마무리
 	}
 
 	// dispatch method

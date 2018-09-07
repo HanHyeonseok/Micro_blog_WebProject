@@ -3,18 +3,9 @@ package dao;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-
-import java.io.File;
-import java.io.IOException;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
-
-import javax.servlet.http.HttpServlet;
-import javax.servlet.jsp.JspWriter;
 
 import db.DBClose;
 import db.DBConnection;
@@ -33,7 +24,7 @@ public class BbsDAO implements BbsDAOImpl {
 			return bbsDAO;
 		}
 		
-		public BbsDto getContent(int seq) {
+	public BbsDto getContent(int seq) {
 			
 			String sql = " SELECT SEQ, ID, TITLE, CONTENT, WDATE, DEL, READCOUNT, REPLYCNT, "
 					+ " FILENAME, PROFILENAME, FAVORITE, HASHTAG FROM BBS"
@@ -79,15 +70,12 @@ public class BbsDAO implements BbsDAOImpl {
 			return dto;
 		}
 	
-	
-	
 	@Override
 	public boolean addReply(int bbsSeq) {
 	
 		return false;
 	
 	}
-
 
 	@Override
 	public boolean addBbs(BbsDto dto) {
@@ -161,7 +149,6 @@ public class BbsDAO implements BbsDAOImpl {
 		} finally {
 			DBClose.close(psmt, conn, rs);
 		}
-		
 		System.out.println("END getBbsList Success");
 		return list;
 	}
@@ -180,13 +167,13 @@ public class BbsDAO implements BbsDAOImpl {
 
 		try {
 			conn = DBConnection.makeConnection();
-			System.out.println("1/6 getBbsList Success");
+			System.out.println("1/6 getBestList Success");
 
 			psmt = conn.prepareStatement(sql);
-			System.out.println("2/6 getBbsList Success");
+			System.out.println("2/6 getBestList Success");
 
 			rs = psmt.executeQuery();
-			System.out.println("3/6 getBbsList Success");
+			System.out.println("3/6 getBestList Success");
 
 			while (rs.next()) {
 				BbsDto dto = new BbsDto(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getString(4),
@@ -194,23 +181,53 @@ public class BbsDAO implements BbsDAOImpl {
 						rs.getString(12));
 				list.add(dto);
 			}
-			System.out.println("4/6 getBbsList Success");
+			System.out.println("4/6 getBestList Success");
 
 		} catch (SQLException e) {
 			e.printStackTrace();
-			System.out.println("getBbsList fail");
+			System.out.println("getBestList fail");
 		} finally {
 			DBClose.close(psmt, conn, rs);
-			System.out.println("END getBbsList Success");
 		}
-		
+		System.out.println("END getBestList Success");
 		return list;
 	}
 
-	
 	@Override
 	public List<BbsDto> getSearchList(String str) {
-		
-		return null;
+		String sql = " select * from BBS where (title like '%"+str+"%' OR content like '%"+str+"%')";
+
+		Connection conn = null;
+		PreparedStatement psmt = null;
+		ResultSet rs = null;
+
+		List<BbsDto> list = new ArrayList<BbsDto>();
+
+		try {
+			conn = DBConnection.makeConnection();
+			System.out.println("1/6 getSearchList Success");
+
+			psmt = conn.prepareStatement(sql);
+			System.out.println("2/6 getSearchList Success");
+
+			rs = psmt.executeQuery();
+			System.out.println("3/6 getSearchList Success");
+
+			while (rs.next()) {
+				BbsDto dto = new BbsDto(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getString(4),
+						rs.getString(5), rs.getInt(6), rs.getInt(7), rs.getInt(8), rs.getString(9), rs.getString(10), rs.getInt(11),
+						rs.getString(12));
+				list.add(dto);
+			}
+			System.out.println("4/6 getSearchList Success");
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+			System.out.println("getSearchList fail");
+		} finally {
+			DBClose.close(psmt, conn, rs);
+		}
+		System.out.println("END getSearchList Success");
+		return list;
 	}
 }
