@@ -69,6 +69,7 @@
 						</div>
 						<!-- layer title -->
 						<div class="card-body d-flex flex-row" style="padding: 10px">
+							<input type="hidden" name="userImg" value="<%=mem.getImg() %>">
 							<!-- Avatar -->
 							<%
 								if(mem.getImg() == null){
