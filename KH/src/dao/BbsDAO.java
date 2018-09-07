@@ -92,7 +92,7 @@ public class BbsDAO implements BbsDAOImpl {
 	@Override
 	public boolean addBbs(BbsDto dto) {
 		String sql = " INSERT INTO BBS "
-				+ " (SEQ, ID, TITLE, CONTENT, WDATE, DEL, READCOUNT, REPLYCNT, FILENAME, FAVORITE, HASHTAG) "
+				+ " (SEQ, ID, TITLE, CONTENT, WDATE, DEL, READCOUNT, REPLYCNT, FILENAME, khjgjh,FAVORITE, HASHTAG) "
 				+ " VALUES(B_SEQ.NEXTVAL,?,?,?,SYSDATE,0,0,0,?,0,?) ";
 
 		Connection conn = null;
