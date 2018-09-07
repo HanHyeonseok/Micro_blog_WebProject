@@ -1,10 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ include file="/WEB-INF/include/header.jsp" %>
-<%
-MemberDto mypageMem = (MemberDto)session.getAttribute("login");
 
-%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -27,26 +24,26 @@ MemberDto mypageMem = (MemberDto)session.getAttribute("login");
 				<!-- Material id view text -->
 				<div class="md-form">
 					<i class="fa fa-user prefix grey-text"></i> <input type="text"
-						name="id" id="id" class="form-control" value="<%=mypageMem.getId() %>" readonly="readonly">					
+						name="id" id="id" class="form-control" value="<%=mem.getId() %>" readonly="readonly">					
 				</div>
 				
 				<!-- Material name view text -->
 				<div class="md-form">
 					<i class="fa fa-user prefix grey-text"></i> <input type="text"
-						name="name" id="name" class="form-control" value="<%=mypageMem.getName() %>" readonly="readonly">
+						name="name" id="name" class="form-control" value="<%=mem.getName() %>" readonly="readonly">
 				</div>
 
 				<!-- Material input email -->
 				<div class="md-form">
 					<i class="fa fa-envelope prefix grey-text"></i> <input type="text"
-						name="email" id="email" class="form-control" value="<%=mypageMem.getEmail() %>" readonly="readonly">
+						name="email" id="email" class="form-control" value="<%=mem.getEmail() %>" readonly="readonly">
 				</div>
 
 
 				<!-- Material input phone -->
 				<div class="md-form">
 					<i class="fa fa-phone-square prefix grey-text"></i> <input
-						type="text" name="phone" id="phone" class="form-control" value="<%=mypageMem.getPhone() %>" readonly="readonly">				
+						type="text" name="phone" id="phone" class="form-control" value="<%=mem.getPhone() %>" readonly="readonly">				
 				</div>
 
 				<!-- Material input address -->
@@ -54,14 +51,14 @@ MemberDto mypageMem = (MemberDto)session.getAttribute("login");
 					<i class="fa fa-address-book prefix grey-text"></i>
 					<input class="form-control" type="text" id ="address_num" name="address"
 					 placeholder="Address Number" readonly="readonly" 
-					ㅓㅓㅓ value="<%=mypageMem.getAddress().replace("-", "   ")%>">									
+					 value="<%=mem.getAddress().replace("-", "   ")%>">									
 				</div>
 							
 				<!-- Sign up -->
 				<div class="text-center py-4 mt-3">
 					<button class="btn btn-primary" type="submit">Update</button>
 					<input type="hidden" name="command" value="update">
-					<button class="btn btn-primary" type="button" onclick="location.href='index.jsp'">Come back</button>					
+					<button class="btn btn-primary" type="button" onclick="location.href='index.jsp'">Home</button>					
 				</div>
 			</form>
 			<!-- Material form register -->

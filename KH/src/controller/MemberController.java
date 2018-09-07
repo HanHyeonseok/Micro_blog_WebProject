@@ -56,14 +56,23 @@ public class MemberController extends HttpServlet{
 					session.setAttribute("login", mem);
 					System.out.println(mem.toString());
 					session.setMaxInactiveInterval(30*60);
-					dispatch("index.jsp", req, resp);
+					
+					
+					out.println("<script>alert('"+ id +"님 로그인하였습니다'); location.href='index.jsp';</script>");
+					out.flush();
+					
+					//dispatch("index.jsp", req, resp);
 					
 				
 				}
 				
 			}
 			else {
-				dispatch("login.jsp", req, resp);
+				
+				out.println("<script>alert('로그인 실패'); location.href='login.jsp';</script>");
+				out.flush();
+				
+				//dispatch("login.jsp", req, resp);
 			}
 		}
 		
@@ -95,15 +104,19 @@ public class MemberController extends HttpServlet{
 			
 			if(b) {
 				
+				out.println("<script>alert('회원가입 성공'); location.href='index.jsp';</script>");
+				out.flush();
 				
-				System.out.println("회원가입 성공");
-				dispatch("index.jsp", req, resp);
+				//dispatch("index.jsp", req, resp);
 			}
 			else {
 				
 				System.out.println("회원가입 실패");
+				out.println("<script>alert('회원가입 실패'); location.href='join.jsp';</script>");
+				out.flush();
 				
-				dispatch("index.jsp", req, resp);
+				
+				//dispatch("index.jsp", req, resp);
 			}
 			
 		}
@@ -130,6 +143,24 @@ public class MemberController extends HttpServlet{
 
 		}
 		
+		else if(command.equals("emailCheck")) {
+			System.out.println("doProcess 실행");
+			String email = req.getParameter("email");
+			
+			boolean b = memDao.checkEmail(email);
+			
+			StringBuffer json = new StringBuffer();
+			json.append("{");
+			json.append(" \"status\" : \"success\", "); // 요청한 것 잘 처리했고,
+			json.append(" \"duplicated\" : " + b); // 그 결과는 isDuplicated이다.
+			json.append(" } ");
+			
+			PrintWriter writer = resp.getWriter();
+			writer.write(json.toString());
+			writer.flush();
+			writer.close();
+		}
+		
 		else if(command.equals("logout")) {
 			System.out.println("doProcess 실행");
 			
@@ -142,7 +173,9 @@ public class MemberController extends HttpServlet{
 				
 				System.out.println("로그아웃 성공");
 				
-				dispatch("index.jsp", req, resp);
+				out.println("<script>alert('로그아웃 되었습니다'); location.href='index.jsp';</script>");
+				out.flush();
+				//dispatch("index.jsp", req, resp);
 			}
 		}
 		else if(command.equals("update")) {
@@ -158,6 +191,7 @@ public class MemberController extends HttpServlet{
 			String name = req.getParameter("name");
 			String email = req.getParameter("email");
 			String phone = req.getParameter("phone");
+			int auth = Integer.parseInt(req.getParameter("auth"));
 			
 			/*주소 합치기*/
 			String address_num = req.getParameter("address_num");
@@ -165,7 +199,7 @@ public class MemberController extends HttpServlet{
 			String Detail_Address = req.getParameter("Detail_Address");
 			
 			String address = address_num+"-"+add+"-"+Detail_Address;
-			MemberDto mem = new MemberDto(id, pwd, name, email, address, phone, null, 0);
+			MemberDto mem = new MemberDto(id, pwd, name, email, address, phone, null, auth);
 			boolean b = memDao.updateMember(mem);
 			
 			
@@ -175,10 +209,16 @@ public class MemberController extends HttpServlet{
 				session.setAttribute("login", mem);
 				session.setMaxInactiveInterval(30*60);
 				System.out.println("멤버 업데이트 완료");
-				dispatch("mypage.jsp", req, resp);
+				
+				out.println("<script>alert('수정되었습니다'); location.href='mypage.jsp';</script>");
+				out.flush();
+				//dispatch("mypage.jsp", req, resp);
 			}else {
 				System.out.println("멤버 업데이트 실패");
-				dispatch("memUpdate.jsp", req, resp);
+				out.println("<script>alert('수정 실패'); location.href='memUpdate.jsp';</script>");
+				out.flush();
+				
+				//dispatch("memUpdate.jsp", req, resp);
 				
 			}
 			

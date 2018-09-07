@@ -24,5 +24,8 @@ public interface MemberDAOImpl {
 	// 멤버 리스트 가져오기
 	public List<MemberDto> getUserList();
 	
+	// 이메일 체크
+	public boolean checkEmail(String email);
+	
 
 }

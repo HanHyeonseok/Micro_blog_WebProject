@@ -32,7 +32,7 @@ public class BbsDAO implements BbsDAOImpl {
 	public static BbsDAO getInstance() {
 		return bbsDAO;
 	}
-
+	
 	@Override
 	public boolean addReply(int bbsSeq) {
 
