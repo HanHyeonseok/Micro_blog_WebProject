@@ -32,78 +32,67 @@ public class BbsController extends HttpServlet {
 	}
 
 	public void doProcess(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		
-		
+
 		req.setCharacterEncoding("utf-8");
 		resp.setContentType("text/html; charset=utf-8");
 
 		String command = req.getParameter("command");
 		BbsDAOImpl bbsDao = BbsDAO.getInstance();
-		
-		if(command.equals("addreply")) {
-				
+
+		if (command.equals("addreply")) {
+
 		}
-		
+
 		// 게시판글 작성
 		else if (command.equals("bbsWrite")) {
-            String savePath = req.getServletContext().getRealPath("/upload");
-           
-            int sizeLimit = 1024*1024*15;
-            
-            MultipartRequest multi = new MultipartRequest(req, savePath, sizeLimit, "utf-8", new DefaultFileRenamePolicy());
-			
+			String savePath = req.getServletContext().getRealPath("/upload");
+
+			int sizeLimit = 1024 * 1024 * 15;
+
+			MultipartRequest multi = new MultipartRequest(req, savePath, sizeLimit, "utf-8",
+					new DefaultFileRenamePolicy());
+
 			String id = multi.getParameter("userId");
+			String profilename = multi.getParameter("userImg");
 			String title = multi.getParameter("title");
 			String content = multi.getParameter("content");
 			String hashtag = multi.getParameter("hashtag");
-			
+
 			String fileName = multi.getFilesystemName("files");
-			
-			BbsDto dto = new BbsDto(0, id, title, content, null, 0, 0, 0, fileName, 0, hashtag);
-			
+
+			BbsDto dto = new BbsDto(0, id, title, content, null, 0, 0, 0, fileName, profilename, 0, hashtag);
+
 			boolean isS = bbsDao.addBbs(dto);
-			
-			if(isS) {
-				// 성공
-			}else {
+
+			if (!isS) {
 				req.setAttribute("bbsWriteResult", "false");
 			}
-			
+
 			dispatch("bbslist.jsp", req, resp);
-			}
-		
-			// 게시판 리스트
-			else if(command.equals("bbsList")) {
-				
-				List<BbsDto> bbslist = bbsDao.getBbsList();
-			
-				req.setAttribute("bbslist", bbslist);
-				
-				dispatch("index.jsp", req, resp);
-			}
-		
-			else if(command.equals("detail")) {
-				
-				String sequence = req.getParameter("sequence");
-				int seq = Integer.parseInt(sequence);
-				
-				BbsDAOImpl bbsdao = BbsDAO.getInstance();
-				BbsDto dto = bbsdao.getContent(seq);
-				
-				req.setAttribute("dto", dto);
-				
-				dispatch("bbsdetail.jsp", req, resp);
-				
-			}
-		
-			else if(command.equals("update")) {
-				
-			}
-		
 		}
 
-	
-	
+		// 디테일 뷰
+		else if (command.equals("detail")) {
+
+			String sequence = req.getParameter("sequence");
+			int seq = Integer.parseInt(sequence);
+
+			BbsDAOImpl bbsdao = BbsDAO.getInstance();
+			BbsDto dto = bbsdao.getContent(seq);
+
+			req.setAttribute("dto", dto);
+
+			dispatch("bbsdetail.jsp", req, resp);
+
+		}
+
+		// 업데이트
+		else if (command.equals("update")) {
+
+		}
+
+	}
+
 	// dispatch method
 	public void dispatch(String urls, HttpServletRequest req, HttpServletResponse resp)
 			throws ServletException, IOException {

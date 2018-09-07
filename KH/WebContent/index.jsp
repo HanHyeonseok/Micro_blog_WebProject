@@ -167,7 +167,7 @@
 						</tr>
 					</thead>
 					<tbody>
-						<div>
+						<%-- <div>
 
 							<tr>
 
@@ -206,7 +206,7 @@
 
 						<tr>
 							<td colspan="2" align="center"># 여기는 페이징 단축키</td>
-						</tr>
+						</tr> --%>
 					</tbody>
 				</table>
 			</div>
