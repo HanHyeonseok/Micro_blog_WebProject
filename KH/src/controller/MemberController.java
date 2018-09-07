@@ -58,10 +58,10 @@ public class MemberController extends HttpServlet{
 					session.setMaxInactiveInterval(30*60);
 					
 					
-					out.println("<script>alert('"+ id +"님 로그인하였습니다'); location.href='index.jsp';</script>");
+					out.println("<script>alert('"+ id +"님 로그인하였습니다'); location.href='index.jsp?page=1';</script>");
 					out.flush();
 					
-					//dispatch("index.jsp", req, resp);
+					//dispatch("index.jsp?page=1", req, resp);
 					
 				
 				}

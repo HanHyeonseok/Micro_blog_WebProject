@@ -297,11 +297,17 @@ public class CalendarDAO implements CalendarDAOImpl{
 
 	// index 화면 일정 불러오기
 	@Override
-	public List<CalendarDto> indexCalList() {
-		String sql = " SELECT SEQ, ID, TITLE, CONTENT, RDATE, WDATE " 
+	public List<CalendarDto> indexCalList(int page) {
+/*		String sql = " SELECT SEQ, ID, TITLE, CONTENT, RDATE, WDATE " 
 				+ " FROM CALENDAR "
 				+ " where rdate > to_char(sysdate, 'yyyymmddhh24mi') "
-				+ " ORDER BY RDATE ASC ";
+				+ " ORDER BY RDATE ASC ";*/
+		
+		String sql = " SELECT C.RNUM, C.SEQ, C.ID, C.TITLE, C.CONTENT, C.RDATE, C.WDATE"
+				+ " FROM (SELECT ROWNUM AS RNUM, A.SEQ, A.ID, A.TITLE, A.CONTENT, A.RDATE, A.WDATE"
+				+ " FROM (SELECT SEQ, ID, TITLE, CONTENT, RDATE, WDATE"
+				+ " FROM CALENDAR WHERE RDATE > TO_CHAR(SYSDATE, 'yyyymmddhh24mi') ORDER BY RDATE ASC) A WHERE ROWNUM <= ?)"
+				+ " C WHERE C.RNUM >= ?";
 	
 		Connection conn = null;
 		PreparedStatement psmt = null;
@@ -311,36 +317,74 @@ public class CalendarDAO implements CalendarDAOImpl{
 		
 		try {
 			conn = DBConnection.makeConnection();
-			System.out.println("1/6 getCalendarList success");
+			System.out.println("1/6 indexCalList success");
 				
 			psmt = conn.prepareStatement(sql);
-			System.out.println("2/6 getCalendarList success");
+			System.out.println("2/6 indexCalList success");
+			
+			psmt.setInt(1, page * 3);
+			psmt.setInt(2, page * 3 -2);
 			
 			rs = psmt.executeQuery();
-			System.out.println("3/6 getCalendarList success");
+			System.out.println("3/6 indexCalList success");
 			
 			while(rs.next()) {
 				CalendarDto dto = new CalendarDto();
-				dto.setSeq(rs.getInt(1));
-				dto.setId(rs.getString(2));
-				dto.setTitle(rs.getString(3));
-				dto.setContent(rs.getString(4));
-				dto.setRdate(rs.getString(5));
-				dto.setWdate(rs.getString(6));
+				dto.setSeq(rs.getInt(2));
+				dto.setId(rs.getString(3));
+				dto.setTitle(rs.getString(4));
+				dto.setContent(rs.getString(5));
+				dto.setRdate(rs.getString(6));
+				dto.setWdate(rs.getString(7));
 				
 				list.add(dto);				
 			}		
-			System.out.println("4/6 getCalendarList success");
+			System.out.println("4/6 indexCalList success");
 			
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
+			System.out.println("indexCalList fail");
 			e.printStackTrace();
 		} finally {
 			
 			DBClose.close(psmt, conn, rs);
-			System.out.println("5/6 getCalendarList success");
+			System.out.println("5/6 indexCalList success");
 		}		
-		
 		return list;
 	}
+
+	@Override
+	public int getcountlist() {
+		String sql = " SELECT COUNT(*) FROM CALENDAR  WHERE RDATE > TO_CHAR(SYSDATE, 'yyyymmddhh24mi')";
+		
+		Connection conn = null;
+		PreparedStatement psmt = null;
+		ResultSet rs = null;
+		
+		int count = 0;
+		
+		try {
+			conn = DBConnection.makeConnection();
+			System.out.println("1/6 getcountlist success");
+				
+			psmt = conn.prepareStatement(sql);
+			System.out.println("2/6 getcountlist success");
+						
+			rs = psmt.executeQuery();
+			System.out.println("3/6 getcountlist success");
+			
+			if(rs.next()) {
+				count = rs.getInt(1);				
+			}		
+			System.out.println("4/6 getcountlist success");
+			
+		} catch (SQLException e) {
+			System.out.println("getcountlist fail");
+			e.printStackTrace();
+		} finally {
+			DBClose.close(psmt, conn, rs);
+			System.out.println("5/6 getcountlist success");
+		}		
+		return count;
+	}
+	
 }

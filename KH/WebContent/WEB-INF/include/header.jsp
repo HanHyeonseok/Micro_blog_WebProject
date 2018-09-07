@@ -100,11 +100,11 @@ body {
 
 			<!-- Links -->
 			<ul class="navbar-nav">
-				<li class="nav-item hoverable"><a class="nav-link" href="index.jsp"
+				<li class="nav-item hoverable"><a class="nav-link" href="index.jsp?page=1"
 					style="color: black; padding-left: 25px; padding-right: 25px;">Home</a></li>
-				<li class="nav-item hoverable"><a class="nav-link" href="calendar.jsp"
+				<li class="nav-item hoverable"><a class="nav-link" href="calendar.jsp?page=1"
 					style="color: black; padding-left: 25px; padding-right: 25px;">Event</a></li>
-				<li class="nav-item hoverable"><a class="nav-link" href="bbslist.jsp"
+				<li class="nav-item hoverable"><a class="nav-link" href="bbslist.jsp?page=1"
 					style="color: black; padding-left: 25px; padding-right: 25px;">Board</a></li>
 					
 					
@@ -116,7 +116,7 @@ body {
 					data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="color: black">Welcome</a>
 					<div class="dropdown-menu dropdown-primary"
 						aria-labelledby="navbarDropdownMenuLink">
-						<a class="dropdown-item" href="mypage.jsp">Mypage</a> 
+						<a class="dropdown-item" href="mypage.jsp?page=1">Mypage</a> 
 						<a class="dropdown-item" href="MemberController?command=logout">로그아웃</a>
 					</div>
 				</li>
@@ -124,7 +124,7 @@ body {
 				<%
 				} else{
 				%>
-				<li class="nav-item hoverable"><a class="nav-link" href="login.jsp"
+				<li class="nav-item hoverable"><a class="nav-link" href="login.jsp?page=1"
 					style="color: black; padding-left: 25px; padding-right: 25px;">Login</a></li>
 				<%
 				}
