@@ -19,7 +19,8 @@ public interface CalendarDAOImpl {
 
 
 	// index화면 일정 불러오기
-	public List<CalendarDto> indexCalList();
+	public List<CalendarDto> indexCalList(int page);
+	public int getcountlist ();
 
 
 
