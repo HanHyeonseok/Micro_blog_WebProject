@@ -122,7 +122,7 @@ public class MemberDAO implements MemberDAOImpl{
 		@Override
 		public boolean updateMember(MemberDto dto) {
 			String sql = " UPDATE MEMBER "
-					+ " SET ID=?, PWD=?, NAME=?, EMAIL=?, ADDRESS=?, PHONE=?, IMG=?, AUTH=0"
+					+ " SET ID=?, PWD=?, NAME=?, EMAIL=?, ADDRESS=?, PHONE=?, IMG=?, AUTH=?"
 					+ " WHERE ID=? ";
 			
 			Connection conn = null;
@@ -142,7 +142,9 @@ public class MemberDAO implements MemberDAOImpl{
 				psmt.setString(5, dto.getAddress());
 				psmt.setString(6, dto.getPhone());
 				psmt.setString(7, dto.getImg());
-				psmt.setString(8, dto.getId());		
+				psmt.setInt(8, dto.getAuth());
+				psmt.setString(9, dto.getId());	
+				
 				
 				System.out.println("3updateMember");
 				count = psmt.executeUpdate();
@@ -242,5 +244,38 @@ public class MemberDAO implements MemberDAOImpl{
 		}
 				
 		return list;
+	}
+
+	// 이메일 체크
+	@Override
+	public boolean checkEmail(String email) {
+		String sql = " SELECT EMAIL FROM MEMBER"
+				+" WHERE EMAIL=?";
+		
+		Connection conn = null;			// DB info
+		PreparedStatement psmt = null;	// sql query
+		ResultSet rs = null;			// result value
+		
+		Boolean findEmail = false;
+		
+		try {
+			conn = DBConnection.makeConnection();
+			
+			psmt = conn.prepareStatement(sql);
+			psmt.setString(1, email);
+			
+			rs = psmt.executeQuery();
+			
+			if(rs.next()) {
+				findEmail = true;
+			}
+			
+		} catch (SQLException e) {			
+			e.printStackTrace();
+		} finally {
+			DBClose.close(psmt, conn, rs);			
+		}
+		
+		return findEmail;
 	}
 }
