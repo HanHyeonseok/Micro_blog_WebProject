@@ -54,7 +54,7 @@ public class BbsController extends HttpServlet {
 			
 			String id = multi.getParameter("userId");
 			String title = multi.getParameter("title");
-			String content = multi.getParameter("title");
+			String content = multi.getParameter("content");
 			String hashtag = multi.getParameter("hashtag");
 			
 			String fileName = multi.getFilesystemName("files");

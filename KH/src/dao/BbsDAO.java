@@ -63,8 +63,8 @@ public class BbsDAO implements BbsDAOImpl {
 									rs.getString(3), rs.getString(4), 
 									rs.getString(5), rs.getInt(6), 
 									rs.getInt(7), rs.getInt(8), 
-									rs.getString(9),rs.getInt(10),
-									rs.getString(11));
+									rs.getString(9), rs.getString(10),
+									rs.getInt(11), rs.getString(12));
 				}
 				
 				System.out.println("4/6 getBbsDetail success");
@@ -73,7 +73,7 @@ public class BbsDAO implements BbsDAOImpl {
 				System.out.println("getBbsDetail failed");	
 				e.printStackTrace();
 			} finally {
-
+				DBClose.close(psmt, conn, null);
 			}
 				
 			return dto;
@@ -148,8 +148,8 @@ public class BbsDAO implements BbsDAOImpl {
 
 			while (rs.next()) {
 				BbsDto dto = new BbsDto(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getString(4),
-						rs.getString(5), rs.getInt(6), rs.getInt(7), rs.getInt(8), rs.getString(9), rs.getInt(10),
-						rs.getString(11));
+						rs.getString(5), rs.getInt(6), rs.getInt(7), rs.getInt(8), rs.getString(9), rs.getString(10), rs.getInt(11),
+						rs.getString(12));
 				list.add(dto);
 			}
 			System.out.println("4/6 getBbsList Success");
@@ -167,7 +167,7 @@ public class BbsDAO implements BbsDAOImpl {
 
 	@Override
 	public List<BbsDto> getBestList() {
-		String sql = " SELECT SEQ, ID, TITLE, CONTENT, WDATE, DEL, READCOUNT, REPLYCNT, FILENAME, FAVORITE, HASHTAG "
+		String sql = " SELECT SEQ, ID, TITLE, CONTENT, WDATE, DEL, READCOUNT, REPLYCNT, FILENAME, PROFILENAME, FAVORITE, HASHTAG "
 				+ " FROM BBS " 
 				+ " ORDER BY FAVORITE DESC, READCOUNT DESC, WDATE DESC";
 
@@ -189,8 +189,8 @@ public class BbsDAO implements BbsDAOImpl {
 
 			while (rs.next()) {
 				BbsDto dto = new BbsDto(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getString(4),
-						rs.getString(5), rs.getInt(6), rs.getInt(7), rs.getInt(8), rs.getString(9), rs.getInt(10),
-						rs.getString(11));
+						rs.getString(5), rs.getInt(6), rs.getInt(7), rs.getInt(8), rs.getString(9), rs.getString(10), rs.getInt(11),
+						rs.getString(12));
 				list.add(dto);
 			}
 			System.out.println("4/6 getBbsList Success");

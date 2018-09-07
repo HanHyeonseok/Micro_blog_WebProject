@@ -19,6 +19,7 @@ CREATE TABLE BBS(
     READCOUNT NUMBER(10) NOT NULL,
     REPLYCNT NUMBER(10) NOT NULL,
     FILENAME VARCHAR2(200),
+    PROFILENAME VARCHAR2(200),
     FAVORITE NUMBER(10) NOT NULL,
     HASHTAG VARCHAR2(50) NOT NULL,
     
@@ -43,6 +44,7 @@ public class BbsDto {
 	private int readcount;
 	private int replycnt;
 	private String filename;
+	private String profilename;
 	private int favorite;
 	private String hashtag;
 
@@ -50,7 +52,7 @@ public class BbsDto {
 	}
 
 	public BbsDto(int seq, String id, String title, String content, String wdate, int del, int readcount, int replycnt,
-			String filename, int favorite, String hashtag) {
+			String filename, String profilename, int favorite, String hashtag) {
 		super();
 		this.seq = seq;
 		this.id = id;
@@ -61,6 +63,7 @@ public class BbsDto {
 		this.readcount = readcount;
 		this.replycnt = replycnt;
 		this.filename = filename;
+		this.profilename = profilename;
 		this.favorite = favorite;
 		this.hashtag = hashtag;
 	}
@@ -137,6 +140,14 @@ public class BbsDto {
 		this.filename = filename;
 	}
 
+	public String getProfilename() {
+		return profilename;
+	}
+
+	public void setProfilename(String profilename) {
+		this.profilename = profilename;
+	}
+
 	public int getFavorite() {
 		return favorite;
 	}
@@ -157,6 +168,6 @@ public class BbsDto {
 	public String toString() {
 		return "BbsDto [seq=" + seq + ", id=" + id + ", title=" + title + ", content=" + content + ", wdate=" + wdate
 				+ ", del=" + del + ", readcount=" + readcount + ", replycnt=" + replycnt + ", filename=" + filename
-				+ ", favorite=" + favorite + ", hashtag=" + hashtag + "]";
+				+ ", profilename=" + profilename + ", favorite=" + favorite + ", hashtag=" + hashtag + "]";
 	}
 }
