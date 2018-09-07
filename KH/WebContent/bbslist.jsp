@@ -41,9 +41,10 @@
 					<a href="bbslist.jsp" class="grey-text">All Posts</a>
 				</div>
 				<div class="col-md-4" style="padding: 0px">
-					<form class="form-inline form-sm active-pink-2">
+					<form action="BbsController?command=search" method="post" id="_search" class="form-inline form-sm active-pink-2">
 						<input class="form-control form-control-sm mr-3 w-75" type="text"
-							placeholder="Search" aria-label="Search"> <a href="#"><i
+							placeholder="Search" aria-label="Search" name="search"> <a href="#" 
+							onclick="document.getElementById('_search').submit()"><i
 							class="fa fa-search" aria-hidden="true"></i></a>
 					</form>
 				</div>
@@ -264,7 +265,7 @@
 								<%=bestList.get(i).getReadcount()%></button>
 						</div>
 						<!-- Card image -->
-						<div class="view overlay" style="margin: 10px">
+						<div class="view overlay" style="margin: 10px" align="center">
 							<a
 								href="BbsController?command=detail&sequence=<%=list.get(i).getSeq()%>">
 								<img src="upload/<%=bestList.get(i).getFilename()%>"
@@ -324,7 +325,7 @@
 								<%=bestList.get(i).getReadcount()%></button>
 						</div>
 						<!-- Card image -->
-						<div class="view overlay" style="margin: 10px">
+						<div class="view overlay" style="margin: 10px" align="center">
 							<a
 								href="BbsController?command=detail&sequence=<%=list.get(i).getSeq()%>">
 								<img src="upload/<%=bestList.get(i).getFilename()%>"

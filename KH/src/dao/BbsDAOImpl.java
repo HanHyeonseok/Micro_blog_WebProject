@@ -15,4 +15,6 @@ public interface BbsDAOImpl {
 	public BbsDto getContent(int seq);
 
 	public List<BbsDto> getBestList();
+	
+	public List<BbsDto> getSearchList(String str);
 }

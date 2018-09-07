@@ -160,16 +160,9 @@ public class BbsDAO implements BbsDAOImpl {
 			System.out.println("getBbsList fail");
 		} finally {
 			DBClose.close(psmt, conn, rs);
-			System.out.println("END getBbsList Success");
 		}
 		
-		if (list == null) {
-			System.out.println("리스트 널");
-		}
-		else {
-			System.out.println("리스트 있음");
-		}
-		
+		System.out.println("END getBbsList Success");
 		return list;
 	}
 
@@ -212,5 +205,12 @@ public class BbsDAO implements BbsDAOImpl {
 		}
 		
 		return list;
+	}
+
+	
+	@Override
+	public List<BbsDto> getSearchList(String str) {
+		
+		return null;
 	}
 }

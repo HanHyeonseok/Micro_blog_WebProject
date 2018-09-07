@@ -90,6 +90,13 @@ public class BbsController extends HttpServlet {
 		else if (command.equals("update")) {
 
 		}
+		
+		// 검색기능
+		else if(command.equals("search")) {
+			String search = req.getParameter("search");
+			
+			
+		}
 
 	}
 

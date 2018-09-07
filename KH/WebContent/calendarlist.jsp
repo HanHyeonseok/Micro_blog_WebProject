@@ -8,8 +8,8 @@
 	pageEncoding="UTF-8"%>
 <%@ include file="/WEB-INF/include/header.jsp"%>
 <%
-	request.setCharacterEncoding("utf-8");
-	MemberDto user = (MemberDto) session.getAttribute("login");
+   request.setCharacterEncoding("utf-8");
+   MemberDto user = (MemberDto) session.getAttribute("login");
 %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
@@ -60,48 +60,50 @@ table.table td a {
 table.table td i {
 	font-size: 19px;
 }
+
 table.table td a.delete {
-        color: #E34724;
-        align-items: center;
+	color: #E34724;
+	align-items: center;
 }
 </style>
 </head>
 <body>
 
 	<%!public String two(String msg) {
-		return msg.trim().length() < 2 ? "0" + msg : msg.trim();// 1~9->01
-	}
+      return msg.trim().length() < 2 ? "0" + msg : msg.trim();// 1~9->01
+   }
 
-	//yyyy-mm-dd hh:mm:ss Timestemp <- String
-	//yyyy-mm-dd Date <- String
-	public String toDates(String mdate) {
-		SimpleDateFormat sdf = new SimpleDateFormat("yyyy년 MM월 dd일");
+   //yyyy-mm-dd hh:mm:ss Timestemp <- String
+   //yyyy-mm-dd Date <- String
+   public String toDates(String mdate) {
+      SimpleDateFormat sdf = new SimpleDateFormat("yyyy년 MM월 dd일");
 
-		String s = mdate.substring(0, 4) + "-" // yyyy
-				+ mdate.substring(4, 6) + "-" // MM
-				+ mdate.substring(6, 8) + " " // dd
-				+ mdate.substring(8, 10) + ":" // hh
-				+ mdate.substring(10, 12) + ":00";
-		Timestamp d = Timestamp.valueOf(s);
+      String s = mdate.substring(0, 4) + "-" // yyyy
+            + mdate.substring(4, 6) + "-" // MM
+            + mdate.substring(6, 8) + " " // dd
+            + mdate.substring(8, 10) + ":" // hh
+            + mdate.substring(10, 12) + ":00";
+      Timestamp d = Timestamp.valueOf(s);
 
-		return sdf.format(d);
-	}%>
+      return sdf.format(d);
+   }%>
 	<%
-		String year = request.getParameter("year");
-		String month = request.getParameter("month");
-		String day = request.getParameter("day");
+      String year = request.getParameter("year");
+      String month = request.getParameter("month");
+      String day = request.getParameter("day");
 
-		String dates = year + two(month) + two(day); // 20180901
+      String dates = year + two(month) + two(day); // 20180901
 
-		CalendarDAOImpl dao = CalendarDAO.getInstance();
-		List<CalendarDto> list = dao.getDayList("111", dates); // 해당 일의 행사리스트 반환
-		System.out.print(list.size());
-	%>
+      CalendarDAOImpl dao = CalendarDAO.getInstance();
+      List<CalendarDto> list = dao.getDayList("111", dates); // 해당 일의 행사리스트 반환
+      System.out.print(list.size());
+   %>
 	<form action="CalendarController" method="post">
 		<input type="hidden" name="command" value="detail">
 		<div class="table-wrapper">
 
-			<table border="1" align="center" class="table table-striped table-hover table-bordered">
+			<table border="1" align="center"
+				class="table table-striped table-hover table-bordered">
 				<col width="100">
 				<col width="150">
 				<col width="400">
@@ -111,55 +113,55 @@ table.table td a.delete {
 					<td align="center"><b>날짜</b></td>
 					<td align="center"><b>제목</b></td>
 					<%
-						if (user.getAuth() == 1) {
-					%>
+                  if (user.getAuth() == 1) {
+               %>
 					<td align="center">삭제</td>
 					<%
-						}
-					%>
+                  }
+               %>
 				</tr>
 				<%
-					for (int i = 0; i < list.size(); i++) {
-						CalendarDto caldto = list.get(i);
-				%>
+               for (int i = 0; i < list.size(); i++) {
+                  CalendarDto caldto = list.get(i);
+            %>
 				<tr>
 					<td align="center"><%=i + 1%></td>
 					<td align="center"><%=toDates(caldto.getRdate())%></td>
-					<td align="center"><a href="calendardetail.jsp?seq=<%=caldto.getSeq()%>"><%=caldto.getTitle()%></a>
+					<td align="center"><a
+						href="calendardetail.jsp?seq=<%=caldto.getSeq()%>"><%=caldto.getTitle()%></a>
 					</td>
 					<%
-						if (user.getAuth() == 1) {
-					%>
-					<td align="center">
-						<a href="#" class="delete" title="Delete" onclick="location.href='CalendarController?command=delete&seq=<%=caldto.getSeq()%>'"
-							data-toggle="tooltip">
-						<i class="fa fa-trash-o" aria-hidden="true"></i>
-						</a>
-					</td>
+                  if (user.getAuth() == 1) {
+               %>
+					<td align="center"><a href="#" class="delete" title="Delete"
+						onclick="location.href='CalendarController?command=delete&seq=<%=caldto.getSeq()%>'"
+						data-toggle="tooltip"> <i class="fa fa-trash-o"
+							aria-hidden="true"></i>
+					</a></td>
 					<%
-						}
-					%>
+                  }
+               %>
 				</tr>
 				<%
-					}
-				%>
+               }
+            %>
 				<%
-					String url = String.format("%s?year=%s&month=%s", "calendar.jsp", year, month);
-				%>
+               String url = String.format("%s?year=%s&month=%s", "calendar.jsp", year, month);
+            %>
 				<a href="<%=url%>">일정보기로 가기</a>
 				<br>
 				<br>
 			</table>
 		</div>
 	</form>
-<div id='calendar'></div>
-	
-<script type="text/javascript">
+	<div id='calendar'></div>
+
+	<script type="text/javascript">
 $(document).ready(function() {
-	$('[data-toggle="tooltip"]').tooltip();
+   $('[data-toggle="tooltip"]').tooltip();
 });
 </script>
 
-<%@ include file="/WEB-INF/include/footer.jsp"%>
+	<%@ include file="/WEB-INF/include/footer.jsp"%>
 </body>
 </html>
