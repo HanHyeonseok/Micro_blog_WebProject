@@ -167,42 +167,32 @@
 						</tr>
 					</thead>
 					<tbody>
+					
+					<% if(bbslist == null || bbslist.size() == 0){ %>
 						<div>
+		
+							<tr>
 
+								<td>1</td>
+								<td style="font-family: fantasy;">게시글이 없습니다</td>
+
+							</tr>
+							
+						</div>
+					<%} %>
+						<%for(int i = 0; i < bbslist.size(); i++){ %>						
+						<div>
+		
 							<tr>
 
 								<td>1</td>
 								<td><a
-									href="BbsController?command=detail&sequence=<%=bbslist.get(0).getSeq()%>"><%=bbslist.get(0).getTitle()%></a></td>
-
+									href="BbsController?command=detail&sequence=<%=bbslist.get(i).getSeq()%>"><%=bbslist.get(i).getTitle()%></a></td>
 							</tr>
-
+							
 						</div>
-
-						<div>
-
-							<tr>
-
-								<td>2</td>
-								<td><a
-									href="BbsController?command=detail&sequence=<%=bbslist.get(1).getSeq()%>"><%=bbslist.get(1).getTitle()%></a>
-								</td>
-								
-							</tr>
-
-						</div>
-
-						<div>
-
-							<tr>
-								
-									<td>3</td>
-									<td><a
-									href="BbsController?command=detail&sequence=<%=bbslist.get(2).getSeq()%>"><%=bbslist.get(2).getTitle()%></a></td>
-								
-							</tr>
-
-						</div>
+					<% 	} %>
+						
 
 						<tr>
 							<td colspan="2" align="center"># 여기는 페이징 단축키</td>

@@ -56,10 +56,10 @@ public class BbsController extends HttpServlet {
 			String title = multi.getParameter("title");
 			String content = multi.getParameter("content");
 			String hashtag = multi.getParameter("hashtag");
-			
+			String profilename = multi.getParameter("profilename");
 			String fileName = multi.getFilesystemName("files");
 			
-			BbsDto dto = new BbsDto(0, id, title, content, null, 0, 0, 0, fileName, 0, hashtag);
+			BbsDto dto = new BbsDto(0, id, title, content, null, 0, 0, 0, fileName, profilename , 0, hashtag);
 			
 			boolean isS = bbsDao.addBbs(dto);
 			

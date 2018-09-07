@@ -36,7 +36,7 @@ public class BbsDAO implements BbsDAOImpl {
 		public BbsDto getContent(int seq) {
 			
 			String sql = " SELECT SEQ, ID, TITLE, CONTENT, WDATE, DEL, READCOUNT, REPLYCNT, "
-					+ " FILENAME, FAVORITE, HASHTAG FROM BBS"
+					+ " FILENAME, PROFILENAME, FAVORITE, HASHTAG FROM BBS"
 					+ " WHERE SEQ = ? ";
 			
 			Connection conn = null;
