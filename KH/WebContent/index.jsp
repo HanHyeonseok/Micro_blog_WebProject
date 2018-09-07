@@ -172,10 +172,7 @@
 						<div>
 		
 							<tr>
-
-								<td>1</td>
 								<td style="font-family: fantasy;">게시글이 없습니다</td>
-
 							</tr>
 							
 						</div>
