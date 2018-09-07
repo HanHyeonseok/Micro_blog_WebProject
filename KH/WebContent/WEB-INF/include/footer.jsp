@@ -10,7 +10,7 @@
 		<!-- Footer -->
 		<footer class="page-footer font-small unique-color-dark pt-4"
 			style="margin-left: auto; margin-right: auto;"> <!-- Footer Elements -->
-		<div class="container">
+		<div class="container" id="footer">
 
 			<!-- Call to action -->
 			<ul class="list-unstyled list-inline text-center py-2">

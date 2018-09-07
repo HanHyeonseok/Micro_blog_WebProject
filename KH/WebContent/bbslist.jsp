@@ -158,7 +158,7 @@
 							<%
 								}
 							%>
-
+							
 							<!-- Content -->
 							<div>
 
@@ -355,6 +355,12 @@
 			<!-- //  Main Content -->
 		</div>
 		<!-- // Main layout-->
+	</div>
+	<div style="position: fixed; bottom: 100px; right: 80px;">
+		<div style="font-size: 40px">
+			<a href="#header" style="color: #AEADAD;"><i class="fa fa-arrow-circle-o-up" aria-hidden="true"></i></a><br>
+			<a href="#footer" style="color: #AEADAD;"><i class="fa fa-arrow-circle-o-down" aria-hidden="true"></i></a>
+		</div>
 	</div>
 	<%@ include file="/WEB-INF/include/footer.jsp"%>
 	<!-- JQuery -->

@@ -195,7 +195,7 @@ public class BbsDAO implements BbsDAOImpl {
 
 	@Override
 	public List<BbsDto> getSearchList(String str) {
-		String sql = " select * from BBS where (title like '%"+str+"%' OR content like '%"+str+"%')";
+		String sql = " select * from BBS where (title like '%"+str+"%' OR content like '%"+str+"%' OR hashtag like '%"+str+"%')";
 
 		Connection conn = null;
 		PreparedStatement psmt = null;
