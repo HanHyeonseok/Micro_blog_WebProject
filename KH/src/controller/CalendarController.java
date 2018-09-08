@@ -26,25 +26,13 @@ public class CalendarController extends HttpServlet {
 	
 	public void doProcess(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		req.setCharacterEncoding("utf-8");
-		
-		String command = req.getParameter("command");
-		CalendarDAO dao = CalendarDAO.getInstance();
-		
 		resp.setContentType("text/html; charset=utf-8");
 		
-		
-		
-		
-		
-		
+		String command = req.getParameter("command");
+		CalendarDAO dao = CalendarDAO.getInstance();		
+	
 		if(command.equals("write")) {
 		
-			//MemberDto mem = (MemberDto)session.getAttribute("login");
-			//String id = mem.getId();
-			//resp.setContentType("text/html; charset=utf-8");
-
-			
-			
 			String id = req.getParameter("id");
 			String rdate = ""+req.getParameter("year")
 							+formatTwo(req.getParameter("month"))
@@ -70,11 +58,7 @@ public class CalendarController extends HttpServlet {
 			}
 		}
 		else if(command.equals("delete")) {
-			
-			//MemberDto mem = (MemberDto)session.getAttribute("login");
-			//String id = mem.getId();
-			resp.setContentType("text/html; charset=utf-8");
-			
+
 			String sseq = req.getParameter("seq");
 			int seq = Integer.parseInt(sseq);
 			

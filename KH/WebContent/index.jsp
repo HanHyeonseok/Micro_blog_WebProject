@@ -23,9 +23,16 @@ if(null != request.getParameter("page") && !"".equals(request.getParameter("page
 }
 
 List<CalendarDto> indexCalList = dao.indexCalList(paging);
-int pagecount = jcount/3;
+int pagecount = 0;
+if(jcount != 0){
+
+	pagecount= jcount/3;
+
+System.out.println(jcount);
+
 if(pagecount%jcount>0){
 	pagecount++;
+}
 }
 int startPage = 0;
 int endPage = 0;
