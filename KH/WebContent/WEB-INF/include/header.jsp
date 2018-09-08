@@ -94,19 +94,17 @@ body {
 		</button>
 		
 		<!-- Collapsible content -->
-		<div
-			class="collapse navbar-collapse justify-content-center font-weight-bold"
+		<div class="collapse navbar-collapse justify-content-center font-weight-bold"
 			id="basicExampleNav">
 
 			<!-- Links -->
 			<ul class="navbar-nav">
-				<li class="nav-item hoverable"><a class="nav-link" href="index.jsp?page=1"
+				<li class="nav-item hoverable"><a class="nav-link" href="index.jsp"
 					style="color: black; padding-left: 25px; padding-right: 25px;">Home</a></li>
-				<li class="nav-item hoverable"><a class="nav-link" href="calendar.jsp?page=1"
+				<li class="nav-item hoverable"><a class="nav-link" href="calendar.jsp"
 					style="color: black; padding-left: 25px; padding-right: 25px;">Event</a></li>
-				<li class="nav-item hoverable"><a class="nav-link" href="bbslist.jsp?page=1"
+				<li class="nav-item hoverable"><a class="nav-link" href="bbslist.jsp"
 					style="color: black; padding-left: 25px; padding-right: 25px;">Board</a></li>
-					
 					
 				<%
 				if(mem != null && !mem.getId().equals("")){
@@ -116,7 +114,7 @@ body {
 					data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="color: black">Welcome</a>
 					<div class="dropdown-menu dropdown-primary"
 						aria-labelledby="navbarDropdownMenuLink">
-						<a class="dropdown-item" href="mypage.jsp?page=1">Mypage</a> 
+						<a class="dropdown-item" href="mypage.jsp">Mypage</a> 
 						<a class="dropdown-item" href="MemberController?command=logout">로그아웃</a>
 					</div>
 				</li>
@@ -124,7 +122,7 @@ body {
 				<%
 				} else{
 				%>
-				<li class="nav-item hoverable"><a class="nav-link" href="login.jsp?page=1"
+				<li class="nav-item hoverable"><a class="nav-link" href="login.jsp"
 					style="color: black; padding-left: 25px; padding-right: 25px;">Login</a></li>
 				<%
 				}
@@ -132,17 +130,14 @@ body {
 				<%
 				if(mem != null && mem.getAuth()==1){
 				%>
-				<li class="nav-item dropdown"><a
-					class="nav-link dropdown-toggle" id="navbarDropdownMenuLink"
+				<li class="nav-item dropdown"><a class="nav-link dropdown-toggle" id="navbarDropdownMenuLink"
 					data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="color: black">Manage</a>
 					<div class="dropdown-menu dropdown-primary"
 						aria-labelledby="navbarDropdownMenuLink">
 						<a class="dropdown-item" href="MemberController?command=userinfo">User info</a> 
-						<a class="dropdown-item" href="calendar.jsp">Event update</a>
-						
+						<a class="dropdown-item" href="calendar.jsp">Event update</a>		
 					</div>
 				</li>
-				
 				<%
 				}
 				%>
