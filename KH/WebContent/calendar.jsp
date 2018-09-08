@@ -122,8 +122,10 @@ public String makeTable(int year, int month, int day,
 	return s;
 }
 %>
+<br>
+<h3 align="center">행사 일정</h3>
+<hr>
 
-<h2 align="center">행사 일정</h2>
 
 <%
 request.setCharacterEncoding("utf-8");

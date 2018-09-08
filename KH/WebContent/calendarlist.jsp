@@ -112,18 +112,30 @@ table.table td a.delete {
 					<td align="center"><b>번호</b></td>
 					<td align="center"><b>날짜</b></td>
 					<td align="center"><b>제목</b></td>
+
 					<%
                   if (user.getAuth() == 1) {
                %>
 					<td align="center">삭제</td>
+					<tr>
+					<td colspan="4" align="center">입력된 일정이 없습니다.</td>
+					</tr>
 					<%
                   }
                %>
 				</tr>
+					<%
+						if (list == null || list.size() == 0 && user.getAuth() == 0) {
+					%>
+						<tr>
+							<td colspan="3" align="center">입력된 일정이 없습니다.</td>
+						</tr>
+				
 				<%
                for (int i = 0; i < list.size(); i++) {
                   CalendarDto caldto = list.get(i);
             %>
+				
 				<tr>
 					<td align="center"><%=i + 1%></td>
 					<td align="center"><%=toDates(caldto.getRdate())%></td>
@@ -145,6 +157,7 @@ table.table td a.delete {
 				<%
                }
             %>
+            <%} %>
 				<%
                String url = String.format("%s?year=%s&month=%s", "calendar.jsp", year, month);
             %>
@@ -154,7 +167,6 @@ table.table td a.delete {
 			</table>
 		</div>
 	</form>
-	<div id='calendar'></div>
 
 	<script type="text/javascript">
 $(document).ready(function() {

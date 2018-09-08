@@ -24,11 +24,9 @@ if(null != request.getParameter("page") && !"".equals(request.getParameter("page
 
 List<CalendarDto> indexCalList = dao.indexCalList(paging);
 int pagecount = jcount/3;
-System.out.println(jcount);
 if(pagecount%jcount>0){
 	pagecount++;
 }
-
 int startPage = 0;
 int endPage = 0;
 if(paging > 3){
@@ -158,21 +156,22 @@ if(paging <3){
 					</thead>
 					<tbody>
 						<%
-							if (list == null || list.size() == 0) {
+							if (list == null || list.size() == 0 || mem == null) {
+								/* 로그인 안하면 리스트 안보여주기  */
 						%>
 						<tr>
-							<td colspan="2">다가오는 일정이 없습니다</td>
+							<td colspan="2" align="center">다가오는 일정이 없습니다.</td>
 						</tr>
 
 						<%
 							} else if (mem != null && !mem.getId().equals("")) {
+								/* 로그인하면 리스트 보여줌  */
 						%>
 
 						<%
 							for (int i = 0; i < list.size(); i++) {
 						%>
 						<tr>
-
 							<th><%=toDates(list.get(i).getRdate())%></th>
 							<th><a href="calendardetail.jsp?seq=<%=list.get(i).getSeq()%>"><%=list.get(i).getTitle()%></a></th>
 
