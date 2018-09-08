@@ -5,14 +5,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ include file="/WEB-INF/include/header.jsp"%>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<meta charset="utf-8">
-<meta name="viewport"
-	content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<meta http-equiv="x-ua-compatible" content="ie=edge">
 <title>Honey Jam</title>
 <%
 	if (mem == null) {
@@ -161,14 +155,13 @@
 							
 							<!-- Content -->
 							<div>
-
 								<!-- Title -->
-								<h4 class="card-title font-weight-bold mb-2"><%=list.get(i).getId()%></h4>
+								<a href="userMyPage.jsp?userId=<%=list.get(i).getId()%>" style="color: black"><h4
+										class="card-title font-weight-bold mb-2"><%=list.get(i).getId()%></h4></a>
 								<!-- Subtitle -->
 								<p class="card-text">
 									<i class="fa fa-clock-o pr-2"></i><%=list.get(i).getWdate()%>
 								</p>
-
 							</div>
 
 						</div>
@@ -373,6 +366,5 @@
 			location.href = "bbslist.jsp?search=" + word;	
 		}
 	</script>
-
 </body>
 </html>
