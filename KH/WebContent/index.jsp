@@ -8,14 +8,19 @@
 <%@page import="dto.CalendarDto"%>
 <%@page import="dao.CalendarDAO"%>
 <%@page import="dao.CalendarDAOImpl"%>
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"	pageEncoding="UTF-8"%>
 <%@ include file="/WEB-INF/include/header.jsp"%>
 
 <%
+MemberDto user = (MemberDto)session.getAttribute("login");
 CalendarDAOImpl dao = CalendarDAO.getInstance();
-int paging = Integer.parseInt(request.getParameter("page"));
+int paging = 1;
 int jcount = dao.getcountlist();
+
+if(null != request.getParameter("page") && !"".equals(request.getParameter("page"))){
+
+	paging = Integer.parseInt(request.getParameter("page"));
+}
 
 List<CalendarDto> indexCalList = dao.indexCalList(paging);
 int pagecount = jcount/3;
@@ -58,7 +63,6 @@ if(paging <3){
 	cursor: pointer;
 }
 </style>
-
 </head>
 <body>
 
@@ -157,21 +161,27 @@ if(paging <3){
 							if (list == null || list.size() == 0) {
 						%>
 						<tr>
-							<td colspan="2">일정이 없습니다</td>
+							<td colspan="2">다가오는 일정이 없습니다</td>
 						</tr>
+
 						<%
-							}
+							} else if (mem != null && !mem.getId().equals("")) {
+						%>
+
+						<%
 							for (int i = 0; i < list.size(); i++) {
 						%>
 						<tr>
+
 							<th><%=toDates(list.get(i).getRdate())%></th>
 							<th><a href="calendardetail.jsp?seq=<%=list.get(i).getSeq()%>"><%=list.get(i).getTitle()%></a></th>
+
 						</tr>
 						<%
 							}
 						%>
 						<tr>
-						<td align="center">
+						<td align="center" colspan="2">
 						<div>
 							<%
 							if(paging != 1 || pagecount ==0){
@@ -203,7 +213,7 @@ if(paging <3){
 						</div>
 						</td>
 						</tr>
-						
+							<%} %>
 					</tbody>
 					
 				</table>
