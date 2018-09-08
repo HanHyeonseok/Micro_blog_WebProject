@@ -10,6 +10,7 @@ import java.util.List;
 import db.DBClose;
 import db.DBConnection;
 import dto.BbsDto;
+import dto.MemberDto;
 
 public class BbsDAO implements BbsDAOImpl {
 
@@ -228,6 +229,44 @@ public class BbsDAO implements BbsDAOImpl {
 			DBClose.close(psmt, conn, rs);
 		}
 		System.out.println("END getSearchList Success");
+		return list;
+	}
+
+	@Override
+	public List<BbsDto> getUserBbsList(String id) {
+		String sql = " SELECT * FROM BBS WHERE id = '"+id+"' ";
+
+		Connection conn = null;
+		PreparedStatement psmt = null;
+		ResultSet rs = null;
+
+		List<BbsDto> list = new ArrayList<BbsDto>();
+
+		try {
+			conn = DBConnection.makeConnection();
+			System.out.println("1/6 getUserBbsList Success");
+
+			psmt = conn.prepareStatement(sql);
+			System.out.println("2/6 getUserBbsList Success");
+
+			rs = psmt.executeQuery();
+			System.out.println("3/6 getUserBbsList Success");
+
+			while (rs.next()) {
+				BbsDto dto = new BbsDto(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getString(4),
+						rs.getString(5), rs.getInt(6), rs.getInt(7), rs.getInt(8), rs.getString(9), rs.getString(10), rs.getInt(11),
+						rs.getString(12));
+				list.add(dto);
+			}
+			System.out.println("4/6 getUserBbsList Success");
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+			System.out.println("getUserBbsList fail");
+		} finally {
+			DBClose.close(psmt, conn, rs);
+		}
+		System.out.println("END getUserBbsList Success");
 		return list;
 	}
 }

@@ -27,5 +27,6 @@ public interface MemberDAOImpl {
 	// 이메일 체크
 	public boolean checkEmail(String email);
 	
-
+	// 아이디로 회원정보 가져오기
+	public MemberDto getUserDto(String id);
 }
