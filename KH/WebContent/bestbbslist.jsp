@@ -56,12 +56,11 @@ List<BbsDto> bestList = dao.getBestList();
 		<a
 			href="BbsController?command=detail&sequence=<%=bestList.get(i).getSeq()%>">
 			<img src="upload/<%=bestList.get(i).getFilename()%>"
-			class="img-fluid " alt="placeholder">
+			class="img-fluid " alt="placeholder"></a>
 			<div
 				class="mask flex-center waves-effect waves-light rgba-red-slight">
 				<p class="white-text">[클릭] 게시글 보기</p>
 			</div>
-		</a>
 	</div>
 </div>
 <%
@@ -115,12 +114,11 @@ List<BbsDto> bestList = dao.getBestList();
 		<a
 			href="BbsController?command=detail&sequence=<%=bestList.get(i).getSeq()%>">
 			<img src="upload/<%=bestList.get(i).getFilename()%>"
-			class="img-fluid " alt="placeholder">
+			class="img-fluid " alt="placeholder"></a>
 			<div
 				class="mask flex-center waves-effect waves-light rgba-red-slight">
 				<p class="white-text">[클릭] 게시글 보기</p>
 			</div>
-		</a>
 	</div>
 </div>
 <%

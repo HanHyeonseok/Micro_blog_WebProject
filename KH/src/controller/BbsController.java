@@ -64,6 +64,18 @@ public class BbsController extends HttpServlet {
 			
 			String fileName = multi.getFilesystemName("files");
 			
+			if(title.equals("") || content.equals("") || hashtag.equals("") || fileName == null) {
+				out.println("<script>alert('양식을 모두 작성해 주세요'); location.href='bbslist.jsp';</script>");
+				out.flush();
+				return;
+			}
+			
+			if(!checkFileForm(fileName)) {
+				out.println("<script>alert('png, jpg, jpeg의 확장자의 이미지 파일을 사용할 수 있습니다.'); location.href='bbslist.jsp';</script>");
+				out.flush();
+				return;
+			}
+			
 			BbsDto dto = new BbsDto(0, id, title, content, null, 0, 0, 0, fileName, profilename , 0, hashtag);
 			
 			boolean isS = bbsDao.addBbs(dto);
@@ -95,6 +107,21 @@ public class BbsController extends HttpServlet {
 		}
 		
 		out.close();	// printwriter 마무리
+	}
+	
+	// 업로드파일 확장자 확인
+	public boolean checkFileForm(String fileName) {
+		boolean check = false;
+		int i = fileName.lastIndexOf(".");
+		
+		String str = fileName.substring(i, fileName.length());
+		str = str.toLowerCase();
+		
+		if(str.equals(".png") || str.equals(".jpg") || str.equals(".jpeg")) {
+			check = true;
+		}
+		
+		return check;
 	}
 
 	// dispatch method

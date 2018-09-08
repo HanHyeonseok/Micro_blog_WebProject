@@ -15,19 +15,19 @@
 	}
 
 	BbsDAOImpl dao = BbsDAO.getInstance();
-	
+
 	List<BbsDto> list = null;
 	String search = request.getParameter("search");
-	if(search != null){
+	if (search != null) {
 		list = dao.getSearchList(search);
-		if(list.size() == 0){
+		if (list.size() == 0) {
 			list = dao.getBbsList();
 			out.println("<script>alert('검색된 내용이 없습니다');</script>");
 		}
-	}else{
+	} else {
 		list = dao.getBbsList();
 	}
-	
+
 	List<BbsDto> bestList = dao.getBestList();
 %>
 </head>
@@ -124,18 +124,15 @@
 					</form>
 				</div>
 				<!-- // BbsWrite layer -->
-
+				
 				<!-- View BBS -->
 				<div class="col-md-6">
-					<!-- 1번 -->
 					<%
 						for (int i = 0; i < list.size(); i++) {
 					%>
 					<div class="card promoting-card" style="margin-bottom: 15px">
-
 						<!-- Card content -->
 						<div class="card-body d-flex flex-row">
-
 							<!-- Avatar -->
 							<%
 								if (list.get(i).getProfilename().equals("null")) {
@@ -152,12 +149,12 @@
 							<%
 								}
 							%>
-							
 							<!-- Content -->
 							<div>
 								<!-- Title -->
-								<a href="userMyPage.jsp?userId=<%=list.get(i).getId()%>" style="color: black"><h4
-										class="card-title font-weight-bold mb-2"><%=list.get(i).getId()%></h4></a>
+								<a href="userMyPage.jsp?userId=<%=list.get(i).getId()%>"
+									style="color: black; font-size: 24px"
+									class="card-title font-weight-bold mb-2"><%=list.get(i).getId()%></a>
 								<!-- Subtitle -->
 								<p class="card-text">
 									<i class="fa fa-clock-o pr-2"></i><%=list.get(i).getWdate()%>
@@ -165,20 +162,18 @@
 							</div>
 
 						</div>
-
 						<!-- Card image -->
 						<div class="view overlay" style="margin: 10px" align="center">
 							<a
 								href="BbsController?command=detail&sequence=<%=list.get(i).getSeq()%>">
 								<img src="upload/<%=list.get(i).getFilename()%>"
 								class="img-fluid " alt="이미지 없음">
-								<div
-									class="mask flex-center waves-effect waves-light rgba-red-slight">
-									<p class="white-text">[클릭] 게시글 보기</p>
-								</div>
 							</a>
+							<div
+								class="mask flex-center waves-effect waves-light rgba-red-slight">
+								<p class="white-text">[클릭] 게시글 보기</p>
+							</div>
 						</div>
-
 						<!-- Card content -->
 						<div align="right"
 							style="padding-right: 10px; margin-top: 5px; margin-bottom: 5px;">
@@ -202,10 +197,9 @@
 					<%
 						}
 					%>
-
 				</div>
 				<!-- // View BBS -->
-
+				
 				<!-- best bbsList -->
 				<div class="col-md-3">
 					<!-- best bbsList title -->
@@ -220,7 +214,6 @@
 					<jsp:include page="bestbbslist.jsp"></jsp:include>
 				</div>
 				<!-- // best bbsList -->
-
 			</div>
 			<!-- //  Main Content -->
 		</div>
@@ -228,8 +221,10 @@
 	</div>
 	<div style="position: fixed; bottom: 100px; right: 80px;">
 		<div style="font-size: 40px">
-			<a href="#header" style="color: #AEADAD;"><i class="fa fa-arrow-circle-o-up" aria-hidden="true"></i></a><br>
-			<a href="#footer" style="color: #AEADAD;"><i class="fa fa-arrow-circle-o-down" aria-hidden="true"></i></a>
+			<a href="#header" style="color: #AEADAD;"><i
+				class="fa fa-arrow-circle-o-up" aria-hidden="true"></i></a><br> <a
+				href="#footer" style="color: #AEADAD;"><i
+				class="fa fa-arrow-circle-o-down" aria-hidden="true"></i></a>
 		</div>
 	</div>
 	<%@ include file="/WEB-INF/include/footer.jsp"%>
@@ -237,10 +232,10 @@
 	<script type="text/javascript" src="resources/js/sticky-kit.min.js"></script>
 	<script type="text/javascript">
 		$(".sticky_column").stick_in_parent();
-		
+
 		function searchBbs() {
 			var word = document.getElementById("search").value;
-			location.href = "bbslist.jsp?search=" + word;	
+			location.href = "bbslist.jsp?search=" + word;
 		}
 	</script>
 </body>
