@@ -126,7 +126,6 @@ public String makeTable(int year, int month, int day,
 <h3 align="center">행사 일정</h3>
 <hr>
 
-
 <%
 request.setCharacterEncoding("utf-8");
 Calendar cal = Calendar.getInstance();
@@ -184,6 +183,9 @@ List<CalendarDto> list = dao.getCalendarList(user.getId(), year + two(month+ "")
 
 %>
 <div id="calendar-wrap">
+<!-- <div align="center">
+<img alt="" src="https://user-images.githubusercontent.com/41100556/45256847-1bc47300-b3d7-11e8-9b90-411159d2ac89.jpg" width="900">
+</div> -->
 <div align="center" id="calendar">
 
 <table border="1" class="bor" align="center">
