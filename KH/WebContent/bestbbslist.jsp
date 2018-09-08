@@ -5,13 +5,13 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%
-BbsDAOImpl dao = BbsDAO.getInstance();
-List<BbsDto> bestList = dao.getBestList(); 
+	BbsDAOImpl dao = BbsDAO.getInstance();
+	List<BbsDto> bestList = dao.getBestList();
 %>
 <%
 	if (bestList.size() > 0 && bestList.size() < 3) {
 
-	for (int i = 0; i < bestList.size(); i++) {
+		for (int i = 0; i < bestList.size(); i++) {
 %>
 <div class="card promoting-card" style="margin-bottom: 10px">
 	<!-- Card content -->
@@ -26,8 +26,10 @@ List<BbsDto> bestList = dao.getBestList();
 		<%
 			} else {
 		%>
-		<img src="upload/<%=bestList.get(i).getProfilename()%>"
-			class="rounded-circle mr-3" height="50px" width="50px"
+		<img
+			style="width: auto; height: auto; max-height: 50px; max-width: 50px"
+			src="upload/<%=bestList.get(i).getProfilename()%>"
+			class="rounded-circle mr-3"
 			alt="https://user-images.githubusercontent.com/38531104/45137275-e0615300-b1e2-11e8-9dbb-05378ea956b6.png">
 		<%
 			}
@@ -55,18 +57,20 @@ List<BbsDto> bestList = dao.getBestList();
 	<div class="view overlay" style="margin: 10px" align="center">
 		<a
 			href="BbsController?command=detail&sequence=<%=bestList.get(i).getSeq()%>">
-			<img src="upload/<%=bestList.get(i).getFilename()%>"
-			class="img-fluid " alt="placeholder"></a>
-			<div
-				class="mask flex-center waves-effect waves-light rgba-red-slight">
-				<p class="white-text">[클릭] 게시글 보기</p>
-			</div>
+			<img
+			style="width: auto; height: auto; max-height: 135px; max-width: 240px"
+			src="upload/<%=bestList.get(i).getFilename()%>" class="img-fluid "
+			alt="placeholder">
+		</a>
+		<div class="mask flex-center waves-effect waves-light rgba-red-slight">
+			<p class="white-text">[클릭] 게시글 보기</p>
+		</div>
 	</div>
 </div>
 <%
-}
-} else if (bestList.size() >= 3) {
-	for (int i = 0; i < 3; i++) {
+	}
+	} else if (bestList.size() >= 3) {
+		for (int i = 0; i < 3; i++) {
 %>
 <!-- first -->
 <div class="card promoting-card" style="margin-bottom: 10px">
@@ -75,22 +79,24 @@ List<BbsDto> bestList = dao.getBestList();
 	<div class="card-body d-flex flex-row">
 
 		<!-- Avatar -->
-<%
-	if (bestList.get(i).getProfilename().equals("null")) {
-%>
+		<%
+			if (bestList.get(i).getProfilename().equals("null")) {
+		%>
 		<img
 			src="https://user-images.githubusercontent.com/38531104/45137275-e0615300-b1e2-11e8-9dbb-05378ea956b6.png"
 			class="rounded-circle mr-3" height="50px" width="50px" alt="">
-<%
-} else {
-%>
-		<img src="upload/<%=bestList.get(i).getProfilename()%>"
-			class="rounded-circle mr-3" height="50px" width="50px"
+		<%
+			} else {
+		%>
+		<img
+			style="width: auto; height: auto; max-height: 50px; max-width: 50px"
+			src="upload/<%=bestList.get(i).getProfilename()%>"
+			class="rounded-circle mr-3"
 			alt="https://user-images.githubusercontent.com/38531104/45137275-e0615300-b1e2-11e8-9dbb-05378ea956b6.png">
-<%
-}
-%>
-	<!-- Content -->
+		<%
+			}
+		%>
+		<!-- Content -->
 		<div>
 			<!-- Title -->
 			<h4 class="card-title font-weight-bold mb-2"><%=bestList.get(i).getId()%></h4>
@@ -113,15 +119,17 @@ List<BbsDto> bestList = dao.getBestList();
 	<div class="view overlay" style="margin: 10px" align="center">
 		<a
 			href="BbsController?command=detail&sequence=<%=bestList.get(i).getSeq()%>">
-			<img src="upload/<%=bestList.get(i).getFilename()%>"
-			class="img-fluid " alt="placeholder"></a>
-			<div
-				class="mask flex-center waves-effect waves-light rgba-red-slight">
-				<p class="white-text">[클릭] 게시글 보기</p>
-			</div>
+			<img
+			style="width: auto; height: auto; max-height: 135px; max-width: 240px"
+			src="upload/<%=bestList.get(i).getFilename()%>" class="img-fluid "
+			alt="placeholder">
+		</a>
+		<div class="mask flex-center waves-effect waves-light rgba-red-slight">
+			<p class="white-text">[클릭] 게시글 보기</p>
+		</div>
 	</div>
 </div>
 <%
-}
-}
+	}
+	}
 %>

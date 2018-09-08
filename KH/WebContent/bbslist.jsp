@@ -59,8 +59,8 @@
 				<!-- BbsWrite layer -->
 				<div class="col-md-3 sticky_column" data-sticky_column
 					style="height: 640px;">
-					<form action="BbsController?command=bbsWrite" method="post"
-						id="regi_bbs" enctype="multipart/form-data">
+					<form id="regi_bbs" enctype="multipart/form-data" method="post"
+						action="BbsController?command=bbsWrite">
 
 						<!-- layer header -->
 						<div
@@ -83,8 +83,10 @@
 							<%
 								} else {
 							%>
-							<img src="upload/<%=mem.getImg()%>" class="rounded-circle mr-3"
-								height="50px" width="50px" alt="avatar">
+							<img
+								style="width: auto; height: auto; max-height: 50px; max-width: 50px"
+								src="upload/<%=mem.getImg()%>" class="rounded-circle mr-3"
+								alt="avatar">
 							<%
 								}
 							%>
@@ -124,7 +126,7 @@
 					</form>
 				</div>
 				<!-- // BbsWrite layer -->
-				
+
 				<!-- View BBS -->
 				<div class="col-md-6">
 					<%
@@ -143,7 +145,10 @@
 							<%
 								} else {
 							%>
-							<img src="upload/<%=list.get(i).getProfilename()%>"
+							<img
+								style="width: auto; height: auto; max-height: 50px; max-width: 50px"
+								src="
+								upload/<%=list.get(i).getProfilename()%>"
 								class="rounded-circle mr-3" height="50px" width="50px"
 								alt="https://user-images.githubusercontent.com/38531104/45137275-e0615300-b1e2-11e8-9dbb-05378ea956b6.png">
 							<%
@@ -166,8 +171,10 @@
 						<div class="view overlay" style="margin: 10px" align="center">
 							<a
 								href="BbsController?command=detail&sequence=<%=list.get(i).getSeq()%>">
-								<img src="upload/<%=list.get(i).getFilename()%>"
-								class="img-fluid " alt="이미지 없음">
+								<img
+								style="width: auto; height: auto; max-height: 270px; max-width: 480px"
+								src="upload/<%=list.get(i).getFilename()%>" class="img-fluid "
+								alt="이미지 없음">
 							</a>
 							<div
 								class="mask flex-center waves-effect waves-light rgba-red-slight">
@@ -199,7 +206,7 @@
 					%>
 				</div>
 				<!-- // View BBS -->
-				
+
 				<!-- best bbsList -->
 				<div class="col-md-3">
 					<!-- best bbsList title -->

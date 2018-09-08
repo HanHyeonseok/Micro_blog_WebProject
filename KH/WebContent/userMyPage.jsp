@@ -45,8 +45,10 @@
 								<%
 									} else {
 								%>
-								<img src="upload/<%=memdto.getImg()%>"
-									class="rounded-circle" alt="avatar">
+								<img
+									style="width: auto; height: auto; max-height: 120px; max-width: 120px"
+									src="upload/<%=memdto.getImg()%>" class="rounded-circle"
+									alt="avatar">
 								<%
 									}
 								%>
@@ -63,19 +65,19 @@
 										<tbody>
 											<tr>
 												<th>Name</th>
-												<td><%=memdto.getName()%></td>
+												<td style="text-align: left;"><%=memdto.getName()%></td>
 											</tr>
 											<tr>
 												<th>Phone</th>
-												<td><%=memdto.getPhone()%></td>
+												<td style="text-align: left;"><%=memdto.getPhone()%></td>
 											</tr>
 											<tr>
 												<th>Email</th>
-												<td><%=memdto.getEmail()%></td>
+												<td style="text-align: left;"><%=memdto.getEmail()%></td>
 											</tr>
 											<tr>
 												<th>Address</th>
-												<td><%=memdto.getAddress()%></td>
+												<td style="text-align: left;"><%=memdto.getAddress()%></td>
 											</tr>
 										</tbody>
 									</table>
@@ -108,38 +110,38 @@
 								<%
 									} else {
 								%>
-								<img src="upload/<%=bbslist.get(i).getProfilename()%>"
+								<img
+									style="width: auto; height: auto; max-height: 50px; max-width: 50px"
+									src="upload/<%=bbslist.get(i).getProfilename()%>"
 									class="rounded-circle mr-3" height="50px" width="50px"
 									alt="https://user-images.githubusercontent.com/38531104/45137275-e0615300-b1e2-11e8-9dbb-05378ea956b6.png">
 								<%
 									}
 								%>
-
 								<!-- Content -->
 								<div>
 									<!-- Title -->
 									<a href="userMyPage.jsp?userId=<%=bbslist.get(i).getId()%>"
-										style="color: black"><h4
-											class="card-title font-weight-bold mb-2"><%=bbslist.get(i).getId()%></h4></a>
+										style="color: black" class="card-title font-weight-bold mb-2"><%=bbslist.get(i).getId()%></a>
 									<!-- Subtitle -->
 									<p class="card-text">
 										<i class="fa fa-clock-o pr-2"></i><%=bbslist.get(i).getWdate()%>
 									</p>
 								</div>
-
 							</div>
-
 							<!-- Card image -->
 							<div class="view overlay" style="margin: 10px" align="center">
 								<a
 									href="BbsController?command=detail&sequence=<%=bbslist.get(i).getSeq()%>">
-									<img src="upload/<%=bbslist.get(i).getFilename()%>"
+									<img
+									style="width: auto; height: auto; max-height: 270px; max-width: 480px"
+									src="upload/<%=bbslist.get(i).getFilename()%>"
 									class="img-fluid " alt="이미지 없음">
-									<div
-										class="mask flex-center waves-effect waves-light rgba-red-slight">
-										<p class="white-text">[클릭] 게시글 보기</p>
-									</div>
 								</a>
+								<div
+									class="mask flex-center waves-effect waves-light rgba-red-slight">
+									<p class="white-text">[클릭] 게시글 보기</p>
+								</div>
 							</div>
 
 							<!-- Card content -->

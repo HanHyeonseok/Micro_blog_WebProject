@@ -38,11 +38,11 @@ public class BbsController extends HttpServlet {
 		resp.setContentType("text/html; charset=utf-8");
 
 		String command = req.getParameter("command");
-		
+
 		BbsDAOImpl bbsDao = BbsDAO.getInstance();
-		
+
 		PrintWriter out = resp.getWriter();
-		
+
 		if (command.equals("addreply")) {
 
 		}
@@ -53,38 +53,42 @@ public class BbsController extends HttpServlet {
 
 			int sizeLimit = 1024 * 1024 * 15;
 
-			MultipartRequest multi = new MultipartRequest(req, savePath, sizeLimit, "utf-8",
-					new DefaultFileRenamePolicy());
+			try {
+				MultipartRequest multi = new MultipartRequest(req, savePath, sizeLimit, "utf-8",
+						new DefaultFileRenamePolicy());
 
-			String id = multi.getParameter("userId");
-			String profilename = multi.getParameter("userImg");
-			String title = multi.getParameter("title");
-			String content = multi.getParameter("content");
-			String hashtag = multi.getParameter("hashtag");
-			
-			String fileName = multi.getFilesystemName("files");
-			
-			if(title.equals("") || content.equals("") || hashtag.equals("") || fileName == null) {
-				out.println("<script>alert('양식을 모두 작성해 주세요'); location.href='bbslist.jsp';</script>");
-				out.flush();
-				return;
-			}
-			
-			if(!checkFileForm(fileName)) {
-				out.println("<script>alert('png, jpg, jpeg의 확장자의 이미지 파일을 사용할 수 있습니다.'); location.href='bbslist.jsp';</script>");
-				out.flush();
-				return;
-			}
-			
-			BbsDto dto = new BbsDto(0, id, title, content, null, 0, 0, 0, fileName, profilename , 0, hashtag);
-			
-			boolean isS = bbsDao.addBbs(dto);
+				String id = multi.getParameter("userId");
+				String profilename = multi.getParameter("userImg");
+				String title = multi.getParameter("title");
+				String content = multi.getParameter("content");
+				String hashtag = multi.getParameter("hashtag");
+				
+				String fileName = multi.getFilesystemName("files");
 
-			if (!isS) {
-				out.println("<script>alert('게시글등록 실패'); location.href='bbslist.jsp';</script>");
-				out.flush();
+				if (title.equals("") || content.equals("") || hashtag.equals("") || fileName == null) {
+					out.println("<script>alert('양식을 모두 작성해 주세요'); location.href='bbslist.jsp';</script>");
+					out.flush();
+					return;
+				}
+
+				if (!checkFileForm(fileName)) {
+					out.println(
+							"<script>alert('png, jpg, jpeg의 확장자의 이미지 파일을 사용할 수 있습니다.'); location.href='bbslist.jsp';</script>");
+					out.flush();
+					return;
+				}
+
+				BbsDto dto = new BbsDto(0, id, title, content, null, 0, 0, 0, fileName, profilename, 0, hashtag);
+				boolean isS = bbsDao.addBbs(dto);
+
+				if (!isS) {
+					out.println("<script>alert('게시글등록 실패'); location.href='bbslist.jsp';</script>");
+					out.flush();
+				}
+				dispatch("bbslist.jsp", req, resp);
+			} catch (Exception e) {
+
 			}
-			dispatch("bbslist.jsp", req, resp);
 		}
 
 		// 디테일 뷰
@@ -105,22 +109,22 @@ public class BbsController extends HttpServlet {
 		else if (command.equals("update")) {
 
 		}
-		
-		out.close();	// printwriter 마무리
+
+		out.close(); // printwriter 마무리
 	}
-	
+
 	// 업로드파일 확장자 확인
 	public boolean checkFileForm(String fileName) {
 		boolean check = false;
 		int i = fileName.lastIndexOf(".");
-		
+
 		String str = fileName.substring(i, fileName.length());
 		str = str.toLowerCase();
-		
-		if(str.equals(".png") || str.equals(".jpg") || str.equals(".jpeg")) {
+
+		if (str.equals(".png") || str.equals(".jpg") || str.equals(".jpeg")) {
 			check = true;
 		}
-		
+
 		return check;
 	}
 

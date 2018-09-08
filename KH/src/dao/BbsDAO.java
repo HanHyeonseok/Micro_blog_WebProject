@@ -234,7 +234,7 @@ public class BbsDAO implements BbsDAOImpl {
 
 	@Override
 	public List<BbsDto> getUserBbsList(String id) {
-		String sql = " SELECT * FROM BBS WHERE id = '"+id+"' ";
+		String sql = " SELECT * FROM BBS WHERE id = '"+id+"' ORDER BY WDATE DESC ";
 
 		Connection conn = null;
 		PreparedStatement psmt = null;
