@@ -143,7 +143,6 @@
 									<p class="white-text">[클릭] 게시글 보기</p>
 								</div>
 							</div>
-
 							<!-- Card content -->
 							<div align="right"
 								style="padding-right: 10px; margin-top: 5px; margin-bottom: 5px;">

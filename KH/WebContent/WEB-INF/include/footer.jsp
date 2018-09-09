@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+	pageEncoding="UTF-8"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -7,7 +7,8 @@
 </head>
 <body>
 	<!--Footer-->
-		<!-- Footer -->
+	<!-- Footer -->
+	<div class="container">
 		<footer class="page-footer font-small unique-color-dark pt-4"
 			style="margin-left: auto; margin-right: auto;"> <!-- Footer Elements -->
 		<div class="container" id="footer">
