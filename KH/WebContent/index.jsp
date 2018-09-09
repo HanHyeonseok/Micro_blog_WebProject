@@ -96,21 +96,21 @@
 				<!--First slide-->
 				<div class="carousel-item active">
 					<img class="d-block w-100"
-						src="https://mdbootstrap.com/img/Photos/Slides/img%20(141).jpg"
+						src="https://user-images.githubusercontent.com/38531104/45260934-0d09aa80-b42f-11e8-852d-1f0e546afac1.png"
 						alt="First slide">
 				</div>
 				<!--/First slide-->
 				<!--Second slide-->
 				<div class="carousel-item">
 					<img class="d-block w-100"
-						src="https://mdbootstrap.com/img/Photos/Slides/img%20(136).jpg"
+						src="https://user-images.githubusercontent.com/38531104/45260932-0c711400-b42f-11e8-92eb-3d75e7151529.png"
 						alt="Second slide">
 				</div>
 				<!--/Second slide-->
 				<!--Third slide-->
 				<div class="carousel-item">
 					<img class="d-block w-100"
-						src="https://mdbootstrap.com/img/Photos/Slides/img%20(137).jpg"
+						src="https://user-images.githubusercontent.com/38531104/45260933-0d09aa80-b42f-11e8-8b2c-4072bb27a235.png"
 						alt="Third slide">
 				</div>
 				<!--/Third slide-->

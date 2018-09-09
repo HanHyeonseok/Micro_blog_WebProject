@@ -37,7 +37,9 @@
 		<!-- Content -->
 		<div>
 			<!-- Title -->
-			<h4 class="card-title font-weight-bold mb-2"><%=bestList.get(i).getId()%></h4>
+			<a href="userMyPage.jsp?userId=<%=bestList.get(i).getId()%>"
+				style="color: black; font-size: 24px"
+				class="card-title font-weight-bold mb-2"><%=bestList.get(i).getId()%></a>
 			<!-- Subtitle -->
 			<p class="card-text">
 				<i class="fa fa-clock-o pr-2"></i><%=bestList.get(i).getWdate()%>
@@ -99,7 +101,9 @@
 		<!-- Content -->
 		<div>
 			<!-- Title -->
-			<h4 class="card-title font-weight-bold mb-2"><%=bestList.get(i).getId()%></h4>
+			<a href="userMyPage.jsp?userId=<%=bestList.get(i).getId()%>"
+				style="color: black; font-size: 24px"
+				class="card-title font-weight-bold mb-2"><%=bestList.get(i).getId()%></a>
 			<!-- Subtitle -->
 			<p class="card-text">
 				<i class="fa fa-clock-o pr-2"></i><%=bestList.get(i).getWdate()%>
