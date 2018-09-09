@@ -107,7 +107,8 @@ public class CalendarController extends HttpServlet {
 
 				PrintWriter out = resp.getWriter();						
 				out.println("<script>alert(\"수정했습니다.\");location.href = \"calendar.jsp\"</script>");		
-								
+				
+				
 			}else{
 				PrintWriter out = resp.getWriter();				
 				out.println("<script>alert(\"수정 실패 했습니다.\");location.href = \"calendar.jsp\"</script>");		

@@ -6,34 +6,11 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ include file="/WEB-INF/include/header.jsp" %>
-
 <%
 request.setCharacterEncoding("utf-8");
-
-String sseq = request.getParameter("seq");
-int seq = Integer.parseInt(sseq);
-
-CalendarDAOImpl dao = CalendarDAO.getInstance();
-CalendarDto dto = dao.getDay(seq);
-
-%> 
-<%!
-public String toDates(String mdate){
-	SimpleDateFormat sdf = new SimpleDateFormat("yyyy년 MM월 dd일 hh시 mm분");
-	
-	String s = mdate.substring(0, 4) + "-" 	// yyyy
-			+ mdate.substring(4, 6) + "-"	// MM
-			+ mdate.substring(6, 8) + " " 	// dd
-			+ mdate.substring(8, 10) + ":"	// hh
-			+ mdate.substring(10, 12) + ":00"; 
-	Timestamp d = Timestamp.valueOf(s);
-	
-	return sdf.format(d);	
-}
-
-public String toOne(String msg){	// 08 -> 8
-	return msg.charAt(0)=='0'?msg.charAt(1) + "": msg.trim();
-}
+%>
+<%
+MemberDto user = (MemberDto)session.getAttribute("login");
 %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
@@ -61,12 +38,38 @@ public String toOne(String msg){	// 08 -> 8
 
 </style>
 <meta http-equiv="Content-Type" content="text/html; charset=EUC-KR">
-<title>Honey Jam</title>
+<title>calendardetail</title>
 </head>
 <body>
+<br>
+<%!
+public String toDates(String mdate){
+	SimpleDateFormat sdf = new SimpleDateFormat("yyyy년 MM월 dd일 hh시 mm분");
+	
+	String s = mdate.substring(0, 4) + "-" 	// yyyy
+			+ mdate.substring(4, 6) + "-"	// MM
+			+ mdate.substring(6, 8) + " " 	// dd
+			+ mdate.substring(8, 10) + ":"	// hh
+			+ mdate.substring(10, 12) + ":00"; 
+	Timestamp d = Timestamp.valueOf(s);
+	
+	return sdf.format(d);	
+}
 
-<div class="container" style="margin-bottom: 10px">
-<h3 align="center">Event Introduction</h3>
+public String toOne(String msg){	// 08 -> 8
+	return msg.charAt(0)=='0'?msg.charAt(1) + "": msg.trim();
+}
+%>
+
+<%
+String sseq = request.getParameter("seq");
+int seq = Integer.parseInt(sseq);
+
+CalendarDAOImpl dao = CalendarDAO.getInstance();
+CalendarDto dto = dao.getDay(seq);
+
+%> 
+<h3 align="center">디테일 보기</h3>
 <div style= "padding: 8%; padding-bottom: 1%; margin: 5px" id="box">
     <!-- 제목 -->
     <div class="form-group row">
@@ -74,7 +77,7 @@ public String toOne(String msg){	// 08 -> 8
         <label class="col-sm-2 col-form-label">제목</label>
         <div class="col-sm-10">
             <div class="md-form mt-0">
-                <input type="text" class="form-control" value="<%=dto.getTitle() %>" disabled="disabled">
+                <input type="text" class="form-control" value="<%=dto.getTitle() %>">
             </div>
         </div>
     </div>
@@ -85,7 +88,7 @@ public String toOne(String msg){	// 08 -> 8
     	<label class="col-sm-2 col-form-label">일정</label>
     		<div class="col-sm-10">
       		  <div class="md-form mt-0">
-      		   <input type="text" class="form-control" value=" <%=toDates(dto.getRdate()) %>" disabled="disabled">
+      		   <input type="text" class="form-control" value=" <%=toDates(dto.getRdate()) %>">
       		 
       		 </div>
         </div>
@@ -94,13 +97,13 @@ public String toOne(String msg){	// 08 -> 8
     <!--내용들어오기-->
 	<div class="md-form mb-4 pink-textarea active-pink-textarea-2">
  	  <i class="fa fa-angle-double-right prefix"></i>
-  	 	 <textarea type="text" id="form23" class="md-textarea form-control" rows="10" disabled="disabled"><%=dto.getContent() %> </textarea>
+  	 	 <textarea type="text" id="form23" class="md-textarea form-control" rows="10"><%=dto.getContent() %> </textarea>
   	  <label for="form23">내용보기</label>
 	</div>
 	<!--내용들어오기 끝-->
     <div align="center">
 	<!--버튼부분  -->
-		<%if(mem.getAuth()==1){ %>
+		<%if(user.getAuth()==1){ %>
 		<button type="button" class="btn btn-outline-info waves-effect"  onclick="location.href='CalendarController?command=update&seq=<%=dto.getSeq() %>'"><i class="fa fa-undo" aria-hidden="true"></i>수정</button>
 		<button type="button" class="btn btn-outline-info waves-effect" onclick="location.href='CalendarController?command=delete&seq=<%=dto.getSeq()%>'"><i class="fa fa-trash-o" aria-hidden="true"></i>삭제</button>
 	
@@ -108,7 +111,7 @@ public String toOne(String msg){	// 08 -> 8
 		<button type="button" class="btn btn-outline-info waves-effect" onclick="location.href='calendar.jsp'"><i class="fa fa-undo" aria-hidden="true"></i>목록</button>
 </div>	
 </div>
-</div>
+<br>
 <%@ include file="/WEB-INF/include/footer.jsp" %>
 </body>
 </html>

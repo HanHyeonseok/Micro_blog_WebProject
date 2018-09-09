@@ -13,7 +13,7 @@
 <%@ include file="/WEB-INF/include/header.jsp"%>
 
 <%
-	CalendarDAOImpl dao = CalendarDAO.getInstance(); 
+	CalendarDAOImpl dao = CalendarDAO.getInstance();
 	int paging = 1;
 	int jcount = dao.getcountlist();
 

@@ -7,27 +7,24 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ include file="/WEB-INF/include/header.jsp" %>
-
 <%
 request.setCharacterEncoding("utf-8");
-
-CalendarDto dto = (CalendarDto)request.getAttribute("dto");
-CalendarDAOImpl dao = CalendarDAO.getInstance();
-
-String year = dto.getRdate().substring(0, 4);
-String month = dto.getRdate().substring(4, 6);
-String day = dto.getRdate().substring(6, 8);
-
-System.out.println(dto.getRdate());
-System.out.println(year + month + day);
-
-Calendar cal = Calendar.getInstance();
-int tyear = cal.get(Calendar.YEAR);
-int tmonth = cal.get(Calendar.MONTH);
-int tday = cal.get(Calendar.DATE);
-int thour = cal.get(Calendar.HOUR);
-int tmin = cal.get(Calendar.MINUTE);
 %>
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<style type="text/css">
+#box{
+		margin: 2px 0;
+		border: 1px solid;
+		border-color: #afeeee;
+	}
+
+</style>
+<meta http-equiv="Content-Type" content="text/html; charset=EUC-KR">
+<title>calendarupdate</title>
+</head>
+<body>
 
 <%!
 public String toDates(String mdate){
@@ -47,24 +44,31 @@ public String toOne(String msg){	// 08 -> 8
 	return msg.charAt(0)=='0'?msg.charAt(1) + "": msg.trim();
 }
 %>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
-<html>
-<head>
-<style type="text/css">
-#box{
-		margin: 2px 0;
-		border: 1px solid;
-		border-color: #afeeee;
-	}
+<%
+CalendarDto dto = (CalendarDto)request.getAttribute("dto");
+CalendarDAOImpl dao = CalendarDAO.getInstance();
+%> 
 
-</style>
-<meta http-equiv="Content-Type" content="text/html; charset=EUC-KR">
-<title>Honey Jam</title>
-</head>
-<body>
+<%
+String year = dto.getRdate().substring(0, 4);
+String month = dto.getRdate().substring(4, 6);
+String day = dto.getRdate().substring(6, 8);
 
-<div class="container" style="margin-bottom: 10px">
-<h3 align="center">Edit schedule</h3>
+System.out.println(dto.getRdate());
+System.out.println(year + month + day);
+
+//MemberDto user = new MemberDto("111","111",null,null,3); 
+// MemberDto user = (MemberDto)session.getAttribute("login");
+
+Calendar cal = Calendar.getInstance();
+int tyear = cal.get(Calendar.YEAR);
+int tmonth = cal.get(Calendar.MONTH);
+int tday = cal.get(Calendar.DATE);
+int thour = cal.get(Calendar.HOUR);
+int tmin = cal.get(Calendar.MINUTE);
+%>
+
+<h3 align="center">일정 수정하기</h3>
 <hr>
 <form action="CalendarController" method="post" style="margin: 15px; margin-top: 50px" >
 <div style= "padding: 5%; padding-bottom: 1%" id="box">
@@ -160,7 +164,8 @@ public String toOne(String msg){	// 08 -> 8
 </div>
 </div>
 </form>
-</div>
+<br>
+
 <%@ include file="/WEB-INF/include/footer.jsp" %>
 </body>
 </html>

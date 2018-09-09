@@ -46,7 +46,7 @@ public String toDates(String mdate) {
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Honey Jam</title>
+<title>calendarlist</title>
 <style type="text/css">
 .table-wrapper {
    background: #fff;
@@ -101,8 +101,6 @@ table.table td a.delete {
 <body>
 
 <div class="container" style="margin-bottom: 10px">
-<h3 align="center">Event List</h3>
-<hr>
 <form action="CalendarController" method="post">
       <input type="hidden" name="command" value="detail">
       <div class="table-wrapper">
@@ -167,11 +165,11 @@ table.table td a.delete {
             %>
 
          </table>
-		<a href="<%=url%>">일정보기로 가기</a>
       </div>
    </form>
 </div>
 
+<a href="<%=url%>">일정보기로 가기</a>
 <script type="text/javascript">
 $(document).ready(function() {
    $('[data-toggle="tooltip"]').tooltip();
