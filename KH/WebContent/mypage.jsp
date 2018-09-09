@@ -20,6 +20,15 @@
 			<!-- Material form register -->
 			<form action="MemberController">
 				<p class="h4 text-center py-4">My Page</p>
+				
+				<!-- Material img view -->
+				<div>
+					<img
+						style="width: 250px; height: 250px;"
+						src="upload/<%=mem.getImg()%>" class="rounded-circle mr-3"
+						alt="avatar">
+				</div>
+				
 
 				<!-- Material id view text -->
 				<div class="md-form">

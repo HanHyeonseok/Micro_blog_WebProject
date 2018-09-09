@@ -2,6 +2,7 @@ package controller;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.Enumeration;
 import java.util.List;
 
 import javax.servlet.RequestDispatcher;
@@ -12,6 +13,10 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.apache.jasper.tagplugins.jstl.core.Out;
+
+import com.oreilly.servlet.MultipartRequest;
+import com.oreilly.servlet.multipart.DefaultFileRenamePolicy;
+
 import dao.MemberDAO;
 import dao.MemberDAOImpl;
 import dto.MemberDto;
@@ -185,42 +190,66 @@ public class MemberController extends HttpServlet{
 			
 		}else if(command.equals("memberUpdate")) {
 			
+			String realFolder = ""; 
+			String img = ""; 
+			int maxSize = 1024*1024*15; 
+			String encType = "utf-8"; 
+			realFolder = getServletContext().getRealPath("/upload"); 
 			
-			String id = req.getParameter("id");
-			String pwd = req.getParameter("pwd");
-			String name = req.getParameter("name");
-			String email = req.getParameter("email");
-			String phone = req.getParameter("phone");
-			int auth = Integer.parseInt(req.getParameter("auth"));
+			System.out.println("realFolder = "+ realFolder);
 			
-			/*주소 합치기*/
-			String address_num = req.getParameter("address_num");
-			String add = req.getParameter("address");
-			String Detail_Address = req.getParameter("Detail_Address");
-			
-			String address = address_num+"-"+add+"-"+Detail_Address;
-			MemberDto mem = new MemberDto(id, pwd, name, email, address, phone, null, auth);
-			boolean b = memDao.updateMember(mem);
-			
-			
-			if(b) {
-				HttpSession session = null;
-				session = req.getSession(true);
-				session.setAttribute("login", mem);
-				session.setMaxInactiveInterval(30*60);
-				System.out.println("멤버 업데이트 완료");
+			try{ 
+				MultipartRequest multi=new MultipartRequest(req, realFolder, maxSize, encType, new DefaultFileRenamePolicy()); 
 				
-				out.println("<script>alert('수정되었습니다'); location.href='mypage.jsp';</script>");
-				out.flush();
-				//dispatch("mypage.jsp", req, resp);
-			}else {
-				System.out.println("멤버 업데이트 실패");
-				out.println("<script>alert('수정 실패'); location.href='memUpdate.jsp';</script>");
-				out.flush();
 				
-				//dispatch("memUpdate.jsp", req, resp);
+				img = multi.getFilesystemName("imgfile");
+				System.out.println("upload = "+ img);
 				
-			}
+				String id = multi.getParameter("id");
+				String pwd = multi.getParameter("pwd");
+				String name = multi.getParameter("name");
+				String email = multi.getParameter("email");
+				String phone = multi.getParameter("phone");
+				int auth = Integer.parseInt(multi.getParameter("auth"));
+				
+				/*주소 합치기*/
+				String address_num = multi.getParameter("address_num");
+				String add = multi.getParameter("address");
+				String Detail_Address = multi.getParameter("Detail_Address");
+				
+				String address = address_num+"-"+add+"-"+Detail_Address;
+				
+				MemberDto mem = new MemberDto(id, pwd, name, email, address, phone, img, auth);
+				boolean b = memDao.updateMember(mem);
+				
+				
+				if(b) {
+					HttpSession session = null;
+					session = req.getSession(true);
+					session.setAttribute("login", mem);
+					session.setMaxInactiveInterval(30*60);
+					System.out.println("멤버 업데이트 완료");
+					
+					out.println("<script>alert('수정되었습니다'); location.href='mypage.jsp';</script>");
+					out.flush();
+					//dispatch("mypage.jsp", req, resp);
+				}else {
+					System.out.println("멤버 업데이트 실패");
+					out.println("<script>alert('수정 실패'); location.href='memUpdate.jsp';</script>");
+					out.flush();
+					
+					//dispatch("memUpdate.jsp", req, resp);
+					
+				}
+				
+
+				} catch(Exception e) { 
+				e.printStackTrace(); 
+				} 
+			
+			
+			
+			
 			
 		}
 		

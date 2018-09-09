@@ -1,5 +1,7 @@
 package dto;
 
+import java.io.Serializable;
+
 /*	
 // 테이블 삭제
 DROP TABLE MEMBER
@@ -19,7 +21,7 @@ CREATE TABLE MEMBER(
     );
 */
 
-public class MemberDto {
+public class MemberDto implements Serializable{
 	private String id;
 	private String pwd;
 	private String name;
