@@ -7,7 +7,19 @@
 <%
 request.setCharacterEncoding("utf-8");
 %>
+<%
 
+String year = request.getParameter("year");
+String month = request.getParameter("month");
+String day = request.getParameter("day");
+
+Calendar cal = Calendar.getInstance();
+int tyear = cal.get(Calendar.YEAR);
+int tmonth = cal.get(Calendar.MONTH);
+int tday = cal.get(Calendar.DATE);
+int thour = cal.get(Calendar.HOUR);
+int tmin = cal.get(Calendar.MINUTE);
+%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -17,34 +29,19 @@ request.setCharacterEncoding("utf-8");
 		border: 1px solid;
 		border-color: #afeeee;
 	}
-
 </style>
 <meta http-equiv="Content-Type" content="text/html; charset=EUC-KR">
-<title>calendarwrite.jsp</title>
+<title>Honey Jam</title>
 </head>
 <body>
-<br>
-<h3 align="center">일정쓰기</h3>
-<%
 
-String year = request.getParameter("year");
-String month = request.getParameter("month");
-String day = request.getParameter("day");
-
-MemberDto user = (MemberDto)session.getAttribute("login");
-
-Calendar cal = Calendar.getInstance();
-int tyear = cal.get(Calendar.YEAR);
-int tmonth = cal.get(Calendar.MONTH);
-int tday = cal.get(Calendar.DATE);
-int thour = cal.get(Calendar.HOUR);
-int tmin = cal.get(Calendar.MINUTE);
-%>
+<div class="container" style="margin-bottom: 10px">
+<h3 align="center">Event Write</h3>
 
 <form action="CalendarController" method="post" style="margin: 15px; margin-top: 50px" >
 <div style= "padding: 5%; padding-bottom: 1%" id="box">
 <input type="hidden" name="command" value="write">
-<input type="hidden" name="id" value="<%=user.getId() %>">
+<input type="hidden" name="id" value="<%=mem.getId() %>">
 
 <!-- Horizontal material form -->
     <!-- 제목 -->
@@ -148,6 +145,7 @@ String url = String.format("%s?year=%s&month=%s", "calendar.jsp", year, month);
 <a href="<%=url %>">일정보기</a>
 
 </form>
+</div>
 
 <script type="text/javascript">
 // 지정된 달의 끝 날짜를 설정

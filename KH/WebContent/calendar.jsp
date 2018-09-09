@@ -9,39 +9,64 @@
 <%@ include file="/WEB-INF/include/header.jsp" %>
 <%
 request.setCharacterEncoding("utf-8");
-MemberDto user = (MemberDto)session.getAttribute("login");
+
 if (mem == null) {
 	RequestDispatcher rd = request.getRequestDispatcher("login.jsp");
 	rd.forward(request, response);
 }
-%>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
-<html>
-<head>
-<style type="text/css">
-#calendar .bor{
-  border: 1px solid #ccc;
-  margin-right: -1px;
-  margin-bottom: -1px;
-}
-/* 요일  */
-#calendar tr.weekdays {
-  height: 40px;
-  background: #fff5ee;
-}
-#calendar tr.weekdays td {
-  text-align: center;
-  text-transform: uppercase;
-  line-height: 20px;
-  border: none !important;
-  padding: 10px 6px;
-  color: black;
-  font-size: 13px;
-}
-</style>
-</head>
-<body>
+Calendar cal = Calendar.getInstance();
+int tmpday = cal.get(Calendar.DATE);
+cal.set(Calendar.DATE, 1);
 
+String syear = request.getParameter("year");
+String smonth = request.getParameter("month");
+
+int year = cal.get(Calendar.YEAR);
+if(!nvl(syear)){
+	year = Integer.parseInt(syear);	
+}
+
+int month = cal.get(Calendar.MONTH) + 1;
+if(!nvl(smonth)){
+	month = Integer.parseInt(smonth);
+}
+
+if(month < 1){
+	month = 12;
+	year--;
+}
+
+if(month > 12){
+	month = 1;
+	year++;
+}
+
+cal.set(year, month-1, 1);	// 연월일 셋팅
+
+
+int dayOfWeek = cal.get(Calendar.DAY_OF_WEEK);	// 요일 1 ~ 7
+
+//////////// 위에 날짜, 년도 화살표
+// <<
+String pp = String.format("<a href='%s?year=%d&month=%d'><img src='https://user-images.githubusercontent.com/41100556/45011651-a101fd80-b04e-11e8-9118-20b11ea365bd.png' style='margin: 2px;'></a>", 
+		"calendar.jsp", year-1, month);
+
+// <
+String p = String.format("<a href='%s?year=%d&month=%d'><img src='https://user-images.githubusercontent.com/41100556/45011549-0a354100-b04e-11e8-9687-b557d362b0ad.png' style='margin: 2px;'></a>", 
+		"calendar.jsp", year, month-1);
+// >
+String n = String.format("<a href='%s?year=%d&month=%d'><img src='https://user-images.githubusercontent.com/41100556/45011539-00134280-b04e-11e8-9c15-591a577f8236.png' style='margin: 2px;'></a>", 
+		"calendar.jsp", year, month+1);
+
+// >>
+String nn = String.format("<a href='%s?year=%d&month=%d'><img src='https://user-images.githubusercontent.com/41100556/45011644-97789580-b04e-11e8-9a4c-70869021556f.png' style='margin: 2px;'></a>", 
+		"calendar.jsp", year+1, month);
+
+
+CalendarDAOImpl dao = CalendarDAO.getInstance();
+
+List<CalendarDto> list = dao.getCalendarList(mem.getId(), year + two(month+ ""));
+%>
 <%!
 public boolean nvl(String msg){
 	return msg == null || msg.trim().equals("")?true:false;
@@ -122,70 +147,38 @@ public String makeTable(int year, int month, int day,
 	return s;
 }
 %>
-<br>
-<h3 align="center">행사 일정</h3>
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<style type="text/css">
+#calendar .bor{
+  border: 1px solid #ccc;
+  margin-right: -1px;
+  margin-bottom: -1px;
+}
+/* 요일  */
+#calendar tr.weekdays {
+  height: 40px;
+  background: #fff5ee;
+}
+#calendar tr.weekdays td {
+  text-align: center;
+  text-transform: uppercase;
+  line-height: 20px;
+  border: none !important;
+  padding: 10px 6px;
+  color: black;
+  font-size: 13px;
+}
+</style>
+</head>
+<body>
+
+<div class="container" style="margin-bottom : 10px"> 
+<h3 align="center">Event Schedule</h3>
 <hr>
 
-<%
-request.setCharacterEncoding("utf-8");
-Calendar cal = Calendar.getInstance();
-int tmpday = cal.get(Calendar.DATE);
-cal.set(Calendar.DATE, 1);
-
-String syear = request.getParameter("year");
-String smonth = request.getParameter("month");
-
-int year = cal.get(Calendar.YEAR);
-if(!nvl(syear)){
-	year = Integer.parseInt(syear);	
-}
-
-int month = cal.get(Calendar.MONTH) + 1;
-if(!nvl(smonth)){
-	month = Integer.parseInt(smonth);
-}
-
-if(month < 1){
-	month = 12;
-	year--;
-}
-
-if(month > 12){
-	month = 1;
-	year++;
-}
-
-cal.set(year, month-1, 1);	// 연월일 셋팅
-
-
-int dayOfWeek = cal.get(Calendar.DAY_OF_WEEK);	// 요일 1 ~ 7
-
-//////////// 위에 날짜, 년도 화살표
-// <<
-String pp = String.format("<a href='%s?year=%d&month=%d'><img src='https://user-images.githubusercontent.com/41100556/45011651-a101fd80-b04e-11e8-9118-20b11ea365bd.png' style='margin: 2px;'></a>", 
-		"calendar.jsp", year-1, month);
-
-// <
-String p = String.format("<a href='%s?year=%d&month=%d'><img src='https://user-images.githubusercontent.com/41100556/45011549-0a354100-b04e-11e8-9687-b557d362b0ad.png' style='margin: 2px;'></a>", 
-		"calendar.jsp", year, month-1);
-// >
-String n = String.format("<a href='%s?year=%d&month=%d'><img src='https://user-images.githubusercontent.com/41100556/45011539-00134280-b04e-11e8-9c15-591a577f8236.png' style='margin: 2px;'></a>", 
-		"calendar.jsp", year, month+1);
-
-// >>
-String nn = String.format("<a href='%s?year=%d&month=%d'><img src='https://user-images.githubusercontent.com/41100556/45011644-97789580-b04e-11e8-9a4c-70869021556f.png' style='margin: 2px;'></a>", 
-		"calendar.jsp", year+1, month);
-
-
-CalendarDAOImpl dao = CalendarDAO.getInstance();
-
-List<CalendarDto> list = dao.getCalendarList(user.getId(), year + two(month+ ""));
-
-%>
 <div id="calendar-wrap">
-<!-- <div align="center">
-<img alt="" src="https://user-images.githubusercontent.com/41100556/45256847-1bc47300-b3d7-11e8-9b90-411159d2ac89.jpg" width="900">
-</div> -->
 <div align="center" id="calendar">
 
 <table border="1" class="bor" align="center">
@@ -227,8 +220,9 @@ int lastDay = cal.getActualMaximum(Calendar.DAY_OF_MONTH);
 for(int i = 1; i <= lastDay; i++){ //달에 있는 일수 만큼
 	%>	
 	<td class="hoverable"><%=callist(year, month, i) %>&nbsp;
+	
 	<%
-	if(user.getAuth() == 1){
+	if(mem.getAuth() == 1){
 	%>
 	<%=showPen(year, month, i) %>
 	
@@ -279,10 +273,7 @@ for(int i = 0;i < (7 - (dayOfWeek + lastDay - 1)%7 )%7 ; i++){
 	});
 </script>
 </div>
-<br><br><br>
-
-<div id='calendar'></div>
+</div>
 <%@ include file="/WEB-INF/include/footer.jsp" %>
-
 </body>
 </html>

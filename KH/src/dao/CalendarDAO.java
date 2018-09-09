@@ -82,10 +82,7 @@ public class CalendarDAO implements CalendarDAOImpl{
 	//리스트로 일정 불러오기
 	@Override
 	public List<CalendarDto> getDayList(String dates) {
-	     /*SELECT SEQ, ID, TITLE, CONTENT, RDATE, WDATE  
-        FROM CALENDAR
-        WHERE ID='bbb' AND RDATE LIKE '20180216%';*/
-        
+	        
         String sql = " SELECT SEQ, ID, TITLE, CONTENT, RDATE, WDATE "
                 + " FROM CALENDAR "
                 + " WHERE RDATE LIKE '"+dates+"%'";
