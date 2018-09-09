@@ -2,17 +2,7 @@
     pageEncoding="UTF-8"%>
 <%@ include file="/WEB-INF/include/header.jsp"%>
 
-<%
-MemberDto mypageMem = (MemberDto)session.getAttribute("login");
-System.out.println(mypageMem.getId());
-System.out.println(mypageMem.getPwd());
-System.out.println(mypageMem.getName());
-System.out.println(mypageMem.getEmail());
-System.out.println(mypageMem.getAddress());
-System.out.println(mypageMem.getPhone());
-System.out.println(mypageMem.getImg());
-System.out.println(mypageMem.getAuth());
-%>
+
 
 <!DOCTYPE html>
 <html>
@@ -30,13 +20,19 @@ System.out.println(mypageMem.getAuth());
 		<div class="card-body">
 
 			<!-- Material form register -->
-			<form action="MemberController">
+			<form id="form1" action="MemberController?command=memberUpdate" method="post" enctype="multipart/form-data">
 				<p class="h4 text-center py-4">Member Update</p>
+				
+				<div id="div1">
+					<img id="img" alt="no img" src="upload/<%=mem.getImg() %>" style="width: 250px; height: 250px;" class="rounded-circle mr-3">
+					<input type='file' name="imgfile" onchange="readURL(this);"> 
+				
+				</div>
 
 				<!-- Material input text -->			
 				<div class="md-form">
 					<i class="fa fa-user prefix grey-text"></i> <input type="text"
-						name="id" id="id" class="form-control" value="<%=mypageMem.getId() %>" readonly="readonly" required>					
+						name="id" id="id" class="form-control" value="<%=mem.getId() %>" readonly="readonly" required>					
 				</div>		
 
 				<!-- Material input password -->
@@ -65,23 +61,23 @@ System.out.println(mypageMem.getAuth());
 				<!-- Material input name -->			
 				<div class="md-form">
 					<i class="fa fa-user prefix grey-text"></i> <input type="text"
-						name="name" id="name" class="form-control" value="<%=mypageMem.getName() %>" required>
+						name="name" id="name" class="form-control" value="<%=mem.getName() %>" required>
 				</div>
 				
 				<!-- Material input email -->
 				<div class="md-form">
 					<i class="fa fa-envelope prefix grey-text"></i> <input type="text"
-						name="email" id="email" class="form-control" value="<%=mypageMem.getEmail() %>" required>
+						name="email" id="email" class="form-control" value="<%=mem.getEmail() %>" readonly="readonly" required>
 				</div>
 
 				<!-- Material input phone -->
 				<div class="md-form">
 					<i class="fa fa-phone-square prefix grey-text"></i> <input
-						type="text" name="phone" id="phone" class="form-control" value="<%=mypageMem.getPhone() %>" required>				
+						type="text" name="phone" id="phone" class="form-control" value="<%=mem.getPhone() %>" required>				
 				</div>
 				<!-- address '-'split -->
 				<%
-				String add = mypageMem.getAddress();
+				String add = mem.getAddress();
 				String[] addSplit = add.split("-");
 				String address_num = addSplit[0];
 				String address = addSplit[1];
@@ -109,7 +105,7 @@ System.out.println(mypageMem.getAuth());
 				<!-- Sign up -->
 				<div class="text-center py-4 mt-3">
 					<button class="btn btn-primary" type="submit">Update Complete</button>
-					<input type="hidden" name="command" value="memberUpdate">
+					
 					<input type="hidden" name="auth" value="<%=mem.getAuth() %>">
 				</div>
 			</form>
@@ -168,10 +164,6 @@ System.out.println(mypageMem.getAuth());
     
 </script>
 	<!-- Card -->
-	
-
-
-
 	<script type="text/javascript">
 		var idok = "false";
 		var passwordcheck = "false";
@@ -261,9 +253,16 @@ System.out.println(mypageMem.getAuth());
 
 		}
 
-		function addCheck() {
-
-		}
+		function readURL(input) { 
+			if (input.files && input.files[0]) { 
+			var reader = new FileReader(); 
+			reader.onload = function (e) { 
+			$('#img').attr('src', e.target.result); 
+			
+			} 
+			reader.readAsDataURL(input.files[0]); 
+			} 
+			} 
 	</script>
 	<%@ include file="/WEB-INF/include/footer.jsp"%>
 </body>
