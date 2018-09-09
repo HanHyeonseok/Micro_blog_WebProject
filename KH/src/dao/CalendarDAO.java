@@ -81,16 +81,14 @@ public class CalendarDAO implements CalendarDAOImpl{
 	
 	//리스트로 일정 불러오기
 	@Override
-	public List<CalendarDto> getDayList(String id, String dates) {
+	public List<CalendarDto> getDayList(String dates) {
 	     /*SELECT SEQ, ID, TITLE, CONTENT, RDATE, WDATE  
         FROM CALENDAR
         WHERE ID='bbb' AND RDATE LIKE '20180216%';*/
         
         String sql = " SELECT SEQ, ID, TITLE, CONTENT, RDATE, WDATE "
                 + " FROM CALENDAR "
-                + " WHERE ID=? "
-                + " AND "
-                + " RDATE LIKE '"+dates+"%'";
+                + " WHERE RDATE LIKE '"+dates+"%'";
         
         Connection conn = null;
         PreparedStatement psmt = null;
@@ -103,7 +101,6 @@ public class CalendarDAO implements CalendarDAOImpl{
             System.out.println("1/6 getDayList success");
         
             psmt = conn.prepareStatement(sql);
-            psmt.setString(1, id);
             //psmt.setString(2, dates);
             System.out.println("2/6 getDayList success");
             
