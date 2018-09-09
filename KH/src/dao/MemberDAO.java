@@ -305,4 +305,49 @@ public class MemberDAO implements MemberDAOImpl {
 		System.out.println("END login success");
 		return mem;
 	}
+	
+	// 회원 프로필 사진 수정
+	@Override
+	public boolean setUserImg(String id, String filename) {
+		String sql1 = " UPDATE MEMBER SET IMG = '"+filename+"' WHERE ID = '"+id+"' ";
+		String sql2 = " UPDATE BBS SET PROFILENAME = '"+filename+"' WHERE ID = '"+id+"' ";
+
+		Connection conn = null;
+		PreparedStatement psmt = null;
+		
+		int count = 0;
+
+		try {
+			conn = DBConnection.makeConnection();
+			conn.setAutoCommit(false);
+			System.out.println("1/6 setUserImg success");
+			
+			psmt = conn.prepareStatement(sql1);
+			System.out.println("2/6 setUserImg success");
+			
+			count = psmt.executeUpdate();
+			System.out.println("3/6 setUserImg success");
+			
+			psmt.clearParameters();
+			
+			psmt = conn.prepareStatement(sql2);
+			System.out.println("4/6 setUserImg success");
+			
+			count = psmt.executeUpdate();
+			conn.commit();
+			System.out.println("5/6 setUserImg success");
+			
+		} catch (SQLException e) {
+			System.out.println("setUserImg fail");
+		} finally {
+			try {
+				conn.setAutoCommit(true);
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+			DBClose.close(psmt, conn, null);
+		}
+		System.out.println("End setUserImg success");
+		return count > 0 ? true : false;
+	}
 }

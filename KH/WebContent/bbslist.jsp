@@ -169,17 +169,16 @@
 						</div>
 						<!-- Card image -->
 						<div class="view overlay" style="margin: 10px" align="center">
-							<a
-								href="BbsController?command=detail&sequence=<%=list.get(i).getSeq()%>">
-								<img
+							<img
 								style="width: auto; height: auto; max-height: 270px; max-width: 480px"
 								src="upload/<%=list.get(i).getFilename()%>" class="img-fluid "
-								alt="이미지 없음">
+								alt="이미지 없음"> <a
+								href="BbsController?command=detail&sequence=<%=list.get(i).getSeq()%>">
+								<div
+									class="mask flex-center waves-effect waves-light rgba-red-slight">
+									<p class="white-text">[클릭] 게시글 보기</p>
+								</div>
 							</a>
-							<div
-								class="mask flex-center waves-effect waves-light rgba-red-slight">
-								<p class="white-text">[클릭] 게시글 보기</p>
-							</div>
 						</div>
 						<!-- Card content -->
 						<div align="right"
