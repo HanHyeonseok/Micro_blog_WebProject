@@ -11,13 +11,21 @@
 <head>
 <title>Honey Jam</title>
 <%
-	String id = request.getParameter("userId");
-
 	MemberDAOImpl memdao = MemberDAO.getInstance();
 	BbsDAOImpl bbsdao = BbsDAO.getInstance();
 
-	MemberDto memdto = memdao.getUserDto(id);
-	List<BbsDto> bbslist = bbsdao.getUserBbsList(id);
+	MemberDto memdto = null;
+	List<BbsDto> bbslist = null;
+
+	String id = request.getParameter("userId");
+
+	if (id == null) {
+		memdto = memdao.getUserDto(mem.getId());
+		bbslist = bbsdao.getUserBbsList(mem.getId());
+	} else {
+		memdto = memdao.getUserDto(id);
+		bbslist = bbsdao.getUserBbsList(id);
+	}
 %>
 </head>
 <body>
@@ -40,6 +48,7 @@
 									if (memdto.getImg() == null) {
 								%>
 								<img
+									style="width: auto; height: auto; min-height: 120px; min-width: 120px; max-height: 120px; max-width: 120px"
 									src="https://user-images.githubusercontent.com/38531104/45137275-e0615300-b1e2-11e8-9dbb-05378ea956b6.png"
 									class="rounded-circle" alt="avatar">
 								<%
@@ -56,7 +65,8 @@
 							<!--Body-->
 							<div class="modal-body text-center mb-1">
 								<h5 class="mt-1 mb-2"><%=memdto.getId()%></h5>
-								<div class="md-form ml-0 mr-0">
+								<div class="md-form ml-0 mr-0"
+									style="border-bottom: 1px solid; border-top: 1px solid; padding-top: 8px; padding-bottom: 8px">
 									<table>
 										<colgroup>
 											<col style="width: 30%">
@@ -82,6 +92,17 @@
 										</tbody>
 									</table>
 								</div>
+								<%
+									if (id == null) {
+								%>
+								<div>
+									<button type="button"
+										class="btn btn-outline-secondary waves-effect">회원정보
+										수정</button>
+								</div>
+								<%
+									}
+								%>
 							</div>
 						</div>
 						<!--/.Content-->
@@ -105,6 +126,7 @@
 									if (bbslist.get(i).getProfilename().equals("null")) {
 								%>
 								<img
+									style="width: auto; height: auto; max-height: 50px; max-width: 50px"
 									src="https://user-images.githubusercontent.com/38531104/45137275-e0615300-b1e2-11e8-9dbb-05378ea956b6.png"
 									class="rounded-circle mr-3" height="50px" width="50px" alt="">
 								<%
@@ -122,7 +144,8 @@
 								<div>
 									<!-- Title -->
 									<a href="userMyPage.jsp?userId=<%=bbslist.get(i).getId()%>"
-										style="color: black" class="card-title font-weight-bold mb-2"><%=bbslist.get(i).getId()%></a>
+										style="color: black; font-size: 24px"
+										class="card-title font-weight-bold mb-2"><%=bbslist.get(i).getId()%></a>
 									<!-- Subtitle -->
 									<p class="card-text">
 										<i class="fa fa-clock-o pr-2"></i><%=bbslist.get(i).getWdate()%>

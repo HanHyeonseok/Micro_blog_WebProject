@@ -120,7 +120,7 @@ body {
 						style="color: black">Welcome</a>
 						<div class="dropdown-menu dropdown-primary"
 							aria-labelledby="navbarDropdownMenuLink">
-							<a class="dropdown-item" href="mypage.jsp">Mypage</a> <a
+							<a class="dropdown-item" href="userMyPage.jsp">Mypage</a> <a
 								class="dropdown-item" href="MemberController?command=logout">로그아웃</a>
 						</div></li>
 

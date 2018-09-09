@@ -103,14 +103,14 @@
 				<!--Second slide-->
 				<div class="carousel-item">
 					<img class="d-block w-100"
-						src="https://user-images.githubusercontent.com/38531104/45260932-0c711400-b42f-11e8-92eb-3d75e7151529.png"
+						src="https://user-images.githubusercontent.com/38531104/45261918-2ff38900-b446-11e8-8bb2-81a3eff688c6.png"
 						alt="Second slide">
 				</div>
 				<!--/Second slide-->
 				<!--Third slide-->
 				<div class="carousel-item">
 					<img class="d-block w-100"
-						src="https://user-images.githubusercontent.com/38531104/45260933-0d09aa80-b42f-11e8-8b2c-4072bb27a235.png"
+						src="https://user-images.githubusercontent.com/38531104/45261919-2ff38900-b446-11e8-9f2d-f01f2314028c.png"
 						alt="Third slide">
 				</div>
 				<!--/Third slide-->
