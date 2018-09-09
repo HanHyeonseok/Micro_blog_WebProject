@@ -11,6 +11,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import javax.servlet.jsp.JspWriter;
 
 import com.oreilly.servlet.MultipartRequest;
@@ -19,6 +20,7 @@ import com.oreilly.servlet.multipart.DefaultFileRenamePolicy;
 import dao.BbsDAO;
 import dao.BbsDAOImpl;
 import dto.BbsDto;
+import dto.MemberDto;
 
 public class BbsController extends HttpServlet {
 
@@ -108,6 +110,17 @@ public class BbsController extends HttpServlet {
 		// 업데이트
 		else if (command.equals("update")) {
 
+		}
+		
+		// 페이지이동 확인
+		else if(command.equals("movePage")) {
+			HttpSession session = req.getSession();
+			MemberDto ss = (MemberDto)session.getAttribute("login");
+			if(ss == null) {
+				dispatch("login.jsp", req, resp);
+			}else if(ss != null){
+				dispatch("bbslist.jsp", req, resp);
+			}
 		}
 
 		out.close(); // printwriter 마무리

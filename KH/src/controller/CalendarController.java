@@ -9,10 +9,12 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import dao.CalendarDAO;
 import dao.CalendarDAOImpl;
 import dto.CalendarDto;
+import dto.MemberDto;
 
 public class CalendarController extends HttpServlet {
 
@@ -123,6 +125,15 @@ public class CalendarController extends HttpServlet {
 			req.setAttribute("dto", dto);
 			
 			this.dispatch("calendarlist.jsp", req, resp);
+		}
+		else if(command.equals("movePage")) {
+			HttpSession session = req.getSession();
+			MemberDto ss = (MemberDto)session.getAttribute("login");
+			if(ss == null) {
+				dispatch("login.jsp", req, resp);
+			}else if(ss != null){
+				dispatch("calendar.jsp", req, resp);
+			}
 		}
 	}
 

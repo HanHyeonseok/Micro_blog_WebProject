@@ -105,10 +105,10 @@ body {
 						href="index.jsp"
 						style="color: black; padding-left: 25px; padding-right: 25px;">Home</a></li>
 					<li class="nav-item hoverable"><a class="nav-link"
-						href="calendar.jsp"
+						href="CalendarController?command=movePage"
 						style="color: black; padding-left: 25px; padding-right: 25px;">Event</a></li>
 					<li class="nav-item hoverable"><a class="nav-link"
-						href="bbslist.jsp"
+						href="BbsController?command=movePage"
 						style="color: black; padding-left: 25px; padding-right: 25px;">Board</a></li>
 
 					<%

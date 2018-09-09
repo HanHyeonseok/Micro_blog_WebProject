@@ -9,11 +9,6 @@
 <head>
 <title>Honey Jam</title>
 <%
-	if (mem == null) {
-		RequestDispatcher rd = request.getRequestDispatcher("login.jsp");
-		rd.forward(request, response);
-	}
-
 	BbsDAOImpl dao = BbsDAO.getInstance();
 
 	List<BbsDto> list = null;
