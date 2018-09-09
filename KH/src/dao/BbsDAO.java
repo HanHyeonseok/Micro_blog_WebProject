@@ -269,4 +269,288 @@ public class BbsDAO implements BbsDAOImpl {
 		System.out.println("END getUserBbsList Success");
 		return list;
 	}
+	
+	// 좋아요 체크확인
+	   @Override
+	   public int checkF(String id, int seq) {
+	      String sql = " SELECT Like_Check FROM LIKETO" 
+	            + " WHERE ID=? AND B_SEQ=?";
+
+	      Connection conn = null; // DB info
+	      PreparedStatement psmt = null; // sql query
+	      ResultSet rs = null; // result value
+
+	      int find = 0;
+
+	      try {
+	         conn = DBConnection.makeConnection();
+
+	         psmt = conn.prepareStatement(sql);
+	         psmt.setString(1, id);
+	         psmt.setInt(2, seq);
+
+	         rs = psmt.executeQuery();
+
+	         if (rs.next()) {
+	            find= rs.getInt(1);
+	         }
+
+	      } catch (SQLException e) {
+	         e.printStackTrace();
+	      } finally {
+	         DBClose.close(psmt, conn, rs);
+	      }
+
+	      return find;
+
+	      
+	   }
+	   // 좋아요 read
+	   @Override
+	   public void readLike(int seq) {
+	      String sql = " UPDATE BBS"
+	            + " SET FAVORITE=FAVORITE+1 "
+	            + " WHERE SEQ=?";
+	      
+	      Connection conn = null;
+	      PreparedStatement psmt = null;
+	      
+	      
+
+	      try {
+	         conn = DBConnection.makeConnection();
+	         System.out.println("1/4 readLike success");
+
+	         psmt = conn.prepareStatement(sql);
+	         psmt.setInt(1, seq);
+	      
+	      
+	         System.out.println("2/4 readLike success");
+
+	         psmt.executeUpdate();
+	         System.out.println("3/4 readLike success");
+
+	      } catch (SQLException e) {
+	         System.out.println("updateDay fail");
+	         e.printStackTrace();
+	      }finally {
+	         DBClose.close(psmt, conn, null);
+	         System.out.println("4/4 readLike success");
+	      }
+	      
+	      
+	   }
+	   
+	   
+	   // 좋아요 테이블 add
+	   @Override
+	   public boolean addLiketo(String id, int seq) {
+	      String sql = " INSERT INTO LIKETO "
+	            + " (ID, B_SEQ, LIKE_CHECK) "
+	            + " VALUES(?,?,0) ";
+	      
+	      
+	      Connection conn = null;
+	      PreparedStatement psmt = null;
+
+	      int count = 0;
+
+	      try {
+	         conn = DBConnection.makeConnection();
+	         System.out.println("1/3 addLiketo success");
+
+	         psmt = conn.prepareStatement(sql);
+	         System.out.println("2/3 addLiketo success");
+
+	         psmt.setString(1, id);
+	         psmt.setInt(2, seq);
+	         
+	      
+
+	         count = psmt.executeUpdate();
+	         System.out.println("3/3 addLiketo success");
+
+	      } catch (SQLException e) {
+	         System.out.println("setContent fail");
+	      } finally {
+	         DBClose.close(psmt, conn, null);
+	      }
+	      System.out.println("END setContent success");
+	      return count > 0 ? true : false;
+	   }
+
+	   // 좋아요 테이블 찾기
+	   @Override
+	   public boolean findLiketo(String id, int seq) {
+	      String sql = " SELECT ID, B_SEQ FROM LIKETO" 
+	            + " WHERE ID=? AND B_SEQ=?";
+
+	      Connection conn = null; // DB info
+	      PreparedStatement psmt = null; // sql query
+	      ResultSet rs = null; // result value
+
+	      boolean find = false;
+
+	      try {
+	         conn = DBConnection.makeConnection();
+
+	         psmt = conn.prepareStatement(sql);
+	         psmt.setString(1, id);
+	         psmt.setInt(2, seq);
+
+	         rs = psmt.executeQuery();
+
+	         if (rs.next()) {
+	            find=  true;
+	         }
+
+	      } catch (SQLException e) {
+	         e.printStackTrace();
+	      } finally {
+	         DBClose.close(psmt, conn, rs);
+	      }
+
+	      return find;
+	   }
+
+	   // 좋아요 체크
+	   @Override
+	   public void fck(String id, int seq) {
+	      String sql = " UPDATE LIKETO"
+	            + " SET LIKE_CHECK=1 "
+	            + " WHERE ID=? AND B_SEQ=? ";
+	      
+	      Connection conn = null;
+	      PreparedStatement psmt = null;
+	      
+	      
+
+	      try {
+	         conn = DBConnection.makeConnection();
+	         System.out.println("1/4 fck success");
+
+	         psmt = conn.prepareStatement(sql);
+	         psmt.setString(1, id);
+	         psmt.setInt(2, seq);
+	      
+	      
+	         System.out.println("2/4 fck success");
+
+	         psmt.executeUpdate();
+	         System.out.println("3/4 fck success");
+
+	      } catch (SQLException e) {
+	         System.out.println("fck fail");
+	         e.printStackTrace();
+	      }finally {
+	         DBClose.close(psmt, conn, null);
+	         System.out.println("4/4 fck success");
+	      }
+	      
+	   }
+
+	   // 좋아요 수 감소
+	   @Override
+	   public void readLikeDown(int seq) {
+	      String sql = " UPDATE BBS"
+	            + " SET FAVORITE=FAVORITE-1 "
+	            + " WHERE SEQ=?";
+	      
+	      Connection conn = null;
+	      PreparedStatement psmt = null;
+	      
+	      
+
+	      try {
+	         conn = DBConnection.makeConnection();
+	         System.out.println("1/4 readLikeDown success");
+
+	         psmt = conn.prepareStatement(sql);
+	         psmt.setInt(1, seq);
+	      
+	      
+	         System.out.println("2/4 readLikeDown success");
+
+	         psmt.executeUpdate();
+	         System.out.println("3/4 readLikeDown success");
+
+	      } catch (SQLException e) {
+	         System.out.println("readLikeDown fail");
+	         e.printStackTrace();
+	      }finally {
+	         DBClose.close(psmt, conn, null);
+	         System.out.println("4/4 readLikeDown success");
+	      }
+	      
+	   }
+	   
+	   // 좋아요 체크해제
+	   @Override
+	   public void fckDown(String id, int seq) {
+	      String sql = " UPDATE LIKETO"
+	            + " SET LIKE_CHECK=0 "
+	            + " WHERE ID=? AND B_SEQ=? ";
+	      
+	      Connection conn = null;
+	      PreparedStatement psmt = null;
+	      
+	      
+
+	      try {
+	         conn = DBConnection.makeConnection();
+	         System.out.println("1/4 readLike success");
+
+	         psmt = conn.prepareStatement(sql);
+	         psmt.setString(1, id);
+	         psmt.setInt(2, seq);
+	      
+	      
+	         System.out.println("2/4 readLike success");
+
+	         psmt.executeUpdate();
+	         System.out.println("3/4 readLike success");
+
+	      } catch (SQLException e) {
+	         System.out.println("updateDay fail");
+	         e.printStackTrace();
+	      }finally {
+	         DBClose.close(psmt, conn, null);
+	         System.out.println("4/4 readLike success");
+	      }
+	      
+	   }
+
+	   // bbs 좋아요 수 가져오기
+	   @Override
+	   public int getLikeCount(int seq) {
+	      String sql = " SELECT FAVORITE FROM BBS" 
+	            + " WHERE SEQ=? ";
+
+	      Connection conn = null; // DB info
+	      PreparedStatement psmt = null; // sql query
+	      ResultSet rs = null; // result value
+
+	      int FAVORITE = 0;
+
+	      try {
+	         conn = DBConnection.makeConnection();
+
+	         psmt = conn.prepareStatement(sql);
+	         psmt.setInt(1, seq);
+	         
+
+	         rs = psmt.executeQuery();
+
+	         if (rs.next()) {
+	            FAVORITE= rs.getInt(1);
+	         }
+
+	      } catch (SQLException e) {
+	         e.printStackTrace();
+	      } finally {
+	         DBClose.close(psmt, conn, rs);
+	      }
+
+	      return FAVORITE;
+	   }
 }

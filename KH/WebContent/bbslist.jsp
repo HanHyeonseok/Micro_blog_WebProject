@@ -87,7 +87,7 @@
 							%>
 
 							<!-- userId -->
-							<input type="hidden" name="userId" value="<%=mem.getId()%>">
+							<input type="hidden" name="userId" id="userId" value="<%=mem.getId()%>">
 							<h5 style="font-family: inherit; margin: 0; padding-top: 10px"><%=mem.getId()%></h5>
 						</div>
 						<!-- input title -->
@@ -180,10 +180,12 @@
 							style="padding-right: 10px; margin-top: 5px; margin-bottom: 5px;">
 							<div class="btn-group btn-group-sm" role="group"
 								aria-label="Basic example">
-								<button type="button" class="btn btn-unique btn-sm">
+								<input type="hidden" id="bbsSeq" value="<%=list.get(i).getSeq() %>">
+								<button type="button" class="btn btn-unique btn-sm" onclick="check_like()">
 									<i class="fa fa-heart" aria-hidden="true"></i>
-									<%=list.get(i).getFavorite()%>
 								</button>
+								<input type="text" id="likecount" size="3" class="btn btn-unique btn-sm" value="<%=list.get(i).getFavorite()%>" readonly="readonly">
+								
 							</div>
 						</div>
 						<div class="card-body" style="padding-top: 0px">
@@ -238,6 +240,45 @@
 			var word = document.getElementById("search").value;
 			location.href = "bbslist.jsp?search=" + word;
 		}
+		
+		
+		function check_like() {
+	         var id = $("#userId").val();
+	         var bbsSeq  = $("#bbsSeq").val();
+	         var favorite = $("#likecount").val();   
+	         
+	         alert("id =" + id);
+	              
+	         $.ajax({
+	            url : "BbsController?command=favorite",
+	            type : "get",
+	            data : {
+	               id : id ,
+	               bbsSeq : bbsSeq,
+	               favorite : favorite
+	            },
+	            success : function(obj) {
+
+	               var jsonObj = JSON.parse(obj);
+	               if (jsonObj.duplicated == 1) {
+	                  alert("체크했었음 -> 좋아요 취소");
+	                  $("#likecount").val(jsonObj.favorite);
+	               }
+
+	               else {
+	                  alert("체크 가능  -> 좋아요");
+	                  $("#likecount").val(jsonObj.favorite);
+	                  
+	               }
+
+	            },
+
+	            error : function(xhr, status) {
+	               alert(xhr + " : " + status)
+	            }
+	         })
+	         
+	      }
 	</script>
 </body>
 </html>

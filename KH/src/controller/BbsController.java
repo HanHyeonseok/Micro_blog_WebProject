@@ -112,6 +112,52 @@ public class BbsController extends HttpServlet {
 
 		}
 		
+		// 좋아요 체크
+	      else if(command.equals("favorite")) {
+	         System.out.println("doProcess 실행");
+
+	         String id = req.getParameter("id");
+	         System.out.println("id = " + id);
+	         
+	         int seq = Integer.parseInt(req.getParameter("bbsSeq"));
+	         System.out.println("seq = " + seq);
+	         
+	         int favorite = Integer.parseInt(req.getParameter("favorite"));
+	         System.out.println("favorite = " + favorite);
+	         
+	         boolean f = bbsDao.findLiketo(id, seq);
+	         if(!f) {
+	            bbsDao.addLiketo(id,seq);
+	         }
+
+	         int b = bbsDao.checkF(id, seq);
+	         
+	         if(b == 1) {   // 체크했었음
+	            bbsDao.readLikeDown(seq);
+	            bbsDao.fckDown(id, seq);
+	            
+	         }
+	         else {   // 체크안했었음
+	            bbsDao.readLike(seq);
+	            bbsDao.fck(id, seq);
+	         }
+	         
+	         favorite = bbsDao.getLikeCount(seq);
+	         
+	         
+	         StringBuffer json = new StringBuffer();
+	         json.append("{");
+	         json.append(" \"status\" : \"success\", "); // 요청한 것 잘 처리했고,
+	         json.append(" \"favorite\" : " + favorite +",");
+	         json.append(" \"duplicated\" : " + b);
+	         json.append(" } ");
+
+	         PrintWriter writer = resp.getWriter();
+	         writer.write(json.toString());
+	         writer.flush();
+	         writer.close();
+	      }
+		
 		// 페이지이동 확인
 		else if(command.equals("movePage")) {
 			HttpSession session = req.getSession();
