@@ -247,6 +247,11 @@ public class MemberController extends HttpServlet {
 				out.flush();
 			}
 		}
+		
+		else if(command.equals("gooleLogin")) {
+			String id = req.getParameter("id");
+			System.out.println(id);
+		}
 
 		out.close();
 	}
