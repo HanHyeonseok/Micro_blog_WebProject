@@ -22,12 +22,12 @@ CREATE TABLE MEMBER(
 */
 
 public class MemberDto implements Serializable{
-	private String id;
-	private String pwd;
+	private String id;		// 구글 int
+	private String pwd; 	// 구글 누락
 	private String name;
 	private String email;
-	private String address;
-	private String phone;
+	private String address;	// 구글 누락
+	private String phone;	// 구글 누락
 	private String img;
 	private int auth;
 	

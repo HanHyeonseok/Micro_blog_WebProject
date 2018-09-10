@@ -84,7 +84,7 @@ img {
 	}
 	
 	BbsDAOImpl bbsdao = BbsDAO.getInstance();
-	FavoriteDto likeDto = bbsdao.getCheckLike(mem.getId(), dto.getSeq());
+	//FavoriteDto likeDto = bbsdao.getCheckLike(mem.getId(), dto.getSeq());
 %>
 
 <div class="wrap-body">
@@ -185,26 +185,6 @@ img {
 <!--/.Carousel Wrapper-->
 						<div class="entry-content">
 							<p><%=dto.getContent()%></p>
-							
-							<!-- <div class="excerpt">Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum exercitation ullamco laboris nisi ut aliquip.</p></div>
-							<p>Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum.</p>
-							<blockquote><p>Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet vultatup duista.</p></blockquote>
-							<p>Duis autem vel eum iriure dolor in hendrerit in vulputate velit esse molestie consequat, vel illum dolore eu feugiat nulla facilisis at vero eros et accumsan et iusto odio dignissim qui blandit praesent luptatum zzril.</p>
-							
-							<p>Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat. Duis autem vel eum iriure dolor in hendrerit in vulputate velit esse lorem ipsum dolor sit amet.</p>
-							<p>Consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum hendrerit in vulputate velit esse molestie.</p>
-							<p><code>Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.</code></p>
-							<p>Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.</p>
-							<div class="note">
-							  <ol>
-								<li>Lorem ipsum</li>
-								<li>Sit amet vultatup nonumy</li>
-								<li>Duista sed diam</li>
-							  </ol>
-							  <div class="clear"></div>
-							</div>
-							<p>Duis autem vel eum iriure dolor in hendrerit in vulputate velit esse molestie consequat, vel illum dolore eu feugiat nulla facilisis at vero eros et accumsan et iusto odio dignissim qui blandit praesent luptatum zzril delenit augue duis dolore te feugait nulla facilisi. Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat.</p>
-							<p>Consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores.</p> -->
 						</div>
 					</div>
 				</article>
@@ -344,12 +324,13 @@ img {
     <!--Grid row-->
 
 <!-- Modal -->
+<form method="post" action="BbsController?command=update&sequence=<%=dto.getSeq() %>">
 <div class="modal fade" id="updateModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
 
     <!-- Add .modal-dialog-centered to .modal-dialog to vertically center the modal -->
     <div class="modal-dialog modal-dialog-centered" role="document">
 
-<form action="BbsController?command=update&sequence=<%=dto.getSeq() %>">
+
  	<div class="modal-content">
           <div class="modal-header">
               <h5 class="modal-title" id="exampleModalLongTitle">내용 수정</h5>
@@ -370,10 +351,10 @@ img {
               <input id="changeBbs" type="submit" class="btn btn-primary" value="Save Changes">
           </div>
       </div>
-      </form>
+      
   </div>
 </div>
-
+</form>
 		<!-- JS -->
 	<!-- ========== Scripts ========== -->
 	
@@ -388,7 +369,7 @@ img {
 <!-- MDB core JavaScript -->
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.5.9/js/mdb.min.js"></script>
 
-		<script type="text/javascript">
+<script type="text/javascript">
 			
 			<%-- function like_func(){
 				
@@ -436,107 +417,16 @@ $(function () {
 });
 			
 		
-			<%-- $(document).on('click', '.heart', function() {
-
-				var k = 0;
-				
-				
-					<% System.out.println("기능");%>
-					if (k == 0) {
-						<% System.out.println(" i = 0 ");%>
-						$(".heart-1")
-								.replaceWith(
-										"<i class='fa fa-heart' aria-hidden='true'></i>");
-						k = 1;
-
-					}
-
-					else if (k == 1) {
-						<% System.out.println(" i = 1 ");%>
-						$(".heart-1")
-								.replaceWith(
-										"<i class='fa fa-heart-o' aria-hidden='true'></i>");
-						k = 0;
-					}
-				}); --%>
-		</script>
+		
+</script>
 		
 
 		<!-- Definity JS -->
-		<script src="resources2/js/main.js"></script></body>
+<script type="text/javascript" src="resources/js/sticky-kit.min.js"></script>		
+</body>
 </html>
 
 <%@ include file="/WEB-INF/include/footer.jsp" %>
-
-
-
-
-
-<!-- Java Script  업데이트 완료 버튼 후 "수정완료" 메세지 모달
-
- 
-$("#centralModalSuccess").on('show.bs.modal', function(){
-    alert("Hello World!");
-}); 
-
-
- -->
- 
- 
- <!-- 
- 
---Central Modal Medium Success
-
-<div class="modal fade" id="centralModalSuccess" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-notify modal-success" role="document">
-        
-        --Content
-        
-        <div class="modal-content">
-            
-            --Header
-            <div class="modal-header">
-                <p class="heading lead">Modal Success</p>
-
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                            <span aria-hidden="true" class="white-text">&times;</span>
-                                        </button>
-            </div>
-
-            --Body
-            
-            <div class="modal-body">
-                <div class="text-center">
-                    <i class="fa fa-check fa-4x mb-3 animated rotateIn"></i>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Impedit iusto nulla aperiam
-                        blanditiis ad consequatur in dolores culpa, dignissimos, eius non possimus fugiat.
-                        Esse ratione fuga, enim, ab officiis totam.</p>
-                </div>
-            </div>
-
-            --Footer
-            
-            <div class="modal-footer justify-content-center">
-                <a type="button" class="btn btn-primary">Get it now <i class="fa fa-diamond ml-1"></i></a>
-                <a type="button" class="btn btn-outline-primary waves-effect" data-dismiss="modal">No, thanks</a>
-            </div>
-        </div>
-        
-        --Content
-        
-    </div>
-</div>
-
-<!-- Central Modal Medium Success-->
-
-
-<!-- Button trigger modal 
-
-<div class="text-center">
-    <a href="" class="btn btn-default btn-rounded" data-toggle="modal" data-target="#centralModalSuccess">Launch Modal Success <i class="fa fa-eye ml-1"></i></a>
-</div>
- 
-  -->
 
   
 <!-- 

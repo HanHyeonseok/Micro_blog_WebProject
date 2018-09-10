@@ -4,16 +4,17 @@
 <html>
 <head>
 <title>Honey Jam</title>
+<meta name="google-signin-client_id" content="409625888327-vrvm3i95dbmhokdu7kqtmjcd73cmn0av.apps.googleusercontent.com">
 </head>
 <body>
 	<div class="container" style="margin-bottom: 10px">
 		<!-- Card -->
 		<div class="card">
-		
+
 			<!-- Card body -->
 			<div class="card-body "
 				style="padding: 25%; padding-top: 5%; padding-bottom: 5%">
-				
+
 				<form action="MemberController?command=login" method="post">
 					<p class="h4 text-center py-4">LOGIN</p>
 
@@ -39,32 +40,43 @@
 							onclick="location.href='join.jsp'">Sign up</button>
 					</div>
 				</form>
-
 				<p
 					class="font-small dark-grey-text text-right d-flex justify-content-center mb-3 pt-2">
 					or Sign in with:</p>
-
 				<div class="row my-3 d-flex justify-content-center">
 					<!--Facebook-->
 					<button type="button"
 						class="btn btn-white btn-rounded mr-md-3 z-depth-1a">
 						<i class="fa fa-facebook blue-text text-center"></i>
 					</button>
-					<!--Twitter-->
-					<button type="button"
-						class="btn btn-white btn-rounded mr-md-3 z-depth-1a">
-						<i class="fa fa-twitter blue-text"></i>
-					</button>
 					<!--Google +-->
-					<button type="button" class="btn btn-white btn-rounded z-depth-1a">
-						<i class="fa fa-google-plus blue-text"></i>
-					</button>
+					<div class="g-signin2" data-onsuccess="onSignIn"></div>
+					<a href="#" onclick="signOut();">Sign out</a>
 				</div>
-				
 			</div>
 		</div>
-
 	</div>
+	<script type="text/javascript">
+		function onSignIn(googleUser) {
+			var profile = googleUser.getBasicProfile();
+			console.log('ID: ' + profile.getId()); // Do not send to your backend! Use an ID token instead.
+			console.log('Name: ' + profile.getName());
+			console.log('Image URL: ' + profile.getImageUrl());
+			console.log('Email: ' + profile.getEmail()); // This is null if the 'email' scope is not present.
+
+			location.href = "MemberController?command=gooleLogin&id=" + profile.getId()
+					+ "&pwd = " + profile.getEmail() + "&name="
+					+ profile.getName() + "img="
+					+ profile.getImageUrl();
+		}
+		function signOut() {
+		    var auth2 = gapi.auth2.getAuthInstance();
+		    auth2.signOut().then(function () {
+		      console.log('User signed out.');
+		    });
+		  }
+	</script>
+	<script src="https://apis.google.com/js/platform.js" async defer></script>
 	<%@ include file="/WEB-INF/include/footer.jsp"%>
 </body>
 </html>

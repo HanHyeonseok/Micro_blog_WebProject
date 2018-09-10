@@ -11,15 +11,19 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import javax.servlet.jsp.JspWriter;
 
 import com.oreilly.servlet.MultipartRequest;
 import com.oreilly.servlet.multipart.DefaultFileRenamePolicy;
+import com.sun.glass.ui.Application;
+import com.sun.java.swing.plaf.windows.resources.windows;
 
 import dao.BbsDAO;
 import dao.BbsDAOImpl;
 import dto.BbsDto;
 import dto.FavoriteDto;
+import dto.MemberDto;
 
 public class BbsController extends HttpServlet {
 
@@ -39,7 +43,10 @@ public class BbsController extends HttpServlet {
 		resp.setContentType("text/html; charset=utf-8");
 
 		String command = req.getParameter("command");
+
 		BbsDAOImpl bbsDao = BbsDAO.getInstance();
+
+		PrintWriter out = resp.getWriter();
 
 		if (command.equals("addreply")) {
 			System.out.println("sdfawe");
@@ -51,26 +58,42 @@ public class BbsController extends HttpServlet {
 
 			int sizeLimit = 1024 * 1024 * 15;
 
-			MultipartRequest multi = new MultipartRequest(req, savePath, sizeLimit, "utf-8",
-					new DefaultFileRenamePolicy());
+			try {
+				MultipartRequest multi = new MultipartRequest(req, savePath, sizeLimit, "utf-8",
+						new DefaultFileRenamePolicy());
 
-			String id = multi.getParameter("userId");
-			String profilename = multi.getParameter("userImg");
-			String title = multi.getParameter("title");
-			String content = multi.getParameter("content");
-			String hashtag = multi.getParameter("hashtag");
-			
-			String fileName = multi.getFilesystemName("files");
-			
-			BbsDto dto = new BbsDto(0, id, title, content, null, 0, 0, 0, fileName, profilename , 0, hashtag);
-			
-			boolean isS = bbsDao.addBbs(dto);
+				String id = multi.getParameter("userId");
+				String profilename = multi.getParameter("userImg");
+				String title = multi.getParameter("title");
+				String content = multi.getParameter("content");
+				String hashtag = multi.getParameter("hashtag");
+				
+				String fileName = multi.getFilesystemName("files");
 
-			if (!isS) {
-				req.setAttribute("bbsWriteResult", "false");
+				if (title.equals("") || content.equals("") || hashtag.equals("") || fileName == null) {
+					out.println("<script>alert('양식을 모두 작성해 주세요'); location.href='bbslist.jsp';</script>");
+					out.flush();
+					return;
+				}
+
+				if (!checkFileForm(fileName)) {
+					out.println(
+							"<script>alert('png, jpg, jpeg의 확장자의 이미지 파일을 사용할 수 있습니다.'); location.href='bbslist.jsp';</script>");
+					out.flush();
+					return;
+				}
+
+				BbsDto dto = new BbsDto(0, id, title, content, null, 0, 0, 0, fileName, profilename, 0, hashtag);
+				boolean isS = bbsDao.addBbs(dto);
+
+				if (!isS) {
+					out.println("<script>alert('게시글등록 실패'); location.href='bbslist.jsp';</script>");
+					out.flush();
+				}
+				dispatch("bbslist.jsp", req, resp);
+			} catch (Exception e) {
+
 			}
-
-			dispatch("bbslist.jsp", req, resp);
 		}
 
 		// 디테일 뷰
@@ -79,55 +102,139 @@ public class BbsController extends HttpServlet {
 			String sequence = req.getParameter("sequence");
 			int seq = Integer.parseInt(sequence);
 
-			BbsDAOImpl bbsdao = BbsDAO.getInstance();
-			BbsDto dto = bbsdao.getContent(seq);
-			
-			
+			BbsDto dto = bbsDao.getContent(seq);
+
 			req.setAttribute("dto", dto);
 
 			dispatch("bbsdetail.jsp", req, resp);
-
 		}
 
 		// 업데이트
 		else if (command.equals("update")) {
 			
+			resp.setCharacterEncoding("UTF-8");
+			resp.setContentType("text/html; charset=UTF-8");
+
+			PrintWriter Out = resp.getWriter();
+			
 			System.out.println("update 들어옴");
 			
 			String title = req.getParameter("title");
+			
 			String content = req.getParameter("content");
+			
 			int b_seq = Integer.parseInt(req.getParameter("sequence"));
+			
+			System.out.println(title + content + b_seq);
 			
 			BbsDAOImpl bbsdao = BbsDAO.getInstance();
 			boolean yes = bbsdao.BbsUpdate(title, content, b_seq);
-			
-			req.setAttribute("yes", yes);
-			
+
+			/*if(yes) {
+				Out.println("게시물 수정이 완료되었습니다"); 
+				Out.close();
+			}else {
+				Out.println("게시물 수정이 되지 않았습니다"); 
+				Out.close();
+				
+			}
+			*/
 			dispatch("bbsdetail.jsp", req, resp);
+
 		}
 		
-		else if(command.equals("Like")) {
-			String id = req.getParameter("memId");
-			int bbsSeq = Integer.parseInt(req.getParameter("bbsSeq"));
-			
-			BbsDAOImpl bbsdao = BbsDAO.getInstance();
-			FavoriteDto dto = bbsdao.Like(id, bbsSeq);
-			
-			StringBuffer json = new StringBuffer();
-			json.append("{");
-			json.append(" \"status\" : \"success\", "); 
-			json.append(" \"result\" : " + dto); 
-			json.append(" } ");
-	
-			PrintWriter writer = resp.getWriter();
-			writer.write(json.toString());
-			writer.flush();
-			writer.close();
-			
-			
-			
+		// 좋아요 체크
+	      else if(command.equals("favorite")) {
+	         System.out.println("doProcess 실행");
+
+	         String id = req.getParameter("id");
+	         System.out.println("id = " + id);
+	         
+	         int seq = Integer.parseInt(req.getParameter("bbsSeq"));
+	         System.out.println("seq = " + seq);
+	         
+	         int favorite = Integer.parseInt(req.getParameter("favorite"));
+	         System.out.println("favorite = " + favorite);
+	         
+	         boolean f = bbsDao.findLiketo(id, seq);
+	         if(!f) {
+	            bbsDao.addLiketo(id,seq);
+	         }
+
+	         int b = bbsDao.checkF(id, seq);
+	         
+	         if(b == 1) {   // 체크했었음
+	            bbsDao.readLikeDown(seq);
+	            bbsDao.fckDown(id, seq);
+	            
+	         }
+	         else {   // 체크안했었음
+	            bbsDao.readLike(seq);
+	            bbsDao.fck(id, seq);
+	         }
+	         
+	         favorite = bbsDao.getLikeCount(seq);
+	         
+	         
+	         StringBuffer json = new StringBuffer();
+	         json.append("{");
+	         json.append(" \"status\" : \"success\", "); // 요청한 것 잘 처리했고,
+	         json.append(" \"favorite\" : " + favorite +",");
+	         json.append(" \"duplicated\" : " + b);
+	         json.append(" } ");
+
+	         PrintWriter writer = resp.getWriter();
+	         writer.write(json.toString());
+	         writer.flush();
+	         writer.close();
+	      }
+		
+	      else if(command.equals("Like")) {
+	          String id = req.getParameter("memId");
+	          int bbsSeq = Integer.parseInt(req.getParameter("bbsSeq"));
+	          
+	          BbsDAOImpl bbsdao = BbsDAO.getInstance();
+	          //FavoriteDto dto = bbsdao.Like(id, bbsSeq);
+	          
+	          StringBuffer json = new StringBuffer();
+	          /* json.append("{");
+	          json.append(" \"status\" : \"success\", "); 
+	          json.append(" \"result\" : " + dto); 
+	          json.append(" } ");
+	          */
+	          PrintWriter writer = resp.getWriter();
+	          writer.write(json.toString());
+	          writer.flush();
+	          writer.close();
+	       }
+		
+		// 페이지이동 확인
+		else if(command.equals("movePage")) {
+			HttpSession session = req.getSession();
+			MemberDto ss = (MemberDto)session.getAttribute("login");
+			if(ss == null) {
+				dispatch("login.jsp", req, resp);
+			}else if(ss != null){
+				dispatch("bbslist.jsp", req, resp);
+			}
 		}
 
+		out.close(); // printwriter 마무리
+	}
+
+	// 업로드파일 확장자 확인
+	public boolean checkFileForm(String fileName) {
+		boolean check = false;
+		int i = fileName.lastIndexOf(".");
+
+		String str = fileName.substring(i, fileName.length());
+		str = str.toLowerCase();
+
+		if (str.equals(".png") || str.equals(".jpg") || str.equals(".jpeg")) {
+			check = true;
+		}
+
+		return check;
 	}
 
 	// dispatch method
