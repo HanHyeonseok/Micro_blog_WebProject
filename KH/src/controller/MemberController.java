@@ -62,7 +62,7 @@ public class MemberController extends HttpServlet {
 					System.out.println(mem.toString());
 					session.setMaxInactiveInterval(30 * 60);
 
-					out.println("<script>alert('" + id + "님 로그인하였습니다'); location.href='index.jsp?page=1';</script>");
+					out.println("<script>alert('" + id + "님 로그인하였습니다'); location.href='index.jsp';</script>");
 					out.flush();
 
 					// dispatch("index.jsp?page=1", req, resp);
@@ -198,11 +198,6 @@ public class MemberController extends HttpServlet {
 				boolean isS = memDao.setUserImg(id, fileName);
 
 				if (isS) {
-					HttpSession session = null;
-					session = req.getSession(true);
-					session.setAttribute("login", dto);
-					session.setMaxInactiveInterval(30 * 60);
-
 					out.println("<script>alert('수정되었습니다'); location.href='userMyPage.jsp';</script>");
 					out.flush();
 				}
