@@ -177,8 +177,7 @@
 								<div class="btn-group btn-group-sm" role="group"
 									aria-label="Basic example">
 									<button type="button" class="btn btn-unique btn-sm">
-										<i class="fa fa-heart" aria-hidden="true"></i>
-										<%=bbslist.get(i).getFavorite()%>
+										<i class="fa fa-heart" aria-hidden="true"></i> <%=bbslist.get(i).getFavorite()%>
 									</button>
 								</div>
 							</div>
