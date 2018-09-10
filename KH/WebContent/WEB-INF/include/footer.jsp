@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+	pageEncoding="UTF-8"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -7,17 +7,18 @@
 </head>
 <body>
 	<!--Footer-->
-		<!-- Footer -->
+	<!-- Footer -->
+	<div class="container">
 		<footer class="page-footer font-small unique-color-dark pt-4"
 			style="margin-left: auto; margin-right: auto;"> <!-- Footer Elements -->
-		<div class="container">
+		<div class="container" id="footer">
 
 			<!-- Call to action -->
 			<ul class="list-unstyled list-inline text-center py-2">
 				<li class="list-inline-item">
 					<h5 class="mb-1">Register for free</h5>
 				</li>
-				<li class="list-inline-item"><a href="#!"
+				<li class="list-inline-item"><a href="join.jsp"
 					class="btn btn-outline-white btn-rounded">Sign up!</a></li>
 			</ul>
 			<!-- Call to action -->

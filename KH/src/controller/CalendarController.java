@@ -9,10 +9,12 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import dao.CalendarDAO;
 import dao.CalendarDAOImpl;
 import dto.CalendarDto;
+import dto.MemberDto;
 
 public class CalendarController extends HttpServlet {
 
@@ -26,25 +28,13 @@ public class CalendarController extends HttpServlet {
 	
 	public void doProcess(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		req.setCharacterEncoding("utf-8");
-		
-		String command = req.getParameter("command");
-		CalendarDAO dao = CalendarDAO.getInstance();
-		
 		resp.setContentType("text/html; charset=utf-8");
 		
-		
-		
-		
-		
-		
+		String command = req.getParameter("command");
+		CalendarDAO dao = CalendarDAO.getInstance();		
+	
 		if(command.equals("write")) {
 		
-			//MemberDto mem = (MemberDto)session.getAttribute("login");
-			//String id = mem.getId();
-			//resp.setContentType("text/html; charset=utf-8");
-
-			
-			
 			String id = req.getParameter("id");
 			String rdate = ""+req.getParameter("year")
 							+formatTwo(req.getParameter("month"))
@@ -70,11 +60,7 @@ public class CalendarController extends HttpServlet {
 			}
 		}
 		else if(command.equals("delete")) {
-			
-			//MemberDto mem = (MemberDto)session.getAttribute("login");
-			//String id = mem.getId();
-			resp.setContentType("text/html; charset=utf-8");
-			
+
 			String sseq = req.getParameter("seq");
 			int seq = Integer.parseInt(sseq);
 			
@@ -139,6 +125,15 @@ public class CalendarController extends HttpServlet {
 			req.setAttribute("dto", dto);
 			
 			this.dispatch("calendarlist.jsp", req, resp);
+		}
+		else if(command.equals("movePage")) {
+			HttpSession session = req.getSession();
+			MemberDto ss = (MemberDto)session.getAttribute("login");
+			if(ss == null) {
+				dispatch("login.jsp", req, resp);
+			}else if(ss != null){
+				dispatch("calendar.jsp", req, resp);
+			}
 		}
 	}
 

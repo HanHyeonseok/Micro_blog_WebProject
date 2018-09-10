@@ -5,28 +5,24 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ include file="/WEB-INF/include/header.jsp"%>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<meta charset="utf-8">
-<meta name="viewport"
-	content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<meta http-equiv="x-ua-compatible" content="ie=edge">
 <title>Honey Jam</title>
 <%
-	if (request.getAttribute("bbsWriteResult") == "false") {
-		out.println("<script type='text/javascript'>alert('게시글 등록에 실패하였습니다.');</script>");
-		request.setAttribute("bbsWriteResult", "");
-	}
-
-	if (mem == null) {
-		RequestDispatcher rd = request.getRequestDispatcher("login.jsp");
-		rd.forward(request, response);
-	}
-
 	BbsDAOImpl dao = BbsDAO.getInstance();
-	List<BbsDto> list = dao.getBbsList();
+
+	List<BbsDto> list = null;
+	String search = request.getParameter("search");
+	if (search != null) {
+		list = dao.getSearchList(search);
+		if (list.size() == 0) {
+			list = dao.getBbsList();
+			out.println("<script>alert('검색된 내용이 없습니다');</script>");
+		}
+	} else {
+		list = dao.getBbsList();
+	}
+
 	List<BbsDto> bestList = dao.getBestList();
 %>
 </head>
@@ -43,8 +39,9 @@
 				<div class="col-md-4" style="padding: 0px">
 					<form class="form-inline form-sm active-pink-2">
 						<input class="form-control form-control-sm mr-3 w-75" type="text"
-							placeholder="Search" aria-label="Search"> <a href="#"><i
-							class="fa fa-search" aria-hidden="true"></i></a>
+							placeholder="제목+본문" aria-label="제목+본문" id="search"> <a
+							href="#" onclick="searchBbs()"><i class="fa fa-search"
+							aria-hidden="true"></i></a>
 					</form>
 				</div>
 			</div>
@@ -57,8 +54,8 @@
 				<!-- BbsWrite layer -->
 				<div class="col-md-3 sticky_column" data-sticky_column
 					style="height: 640px;">
-					<form action="BbsController?command=bbsWrite" method="post"
-						id="regi_bbs" enctype="multipart/form-data">
+					<form id="regi_bbs" enctype="multipart/form-data" method="post"
+						action="BbsController?command=bbsWrite">
 
 						<!-- layer header -->
 						<div
@@ -81,14 +78,16 @@
 							<%
 								} else {
 							%>
-							<img src="upload/<%=mem.getImg()%>" class="rounded-circle mr-3"
-								height="50px" width="50px" alt="avatar">
+							<img
+								style="width: auto; height: auto; max-height: 50px; max-width: 50px"
+								src="upload/<%=mem.getImg()%>" class="rounded-circle mr-3"
+								alt="avatar">
 							<%
 								}
 							%>
 
 							<!-- userId -->
-							<input type="hidden" name="userId" value="<%=mem.getId()%>">
+							<input type="hidden" name="userId" id="userId" value="<%=mem.getId()%>">
 							<h5 style="font-family: inherit; margin: 0; padding-top: 10px"><%=mem.getId()%></h5>
 						</div>
 						<!-- input title -->
@@ -125,15 +124,12 @@
 
 				<!-- View BBS -->
 				<div class="col-md-6">
-					<!-- 1번 -->
 					<%
 						for (int i = 0; i < list.size(); i++) {
 					%>
 					<div class="card promoting-card" style="margin-bottom: 15px">
-
 						<!-- Card content -->
 						<div class="card-body d-flex flex-row">
-
 							<!-- Avatar -->
 							<%
 								if (list.get(i).getProfilename().equals("null")) {
@@ -144,49 +140,52 @@
 							<%
 								} else {
 							%>
-							<img src="upload/<%=list.get(i).getProfilename()%>"
+							<img
+								style="width: auto; height: auto; max-height: 50px; max-width: 50px"
+								src="
+								upload/<%=list.get(i).getProfilename()%>"
 								class="rounded-circle mr-3" height="50px" width="50px"
 								alt="https://user-images.githubusercontent.com/38531104/45137275-e0615300-b1e2-11e8-9dbb-05378ea956b6.png">
 							<%
 								}
 							%>
-
 							<!-- Content -->
 							<div>
-
 								<!-- Title -->
-								<h4 class="card-title font-weight-bold mb-2"><%=list.get(i).getId()%></h4>
+								<a href="userMyPage.jsp?userId=<%=list.get(i).getId()%>"
+									style="color: black; font-size: 24px"
+									class="card-title font-weight-bold mb-2"><%=list.get(i).getId()%></a>
 								<!-- Subtitle -->
 								<p class="card-text">
 									<i class="fa fa-clock-o pr-2"></i><%=list.get(i).getWdate()%>
 								</p>
-
 							</div>
 
 						</div>
-
 						<!-- Card image -->
 						<div class="view overlay" style="margin: 10px" align="center">
-							<a
+							<img
+								style="width: auto; height: auto; max-height: 270px; max-width: 480px"
+								src="upload/<%=list.get(i).getFilename()%>" class="img-fluid "
+								alt="이미지 없음"> <a
 								href="BbsController?command=detail&sequence=<%=list.get(i).getSeq()%>">
-								<img src="upload/<%=list.get(i).getFilename()%>"
-								class="img-fluid " alt="이미지 없음">
 								<div
 									class="mask flex-center waves-effect waves-light rgba-red-slight">
 									<p class="white-text">[클릭] 게시글 보기</p>
 								</div>
 							</a>
 						</div>
-
 						<!-- Card content -->
 						<div align="right"
 							style="padding-right: 10px; margin-top: 5px; margin-bottom: 5px;">
 							<div class="btn-group btn-group-sm" role="group"
 								aria-label="Basic example">
-								<button type="button" class="btn btn-unique btn-sm">
+								<input type="hidden" id="bbsSeq" value="<%=list.get(i).getSeq() %>">
+								<button type="button" class="btn btn-unique btn-sm" onclick="check_like()">
 									<i class="fa fa-heart" aria-hidden="true"></i>
-									<%=list.get(i).getFavorite()%>
 								</button>
+								<input type="text" id="likecount" size="3" class="btn btn-unique btn-sm" value="<%=list.get(i).getFavorite()%>" readonly="readonly">
+								
 							</div>
 						</div>
 						<div class="card-body" style="padding-top: 0px">
@@ -201,7 +200,6 @@
 					<%
 						}
 					%>
-
 				</div>
 				<!-- // View BBS -->
 
@@ -216,143 +214,71 @@
 							best 3
 						</h3>
 					</div>
-					<%
-						if (bestList.size() > 0 && bestList.size() < 3) {
-
-							for (int i = 0; i < bestList.size(); i++) {
-					%>
-					<!-- first -->
-					<div class="card promoting-card" style="margin-bottom: 10px">
-
-						<!-- Card content -->
-						<div class="card-body d-flex flex-row">
-
-							<!-- Avatar -->
-							<%
-								if (bestList.get(i).getProfilename().equals("null")) {
-							%>
-							<img
-								src="https://user-images.githubusercontent.com/38531104/45137275-e0615300-b1e2-11e8-9dbb-05378ea956b6.png"
-								class="rounded-circle mr-3" height="50px" width="50px" alt="">
-							<%
-								} else {
-							%>
-							<img src="upload/<%=bestList.get(i).getProfilename()%>"
-								class="rounded-circle mr-3" height="50px" width="50px"
-								alt="https://user-images.githubusercontent.com/38531104/45137275-e0615300-b1e2-11e8-9dbb-05378ea956b6.png">
-							<%
-								}
-							%>
-
-							<!-- Content -->
-							<div>
-								<!-- Title -->
-								<h4 class="card-title font-weight-bold mb-2"><%=bestList.get(i).getId()%></h4>
-								<!-- Subtitle -->
-								<p class="card-text">
-									<i class="fa fa-clock-o pr-2"></i><%=bestList.get(i).getWdate()%>
-								</p>
-							</div>
-						</div>
-						<div class="btn-group btn-group-sm" role="group"
-							aria-label="Basic example" style="padding-left: 10px">
-							<button type="button" class="btn btn-unique btn-sm" disabled>
-								Like :
-								<%=bestList.get(i).getFavorite()%></button>
-							<button type="button" class="btn btn-unique btn-sm" disabled>
-								View :
-								<%=bestList.get(i).getReadcount()%></button>
-						</div>
-						<!-- Card image -->
-						<div class="view overlay" style="margin: 10px">
-							<a
-								href="BbsController?command=detail&sequence=<%=list.get(i).getSeq()%>">
-								<img src="upload/<%=bestList.get(i).getFilename()%>"
-								class="img-fluid " alt="placeholder">
-								<div
-									class="mask flex-center waves-effect waves-light rgba-red-slight">
-									<p class="white-text">[클릭] 게시글 보기</p>
-								</div>
-							</a>
-						</div>
-					</div>
-					<%
-						}
-						} else if (bestList.size() >= 3) {
-							for (int i = 0; i < 3; i++) {
-					%>
-					<!-- first -->
-					<div class="card promoting-card" style="margin-bottom: 10px">
-
-						<!-- Card content -->
-						<div class="card-body d-flex flex-row">
-
-							<!-- Avatar -->
-							<%
-								if (bestList.get(i).getProfilename().equals("null")) {
-							%>
-							<img
-								src="https://user-images.githubusercontent.com/38531104/45137275-e0615300-b1e2-11e8-9dbb-05378ea956b6.png"
-								class="rounded-circle mr-3" height="50px" width="50px" alt="">
-							<%
-								} else {
-							%>
-							<img src="upload/<%=bestList.get(i).getProfilename()%>"
-								class="rounded-circle mr-3" height="50px" width="50px"
-								alt="https://user-images.githubusercontent.com/38531104/45137275-e0615300-b1e2-11e8-9dbb-05378ea956b6.png">
-							<%
-								}
-							%>
-
-							<!-- Content -->
-							<div>
-								<!-- Title -->
-								<h4 class="card-title font-weight-bold mb-2"><%=bestList.get(i).getId()%></h4>
-								<!-- Subtitle -->
-								<p class="card-text">
-									<i class="fa fa-clock-o pr-2"></i><%=bestList.get(i).getWdate()%>
-								</p>
-							</div>
-						</div>
-						<div class="btn-group btn-group-sm" role="group"
-							aria-label="Basic example" style="padding-left: 10px">
-							<button type="button" class="btn btn-unique btn-sm" disabled>
-								Like :
-								<%=bestList.get(i).getFavorite()%></button>
-							<button type="button" class="btn btn-unique btn-sm" disabled>
-								View :
-								<%=bestList.get(i).getReadcount()%></button>
-						</div>
-						<!-- Card image -->
-						<div class="view overlay" style="margin: 10px">
-							<a
-								href="BbsController?command=detail&sequence=<%=list.get(i).getSeq()%>">
-								<img src="upload/<%=bestList.get(i).getFilename()%>"
-								class="img-fluid " alt="placeholder">
-								<div
-									class="mask flex-center waves-effect waves-light rgba-red-slight">
-									<p class="white-text">[클릭] 게시글 보기</p>
-								</div>
-							</a>
-						</div>
-					</div>
-					<%
-						}
-						}
-					%>
+					<jsp:include page="bestbbslist.jsp"></jsp:include>
 				</div>
 				<!-- // best bbsList -->
-
 			</div>
 			<!-- //  Main Content -->
 		</div>
 		<!-- // Main layout-->
+	</div>
+	<div style="position: fixed; bottom: 100px; right: 80px;">
+		<div style="font-size: 40px">
+			<a href="#header" style="color: #AEADAD;"><i
+				class="fa fa-arrow-circle-o-up" aria-hidden="true"></i></a><br> <a
+				href="#footer" style="color: #AEADAD;"><i
+				class="fa fa-arrow-circle-o-down" aria-hidden="true"></i></a>
+		</div>
 	</div>
 	<%@ include file="/WEB-INF/include/footer.jsp"%>
 	<!-- JQuery -->
 	<script type="text/javascript" src="resources/js/sticky-kit.min.js"></script>
 	<script type="text/javascript">
 		$(".sticky_column").stick_in_parent();
+
+		function searchBbs() {
+			var word = document.getElementById("search").value;
+			location.href = "bbslist.jsp?search=" + word;
+		}
+		
+		
+		function check_like() {
+	         var id = $("#userId").val();
+	         var bbsSeq  = $("#bbsSeq").val();
+	         var favorite = $("#likecount").val();   
+	         
+	         alert("id =" + id);
+	              
+	         $.ajax({
+	            url : "BbsController?command=favorite",
+	            type : "get",
+	            data : {
+	               id : id ,
+	               bbsSeq : bbsSeq,
+	               favorite : favorite
+	            },
+	            success : function(obj) {
+
+	               var jsonObj = JSON.parse(obj);
+	               if (jsonObj.duplicated == 1) {
+	                  alert("체크했었음 -> 좋아요 취소");
+	                  $("#likecount").val(jsonObj.favorite);
+	               }
+
+	               else {
+	                  alert("체크 가능  -> 좋아요");
+	                  $("#likecount").val(jsonObj.favorite);
+	                  
+	               }
+
+	            },
+
+	            error : function(xhr, status) {
+	               alert(xhr + " : " + status)
+	            }
+	         })
+	         
+	      }
 	</script>
 </body>
 </html>
