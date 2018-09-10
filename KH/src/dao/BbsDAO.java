@@ -189,13 +189,6 @@ public class BbsDAO implements BbsDAOImpl {
 			System.out.println("END getBbsList Success");
 		}
 		
-		if (list == null) {
-			System.out.println("리스트 널");
-		}
-		else {
-			System.out.println("리스트 있음");
-		}
-		
 		return list;
 	}
 
@@ -317,8 +310,8 @@ public class BbsDAO implements BbsDAOImpl {
 				e.printStackTrace();
 			}
 			
-			DBClose.close(psmt, conn, null);
-			System.out.println("6/6 answer success");		
+			DBClose.close(psmt, conn, rs);
+			System.out.println("6/6 Like success");		
 		}
 		
 		return dto;
@@ -357,9 +350,41 @@ public class BbsDAO implements BbsDAOImpl {
 		
 		} catch (SQLException e) {
 			e.printStackTrace();
+		} finally {
+			DBClose.close(psmt, conn, rs);
+			System.out.println("END GetCheckLike Success");
 		}
 		
 		return dto;
+	}
+
+	@Override
+	public boolean BbsUpdate(String title, String content, int b_seq) {
+		
+		String sql = " UPDATE BBS SET CONTENT = ? "
+				+ " , TITLE = ? WHERE SEQ = ? "; 
+				
+		Connection conn = null;
+		PreparedStatement psmt = null;
+		ResultSet rs = null;
+		
+		conn = DBConnection.makeConnection();
+		
+		try {
+		
+		psmt = conn.prepareStatement(sql);
+		
+		psmt.setString(1, title);
+		psmt.setString(2, content);
+		psmt.setInt(3, b_seq);
+		
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			DBClose.close(psmt, conn, rs);
+			System.out.println("END Update Success");
+		}
+		return false;
 	}
 	
 	

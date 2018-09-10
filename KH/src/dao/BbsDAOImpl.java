@@ -21,4 +21,6 @@ public interface BbsDAOImpl {
 	
 	public FavoriteDto getCheckLike(String id, int b_seq);
 	
+	public boolean BbsUpdate(String title, String content, int b_seq);
+	
 }

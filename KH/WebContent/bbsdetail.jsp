@@ -397,13 +397,13 @@ img {
             
             <div class="form-group green-border-focus">
 			    <label for="exampleFormControlTextarea5"><input type="text" value="<%=dto.getTitle() %>"></label>
-			    <textarea class="form-control" id="exampleFormControlTextarea5" rows="15"><%=dto.getContent() %></textarea>
+			    <textarea class="form-control" id="updateForm" rows="15"><%=dto.getContent() %></textarea>
 			</div>
 			
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary">Save changes</button>
+                <button type="button" class="btn btn-primary"><a href="BbsController?command=update&sequence=<%= dto.getSeq()%>&content=">Save changes</a></button>
             </div>
         </div>
     </div>
