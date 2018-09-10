@@ -20,7 +20,7 @@ String dates = year + two(month) + two(day); // 20180901
 CalendarDAOImpl dao = CalendarDAO.getInstance();
 List<CalendarDto> list = dao.getDayList(dates); // 해당 일의 행사리스트 반환
 System.out.println("리스트 사이즈 : " + list.size());
-String url = String.format("%s?year=%s&month=%s", "calendar.jsp", year, month);
+/* String url = String.format("%s?year=%s&month=%s", "location.href='calendar.jsp'", year, month); */
 %>
 
 <%!
@@ -102,9 +102,11 @@ table.table td a.delete {
 
 <div class="container" style="margin-bottom: 10px">
 <form action="CalendarController" method="post">
-      <input type="hidden" name="command" value="detail">
-      <div class="table-wrapper">
+<input type="hidden" name="command" value="detail">
 
+     <div class="table-wrapper" align="center">
+	<h3 align="center">Event List</h3>
+	<hr>
          <table border="1" align="center"
             class="table table-striped table-hover table-bordered">
             <col width="100">
@@ -163,13 +165,16 @@ table.table td a.delete {
             <%
                }
             %>
-
          </table>
+         <div align="center">
+         <button type="button" class="btn btn-outline-info waves-effect" onclick="location.href='calendar.jsp'">
+					<i class="fa fa-undo" aria-hidden="true"></i>목록	</button>
+		</div>		
       </div>
    </form>
 </div>
 
-<a href="<%=url%>">일정보기로 가기</a>
+			
 <script type="text/javascript">
 $(document).ready(function() {
    $('[data-toggle="tooltip"]').tooltip();
