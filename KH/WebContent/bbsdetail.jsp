@@ -385,7 +385,7 @@ img {
     <!-- Add .modal-dialog-centered to .modal-dialog to vertically center the modal -->
     <div class="modal-dialog modal-dialog-centered" role="document">
 
-
+<form action="BbsController?command=update">
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title" id="exampleModalLongTitle">내용 수정</h5>
@@ -403,9 +403,10 @@ img {
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary"><a href="BbsController?command=update&sequence=<%= dto.getSeq()%>&content=">Save changes</a></button>
+                <input type="submit" class="btn btn-primary" value="Save Changes">
             </div>
         </div>
+        </form>
     </div>
 </div>
 		
