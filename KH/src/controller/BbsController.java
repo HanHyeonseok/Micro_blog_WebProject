@@ -91,9 +91,9 @@ public class BbsController extends HttpServlet {
 
 		// 업데이트
 		else if (command.equals("update")) {
-			String title = req.getParameter(arg0)
-			String content =
-			int seq = 
+			String title = req.getParameter("title");
+			//String content = 
+			//int seq = 
 			
 		}
 		
