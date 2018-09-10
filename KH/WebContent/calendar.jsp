@@ -81,7 +81,8 @@
 		s += "</table>";
 
 		return s;
-	}%>
+	}
+%>
 <%
 	request.setCharacterEncoding("utf-8");
 
@@ -166,8 +167,8 @@
 </style>
 </head>
 <body>
-	<div class="container" style="margin-bottom: 10px">
-		<h3 align="center">행사 일정</h3><hr>
+	<div class="container" style="margin-bottom: 20px">
+		<h3 align="center">Event</h3><hr>
 		<div id="calendar-wrap">
 			<div align="center" id="calendar">
 				<table border="1" class="bor" align="center">
