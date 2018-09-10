@@ -681,4 +681,37 @@ public class BbsDAO implements BbsDAOImpl {
 		}
 		return count>0?true:false;
 	}
+
+	@Override
+	public boolean BbsDelete(int seq) {
+		
+		String sql = " UPDATE BBS SET DEL = 1 WHERE SEQ = ? ";
+		
+		int count = 0;
+		
+		Connection conn = null;
+		PreparedStatement psmt = null;
+		
+		try {
+		conn = DBConnection.makeConnection();
+		System.out.println("1/6 END BbsUpdate Success");
+
+		psmt = conn.prepareStatement(sql);
+		psmt.setInt(1, seq);
+		System.out.println("2/6 END BbsUpdate Success");
+
+		count = psmt.executeUpdate();
+		System.out.println("3/6 END BbsUpdate Success");
+
+		} catch (SQLException e) {
+		System.out.println("Failed BbsDelete");
+		
+			e.printStackTrace();
+		}
+		System.out.println("END BbsDelete Success");
+
+		return count>0?true:false;
+	}
+	
+	
 }

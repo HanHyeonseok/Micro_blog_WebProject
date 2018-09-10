@@ -111,36 +111,55 @@ public class BbsController extends HttpServlet {
 
 		// 업데이트
 		else if (command.equals("update")) {
-			
-			resp.setCharacterEncoding("UTF-8");
-			resp.setContentType("text/html; charset=UTF-8");
-
-			PrintWriter Out = resp.getWriter();
-			
-			System.out.println("update 들어옴");
-			
+						
 			String title = req.getParameter("title");
 			
 			String content = req.getParameter("content");
 			
 			int b_seq = Integer.parseInt(req.getParameter("sequence"));
-			
-			System.out.println(title + content + b_seq);
-			
+						
 			BbsDAOImpl bbsdao = BbsDAO.getInstance();
 			boolean yes = bbsdao.BbsUpdate(title, content, b_seq);
-
-			/*if(yes) {
-				Out.println("게시물 수정이 완료되었습니다"); 
-				Out.close();
-			}else {
-				Out.println("게시물 수정이 되지 않았습니다"); 
-				Out.close();
+			
+			if (yes == true) {
+				out.println("<script>alert(\"게시물을 수정 완료 하였습니다.\");location.href = \"bbsdetail.jsp\"</script>");
+				BbsDto dto = bbsdao.getContent(b_seq);
+				req.setAttribute("dto", dto);
 				
+				dispatch("bbsdetail.jsp", req, resp);
+			}else {
+				out.println("<script>alert(\"게시물 수정에 실패 하였습니다.\");location.href = \"bbsdetail.jsp\"</script>");
+				BbsDto dto = bbsdao.getContent(b_seq);
+				req.setAttribute("dto", dto);
+				
+				dispatch("bbsdetail.jsp", req, resp);
 			}
-			*/
-			dispatch("bbsdetail.jsp", req, resp);
-
+			
+		}
+		
+		// 삭제
+		else if (command.equals("delete")) {
+			
+			System.out.println("들어왔음");
+			
+			String seq = req.getParameter("sequence");
+			int b_seq = Integer.parseInt(seq);
+			
+			System.out.println("sequence = " + b_seq);
+			BbsDAOImpl bbsdao = BbsDAO.getInstance();
+			
+			boolean yes = bbsdao.BbsDelete(b_seq);
+			
+			if(yes == true){
+				out = resp.getWriter();						
+				out.println("<script>alert(\"삭제했습니다.\");location.href = \"bbslist.jsp\"</script>");		
+				
+			}else{
+				out = resp.getWriter();				
+				out.println("<script>alert(\"삭제 실패 했습니다.\");location.href = \"bbslist.jsp\"</script>");		
+			}
+			
+			//resp.sendRedirect("bbslist.jsp");
 		}
 		
 		// 좋아요 체크
@@ -218,6 +237,7 @@ public class BbsController extends HttpServlet {
 				dispatch("bbslist.jsp", req, resp);
 			}
 		}
+		
 
 		out.close(); // printwriter 마무리
 	}

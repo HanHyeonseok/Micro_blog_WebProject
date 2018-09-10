@@ -197,7 +197,17 @@ img {
 	<!-- 내용 수정 -->
 	
 <div align="right">
-	<button type="button" data-toggle="modal" data-target="#updateModal" class="btn btn-secondary">내용 수정</button>
+<button type="button" class="btn btn-rounded btn-amber"><i class="fa fa-th-list pr-2" aria-hidden="true"></i>목록</button>
+
+<%if(mem.getId().equals(dto.getId())){ %> 
+
+<button type="button" data-toggle="modal" data-target="#deleteModal" class="btn btn-danger btn-rounded"><i class="fa fa-trash"></i>삭제</button>
+
+<button type="button" data-toggle="modal" data-target="#updateModal" class="btn btn-primary"><i class="fa fa-magic mr-1"></i>내용 수정</button>
+
+<% 
+}
+%>
 </div>
 		
 		
@@ -218,9 +228,6 @@ img {
                 <div class="form-group basic-textarea rounded-corners">
                     <textarea class="form-control z-depth-1" id="reply" rows="3" placeholder="Write your comment..."></textarea><div align="right"><button type="button" class="btn btn-info">등록</button></div>
                 </div>
-                
-                
-                
             </div>
         </div>
     </div>
@@ -323,7 +330,7 @@ img {
     </div>
     <!--Grid row-->
 
-<!-- Modal -->
+<!-- 내용 수정 Modal -->
 <form method="post" action="BbsController?command=update&sequence=<%=dto.getSeq() %>">
 <div class="modal fade" id="updateModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
 
@@ -355,10 +362,36 @@ img {
   </div>
 </div>
 </form>
-		<!-- JS -->
-	<!-- ========== Scripts ========== -->
+
+<!-- 내용 수정 Modal -->
 	
-	
+	<!-- 게시글 삭제 Modal -->
+							
+<form method="post" action="BbsController?command=delete&sequence=<%=dto.getSeq() %>">
+<div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+
+    <!-- Change class .modal-sm to change the size of the modal -->
+    <div class="modal-dialog modal-sm" role="document">
+
+      <div class="modal-content">
+        <div class="modal-header">
+          <h4 class="modal-title w-100" id="myModalLabel">Message</h4>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          	게시글을 삭제하시겠습니까? <br> 다시 복구할 수 없습니다.
+        </div>
+        <div class="modal-footer">
+          <input type="button" class="btn btn-secondary btn-sm" data-dismiss="modal" value="아니요">
+          <input type="submit" class="btn btn-primary btn-sm" value="예">
+        </div>
+      </div>
+    </div>
+  </div>
+ </form>
+	<!-- 게시글 삭제 Modal -->
 	
 	  <!-- JQuery -->
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
@@ -370,29 +403,7 @@ img {
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.5.9/js/mdb.min.js"></script>
 
 <script type="text/javascript">
-			
-			<%-- function like_func(){
-				
-				$.ajax({
-					url : "BbsController?command=Like",
-					type : "POST",
-					cache : false,
-					dataType : "json",
-					data : { bbsSeq : <%=dto.getSeq() %>,
-						     memId : <%=mem.getId() %> },
-				    success: function (obj) {
-						System.out.println("성공");
-				    	var jsonObj = JSON.parse(obj);
-				    	
-				    	System.out.println(jsonObj.result.getId());
-				    		
-				    	
-					}
-				});
-				
-			} --%>
 		
-			
 $(function () {
 
 	$('.heart').click(function () {
@@ -416,32 +427,16 @@ $(function () {
 	});
 });
 			
-		
-		
 </script>
 		
 
-		<!-- Definity JS -->
-<script type="text/javascript" src="resources/js/sticky-kit.min.js"></script>		
+<!-- Definity JS -->
+<script type="text/javascript" src="resources/js/sticky-kit.min.js"></script>	
+	
 </body>
 </html>
 
 <%@ include file="/WEB-INF/include/footer.jsp" %>
 
   
-<!-- 
-
-1. 좋아요 누를시 해당 seq게시물의 favorite +1 구현 (Ajax)
-
-2. 내용 수정시 모달 프레임에 해당 게시물 content , title 구현
-
-3. image 파일 수정/삽입 버튼 누를시 해당 게시물의 image fileName 변경 구현
-
-4. 댓글 how 구상 (Ajax)
-
-5. 게시글 footer 부분 "다음글 보기"로 할것인지 구상
-
-
-
--->  
   
