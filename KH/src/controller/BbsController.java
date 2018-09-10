@@ -2,6 +2,7 @@ package controller;
 
 import java.io.File;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.Iterator;
 import java.util.List;
 
@@ -18,6 +19,7 @@ import com.oreilly.servlet.multipart.DefaultFileRenamePolicy;
 import dao.BbsDAO;
 import dao.BbsDAOImpl;
 import dto.BbsDto;
+import dto.FavoriteDto;
 
 public class BbsController extends HttpServlet {
 
@@ -79,7 +81,8 @@ public class BbsController extends HttpServlet {
 
 			BbsDAOImpl bbsdao = BbsDAO.getInstance();
 			BbsDto dto = bbsdao.getContent(seq);
-
+			
+			
 			req.setAttribute("dto", dto);
 
 			dispatch("bbsdetail.jsp", req, resp);
@@ -89,6 +92,28 @@ public class BbsController extends HttpServlet {
 		// 업데이트
 		else if (command.equals("update")) {
 
+		}
+		
+		else if(command.equals("Like")) {
+			String id = req.getParameter("memId");
+			int bbsSeq = Integer.parseInt(req.getParameter("bbsSeq"));
+			
+			BbsDAOImpl bbsdao = BbsDAO.getInstance();
+			FavoriteDto dto = bbsdao.Like(id, bbsSeq);
+			
+			StringBuffer json = new StringBuffer();
+			json.append("{");
+			json.append(" \"status\" : \"success\", "); 
+			json.append(" \"result\" : " + dto); 
+			json.append(" } ");
+	
+			PrintWriter writer = resp.getWriter();
+			writer.write(json.toString());
+			writer.flush();
+			writer.close();
+			
+			
+			
 		}
 
 	}

@@ -121,6 +121,7 @@ public class MemberController extends HttpServlet{
 			
 		}
 		
+		
 		else if(command.equals("idCheck")) {
 			System.out.println("doProcess 실행");
 			
