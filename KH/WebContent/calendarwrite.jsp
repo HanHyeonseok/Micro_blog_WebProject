@@ -34,7 +34,7 @@
 <body>
 	<div class="container" style="margin-bottom: 10px">
 		<div style="margin-top: 20px; margin-bottom: 20px">
-			<h3 align="center">Event Wtrie</h3>
+			<h3 align="center">Event Write</h3>
 			<hr>
 		</div>
 		<form action="CalendarController" method="post"
@@ -147,8 +147,7 @@
 	<script type="text/javascript">
 // 지정된 달의 끝 날짜를 설정
 
-$("#day").val("<%=day%>
-		");
+$("#day").val("<%=day%>");
 
 		$(document).ready(function() {
 			$("select[name='month']").change(setDay);
