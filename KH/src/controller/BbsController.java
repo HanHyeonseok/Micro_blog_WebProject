@@ -104,7 +104,6 @@ public class BbsController extends HttpServlet {
 			req.setAttribute("dto", dto);
 
 			dispatch("bbsdetail.jsp", req, resp);
-
 		}
 
 		// 업데이트
@@ -157,6 +156,25 @@ public class BbsController extends HttpServlet {
 	         writer.flush();
 	         writer.close();
 	      }
+		
+	      else if(command.equals("Like")) {
+	          String id = req.getParameter("memId");
+	          int bbsSeq = Integer.parseInt(req.getParameter("bbsSeq"));
+	          
+	          BbsDAOImpl bbsdao = BbsDAO.getInstance();
+	          FavoriteDto dto = bbsdao.Like(id, bbsSeq);
+	          
+	          StringBuffer json = new StringBuffer();
+	          json.append("{");
+	          json.append(" \"status\" : \"success\", "); 
+	          json.append(" \"result\" : " + dto); 
+	          json.append(" } ");
+	    
+	          PrintWriter writer = resp.getWriter();
+	          writer.write(json.toString());
+	          writer.flush();
+	          writer.close();
+	       }
 		
 		// 페이지이동 확인
 		else if(command.equals("movePage")) {
