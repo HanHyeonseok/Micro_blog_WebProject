@@ -7,33 +7,14 @@
 	
 <%@ include file="/WEB-INF/include/header.jsp" %>
 
-<html lang="en">
+<html>
 
 <head>
-
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="Free Bootstrap Themes by Zerotheme dot com - Free Responsive Html5 Templates">
-    <meta name="author" content="https://www.Zerotheme.com">
 	
-    <title>Detail Data</title>
+    <title>Honey Jam</title>
 	
 	
-    <!-- Bootstrap Core CSS -->
-    <link href="resources/css/bootstrap.min.css" rel="stylesheet" type="text/css">
 	
-	<!-- Custom CSS -->
-	<link href="resources/css/style.css" rel="stylesheet">
-	
-	<!-- Animate.css -->
-	<!-- <link href="resources/css/animate.css" rel="stylesheet" media="all" type="text/css"> -->
-	
-	<!-- Custom Fonts -->
-    <!-- <link href="resources/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css"> -->
-	
-	
-	<!-- Font Awesome -->
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
 <!-- Bootstrap core CSS -->
 <link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.3/css/bootstrap.min.css" rel="stylesheet">
@@ -42,12 +23,6 @@
 	
 	
 	
-	<!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
-    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
-    <!--[if lt IE 9]>
-        <script src="js/html5shiv.js"></script>
-        <script src="js/respond.min.js"></script>
-    <![endif]-->
     
 <style type="text/css">
 .div-hearder-navbar {
@@ -95,17 +70,6 @@ img {
 
 </head>
 
-<!-- <script>
-	(function () {
-		var scripts = ["/static/general/bf-core.min.js", "/static/containers/QMI797.js"];
-		for(var i = 0; i < scripts.length; i++){
-			var script = document.createElement("scripts");
-			script.src = "//brandflow.net" + scripts[i] + "?ts=" + Date.now() + "#";
-			script.async = false;
-			document.head.appendChild(script);
-		}
-	})();
-</script> -->
 
 
 <body id="page-top" class="index-page">
@@ -385,32 +349,31 @@ img {
     <!-- Add .modal-dialog-centered to .modal-dialog to vertically center the modal -->
     <div class="modal-dialog modal-dialog-centered" role="document">
 
-<form action="BbsController?command=update">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLongTitle">내용 수정</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body">
-            
-            <div class="form-group green-border-focus">
-			    <label for="exampleFormControlTextarea5"><input type="text" value="<%=dto.getTitle() %>"></label>
-			    <textarea class="form-control" id="updateForm" rows="15"><%=dto.getContent() %></textarea>
-			</div>
-			
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                <input type="submit" class="btn btn-primary" value="Save Changes">
-            </div>
-        </div>
-        </form>
-    </div>
+<form action="BbsController?command=update&sequence=<%=dto.getSeq() %>">
+ 	<div class="modal-content">
+          <div class="modal-header">
+              <h5 class="modal-title" id="exampleModalLongTitle">내용 수정</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+              </button>
+          </div>
+          <div class="modal-body">
+          
+          <div class="form-group green-border-focus">
+	    <label for="exampleFormControlTextarea5"><input name="title" type="text" value="<%=dto.getTitle() %>"></label>
+	    <textarea name="content" class="form-control" id="updateForm" rows="15"><%=dto.getContent() %></textarea>
+	</div>
+	
+          </div>
+          <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+              <input id="changeBbs" type="submit" class="btn btn-primary" value="Save Changes">
+          </div>
+      </div>
+      </form>
+  </div>
 </div>
-		
-		
+
 		<!-- JS -->
 	<!-- ========== Scripts ========== -->
 	

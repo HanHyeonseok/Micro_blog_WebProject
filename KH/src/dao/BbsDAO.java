@@ -361,30 +361,32 @@ public class BbsDAO implements BbsDAOImpl {
 	@Override
 	public boolean BbsUpdate(String title, String content, int b_seq) {
 		
-		String sql = " UPDATE BBS SET CONTENT = ? "
-				+ " , TITLE = ? WHERE SEQ = ? "; 
+		String sql = " UPDATE BBS SET TITLE = ? "
+				+ " , CONTENT = ? WHERE SEQ = ? "; 
 				
 		Connection conn = null;
 		PreparedStatement psmt = null;
-		ResultSet rs = null;
 		
-		conn = DBConnection.makeConnection();
+		int count = 0;
 		
 		try {
-		
+		conn = DBConnection.makeConnection();
+		System.out.println("1/6 BbsUpdate Success");
+			
 		psmt = conn.prepareStatement(sql);
-		
 		psmt.setString(1, title);
 		psmt.setString(2, content);
 		psmt.setInt(3, b_seq);
-		
+		System.out.println("2/6 BbsUpdate Success");
+		count = psmt.executeUpdate();
+		System.out.println("3/6 BbsUpdate Success");
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
-			DBClose.close(psmt, conn, rs);
-			System.out.println("END Update Success");
+			DBClose.close(psmt, conn, null);
+			System.out.println("4/6 END BbsUpdate Success");
 		}
-		return false;
+		return count>0?true:false;
 	}
 	
 	
