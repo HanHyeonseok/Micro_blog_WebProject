@@ -1,3 +1,6 @@
+<%@page import="dto.FavoriteDto"%>
+<%@page import="dao.BbsDAOImpl"%>
+<%@page import="dao.BbsDAO"%>
 <%@page import="dto.BbsDto"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
@@ -55,6 +58,18 @@
 	background-color: #f6f6f6;
 }
 
+.contents {
+	max-width: 780px;
+    margin: 0 auto;
+    text-align: center;
+}
+
+img {
+	max-width: 100%; /* 이미지의 최대사이즈 */
+    width /***/: auto; /* IE8 */
+    height: auto;
+    vertical-align: bottom;
+}
 /* Necessary for full page carousel*/
 
 
@@ -96,7 +111,16 @@
 <body id="page-top" class="index-page">
 
 <%
+	
 	BbsDto dto = (BbsDto)request.getAttribute("dto");
+	
+	if (mem == null) {
+		RequestDispatcher rd = request.getRequestDispatcher("login.jsp");
+		rd.forward(request, response);
+	}
+	
+	BbsDAOImpl bbsdao = BbsDAO.getInstance();
+	FavoriteDto likeDto = bbsdao.getCheckLike(mem.getId(), dto.getSeq());
 %>
 
 <div class="wrap-body">
@@ -121,6 +145,7 @@
 								</ul>
 							</span> -->
 						</div>
+						
 						<!--Carousel Wrapper-->
 <div id="carousel-example-1z" class="carousel slide carousel-fade" data-ride="carousel">
     <!--Indicators-->
@@ -133,7 +158,7 @@
     <!--Slides-->
     <div class="carousel-inner" role="listbox">
         <!--First slide-->
-        <div class="carousel-item active">
+        <div style="height: auto; max-width: 780px; " class="carousel-item active contents">
             <img class="d-block w-100" src="upload/<%=dto.getFilename() %>" alt="이미지가 없습니다">
         </div>
         <!--/First slide-->
@@ -165,10 +190,10 @@
           
 						
 						<div align="left" class="btn-group" role="group" aria-label="Basic example">
-						    <button type="button" class="btn btn-purple btn-rounded btn-sm"><i class="fa fa-television" aria-hidden="true"></i>&nbsp View : 123</button>
-						    <button type="button" class="btn btn-purple btn-rounded btn-sm heart"><i class="fa fa-heart-o heart-1" aria-hidden="true"></i>&nbsp Like : 123</button>
-						    <button type="button" class="btn btn-purple btn-rounded btn-sm"><i class="fa fa-pencil" aria-hidden="true"></i>&nbsp Date : 1989/11/11</button>
-						    <button type="button" class="btn btn-purple btn-rounded btn-sm"><i class="fa fa-user fa-sm pr-2" aria-hidden="true"></i>&nbsp Author : Seojin</button>
+						    <button type="button" class="btn btn-purple btn-rounded btn-sm"><i class="fa fa-television" aria-hidden="true"></i>&nbsp View : <%=dto.getReadcount() %></button>
+						    <button type="button" class="btn btn-purple btn-rounded btn-sm heart"><i class="fa fa-heart-o heart-1" aria-hidden="true"></i>&nbsp Like : <%-- <%=likeDto.getLikeNo() %> --%></button>
+						    <button type="button" class="btn btn-purple btn-rounded btn-sm"><i class="fa fa-pencil" aria-hidden="true"></i>&nbsp Date : <%=dto.getWdate() %></button>
+						    <button type="button" class="btn btn-purple btn-rounded btn-sm"><i class="fa fa-user fa-sm pr-2" aria-hidden="true"></i>&nbsp Author : <%=dto.getId() %></button>
 						</div>
 						
 						
@@ -273,8 +298,8 @@
         <!--Image-->
         <div class="view overlay z-depth-1-half">
           <img src="https://mdbootstrap.com/img/Photos/Horizontal/Nature/4-col/img%20(73).jpg" class="img-fluid" alt="">
-          <a href="">
-            <div class="mask rgba-white-light"></div>
+<%--           <a href="BbsController?command=detailOnClick&sequence=<%=//list.get(index).getSeq()%>">
+ --%>            <div class="mask rgba-white-light"></div>
           </a>
         </div>
 
@@ -360,7 +385,7 @@
     <!-- Add .modal-dialog-centered to .modal-dialog to vertically center the modal -->
     <div class="modal-dialog modal-dialog-centered" role="document">
 
-
+<form action="BbsController?command=update">
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title" id="exampleModalLongTitle">내용 수정</h5>
@@ -372,15 +397,16 @@
             
             <div class="form-group green-border-focus">
 			    <label for="exampleFormControlTextarea5"><input type="text" value="<%=dto.getTitle() %>"></label>
-			    <textarea class="form-control" id="exampleFormControlTextarea5" rows="15"><%=dto.getContent() %></textarea>
+			    <textarea class="form-control" id="updateForm" rows="15"><%=dto.getContent() %></textarea>
 			</div>
 			
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary">Save changes</button>
+                <input type="submit" class="btn btn-primary" value="Save Changes">
             </div>
         </div>
+        </form>
     </div>
 </div>
 		
@@ -400,23 +426,78 @@
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.5.9/js/mdb.min.js"></script>
 
 		<script type="text/javascript">
-
-			$(function () {
+			
+			<%-- function like_func(){
 				
+				$.ajax({
+					url : "BbsController?command=Like",
+					type : "POST",
+					cache : false,
+					dataType : "json",
+					data : { bbsSeq : <%=dto.getSeq() %>,
+						     memId : <%=mem.getId() %> },
+				    success: function (obj) {
+						System.out.println("성공");
+				    	var jsonObj = JSON.parse(obj);
+				    	
+				    	System.out.println(jsonObj.result.getId());
+				    		
+				    	
+					}
+				});
+				
+			} --%>
+		
 			
-			$(".heart").click(function() {
+$(function () {
 
- 					$(".heart-1").replaceWith("<i class='fa fa-heart' aria-hidden='true'></i>");
-					
-			}), (function() {
-
- 					$(".heart-1").replaceWith("<i class='fa fa-heart-o' aria-hidden='true'></i>");
-
-			});	
+	$('.heart').click(function () {
+		
+		$.ajax({
+			url : "BbsController?command=Like",
+			type : "POST",
+			cache : false,
+			dataType : "json",
+			data : { bbsSeq : <%=dto.getSeq() %>,
+				     memId : <%=mem.getId() %> },
+		    success: function (obj) {
+				System.out.println("성공");
+		    	var jsonObj = JSON.parse(obj);
+		    	
+		    	System.out.println(jsonObj.result.getId());
+		    			    	
+			}
+		});
+		
+	});
+});
 			
-			});
-							
+		
+			<%-- $(document).on('click', '.heart', function() {
+
+				var k = 0;
+				
+				
+					<% System.out.println("기능");%>
+					if (k == 0) {
+						<% System.out.println(" i = 0 ");%>
+						$(".heart-1")
+								.replaceWith(
+										"<i class='fa fa-heart' aria-hidden='true'></i>");
+						k = 1;
+
+					}
+
+					else if (k == 1) {
+						<% System.out.println(" i = 1 ");%>
+						$(".heart-1")
+								.replaceWith(
+										"<i class='fa fa-heart-o' aria-hidden='true'></i>");
+						k = 0;
+					}
+				}); --%>
 		</script>
+		
 
 		<!-- Definity JS -->
 		<script src="resources2/js/main.js"></script></body>
@@ -497,13 +578,13 @@ $("#centralModalSuccess").on('show.bs.modal', function(){
   
 <!-- 
 
-1. 좋아요 누를시 해당 seq게시물의 favorite +1 구현 
+1. 좋아요 누를시 해당 seq게시물의 favorite +1 구현 (Ajax)
 
 2. 내용 수정시 모달 프레임에 해당 게시물 content , title 구현
 
 3. image 파일 수정/삽입 버튼 누를시 해당 게시물의 image fileName 변경 구현
 
-4. 댓글 how 구상
+4. 댓글 how 구상 (Ajax)
 
 5. 게시글 footer 부분 "다음글 보기"로 할것인지 구상
 

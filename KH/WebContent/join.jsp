@@ -209,6 +209,7 @@
 				success : function(obj) {
 
 					var jsonObj = JSON.parse(obj);
+					
 					if (jsonObj.duplicated) {
 						alert("아이디가 중복됩니다.");
 						$("#id").val("");

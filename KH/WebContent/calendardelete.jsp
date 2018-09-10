@@ -12,7 +12,7 @@ request.setCharacterEncoding("utf-8");
 <title>calendardelete</title>
 </head>
 <body>
-<h1>일정 삭제하기</h1>
+<h3>일정 삭제하기</h3>
 
 <%
 request.setCharacterEncoding("utf-8");

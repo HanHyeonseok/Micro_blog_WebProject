@@ -21,7 +21,8 @@
 
 	public String toOne(String msg) { // 08 -> 8
 		return msg.charAt(0) == '0' ? msg.charAt(1) + "" : msg.trim();
-	}%>
+	}
+%>
 <%
 	request.setCharacterEncoding("utf-8");
 
@@ -60,10 +61,9 @@
 <title>Honey Jam</title>
 </head>
 <body>
-	<div class="container" style="margin-bottom: 10px">
+	<div class="container" style="margin-bottom: 20px">
 		<div style="margin-top: 20px; margin-bottom: 20px">
-			<h3 align="center">디테일
-				보기</h3>
+			<h3 align="center">Event Detail</h3>
 		</div>
 		<div style="padding: 8%; padding-bottom: 1%; margin: 5px" id="box">
 			<!-- 제목 -->
