@@ -32,7 +32,7 @@
 <title>Honey Jam</title>
 </head>
 <body>
-	<div class="container" style="margin-bottom: 10px">
+	<div class="container" style="margin-bottom: 20px">
 		<div style="margin-top: 20px; margin-bottom: 20px">
 			<h3 align="center">Event Write</h3>
 			<hr>

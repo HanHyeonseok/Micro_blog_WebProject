@@ -100,7 +100,7 @@ table.table td a.delete {
 </head>
 <body>
 
-<div class="container" style="margin-bottom: 10px">
+<div class="container" style="margin-bottom: 20px">
 <form action="CalendarController" method="post">
 <input type="hidden" name="command" value="detail">
 
