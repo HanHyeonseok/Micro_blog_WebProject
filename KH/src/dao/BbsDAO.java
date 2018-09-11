@@ -7,7 +7,6 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-import dto.FavoriteDto;
 import db.DBClose;
 import db.DBConnection;
 import dto.BbsDto;

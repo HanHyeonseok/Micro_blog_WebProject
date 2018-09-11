@@ -1,4 +1,3 @@
-<%@page import="dto.FavoriteDto"%>
 <%@page import="dao.BbsDAOImpl"%>
 <%@page import="dao.BbsDAO"%>
 <%@page import="dto.ReplyDto"%>
