@@ -129,7 +129,7 @@ public class BbsDAO implements BbsDAOImpl {
 	@Override
 	public List<BbsDto> getBbsList() {
 		String sql = " SELECT SEQ, ID, TITLE, CONTENT, WDATE, DEL, READCOUNT, REPLYCNT, FILENAME, PROFILENAME, FAVORITE, HASHTAG"
-				+ " FROM BBS " + " ORDER BY WDATE DESC";
+				+ " FROM BBS " + " WHERE DEL = 0 ORDER BY WDATE DESC";
 
 		Connection conn = null;
 		PreparedStatement psmt = null;
@@ -168,7 +168,7 @@ public class BbsDAO implements BbsDAOImpl {
 	@Override
 	public List<BbsDto> getBestList() {
 		String sql = " SELECT SEQ, ID, TITLE, CONTENT, WDATE, DEL, READCOUNT, REPLYCNT, FILENAME, PROFILENAME, FAVORITE, HASHTAG "
-				+ " FROM BBS " + " ORDER BY FAVORITE DESC, READCOUNT DESC, WDATE DESC";
+				+ " FROM BBS " + "WHERE DEL = 0 ORDER BY FAVORITE DESC, READCOUNT DESC, WDATE DESC";
 
 		Connection conn = null;
 		PreparedStatement psmt = null;
@@ -206,7 +206,7 @@ public class BbsDAO implements BbsDAOImpl {
 
 	@Override
 	public List<BbsDto> getSearchList(String str) {
-		String sql = " select * from BBS where (title like '%" + str + "%' OR content like '%" + str
+		String sql = " select * from BBS where DEL = 0 AND (title like '%" + str + "%' OR content like '%" + str
 				+ "%' OR hashtag like '%" + str + "%')";
 
 		Connection conn = null;
