@@ -2,7 +2,7 @@ package dao;
 
 import java.util.List;
 
-import controller.FavoriteDto;
+import dto.FavoriteDto;
 import dto.BbsDto;
 import dto.MemberDto;
 
@@ -46,9 +46,9 @@ public interface BbsDAOImpl {
 	// bbs 좋아요 수 가져오기
 	public int getLikeCount(int seq);
 
-	public FavoriteDto Like(String id, int b_seq);
+	/*public FavoriteDto Like(String id, int b_seq);
 
 	public FavoriteDto getCheckLike(String id, int b_seq);
 
-	public boolean BbsUpdate(String title, String content, int b_seq);
+	public boolean BbsUpdate(String title, String content, int b_seq);*/
 }

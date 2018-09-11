@@ -6,8 +6,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
-
-import controller.FavoriteDto;
 import db.DBClose;
 import db.DBConnection;
 import dto.BbsDto;
@@ -534,7 +532,7 @@ public class BbsDAO implements BbsDAOImpl {
 		return FAVORITE;
 	}
 
-	@Override
+	/*@Override
 	public FavoriteDto Like(String id, int b_seq) {
 
 		String sql = " UPDATE FAVORITE " + " SET LIKECHECK = LIKECHECK + 1 " + " WHERE ID = ? AND BSEQ = ? ";
@@ -675,5 +673,5 @@ public class BbsDAO implements BbsDAOImpl {
 			System.out.println("END Update Success");
 		}
 		return false;
-	}
+	}*/
 }

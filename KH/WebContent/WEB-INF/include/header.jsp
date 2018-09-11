@@ -120,8 +120,8 @@ body {
 						style="color: black">Welcome</a>
 						<div class="dropdown-menu dropdown-primary"
 							aria-labelledby="navbarDropdownMenuLink">
-							<a class="dropdown-item" href="userMyPage.jsp">Mypage</a> <a
-								class="dropdown-item" href="MemberController?command=logout">로그아웃</a>
+							<a class="dropdown-item" href="userMyPage.jsp">Mypage</a> 
+							<a class="dropdown-item" onclick="logout()">로그아웃</a>
 						</div></li>
 
 					<%
@@ -157,5 +157,58 @@ body {
 			<!--/.Navbar-->
 		</div>
 	</div>
+	<input type="hidden" id="loginStatusCheck" value="">
+	<script type="text/javascript">
+		function init() {
+			console.log('init');
+		  gapi.load('auth2', function() {
+			  console.log('auth2');
+			 window.gauth = gapi.auth2.init({ // gapi.auth2.GoogleAuth 반환
+				  client_id:'409625888327-jrr1vc8hdtpd54alerh46jr08rorsirj.apps.googleusercontent.com'
+			  })
+			  gauth.then(function () {
+				  console.log('googleAuth success');
+				  window.loginStatusCheck = document.querySelector('#loginStatusCheck');
+				  if(gauth.isSignedIn.get()){
+					  console.log('logined');
+					  loginStatusCheck.value = 'true';
+					  console.log(loginStatusCheck.value);
+				  }else{
+					  console.log('logouted');
+					  loginStatusCheck.value = 'false';
+					  console.log(loginStatusCheck.value);
+				  }
+			}, function () {
+				console.log('googleAuth fail');
+			});
+		  });
+		}
+		
+		function login() {
+			console.log('로그인 준비 '+loginStatusCheck.value);
+			if(loginStatusCheck.value == 'false'){
+				loginStatusCheck.value = 'true';
+				gauth.signIn().then(function() {
+			          var profile = gauth.currentUser.get().getBasicProfile();
+			          location.href = "MemberController?command=gooleLogin&id="+profile.getId()+"&email="+profile.getEmail()+
+						"&name="+profile.getName()+"&img="+profile.getImageUrl();
+			        })
+			        
+				console.log('로그인 성공');
+			}
+		}
+		
+		function logout() {
+			console.log('로그아웃 준비 '+loginStatusCheck.value);
+			if(loginStatusCheck.value == 'true'){
+				loginStatusCheck.value = 'false';
+				gauth.signOut();
+				
+				location.href='MemberController?command=logout';
+				console.log('로그아웃 성공');
+			}
+		}
+	</script>
+	<script src="https://apis.google.com/js/platform.js?onload=init" async defer></script>
 </body>
 </html>

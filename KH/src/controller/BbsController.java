@@ -20,6 +20,7 @@ import com.oreilly.servlet.multipart.DefaultFileRenamePolicy;
 import dao.BbsDAO;
 import dao.BbsDAOImpl;
 import dto.BbsDto;
+import dto.FavoriteDto;
 import dto.MemberDto;
 
 public class BbsController extends HttpServlet {
@@ -157,7 +158,7 @@ public class BbsController extends HttpServlet {
 	         writer.close();
 	      }
 		
-	      else if(command.equals("Like")) {
+	      /*else if(command.equals("Like")) {
 	          String id = req.getParameter("memId");
 	          int bbsSeq = Integer.parseInt(req.getParameter("bbsSeq"));
 	          
@@ -174,7 +175,7 @@ public class BbsController extends HttpServlet {
 	          writer.write(json.toString());
 	          writer.flush();
 	          writer.close();
-	       }
+	       }*/
 		
 		// 페이지이동 확인
 		else if(command.equals("movePage")) {
