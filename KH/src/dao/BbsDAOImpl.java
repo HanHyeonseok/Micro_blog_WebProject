@@ -9,8 +9,6 @@ import dto.ReplyDto;
 
 public interface BbsDAOImpl {
 
-	public boolean addReply(int bbsSeq);
-
 	public BbsDto getContent(int seq);
 
 	public boolean addBbs(BbsDto dto);
@@ -47,8 +45,7 @@ public interface BbsDAOImpl {
 	// bbs 좋아요 수 가져오기
 	public int getLikeCount(int seq);
 
-	public FavoriteDto getCheckLike(String id, int b_seq);
-
+	
 	public boolean BbsUpdate(String title, String content, int b_seq);
 	
 	public boolean BbsDelete(int seq);

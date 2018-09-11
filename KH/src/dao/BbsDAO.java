@@ -41,6 +41,7 @@ public class BbsDAO implements BbsDAOImpl {
 		int count = 0;
 		BbsDto dto = null;
 
+		 System.out.println("1/6 getBbsDetail success");
 		try {
 			
 			conn = DBConnection.makeConnection();
@@ -79,16 +80,11 @@ public class BbsDAO implements BbsDAOImpl {
 			}
 			DBClose.close(psmt, conn, null);
 		}
-			
+		System.out.println("END getBbsDetail success");
 		return dto;
 	}
 
-	@Override
-	public boolean addReply(int bbsSeq) {
-
-		return false;
-
-	}
+	
 
 	@Override
 	public boolean addBbs(BbsDto dto) {
@@ -536,45 +532,7 @@ public class BbsDAO implements BbsDAOImpl {
 	}
 
 
-	@Override
-	public FavoriteDto getCheckLike(String id, int b_seq) {
-		String sql = " SELECT LIKECHECK FROM FAVORITE " + " WHERE BSEQ = ? AND ID = ? ";
-
-		Connection conn = null;
-		PreparedStatement psmt = null;
-		ResultSet rs = null;
-
-		FavoriteDto dto = null;
-
-		try {
-
-			conn = DBConnection.makeConnection();
-			System.out.println("1/6 getCheckLike Success");
-
-			psmt = conn.prepareStatement(sql);
-			System.out.println("2/6 getCheckLike Success");
-
-			psmt.setInt(1, b_seq);
-			psmt.setString(2, id);
-
-			rs = psmt.executeQuery();
-			System.out.println("3/6 getCheckLike Success");
-
-			if (rs.next()) {
-				int LikeCheck = rs.getInt(1);
-
-				dto = new FavoriteDto(LikeCheck);
-			}
-
-		} catch (SQLException e) {
-			e.printStackTrace();
-		} finally {
-			DBClose.close(psmt, conn, rs);
-			System.out.println("END GetCheckLike Success");
-		}
-
-		return dto;
-	}
+	
 
 	@Override
 	public boolean BbsUpdate(String title, String content, int b_seq) {
@@ -733,5 +691,6 @@ public class BbsDAO implements BbsDAOImpl {
 		}
 		return list;
 	}
+
 
 }

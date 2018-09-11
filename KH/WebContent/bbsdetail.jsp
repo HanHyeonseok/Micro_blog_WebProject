@@ -13,9 +13,9 @@
 	List<ReplyDto> commentview = (List<ReplyDto>)request.getAttribute("Replylist");
 %>
 
-<html>
 
-<html lang="en">
+
+<html>
 <head>
 	
     <title>Honey Jam</title>
@@ -220,61 +220,87 @@ img {
 %>
 </div>
 		
-		
-<div class="media">
-    <div class="media-body">
-       <div class="diary-commant">
-          <h4>댓글</h4>
-            <div class="diary-commant"style="padding: 30px;  -moz-border-radius: 10px;  
- 					-webkit-border-radius: 10px; text-align: center; background: #E6E6FA !important;">
-            
-            <%
-               for(int i=0; i<commentview.size(); i++ ){
-            %>
-            <div class="commant-view" style="margin-bottom: 20px;padding-left: 38px; padding-right: 38px;">
-           	<div class="commant-id"style="text-align: left;font-weight: 700;margin-bottom: 8px;display: table;width: 100%;">
-           	
-               <p style="float: left;"><%=commentview.get(i).getId() %></p>
-               <p style="float: left;margin-left: 10px;font-weight: 300;font-size: 12px;margin-top: 5px;">
-               		<%=commentview.get(i).getWdate().substring(0,16) %></p>
-               
-          
-               <form action="BbsController">
-               <input type="hidden" name="command" value="deletecomment">
-               <input type="hidden" name="seq" value="<%=dto.getSeq() %>">
-               <input type="hidden" name="commentseq" value="<%=commentview.get(i).getSeq() %>">
-               <button type="submit" class="btn btn-outline-secondary waves-effect px-3" style="float: right; cursor: pointer;">
-               		<i class="fa fa-close" aria-hidden="true"></i></button>
-               </form>
-               
-             </div>
-             
-     		 <div class="commant-content"style="width: 88%;word-break: break-all;text-align: left;  color:#696969">
-     		 	<%=commentview.get(i).getContent() %>
-     		 </div>
-             <hr>               
-             </div>
-            
-            <%
-               }
-            %>
-         	<form action="BbsController" method="get" >
-           	 	<input type="hidden" name="command" value="commentwrite">
-           	 	
-           	 	<div class="form-group purple-border" style="text-align: left; margin-left: 40px;font-weight: 700; margin-bottom: 8px;">
-   				<label for="exampleFormControlTextarea4"><%=mem.getId() %></label>
-           	 		<textarea class="form-control" id="exampleFormControlTextarea4" name="dcomment" style="width: 80%; height: 80px; vertical-align: text-bottom;"></textarea>
-          	      	<input type="hidden" name="seq" value="<%=dto.getSeq() %>">
-           	    	
-           	    	<button type="submit" class="btn btn-secondary px-3" style="height: 68px; vertical-align: text-bottom;">
-           	    	<i class="fa fa-commenting" aria-hidden="true"></i>댓글달기</button>
-           	   	</div>
-            </form>
-		</div>
-	</div>
-	</div>
-</div>
+<!--댓글부분 시작  -->
+         <div class="media">
+            <div class="media-body">
 
+
+               <div class="diary-commant">
+                  <h4>댓글</h4>
+                  <div class="diary-commant"
+                     style="padding: 30px; -moz-border-radius: 10px; -webkit-border-radius: 10px; text-align: center; background: #E6E6FA !important;">
+
+                     <%
+               for(int i=0; i<commentview.size(); i++ ){
+                  System.out.println(mem.getId());
+                  System.out.println(commentview.get(i).getId());
+            %>
+                     <div class="commant-view"
+                        style="margin-bottom: 20px; padding-left: 38px; padding-right: 38px;">
+                        <div class="commant-id"
+                           style="text-align: left; font-weight: 700; margin-bottom: 8px; display: table; width: 100%;">
+
+                           <p style="float: left;"><%=commentview.get(i).getId() %></p>
+                           <p
+                              style="float: left; margin-left: 10px; font-weight: 300; font-size: 12px; margin-top: 5px;">
+                              <%=commentview.get(i).getWdate().substring(0,16) %></p>
+
+
+                           <% 
+                           if(commentview.get(i).getId().equals(mem.getId())){
+                              System.out.print(commentview.get(i).getId());
+                              %>
+                           <form
+                              action="BbsController?command=deletecomment&dtoseq=<%=dto.getSeq() %>&coseq=<%=commentview.get(i).getSeq() %>"
+                              method="post">
+                              <!-- <input type="hidden" name="command" value="deletecomment"> -->
+                              <%-- <input type="hidden" name="seq" value="<%=dto.getSeq() %>"> --%>
+                              <%-- <input type="hidden" name="commentseq"
+                                 value="<%=commentview.get(i).getSeq() %>"> --%>
+                              <button type="submit"
+                                 class="btn btn-outline-secondary waves-effect px-3"
+                                 style="float: right; cursor: pointer;">
+                                 <i class="fa fa-close" aria-hidden="true"></i>
+                              </button>
+                           </form>
+                           <%} %>
+
+
+                        </div>
+
+                        <div class="commant-content"
+                           style="width: 88%; word-break: break-all; text-align: left; color: #696969">
+                           <%=commentview.get(i).getContent() %>
+                        </div>
+                        <hr>
+                     </div>
+
+                     <%
+                           }
+                        %>
+                     <form action="BbsController" method="get">
+                        <input type="hidden" name="command" value="commentwrite">
+
+                        <div class="form-group purple-border"
+                           style="text-align: left; margin-left: 40px; font-weight: 700; margin-bottom: 8px;">
+                           <label for="exampleFormControlTextarea4"><%=mem.getId() %></label>
+                           
+                           <textarea class="form-control" id="exampleFormControlTextarea4"
+                              name="dcomment"
+                              style="width: 80%; height: 80px; vertical-align: text-bottom;"></textarea>
+                           <input type="hidden" name="seq" value="<%=dto.getSeq()%>">
+
+                           <button type="submit" class="btn btn-secondary px-3"
+                              style="height: 68px; vertical-align: text-bottom;">
+                              <i class="fa fa-commenting" aria-hidden="true"></i>댓글달기
+                           </button>
+                        </div>
+                     </form>
+                  </div>
+               </div>
+            </div>
+         </div>
+         <!--댓글부분 끝  -->
 
 <%-- 
       <!--Grid column-->
