@@ -2,7 +2,6 @@ package dao;
 
 import java.util.List;
 
-import dto.FavoriteDto;
 import dto.BbsDto;
 import dto.MemberDto;
 import dto.ReplyDto;

@@ -22,7 +22,6 @@ import com.sun.java.swing.plaf.windows.resources.windows;
 import dao.BbsDAO;
 import dao.BbsDAOImpl;
 import dto.BbsDto;
-import dto.FavoriteDto;
 import dto.MemberDto;
 import dto.ReplyDto;
 
