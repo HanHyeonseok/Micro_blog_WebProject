@@ -21,6 +21,7 @@ import dao.BbsDAO;
 import dao.BbsDAOImpl;
 import dto.BbsDto;
 import dto.MemberDto;
+import dto.ReplyDto;
 
 public class BbsController extends HttpServlet {
 
@@ -45,8 +46,33 @@ public class BbsController extends HttpServlet {
 
 		PrintWriter out = resp.getWriter();
 
-		if (command.equals("addreply")) {
+		// 댓글쓰기
+		if (command.equals("commentwrite")) {
 
+			int seq = Integer.parseInt(req.getParameter("seq"));
+			String loginid = ((MemberDto) req.getSession().getAttribute("login")).getId();
+			String dcomment = req.getParameter("dcomment");
+
+			int write = bbsDao.CommentWrite(seq, loginid, dcomment);
+			if (write == 1) {
+				System.out.print("댓글 성공");
+			} else {
+				System.out.print("댓글 실패");
+			}
+			resp.sendRedirect("BbsController?command=detail&sequence=" + seq);
+		} else if (command.equals("deletecomment")) {
+
+			int commentseq = Integer.parseInt(req.getParameter("commentseq"));
+			int count = bbsDao.CommentDelete(commentseq);
+			if (count == 1) {
+				System.out.println("댓글 삭제완료");
+			} else {
+				System.out.println("댓글 삭제실패");
+			}
+
+			int seq = Integer.parseInt(req.getParameter("seq"));
+
+			resp.sendRedirect("BbsController?command=detail&sequence=" + seq);
 		}
 
 		// 게시판글 작성
@@ -64,7 +90,7 @@ public class BbsController extends HttpServlet {
 				String title = multi.getParameter("title");
 				String content = multi.getParameter("content");
 				String hashtag = multi.getParameter("hashtag");
-				
+
 				String fileName = multi.getFilesystemName("files");
 
 				if (title.equals("") || content.equals("") || hashtag.equals("") || fileName == null) {
@@ -100,75 +126,72 @@ public class BbsController extends HttpServlet {
 			int seq = Integer.parseInt(sequence);
 
 			BbsDto dto = bbsDao.getContent(seq);
-
+			List<ReplyDto> list = bbsDao.commentview(seq);
+			req.setAttribute("Replylist", list);
 			req.setAttribute("dto", dto);
 
 			dispatch("bbsdetail.jsp", req, resp);
-
 		}
 
 		// 업데이트
 		else if (command.equals("update")) {
 
 		}
-		
+
 		// 좋아요 체크
-	      else if(command.equals("favorite")) {
-	         System.out.println("doProcess 실행");
+		else if (command.equals("favorite")) {
+			System.out.println("doProcess 실행");
 
-	         String id = req.getParameter("id");
-	         System.out.println("id = " + id);
-	         
-	         int seq = Integer.parseInt(req.getParameter("bbsSeq"));
-	         System.out.println("seq = " + seq);
-	         
-	         int favorite = Integer.parseInt(req.getParameter("favorite"));
-	         System.out.println("favorite = " + favorite);
-	         
-	         boolean f = bbsDao.findLiketo(id, seq);
-	         if(!f) {
-	            bbsDao.addLiketo(id,seq);
-	         }
+			String id = req.getParameter("id");
+			System.out.println("id = " + id);
 
-	         int b = bbsDao.checkF(id, seq);
-	         
-	         if(b == 1) {   // 체크했었음
-	            bbsDao.readLikeDown(seq);
-	            bbsDao.fckDown(id, seq);
-	            
-	         }
-	         else {   // 체크안했었음
-	            bbsDao.readLike(seq);
-	            bbsDao.fck(id, seq);
-	         }
-	         
-	         favorite = bbsDao.getLikeCount(seq);
-	         
-	         
-	         StringBuffer json = new StringBuffer();
-	         json.append("{");
-	         json.append(" \"status\" : \"success\", "); // 요청한 것 잘 처리했고,
-	         json.append(" \"favorite\" : " + favorite +",");
-	         json.append(" \"duplicated\" : " + b);
-	         json.append(" } ");
+			int seq = Integer.parseInt(req.getParameter("bbsSeq"));
+			System.out.println("seq = " + seq);
 
-	         PrintWriter writer = resp.getWriter();
-	         writer.write(json.toString());
-	         writer.flush();
-	         writer.close();
-	      }
-		
+			int favorite = Integer.parseInt(req.getParameter("favorite"));
+			System.out.println("favorite = " + favorite);
+
+			boolean f = bbsDao.findLiketo(id, seq);
+			if (!f) {
+				bbsDao.addLiketo(id, seq);
+			}
+
+			int b = bbsDao.checkF(id, seq);
+
+			if (b == 1) { // 체크했었음
+				bbsDao.readLikeDown(seq);
+				bbsDao.fckDown(id, seq);
+
+			} else { // 체크안했었음
+				bbsDao.readLike(seq);
+				bbsDao.fck(id, seq);
+			}
+
+			favorite = bbsDao.getLikeCount(seq);
+
+			StringBuffer json = new StringBuffer();
+			json.append("{");
+			json.append(" \"status\" : \"success\", "); // 요청한 것 잘 처리했고,
+			json.append(" \"favorite\" : " + favorite + ",");
+			json.append(" \"duplicated\" : " + b);
+			json.append(" } ");
+
+			PrintWriter writer = resp.getWriter();
+			writer.write(json.toString());
+			writer.flush();
+			writer.close();
+		}
+
 		// 페이지이동 확인
-		else if(command.equals("movePage")) {
+		else if (command.equals("movePage")) {
 			HttpSession session = req.getSession();
-			MemberDto ss = (MemberDto)session.getAttribute("login");
-			if(ss == null) {
+			MemberDto ss = (MemberDto) session.getAttribute("login");
+			if (ss == null) {
 				dispatch("login.jsp", req, resp);
-			}else if(ss != null){
+			} else if (ss != null) {
 				dispatch("bbslist.jsp", req, resp);
 			}
 		}
-
 		out.close(); // printwriter 마무리
 	}
 

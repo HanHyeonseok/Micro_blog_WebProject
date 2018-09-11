@@ -4,6 +4,7 @@ import java.util.List;
 
 import dto.BbsDto;
 import dto.MemberDto;
+import dto.ReplyDto;
 
 public interface BbsDAOImpl {
 	
@@ -20,6 +21,11 @@ public interface BbsDAOImpl {
 	public List<BbsDto> getSearchList(String str);
 	
 	public List<BbsDto> getUserBbsList(String id);
+	
+	//댓글
+	public int CommentWrite(int seq, String id, String dcomment);
+	public List<ReplyDto> commentview(int seq);
+	public int CommentDelete(int seq);
 	
 	
 	   //좋아요 체크 확인

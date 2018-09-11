@@ -33,64 +33,43 @@ MAXVALUE 9999;
 public class ReplyDto {
 	private int seq;
 	private String id;
-	private int parent;
 	private String content;
 	private String wdate;
 	
-	public ReplyDto() {}
-
-	public ReplyDto(int seq, String id, int parent, String content, String wdate) {
+	public ReplyDto() {
+		
+	}
+	
+	public ReplyDto(int seq, String id, String content, String wdate) {
 		super();
 		this.seq = seq;
 		this.id = id;
-		this.parent = parent;
 		this.content = content;
 		this.wdate = wdate;
 	}
-
 	public int getSeq() {
 		return seq;
 	}
-
 	public void setSeq(int seq) {
 		this.seq = seq;
 	}
-
-	public String getid() {
+	public String getId() {
 		return id;
 	}
-
-	public void setid(String id) {
+	public void setId(String id) {
 		this.id = id;
 	}
-
-	public int getParent() {
-		return parent;
-	}
-
-	public void setParent(int parent) {
-		this.parent = parent;
-	}
-
 	public String getContent() {
 		return content;
 	}
-
 	public void setContent(String content) {
 		this.content = content;
 	}
-
 	public String getWdate() {
 		return wdate;
 	}
-
 	public void setWdate(String wdate) {
 		this.wdate = wdate;
 	}
 
-	@Override
-	public String toString() {
-		return "ReplyDto [seq=" + seq + ", id=" + id + ", parent=" + parent + ", content=" + content
-				+ ", wdate=" + wdate + "]";
-	}
 }

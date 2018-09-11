@@ -1,11 +1,16 @@
+<%@page import="dto.ReplyDto"%>
+<%@page import="java.util.List"%>
 <%@page import="dto.BbsDto"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 	
 <%@ include file="/WEB-INF/include/header.jsp" %>
+<%
+	BbsDto dto = (BbsDto)request.getAttribute("dto");
+	List<ReplyDto> commentview = (List<ReplyDto>)request.getAttribute("Replylist");
+%>
 
 <html lang="en">
-
 <head>
 
     <meta charset="utf-8">
@@ -47,6 +52,28 @@
     <![endif]-->
     
 <style type="text/css">
+/*댓글부분 css  */
+.purple-border textarea {
+    border: 1px solid #ba68c8;
+}
+.purple-border .form-control:focus {
+    border: 1px solid #ba68c8;
+    box-shadow: 0 0 0 0.2rem rgba(186, 104, 200, .25);
+}
+/* 댓글부분 css부분 끝 */
+
+/* 파일 버튼 css */
+.btn-file{
+	position: relative;
+    overflow: hidden;
+}
+.btn-file input[type=file] {
+
+	cursor: inherit;
+	display: none;
+        }
+/* 파일 버튼 css 끝 */
+
 .div-hearder-navbar {
 	margin-top: 15px;
 	margin-left: auto;
@@ -94,11 +121,7 @@
 
 
 <body id="page-top" class="index-page">
-
-<%
-	BbsDto dto = (BbsDto)request.getAttribute("dto");
-%>
-
+<div class="container" style="margin-bottom: 30px">
 <div class="wrap-body">
 
 
@@ -115,7 +138,7 @@
 							<h1 class="entry-title"><%=dto.getTitle() %></h1>
 							<!-- <span class="entry-meta">
 								<ul class="list-inline link">
-									<li>By <a href="#">Tufo</a></li>
+						`			<li>By <a href="#">Tufo</a></li>
 									<li><a href="#">September, 22 2017</a></li>
 									<li><a href="#">0 comments</a></li>
 								</ul>
@@ -173,19 +196,13 @@
 						
 						
 						<!-- 사진 추가/수정 -->
-			
-						 <form class="md-form">
-						    <div class="file-field big" align="center">
-						        <a class="btn-floating btn-lg pink lighten-1 mt-0 float-left">
+		
+						        <a class=" btn btn-default btn-file">
 						            <i class="fa fa-paperclip" aria-hidden="true"></i>
-						            <input type="file" multiple>
+						            <label for="ex_file">파일수정</label>
+						            <input type="file" id="ex_file">
 						        </a>
-						        <div class="file-path-wrapper">
-						           <input class="file-path validate" type="text" placeholder="Upload one or more files">
-						        </div>
-						    </div>
-						</form>
-									
+					
 					
 </div>
                		   
@@ -194,29 +211,12 @@
 
 
 <!--/.Carousel Wrapper-->
+<br><br>
+						<!-- 글내용들어오는곳  -->
 						<div class="entry-content">
-							<p><%=dto.getContent()%></p>
+							<p align="center"><%=dto.getContent()%></p>
 							
-							<!-- <div class="excerpt">Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum exercitation ullamco laboris nisi ut aliquip.</p></div>
-							<p>Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum.</p>
-							<blockquote><p>Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet vultatup duista.</p></blockquote>
-							<p>Duis autem vel eum iriure dolor in hendrerit in vulputate velit esse molestie consequat, vel illum dolore eu feugiat nulla facilisis at vero eros et accumsan et iusto odio dignissim qui blandit praesent luptatum zzril.</p>
-							
-							<p>Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat. Duis autem vel eum iriure dolor in hendrerit in vulputate velit esse lorem ipsum dolor sit amet.</p>
-							<p>Consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum hendrerit in vulputate velit esse molestie.</p>
-							<p><code>Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.</code></p>
-							<p>Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.</p>
-							<div class="note">
-							  <ol>
-								<li>Lorem ipsum</li>
-								<li>Sit amet vultatup nonumy</li>
-								<li>Duista sed diam</li>
-							  </ol>
-							  <div class="clear"></div>
-							</div>
-							<p>Duis autem vel eum iriure dolor in hendrerit in vulputate velit esse molestie consequat, vel illum dolore eu feugiat nulla facilisis at vero eros et accumsan et iusto odio dignissim qui blandit praesent luptatum zzril delenit augue duis dolore te feugait nulla facilisi. Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat.</p>
-							<p>Consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores.</p> -->
-						</div>
+						
 					</div>
 				</article>
 			</div>	
@@ -234,125 +234,62 @@
 		
 		
 <div class="media">
-    <img class="d-flex rounded-circle avatar z-depth-1-half mr-3" src="https://mdbootstrap.com/img/Photos/Avatars/avatar-5.jpg" alt="Avatar">
     <div class="media-body">
-        <h5 class="mt-0 font-weight-bold blue-text">Anna Smith</h5>
-        Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque ante sollicitudin. Cras purus odio, vestibulum in vulputate at, tempus viverra turpis. Fusce condimentum nunc ac nisi vulputate fringilla. Donec lacinia congue felis in faucibus.
-
-        <div class="media mt-3 shadow-textarea">
-            <img class="d-flex rounded-circle avatar z-depth-1-half mr-3" src="https://mdbootstrap.com/img/Photos/Avatars/avatar-8.jpg" alt="Generic placeholder image">
-            <div class="media-body">
-                
+       <div class="diary-commant">
+          <h4>댓글</h4>
+            <div class="diary-commant"style="padding: 30px;  -moz-border-radius: 10px;  
+ 					-webkit-border-radius: 10px; text-align: center; background: #E6E6FA !important;">
+            
+            <%
+               for(int i=0; i<commentview.size(); i++ ){
+            %>
+            <div class="commant-view" style="margin-bottom: 20px;padding-left: 38px; padding-right: 38px;">
+           	<div class="commant-id"style="text-align: left;font-weight: 700;margin-bottom: 8px;display: table;width: 100%;">
+           	
+               <p style="float: left;"><%=commentview.get(i).getId() %></p>
+               <p style="float: left;margin-left: 10px;font-weight: 300;font-size: 12px;margin-top: 5px;">
+               		<%=commentview.get(i).getWdate().substring(0,16) %></p>
                
-               <!-- reply 작성자 --> 
-                <h5 class="mt-0 font-weight-bold blue-text">Danny Tatuum</h5>
-                <div class="form-group basic-textarea rounded-corners">
-                    <textarea class="form-control z-depth-1" id="reply" rows="3" placeholder="Write your comment..."></textarea><div align="right"><button type="button" class="btn btn-info">등록</button></div>
-                </div>
-                
-                
-                
-            </div>
-        </div>
-    </div>
+               <form action="BbsController">
+               <input type="hidden" name="command" value="deletecomment">
+               <input type="hidden" name="seq" value="<%=dto.getSeq() %>">
+               <input type="hidden" name="commentseq" value="<%=commentview.get(i).getSeq() %>">
+               <button type="submit" class="btn btn-outline-secondary waves-effect px-3" style="float: right; cursor: pointer;">
+               		<i class="fa fa-close" aria-hidden="true"></i></button>
+               </form>
+               
+             </div>
+             
+     		 <div class="commant-content"style="width: 88%;word-break: break-all;text-align: left;  color:#696969">
+     		 	<%=commentview.get(i).getContent() %>
+     		 </div>
+             <hr>               
+             </div>
+            
+            <%
+               }
+            %>
+         	<form action="BbsController" method="get" >
+           	 	<input type="hidden" name="command" value="commentwrite">
+           	 	
+           	 	<div class="form-group purple-border" style="text-align: left; margin-left: 40px;font-weight: 700; margin-bottom: 8px;">
+   				<label for="exampleFormControlTextarea4"><%=mem.getId() %></label>
+           	 		<textarea class="form-control" id="exampleFormControlTextarea4" name="dcomment" style="width: 80%; height: 80px; vertical-align: text-bottom;"></textarea>
+          	      	<input type="hidden" name="seq" value="<%=dto.getSeq() %>">
+           	    	
+           	    	<button type="submit" class="btn btn-secondary px-3" style="height: 68px; vertical-align: text-bottom;">
+           	    	<i class="fa fa-commenting" aria-hidden="true"></i>댓글달기</button>
+           	   	</div>
+            </form>
+		</div>
+	</div>
+	</div>
 </div>
-<div class="media">
-    <img class="d-flex rounded-circle avatar z-depth-1-half mr-3" src="https://mdbootstrap.com/img/Photos/Avatars/avatar-10.jpg" alt="Avatar">
-    <div class="media-body">
-        <h5 class="mt-0 font-weight-bold blue-text">Caroline Horwitz</h5>
-        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Corporis odit minima eaque dignissimos recusandae officiis commodi nulla est, tempore atque voluptas non quod maxime, iusto, debitis aliquid? Iure ipsum, itaque.
-    </div>
-</div><br><br>
 
-    <!--Grid row-->
-    <div class="row">
+</div>
+</div>
 
-      <!--Grid column-->
-      <div class="col-lg-2 col-md-12 mb-4">
 
-        <!--Image-->
-        <div class="view overlay z-depth-1-half">
-          <img src="https://mdbootstrap.com/img/Photos/Horizontal/Nature/4-col/img%20(73).jpg" class="img-fluid" alt="">
-          <a href="">
-            <div class="mask rgba-white-light"></div>
-          </a>
-        </div>
-
-      </div>
-      <!--Grid column-->
-
-      <!--Grid column-->
-      <div class="col-lg-2 col-md-6 mb-4">
-
-        <!--Image-->
-        <div class="view overlay z-depth-1-half">
-          <img src="https://mdbootstrap.com/img/Photos/Horizontal/Nature/4-col/img%20(78).jpg" class="img-fluid" alt="">
-          <a href="">
-            <div class="mask rgba-white-light"></div>
-          </a>
-        </div>
-
-      </div>
-      <!--Grid column-->
-
-      <!--Grid column-->
-      <div class="col-lg-2 col-md-6 mb-4">
-
-        <!--Image-->
-        <div class="view overlay z-depth-1-half">
-          <img src="https://mdbootstrap.com/img/Photos/Horizontal/Nature/4-col/img%20(79).jpg" class="img-fluid" alt="">
-          <a href="">
-            <div class="mask rgba-white-light"></div>
-          </a>
-        </div>
-
-      </div>
-      <!--Grid column-->
-
-      <!--Grid column-->
-      <div class="col-lg-2 col-md-12 mb-4">
-
-        <!--Image-->
-        <div class="view overlay z-depth-1-half">
-          <img src="https://mdbootstrap.com/img/Photos/Horizontal/Nature/4-col/img%20(81).jpg" class="img-fluid" alt="">
-          <a href="">
-            <div class="mask rgba-white-light"></div>
-          </a>
-        </div>
-
-      </div>
-      <!--Grid column-->
-
-      <!--Grid column-->
-      <div class="col-lg-2 col-md-6 mb-4">
-
-        <!--Image-->
-        <div class="view overlay z-depth-1-half">
-          <img src="https://mdbootstrap.com/img/Photos/Horizontal/Nature/4-col/img%20(82).jpg" class="img-fluid" alt="">
-          <a href="">
-            <div class="mask rgba-white-light"></div>
-          </a>
-        </div>
-
-      </div>
-      <!--Grid column-->
-
-      <!--Grid column-->
-      <div class="col-lg-2 col-md-6 mb-4">
-
-        <!--Image-->
-        <div class="view overlay z-depth-1-half">
-          <img src="https://mdbootstrap.com/img/Photos/Horizontal/Nature/4-col/img%20(84).jpg" class="img-fluid" alt="">
-          <a href="">
-            <div class="mask rgba-white-light"></div>
-          </a>
-        </div>
-
-      </div>
-      <!--Grid column-->
-
-    </div>
-    <!--Grid row-->
 
 <!-- Modal -->
 <div class="modal fade" id="updateModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
@@ -447,7 +384,6 @@ $("#centralModalSuccess").on('show.bs.modal', function(){
     <div class="modal-dialog modal-notify modal-success" role="document">
         
         --Content
-        
         <div class="modal-content">
             
             --Header
