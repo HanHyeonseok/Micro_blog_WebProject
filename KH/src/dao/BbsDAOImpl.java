@@ -5,6 +5,7 @@ import java.util.List;
 import dto.FavoriteDto;
 import dto.BbsDto;
 import dto.MemberDto;
+import dto.ReplyDto;
 
 public interface BbsDAOImpl {
 
@@ -46,11 +47,15 @@ public interface BbsDAOImpl {
 	// bbs 좋아요 수 가져오기
 	public int getLikeCount(int seq);
 
-	public FavoriteDto Like(String id, int b_seq);
-
 	public FavoriteDto getCheckLike(String id, int b_seq);
 
 	public boolean BbsUpdate(String title, String content, int b_seq);
 	
 	public boolean BbsDelete(int seq);
+	//댓글
+	public int CommentWrite(int seq, String id, String dcomment);
+	public List<ReplyDto> commentview(int seq);
+	public int CommentDelete(int seq);
+	   
+
 }

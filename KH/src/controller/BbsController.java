@@ -24,6 +24,7 @@ import dao.BbsDAOImpl;
 import dto.BbsDto;
 import dto.FavoriteDto;
 import dto.MemberDto;
+import dto.ReplyDto;
 
 public class BbsController extends HttpServlet {
 
@@ -48,8 +49,33 @@ public class BbsController extends HttpServlet {
 
 		PrintWriter out = resp.getWriter();
 
-		if (command.equals("addreply")) {
-			System.out.println("sdfawe");
+		// 댓글쓰기
+		if (command.equals("commentwrite")) {
+
+			int seq = Integer.parseInt(req.getParameter("seq"));
+			String loginid = ((MemberDto) req.getSession().getAttribute("login")).getId();
+			String dcomment = req.getParameter("dcomment");
+
+			int write = bbsDao.CommentWrite(seq, loginid, dcomment);
+			if (write == 1) {
+				System.out.print("댓글 성공");
+			} else {
+				System.out.print("댓글 실패");
+			}
+			resp.sendRedirect("BbsController?command=detail&sequence=" + seq);
+		} else if (command.equals("deletecomment")) {
+
+			int commentseq = Integer.parseInt(req.getParameter("commentseq"));
+			int count = bbsDao.CommentDelete(commentseq);
+			if (count == 1) {
+				System.out.println("댓글 삭제완료");
+			} else {
+				System.out.println("댓글 삭제실패");
+			}
+
+			int seq = Integer.parseInt(req.getParameter("seq"));
+
+			resp.sendRedirect("BbsController?command=detail&sequence=" + seq);
 		}
 
 		// 게시판글 작성
@@ -67,7 +93,7 @@ public class BbsController extends HttpServlet {
 				String title = multi.getParameter("title");
 				String content = multi.getParameter("content");
 				String hashtag = multi.getParameter("hashtag");
-				
+
 				String fileName = multi.getFilesystemName("files");
 
 				if (title.equals("") || content.equals("") || hashtag.equals("") || fileName == null) {
@@ -103,7 +129,8 @@ public class BbsController extends HttpServlet {
 			int seq = Integer.parseInt(sequence);
 
 			BbsDto dto = bbsDao.getContent(seq);
-
+			List<ReplyDto> list = bbsDao.commentview(seq);
+			req.setAttribute("Replylist", list);
 			req.setAttribute("dto", dto);
 
 			dispatch("bbsdetail.jsp", req, resp);
@@ -161,7 +188,7 @@ public class BbsController extends HttpServlet {
 			
 			//resp.sendRedirect("bbslist.jsp");
 		}
-		
+
 		// 좋아요 체크
 	      else if(command.equals("favorite")) {
 	         System.out.println("doProcess 실행");
@@ -208,37 +235,18 @@ public class BbsController extends HttpServlet {
 	         writer.close();
 	      }
 		
-	      else if(command.equals("Like")) {
-	          String id = req.getParameter("memId");
-	          int bbsSeq = Integer.parseInt(req.getParameter("bbsSeq"));
-	          
-	          BbsDAOImpl bbsdao = BbsDAO.getInstance();
-	          //FavoriteDto dto = bbsdao.Like(id, bbsSeq);
-	          
-	          StringBuffer json = new StringBuffer();
-	          /* json.append("{");
-	          json.append(" \"status\" : \"success\", "); 
-	          json.append(" \"result\" : " + dto); 
-	          json.append(" } ");
-	          */
-	          PrintWriter writer = resp.getWriter();
-	          writer.write(json.toString());
-	          writer.flush();
-	          writer.close();
-	       }
-		
+
 		// 페이지이동 확인
-		else if(command.equals("movePage")) {
+		else if (command.equals("movePage")) {
 			HttpSession session = req.getSession();
-			MemberDto ss = (MemberDto)session.getAttribute("login");
-			if(ss == null) {
+			MemberDto ss = (MemberDto) session.getAttribute("login");
+			if (ss == null) {
 				dispatch("login.jsp", req, resp);
-			}else if(ss != null){
+			} else if (ss != null) {
 				dispatch("bbslist.jsp", req, resp);
 			}
 		}
 		
-
 		out.close(); // printwriter 마무리
 	}
 
