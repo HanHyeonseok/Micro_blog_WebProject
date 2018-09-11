@@ -155,7 +155,8 @@ img {
 						
 						<div align="left" class="btn-group" role="group" aria-label="Basic example">
 						    <button type="button" class="btn btn-purple btn-rounded btn-sm"><i class="fa fa-television" aria-hidden="true"></i>&nbsp View : <%=dto.getReadcount() %></button>
-						    <button type="button" class="btn btn-purple btn-rounded btn-sm heart"><i class="fa fa-heart-o heart-1" aria-hidden="true"></i>&nbsp Like : <%-- <%=likeDto.getLikeNo() %> --%></button>
+						    <button type="button" class="btn btn-purple btn-rounded btn-sm heart" id="btn_fav" onclick="check_like()" value="<%=dto.getFavorite() %>"><i class="fa fa-heart-o heart-1" aria-hidden="true"></i></button>
+						    <input type="button" class="btn btn-purple btn-rounded btn-sm heart" id="favcount" value="<%=dto.getFavorite() %>" readonly="readonly"><!-- <i class="fa fa-heart-o heart-1" aria-hidden="true"></i> -->
 						    <button type="button" class="btn btn-purple btn-rounded btn-sm"><i class="fa fa-pencil" aria-hidden="true"></i>&nbsp Date : <%=dto.getWdate() %></button>
 						    <button type="button" class="btn btn-purple btn-rounded btn-sm"><i class="fa fa-user fa-sm pr-2" aria-hidden="true"></i>&nbsp Author : <%=dto.getId() %></button>
 						</div>
@@ -393,6 +394,12 @@ img {
  </form>
 	<!-- 게시글 삭제 Modal -->
 	
+	<div>
+		<input type="hidden" id="m_id" value="<%=mem.getId() %>">
+		<input type="hidden" id="b_seq" value="<%=dto.getSeq() %>">
+		<input type="hidden" id="b_fav" value="<%=dto.getFavorite() %>">
+	</div>
+	
 	  <!-- JQuery -->
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <!-- Bootstrap tooltips -->
@@ -404,29 +411,53 @@ img {
 
 <script type="text/javascript">
 		
-$(function () {
+function check_like() {
+	var id = $("#m_id").val();
+    var bbsSeq  = $("#b_seq").val();
+    var favorite = $("#b_fav").val();
 
-	$('.heart').click(function () {
-		
-		$.ajax({
-			url : "BbsController?command=Like",
-			type : "POST",
-			cache : false,
-			dataType : "json",
-			data : { bbsSeq : <%=dto.getSeq() %>,
-				     memId : <%=mem.getId() %> },
-		    success: function (obj) {
-				System.out.println("성공");
-		    	var jsonObj = JSON.parse(obj);
-		    	
-		    	System.out.println(jsonObj.result.getId());
-		    			    	
-			}
-		});
-		
-	});
-});
-			
+    
+    alert("id =" + id);
+    alert("bbsSeq =" + bbsSeq);
+    alert("favorite =" + favorite);
+         
+    $.ajax({
+       url : "BbsController?command=favorite",
+       type : "get",
+       data : {
+          id : id ,
+          bbsSeq : bbsSeq,
+          favorite : favorite
+       },
+       success : function(obj) {
+
+          var jsonObj = JSON.parse(obj);
+          if (jsonObj.duplicated == 1) {
+             alert("체크했었음 -> 좋아요 취소");
+             $("#favcount").val(jsonObj.favorite);
+          }
+
+          else {
+             alert("체크 가능  -> 좋아요");
+             $("#favcount").val(jsonObj.favorite);
+             
+          }
+          
+         // document.location.reload();
+
+       },
+
+       error : function(xhr, status) {
+          alert(xhr + " : " + status)
+       }
+    })
+	
+}
+
+
+
+
+	
 </script>
 		
 
