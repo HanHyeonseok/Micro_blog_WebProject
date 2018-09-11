@@ -180,11 +180,11 @@
 							style="padding-right: 10px; margin-top: 5px; margin-bottom: 5px;">
 							<div class="btn-group btn-group-sm" role="group"
 								aria-label="Basic example">
-								<input type="hidden" id="bbsSeq" value="<%=list.get(i).getSeq() %>">
-								<button type="button" class="btn btn-unique btn-sm" onclick="check_like()">
-									<i class="fa fa-heart" aria-hidden="true"></i>
+								<%-- <input type="text" id="bbsSeq" value="<%=list.get(i).getSeq() %>"> --%>
+								<button type="button" id=bbsSeq class="btn btn-unique btn-sm" onclick="check_like(<%=list.get(i).getSeq() %>)" >
+									<i class="fa fa-heart" aria-hidden="true" ></i>
 								</button>
-								<input type="text" id="likecount" size="3" class="btn btn-unique btn-sm" value="<%=list.get(i).getFavorite()%>" readonly="readonly">
+								<input type="text" id="likecount" size="3" class="btn btn-unique btn-sm"  value="<%=list.get(i).getFavorite()%>" readonly="readonly">
 								
 							</div>
 						</div>
@@ -242,12 +242,15 @@
 		}
 		
 		
-		function check_like() {
+		function check_like(seq) {
 	         var id = $("#userId").val();
-	         var bbsSeq  = $("#bbsSeq").val();
-	         var favorite = $("#likecount").val();   
+	         var bbsSeq  = seq;
+	         var favorite =  $("#likecount").val();   
+	   
 	         
 	         alert("id =" + id);
+	         alert("bbsSeq =" + bbsSeq);
+	         alert("favorite =" + favorite);
 	              
 	         $.ajax({
 	            url : "BbsController?command=favorite",
@@ -262,14 +265,16 @@
 	               var jsonObj = JSON.parse(obj);
 	               if (jsonObj.duplicated == 1) {
 	                  alert("체크했었음 -> 좋아요 취소");
-	                  $("#likecount").val(jsonObj.favorite);
+	                  
 	               }
 
 	               else {
 	                  alert("체크 가능  -> 좋아요");
-	                  $("#likecount").val(jsonObj.favorite);
+	               //   $("#likecount").val(jsonObj.favorite);
 	                  
 	               }
+	               
+	               document.location.reload();
 
 	            },
 

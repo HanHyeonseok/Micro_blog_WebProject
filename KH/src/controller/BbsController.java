@@ -142,7 +142,7 @@ public class BbsController extends HttpServlet {
 	            bbsDao.fck(id, seq);
 	         }
 	         
-	         favorite = bbsDao.getLikeCount(seq);
+	        favorite = bbsDao.getLikeCount(seq);
 	         
 	         
 	         StringBuffer json = new StringBuffer();
