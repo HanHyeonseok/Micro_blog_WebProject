@@ -193,7 +193,6 @@ body {
 			          location.href = "MemberController?command=gooleLogin&id="+profile.getId()+"&email="+profile.getEmail()+
 						"&name="+profile.getName()+"&img="+profile.getImageUrl();
 			        })
-			        
 				console.log('로그인 성공');
 			}
 		}
@@ -203,10 +202,9 @@ body {
 			if(loginStatusCheck.value == 'true'){
 				loginStatusCheck.value = 'false';
 				gauth.signOut();
-				
-				location.href='MemberController?command=logout';
-				console.log('로그아웃 성공');
 			}
+			location.href='MemberController?command=logout';
+			console.log('로그아웃 성공');
 		}
 	</script>
 	<script src="https://apis.google.com/js/platform.js?onload=init" async defer></script>

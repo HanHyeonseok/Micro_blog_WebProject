@@ -3,7 +3,10 @@ package dto;
 import java.io.Serializable;
 
 /*
- * 
+// 테이블 삭제
+DROP TABLE LIKETO
+CASCADE CONSTRAINTS; 
+
 CREATE TABLE LIKETO(
     ID VARCHAR2(50),
     B_Seq NUMBER(10),
@@ -13,17 +16,8 @@ CREATE TABLE LIKETO(
     CONSTRAINT FK_LIKE_BNO FOREIGN KEY(B_Seq) REFERENCES BBS(SEQ) ON DELETE CASCADE
 );
     
- */
-
-/**
- * @author sp
- *
- */
+*/
 public class LiketoDto implements Serializable {
-
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
 	private String id;
 	private int b_seq;
