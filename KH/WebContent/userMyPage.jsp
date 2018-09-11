@@ -53,12 +53,21 @@
 									class="rounded-circle" alt="avatar">
 								<%
 									} else {
+										int temp = memdto.getImg().indexOf("http");
+										if (temp != -1) { // url 이미지 : true
+								%>
+								<img
+									style="width: auto; height: auto; max-height: 120px; max-width: 120px"
+									src="<%=memdto.getImg()%>" class="rounded-circle" alt="avatar">
+								<%
+									} else {
 								%>
 								<img
 									style="width: auto; height: auto; max-height: 120px; max-width: 120px"
 									src="upload/<%=memdto.getImg()%>" class="rounded-circle"
 									alt="avatar">
 								<%
+									}
 									}
 								%>
 							</div>
@@ -137,6 +146,16 @@
 									class="rounded-circle mr-3" height="50px" width="50px" alt="">
 								<%
 									} else {
+											int temp = bbslist.get(i).getProfilename().indexOf("http");
+											if (temp != -1) { // url 이미지 : true
+								%>
+								<img
+									style="width: auto; height: auto; max-height: 50px; max-width: 50px"
+									src="<%=bbslist.get(i).getProfilename()%>"
+									class="rounded-circle mr-3" height="50px" width="50px"
+									alt="https://user-images.githubusercontent.com/38531104/45137275-e0615300-b1e2-11e8-9dbb-05378ea956b6.png">
+								<%
+									} else {
 								%>
 								<img
 									style="width: auto; height: auto; max-height: 50px; max-width: 50px"
@@ -145,6 +164,7 @@
 									alt="https://user-images.githubusercontent.com/38531104/45137275-e0615300-b1e2-11e8-9dbb-05378ea956b6.png">
 								<%
 									}
+										}
 								%>
 								<!-- Content -->
 								<div>
@@ -177,7 +197,8 @@
 								<div class="btn-group btn-group-sm" role="group"
 									aria-label="Basic example">
 									<button type="button" class="btn btn-unique btn-sm">
-										<i class="fa fa-heart" aria-hidden="true"></i> <%=bbslist.get(i).getFavorite()%>
+										<i class="fa fa-heart" aria-hidden="true"></i>
+										<%=bbslist.get(i).getFavorite()%>
 									</button>
 								</div>
 							</div>
@@ -245,7 +266,8 @@
 					%>
 					<img
 						style="width: auto; height: auto; max-height: 120px; max-width: 120px"
-						id="img" src="upload/<%=mem.getImg()%>" class="rounded-circle" alt="avatar">
+						id="img" src="upload/<%=mem.getImg()%>" class="rounded-circle"
+						alt="avatar">
 					<%
 						}
 					%>
@@ -257,7 +279,7 @@
 						action="MemberController?command=changeimg">
 
 						<div class="md-form ml-0 mr-0">
-							<input type="hidden" name="userId" value="<%=mem.getId() %>">
+							<input type="hidden" name="userId" value="<%=mem.getId()%>">
 							<input type="file" name="filename" onchange="readURL(this);">
 						</div>
 
@@ -291,16 +313,16 @@
 	<script type="text/javascript" src="resources/js/sticky-kit.min.js"></script>
 	<script type="text/javascript">
 		$(".sticky_column").stick_in_parent();
-		
-		function readURL(input) { 
-			if (input.files && input.files[0]) { 
-			var reader = new FileReader(); 
-			reader.onload = function (e) { 
-			$('#img').attr('src', e.target.result); 
-			
-			} 
-			reader.readAsDataURL(input.files[0]); 
-			} 
+
+		function readURL(input) {
+			if (input.files && input.files[0]) {
+				var reader = new FileReader();
+				reader.onload = function(e) {
+					$('#img').attr('src', e.target.result);
+
+				}
+				reader.readAsDataURL(input.files[0]);
+			}
 		}
 	</script>
 </body>

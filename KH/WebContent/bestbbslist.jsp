@@ -25,6 +25,16 @@
 			class="rounded-circle mr-3" height="50px" width="50px" alt="">
 		<%
 			} else {
+				int temp = bestList.get(i).getProfilename().indexOf("http");
+				if(temp != -1){	// url 이미지 : true
+					%>
+		<img
+			style="width: auto; height: auto; max-height: 50px; max-width: 50px"
+			src="<%=bestList.get(i).getProfilename()%>"
+			class="rounded-circle mr-3"
+			alt="https://user-images.githubusercontent.com/38531104/45137275-e0615300-b1e2-11e8-9dbb-05378ea956b6.png">
+		<%
+				}else{
 		%>
 		<img
 			style="width: auto; height: auto; max-height: 50px; max-width: 50px"
@@ -32,13 +42,13 @@
 			class="rounded-circle mr-3"
 			alt="https://user-images.githubusercontent.com/38531104/45137275-e0615300-b1e2-11e8-9dbb-05378ea956b6.png">
 		<%
-			}
+			}}
 		%>
 		<!-- Content -->
 		<div>
 			<!-- Title -->
 			<a href="userMyPage.jsp?userId=<%=bestList.get(i).getId()%>"
-				style="color: black; font-size: 24px"
+				style="color: black; font-size: 12px"
 				class="card-title font-weight-bold mb-2"><%=bestList.get(i).getId()%></a>
 			<!-- Subtitle -->
 			<p class="card-text">
@@ -89,6 +99,16 @@
 			class="rounded-circle mr-3" height="50px" width="50px" alt="">
 		<%
 			} else {
+				int temp = bestList.get(i).getProfilename().indexOf("http");
+				if(temp != -1){	// url 이미지 : true
+					%>
+		<img
+			style="width: auto; height: auto; max-height: 50px; max-width: 50px"
+			src="<%=bestList.get(i).getProfilename()%>"
+			class="rounded-circle mr-3"
+			alt="https://user-images.githubusercontent.com/38531104/45137275-e0615300-b1e2-11e8-9dbb-05378ea956b6.png">
+		<%
+				}else{
 		%>
 		<img
 			style="width: auto; height: auto; max-height: 50px; max-width: 50px"
@@ -96,13 +116,13 @@
 			class="rounded-circle mr-3"
 			alt="https://user-images.githubusercontent.com/38531104/45137275-e0615300-b1e2-11e8-9dbb-05378ea956b6.png">
 		<%
-			}
+			}}
 		%>
 		<!-- Content -->
 		<div>
 			<!-- Title -->
 			<a href="userMyPage.jsp?userId=<%=bestList.get(i).getId()%>"
-				style="color: black; font-size: 24px"
+				style="color: black; font-size: 12px"
 				class="card-title font-weight-bold mb-2"><%=bestList.get(i).getId()%></a>
 			<!-- Subtitle -->
 			<p class="card-text">
