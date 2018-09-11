@@ -7,33 +7,14 @@
 	
 <%@ include file="/WEB-INF/include/header.jsp" %>
 
-<html lang="en">
+<html>
 
 <head>
-
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="Free Bootstrap Themes by Zerotheme dot com - Free Responsive Html5 Templates">
-    <meta name="author" content="https://www.Zerotheme.com">
 	
-    <title>Detail Data</title>
+    <title>Honey Jam</title>
 	
 	
-    <!-- Bootstrap Core CSS -->
-    <link href="resources/css/bootstrap.min.css" rel="stylesheet" type="text/css">
 	
-	<!-- Custom CSS -->
-	<link href="resources/css/style.css" rel="stylesheet">
-	
-	<!-- Animate.css -->
-	<!-- <link href="resources/css/animate.css" rel="stylesheet" media="all" type="text/css"> -->
-	
-	<!-- Custom Fonts -->
-    <!-- <link href="resources/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css"> -->
-	
-	
-	<!-- Font Awesome -->
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
 <!-- Bootstrap core CSS -->
 <link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.3/css/bootstrap.min.css" rel="stylesheet">
@@ -42,12 +23,6 @@
 	
 	
 	
-	<!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
-    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
-    <!--[if lt IE 9]>
-        <script src="js/html5shiv.js"></script>
-        <script src="js/respond.min.js"></script>
-    <![endif]-->
     
 <style type="text/css">
 .div-hearder-navbar {
@@ -95,17 +70,6 @@ img {
 
 </head>
 
-<!-- <script>
-	(function () {
-		var scripts = ["/static/general/bf-core.min.js", "/static/containers/QMI797.js"];
-		for(var i = 0; i < scripts.length; i++){
-			var script = document.createElement("scripts");
-			script.src = "//brandflow.net" + scripts[i] + "?ts=" + Date.now() + "#";
-			script.async = false;
-			document.head.appendChild(script);
-		}
-	})();
-</script> -->
 
 
 <body id="page-top" class="index-page">
@@ -120,7 +84,7 @@ img {
 	}
 	
 	BbsDAOImpl bbsdao = BbsDAO.getInstance();
-	FavoriteDto likeDto = bbsdao.getCheckLike(mem.getId(), dto.getSeq());
+	//FavoriteDto likeDto = bbsdao.getCheckLike(mem.getId(), dto.getSeq());
 %>
 
 <div class="wrap-body">
@@ -221,26 +185,6 @@ img {
 <!--/.Carousel Wrapper-->
 						<div class="entry-content">
 							<p><%=dto.getContent()%></p>
-							
-							<!-- <div class="excerpt">Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum exercitation ullamco laboris nisi ut aliquip.</p></div>
-							<p>Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum.</p>
-							<blockquote><p>Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet vultatup duista.</p></blockquote>
-							<p>Duis autem vel eum iriure dolor in hendrerit in vulputate velit esse molestie consequat, vel illum dolore eu feugiat nulla facilisis at vero eros et accumsan et iusto odio dignissim qui blandit praesent luptatum zzril.</p>
-							
-							<p>Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat. Duis autem vel eum iriure dolor in hendrerit in vulputate velit esse lorem ipsum dolor sit amet.</p>
-							<p>Consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum hendrerit in vulputate velit esse molestie.</p>
-							<p><code>Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.</code></p>
-							<p>Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.</p>
-							<div class="note">
-							  <ol>
-								<li>Lorem ipsum</li>
-								<li>Sit amet vultatup nonumy</li>
-								<li>Duista sed diam</li>
-							  </ol>
-							  <div class="clear"></div>
-							</div>
-							<p>Duis autem vel eum iriure dolor in hendrerit in vulputate velit esse molestie consequat, vel illum dolore eu feugiat nulla facilisis at vero eros et accumsan et iusto odio dignissim qui blandit praesent luptatum zzril delenit augue duis dolore te feugait nulla facilisi. Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat.</p>
-							<p>Consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores.</p> -->
 						</div>
 					</div>
 				</article>
@@ -253,7 +197,17 @@ img {
 	<!-- 내용 수정 -->
 	
 <div align="right">
-	<button type="button" data-toggle="modal" data-target="#updateModal" class="btn btn-secondary">내용 수정</button>
+<button type="button" class="btn btn-rounded btn-amber"><i class="fa fa-th-list pr-2" aria-hidden="true"></i>목록</button>
+
+<%if(mem.getId().equals(dto.getId())){ %> 
+
+<button type="button" data-toggle="modal" data-target="#deleteModal" class="btn btn-danger btn-rounded"><i class="fa fa-trash"></i>삭제</button>
+
+<button type="button" data-toggle="modal" data-target="#updateModal" class="btn btn-primary"><i class="fa fa-magic mr-1"></i>내용 수정</button>
+
+<% 
+}
+%>
 </div>
 		
 		
@@ -274,9 +228,6 @@ img {
                 <div class="form-group basic-textarea rounded-corners">
                     <textarea class="form-control z-depth-1" id="reply" rows="3" placeholder="Write your comment..."></textarea><div align="right"><button type="button" class="btn btn-info">등록</button></div>
                 </div>
-                
-                
-                
             </div>
         </div>
     </div>
@@ -379,42 +330,68 @@ img {
     </div>
     <!--Grid row-->
 
-<!-- Modal -->
+<!-- 내용 수정 Modal -->
+<form method="post" action="BbsController?command=update&sequence=<%=dto.getSeq() %>">
 <div class="modal fade" id="updateModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
 
     <!-- Add .modal-dialog-centered to .modal-dialog to vertically center the modal -->
     <div class="modal-dialog modal-dialog-centered" role="document">
 
-<form action="BbsController?command=update">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLongTitle">내용 수정</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body">
-            
-            <div class="form-group green-border-focus">
-			    <label for="exampleFormControlTextarea5"><input type="text" value="<%=dto.getTitle() %>"></label>
-			    <textarea class="form-control" id="updateForm" rows="15"><%=dto.getContent() %></textarea>
-			</div>
-			
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                <input type="submit" class="btn btn-primary" value="Save Changes">
-            </div>
-        </div>
-        </form>
-    </div>
+
+ 	<div class="modal-content">
+          <div class="modal-header">
+              <h5 class="modal-title" id="exampleModalLongTitle">내용 수정</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+              </button>
+          </div>
+          <div class="modal-body">
+          
+          <div class="form-group green-border-focus">
+	    <label for="exampleFormControlTextarea5"><input name="title" type="text" value="<%=dto.getTitle() %>"></label>
+	    <textarea name="content" class="form-control" id="updateForm" rows="15"><%=dto.getContent() %></textarea>
+	</div>
+	
+          </div>
+          <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+              <input id="changeBbs" type="submit" class="btn btn-primary" value="Save Changes">
+          </div>
+      </div>
+      
+  </div>
 </div>
-		
-		
-		<!-- JS -->
-	<!-- ========== Scripts ========== -->
+</form>
+
+<!-- 내용 수정 Modal -->
 	
-	
+	<!-- 게시글 삭제 Modal -->
+							
+<form method="post" action="BbsController?command=delete&sequence=<%=dto.getSeq() %>">
+<div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+
+    <!-- Change class .modal-sm to change the size of the modal -->
+    <div class="modal-dialog modal-sm" role="document">
+
+      <div class="modal-content">
+        <div class="modal-header">
+          <h4 class="modal-title w-100" id="myModalLabel">Message</h4>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          	게시글을 삭제하시겠습니까? <br> 다시 복구할 수 없습니다.
+        </div>
+        <div class="modal-footer">
+          <input type="button" class="btn btn-secondary btn-sm" data-dismiss="modal" value="아니요">
+          <input type="submit" class="btn btn-primary btn-sm" value="예">
+        </div>
+      </div>
+    </div>
+  </div>
+ </form>
+	<!-- 게시글 삭제 Modal -->
 	
 	  <!-- JQuery -->
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
@@ -425,30 +402,8 @@ img {
 <!-- MDB core JavaScript -->
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.5.9/js/mdb.min.js"></script>
 
-		<script type="text/javascript">
-			
-			<%-- function like_func(){
-				
-				$.ajax({
-					url : "BbsController?command=Like",
-					type : "POST",
-					cache : false,
-					dataType : "json",
-					data : { bbsSeq : <%=dto.getSeq() %>,
-						     memId : <%=mem.getId() %> },
-				    success: function (obj) {
-						System.out.println("성공");
-				    	var jsonObj = JSON.parse(obj);
-				    	
-				    	System.out.println(jsonObj.result.getId());
-				    		
-				    	
-					}
-				});
-				
-			} --%>
+<script type="text/javascript">
 		
-			
 $(function () {
 
 	$('.heart').click(function () {
@@ -472,123 +427,16 @@ $(function () {
 	});
 });
 			
-		
-			<%-- $(document).on('click', '.heart', function() {
-
-				var k = 0;
-				
-				
-					<% System.out.println("기능");%>
-					if (k == 0) {
-						<% System.out.println(" i = 0 ");%>
-						$(".heart-1")
-								.replaceWith(
-										"<i class='fa fa-heart' aria-hidden='true'></i>");
-						k = 1;
-
-					}
-
-					else if (k == 1) {
-						<% System.out.println(" i = 1 ");%>
-						$(".heart-1")
-								.replaceWith(
-										"<i class='fa fa-heart-o' aria-hidden='true'></i>");
-						k = 0;
-					}
-				}); --%>
-		</script>
+</script>
 		
 
-		<!-- Definity JS -->
-		<script src="resources2/js/main.js"></script></body>
+<!-- Definity JS -->
+<script type="text/javascript" src="resources/js/sticky-kit.min.js"></script>	
+	
+</body>
 </html>
 
 <%@ include file="/WEB-INF/include/footer.jsp" %>
 
-
-
-
-
-<!-- Java Script  업데이트 완료 버튼 후 "수정완료" 메세지 모달
-
- 
-$("#centralModalSuccess").on('show.bs.modal', function(){
-    alert("Hello World!");
-}); 
-
-
- -->
- 
- 
- <!-- 
- 
---Central Modal Medium Success
-
-<div class="modal fade" id="centralModalSuccess" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-notify modal-success" role="document">
-        
-        --Content
-        
-        <div class="modal-content">
-            
-            --Header
-            <div class="modal-header">
-                <p class="heading lead">Modal Success</p>
-
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                            <span aria-hidden="true" class="white-text">&times;</span>
-                                        </button>
-            </div>
-
-            --Body
-            
-            <div class="modal-body">
-                <div class="text-center">
-                    <i class="fa fa-check fa-4x mb-3 animated rotateIn"></i>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Impedit iusto nulla aperiam
-                        blanditiis ad consequatur in dolores culpa, dignissimos, eius non possimus fugiat.
-                        Esse ratione fuga, enim, ab officiis totam.</p>
-                </div>
-            </div>
-
-            --Footer
-            
-            <div class="modal-footer justify-content-center">
-                <a type="button" class="btn btn-primary">Get it now <i class="fa fa-diamond ml-1"></i></a>
-                <a type="button" class="btn btn-outline-primary waves-effect" data-dismiss="modal">No, thanks</a>
-            </div>
-        </div>
-        
-        --Content
-        
-    </div>
-</div>
-
-<!-- Central Modal Medium Success-->
-
-
-<!-- Button trigger modal 
-
-<div class="text-center">
-    <a href="" class="btn btn-default btn-rounded" data-toggle="modal" data-target="#centralModalSuccess">Launch Modal Success <i class="fa fa-eye ml-1"></i></a>
-</div>
- 
-  -->
-
   
-<!-- 
-
-1. 좋아요 누를시 해당 seq게시물의 favorite +1 구현 (Ajax)
-
-2. 내용 수정시 모달 프레임에 해당 게시물 content , title 구현
-
-3. image 파일 수정/삽입 버튼 누를시 해당 게시물의 image fileName 변경 구현
-
-4. 댓글 how 구상 (Ajax)
-
-5. 게시글 footer 부분 "다음글 보기"로 할것인지 구상
-
-
-
--->  
   
