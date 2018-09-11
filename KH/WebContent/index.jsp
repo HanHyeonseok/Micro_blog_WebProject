@@ -13,59 +13,59 @@
 <%@ include file="/WEB-INF/include/header.jsp"%>
 
 <%
-	CalendarDAOImpl dao = CalendarDAO.getInstance();
-	int paging = 1;
-	int jcount = dao.getcountlist();
+   CalendarDAOImpl dao = CalendarDAO.getInstance();
+   int paging = 1;
+   int jcount = dao.getcountlist();
 
-	if (null != request.getParameter("page") && !"".equals(request.getParameter("page"))) {
-		paging = Integer.parseInt(request.getParameter("page"));
-	}
+   if (null != request.getParameter("page") && !"".equals(request.getParameter("page"))) {
+      paging = Integer.parseInt(request.getParameter("page"));
+   }
 
-	List<CalendarDto> indexCalList = dao.indexCalList(paging);
-	int pagecount = 0;
-	if (jcount != 0) {
+   List<CalendarDto> indexCalList = dao.indexCalList(paging);
+   int pagecount = 0;
+   if (jcount != 0) {
 
-		pagecount = jcount / 3;
+      pagecount = jcount / 3;
 
-		if (pagecount % jcount > 0) {
-			pagecount++;
-		}
-	}
-	int startPage = 0;
-	int endPage = 0;
-	if (paging > 3) {
-		startPage = paging - 2;
-	}
-	if (pagecount < 3) {
+      if (pagecount % jcount > 0) {
+         pagecount++;
+      }
+   }
+   int startPage = 0;
+   int endPage = 0;
+   if (paging > 3) {
+      startPage = paging - 2;
+   }
+   if (pagecount < 3) {
 
-	} else if (pagecount < paging + 2) {
-		startPage = pagecount - 5;
-	}
-	if (pagecount < 2) {
-		startPage = 0;
-	}
-	if (paging < 3) {
-		endPage = 5;
-	} else {
-		endPage = paging + 2;
-	}
+   } else if (pagecount < paging + 1) {
+      startPage = pagecount - 4;
+   }
+   if (pagecount < 2) {
+      startPage = 0;
+   }
+   if (paging < 2) {
+      endPage = 4;
+   } else {
+      endPage = paging + 2;
+   }
 
-	BbsDAOImpl bbsdao = BbsDAO.getInstance();
-	List<BbsDto> bbslist = bbsdao.getBestList();
+   BbsDAOImpl bbsdao = BbsDAO.getInstance();
+   List<BbsDto> bbslist = bbsdao.getBestList();
 %>
 <%!public String toDates(String mdate) {
-		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+      SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 
-		String s = mdate.substring(0, 4) + "-" // yyyy
-				+ mdate.substring(4, 6) + "-" // MM
-				+ mdate.substring(6, 8) + " " // dd
-				+ mdate.substring(8, 10) + ":" // hh
-				+ mdate.substring(10, 12) + ":00";
+      String s = mdate.substring(0, 4) + "-" // yyyy
+            + mdate.substring(4, 6) + "-" // MM
+            + mdate.substring(6, 8) + " " // dd
+            + mdate.substring(8, 10) + ":" // hh
+            + mdate.substring(10, 12) + ":00";
 
-		Timestamp d = Timestamp.valueOf(s);
+      Timestamp d = Timestamp.valueOf(s);
 
-		return sdf.format(d);
-	}%>
+      return sdf.format(d);
+   }%>
 <html>
 <head>
 <title>Honey Jam</title>
@@ -149,21 +149,21 @@
 					</thead>
 					<tbody>
 						<%
-							if (indexCalList == null || indexCalList.size() == 0 || mem == null) {
-								/* 로그인 안하면 리스트 안보여주기  */
-						%>
+                     if (indexCalList == null || indexCalList.size() == 0 || mem == null) {
+                        /* 로그인 안하면 리스트 안보여주기  */
+                  %>
 						<tr>
 							<td colspan="2" align="center">다가오는 일정이 없습니다.</td>
 						</tr>
 
 						<%
-							} else if (mem != null && !mem.getId().equals("")) {
-								/* 로그인하면 리스트 보여줌  */
-						%>
+                     } else if (mem != null && !mem.getId().equals("")) {
+                        /* 로그인하면 리스트 보여줌  */
+                  %>
 
 						<%
-							for (int i = 0; i < indexCalList.size(); i++) {
-						%>
+                     for (int i = 0; i < indexCalList.size(); i++) {
+                  %>
 						<tr>
 							<th><%=toDates(indexCalList.get(i).getRdate())%></th>
 							<th><a
@@ -171,45 +171,45 @@
 
 						</tr>
 						<%
-							}
-						%>
+                     }
+                  %>
 						<tr>
 							<td align="center" colspan="2">
 								<div>
 									<%
-										if (paging != 1 || pagecount == 0) {
-									%>
+                              if (paging != 1 || pagecount == 0) {
+                           %>
 									<a href="./index.jsp?page=<%=paging - 1%>">&lt;</a>
 									<%
-										}
-									%>
+                              }
+                           %>
 									<%
-										for (int i = startPage; i < pagecount; i++) {
-												if (i + 1 != paging) {
-									%>
+                              for (int i = startPage; i < pagecount; i++) {
+                                    if (i + 1 != paging) {
+                           %>
 									<a href="./index.jsp?page=<%=i + 1%>"><%=i + 1%></a>
 									<%
-										} else {
-									%>
+                              } else {
+                           %>
 									<strong><%=paging%></strong>
 									<%
-										}
-												if (i + 1 == endPage) {
-													break;
-												}
-											}
-											if (paging != pagecount || pagecount == 0) {
-									%>
+                              }
+                                    if (i + 1 == endPage) {
+                                       break;
+                                    }
+                                 }
+                                 if (paging != pagecount || pagecount == 0) {
+                           %>
 									<a href="./index.jsp?page=<%=paging + 1%>">&gt;</a>
 									<%
-										}
-									%>
+                              }
+                           %>
 								</div>
 							</td>
 						</tr>
 						<%
-							}
-						%>
+                     }
+                  %>
 					</tbody>
 
 				</table>
@@ -218,7 +218,8 @@
 
 			<!-- BestBbsList Table -->
 			<div class="col-md-6" style="padding: 5px;">
-				<table class="table table-hover sortable" style="text-align: center;">
+				<table class="table table-hover sortable"
+					style="text-align: center;">
 					<colgroup>
 						<col style="width: 20%">
 						<col style="width: 60%">
@@ -237,21 +238,22 @@
 							<td style="font-family: fantasy" colspan="3">게시글이 없습니다</td>
 						</tr>
 						<%}else if(bbslist.size() > 0 && bbslist.size() < 3){
-						for (int i = 0; i < bbslist.size(); i++) {%>
+                  for (int i = 0; i < bbslist.size(); i++) {%>
 						<tr>
 							<td><%=i+1 %></td>
-							<td><a href="BbsController?command=detail&sequence=<%=bbslist.get(i).getSeq()%>"><%=bbslist.get(i).getTitle()%></a></td>
+							<td><a
+								href="BbsController?command=detail&sequence=<%=bbslist.get(i).getSeq()%>"><%=bbslist.get(i).getTitle()%></a></td>
 							<td><%=bbslist.get(i).getId() %></td>
 						</tr>
 						<%}}else if(bbslist.size() >= 3){
-							for(int i = 0; i < 3; i++){%>
+                     for(int i = 0; i < 3; i++){%>
 						<tr>
 							<td><%=i+1 %></td>
 							<td><a
 								href="BbsController?command=detail&sequence=<%=bbslist.get(i).getSeq()%>"><%=bbslist.get(i).getTitle()%></a>
 							</td>
 							<td><%=bbslist.get(i).getId() %></td>
-						</tr>	
+						</tr>
 						<%}} %>
 					</tbody>
 				</table>
@@ -264,15 +266,15 @@
 	<script src="https://code.jquery.com/jquery-3.3.1.js"
 		integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60="
 		crossorigin="anonymous">
-		
-	</script>
+      
+   </script>
 	<script type="text/javascript">
-		$(function() {
-			$(".toDetail").click(function() {
-				window.location.href = 'bbsdetail.jsp';
-			});
-		});
-	</script>
+      $(function() {
+         $(".toDetail").click(function() {
+            window.location.href = 'bbsdetail.jsp';
+         });
+      });
+   </script>
 	<%@ include file="/WEB-INF/include/footer.jsp"%>
 </body>
 </html>

@@ -349,5 +349,4 @@ public class MemberDAO implements MemberDAOImpl {
 		System.out.println("End setUserImg success");
 		return count > 0 ? true : false;
 	}
-
 }

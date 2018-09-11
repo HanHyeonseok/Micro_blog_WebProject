@@ -10,6 +10,7 @@ import db.DBClose;
 import db.DBConnection;
 import dto.BbsDto;
 import dto.MemberDto;
+import dto.ReplyDto;
 
 public class BbsDAO implements BbsDAOImpl {
 
@@ -531,6 +532,100 @@ public class BbsDAO implements BbsDAOImpl {
 
 		return FAVORITE;
 	}
+	
+	// 댓글 쓰기
+	   @Override
+	   public int CommentWrite(int seq, String id, String dcomment) {
+
+	      String sql = " INSERT INTO REPLY(SEQ, DSEQ, ID, CONTENT, WDATE)" + " VALUES( R_SEQ.NEXTVAL, ?, ?,?, SYSDATE)";
+
+	      Connection conn = null;
+	      PreparedStatement psmt = null;
+
+	      int count = 0;
+
+	      try {
+	         conn = DBConnection.makeConnection();
+	         psmt = conn.prepareStatement(sql);
+	         System.out.println("1/6 CommentWrite success");
+
+	         psmt.setInt(1, seq);
+	         psmt.setString(2, id);
+	         psmt.setString(3, dcomment);
+	         
+	         count = psmt.executeUpdate();
+	         System.out.println("2/6 CommentWrite success");
+
+	      } catch (SQLException e) {
+	         System.out.println("CommentWrite failed");
+	         e.printStackTrace();
+	      } finally {
+	         DBClose.close(psmt, conn, null);
+	         System.out.println("3/6 CommentWrite success");
+	      }
+	      return count;
+	   }
+	   //댓글삭제
+	   @Override
+	   public int CommentDelete(int seq) {
+	      String sql = " DELETE REPLY " + " WHERE SEQ = ? ";
+
+	      Connection conn = null;
+	      PreparedStatement psmt = null;
+	      int count = 0;
+
+	      try {
+	         conn = DBConnection.makeConnection();
+	         psmt = conn.prepareStatement(sql);
+	         System.out.println("1/4 CommentDelete success");
+	         
+	         psmt.setInt(1, seq);
+
+	         count = psmt.executeUpdate();
+	         System.out.println("2/4 CommentDelete success");
+	         
+	      } catch (SQLException e) {
+	         System.out.println("CommentDelete failed");
+	         e.printStackTrace();
+	      }
+	      return count;
+	   }
+
+	   @Override
+	   public List<ReplyDto> commentview(int seq) {
+	      String sql = " SELECT SEQ, ID, CONTENT, WDATE" + " FROM REPLY" + " WHERE DSEQ=?" + " ORDER BY WDATE DESC";
+
+	      Connection conn = null;
+	      PreparedStatement psmt = null;
+	      ResultSet rs = null;
+
+	      List<ReplyDto> list = new ArrayList<>();
+
+	      try {
+	         conn = DBConnection.makeConnection();
+	         System.out.println("1/6 commentview suceess");
+
+	         psmt = conn.prepareStatement(sql);
+	         System.out.println("2/6 commentview suceess");
+
+	         psmt.setInt(1, seq);
+
+	         rs = psmt.executeQuery();
+	         System.out.println("3/6 commentview suceess");
+
+	         while (rs.next()) {
+
+	            list.add(new ReplyDto(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getString(4)));
+
+	         }
+	      } catch (SQLException e) {
+	         System.out.println("commentview failed");
+
+	      } finally {
+	         DBClose.close(psmt, conn, rs);
+	      }
+	      return list;
+	   }
 
 	/*@Override
 	public FavoriteDto Like(String id, int b_seq) {

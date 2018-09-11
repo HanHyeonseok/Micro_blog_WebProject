@@ -24,6 +24,7 @@ import dao.BbsDAOImpl;
 import dto.BbsDto;
 import dto.FavoriteDto;
 import dto.MemberDto;
+import dto.ReplyDto;
 
 public class BbsController extends HttpServlet {
 
@@ -47,9 +48,34 @@ public class BbsController extends HttpServlet {
 		BbsDAOImpl bbsDao = BbsDAO.getInstance();
 
 		PrintWriter out = resp.getWriter();
+		
+		// 댓글쓰기
+		if (command.equals("commentwrite")) {
+			int seq = Integer.parseInt(req.getParameter("seq"));
+	         String loginid = ((MemberDto) req.getSession().getAttribute("login")).getId();
+	         String dcomment = req.getParameter("dcomment");
 
-		if (command.equals("addreply")) {
-			System.out.println("sdfawe");
+	         int write = bbsDao.CommentWrite(seq, loginid, dcomment);
+	         if (write == 1) {
+	            System.out.print("댓글 성공");
+	         } else {
+	            System.out.print("댓글 실패");
+	         }
+	         resp.sendRedirect("BbsController?command=detail&sequence=" + seq);
+		}
+		
+		else if(command.equals("deletecomment")) {
+			int commentseq = Integer.parseInt(req.getParameter("commentseq"));
+	         int count = bbsDao.CommentDelete(commentseq);
+	         if (count == 1) {
+	            System.out.println("댓글 삭제완료");
+	         } else {
+	            System.out.println("댓글 삭제실패");
+	         }
+
+	         int seq = Integer.parseInt(req.getParameter("seq"));
+
+	         resp.sendRedirect("BbsController?command=detail&sequence=" + seq);
 		}
 
 		// 게시판글 작성
@@ -98,15 +124,15 @@ public class BbsController extends HttpServlet {
 
 		// 디테일 뷰
 		else if (command.equals("detail")) {
-
 			String sequence = req.getParameter("sequence");
-			int seq = Integer.parseInt(sequence);
+	         int seq = Integer.parseInt(sequence);
 
-			BbsDto dto = bbsDao.getContent(seq);
+	         BbsDto dto = bbsDao.getContent(seq);
+	         List<ReplyDto> list = bbsDao.commentview(seq);
+	         req.setAttribute("Replylist", list);
+	         req.setAttribute("dto", dto);
 
-			req.setAttribute("dto", dto);
-
-			dispatch("bbsdetail.jsp", req, resp);
+	         dispatch("bbsdetail.jsp", req, resp);
 		}
 
 		// 업데이트
@@ -134,7 +160,6 @@ public class BbsController extends HttpServlet {
 				
 				dispatch("bbsdetail.jsp", req, resp);
 			}
-			
 		}
 		
 		// 삭제
@@ -226,20 +251,19 @@ public class BbsController extends HttpServlet {
 	          writer.flush();
 	          writer.close();
 	       }*/
-		
-		// 페이지이동 확인
-		else if(command.equals("movePage")) {
-			HttpSession session = req.getSession();
-			MemberDto ss = (MemberDto)session.getAttribute("login");
-			if(ss == null) {
-				dispatch("login.jsp", req, resp);
-			}else if(ss != null){
-				dispatch("bbslist.jsp", req, resp);
-			}
-		}
-		
 
-		out.close(); // printwriter 마무리
+	// 페이지이동 확인
+	else if(command.equals("movePage")){
+		HttpSession session = req.getSession();
+		MemberDto ss = (MemberDto) session.getAttribute("login");
+		if (ss == null) {
+			dispatch("login.jsp", req, resp);
+		} else if (ss != null) {
+			dispatch("bbslist.jsp", req, resp);
+		}
+	}
+
+	out.close(); // printwriter 마무리
 	}
 
 	// 업로드파일 확장자 확인
