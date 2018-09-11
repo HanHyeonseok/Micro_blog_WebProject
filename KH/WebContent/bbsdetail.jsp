@@ -292,7 +292,7 @@ img {
 
                            <button type="submit" class="btn btn-secondary px-3"
                               style="height: 68px; vertical-align: text-bottom;">
-                              <i class="fa fa-commenting" aria-hidden="true"></i>댓글달기
+                              <i class="fa fa-commenting" aria-hidden="true"></i>&nbsp댓글달기
                            </button>
                         </div>
                      </form>

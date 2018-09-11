@@ -296,12 +296,7 @@
 				   $("#bbsSeq").css("display","block");
 
 				  });
-				
-
-
-
-				출처: http://javafactory.tistory.com/416 [FreeLife의 저장소]
-		
+						
 	</script>
 </body>
 </html>
