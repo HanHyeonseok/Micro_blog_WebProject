@@ -32,9 +32,10 @@
 <title>Honey Jam</title>
 </head>
 <body>
-	<div class="container" style="margin-bottom: 10px">
+	<div class="container" style="margin-bottom: 20px">
 		<div style="margin-top: 20px; margin-bottom: 20px">
-			<h3 align="center">일정 쓰기</h3>
+			<h3 align="center">Event Write</h3>
+			<hr>
 		</div>
 		<form action="CalendarController" method="post"
 			style="margin: 15px; margin-top: 20px">
@@ -145,10 +146,8 @@
 	</div>
 	<script type="text/javascript">
 // 지정된 달의 끝 날짜를 설정
-setDay();
 
-$("#day").val("<%=day%>
-		");
+$("#day").val("<%=day%>");
 
 		$(document).ready(function() {
 			$("select[name='month']").change(setDay);

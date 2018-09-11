@@ -56,9 +56,9 @@
 <title>Honey Jam</title>
 </head>
 <body>
-	<div class="container" style="margin-bottom: 10px">
+	<div class="container" style="margin-bottom: 20px">
 		<div style="margin-top: 20px; margin-bottom: 20px">
-			<h3 align="center">일정 수정하기</h3>
+			<h3 align="center">Event Update</h3>
 		</div>
 		<form action="CalendarController" method="post"
 			style="margin: 15px; margin-top: 20px">

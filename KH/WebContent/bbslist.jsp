@@ -10,9 +10,9 @@
 <title>Honey Jam</title>
 <%
 	BbsDAOImpl dao = BbsDAO.getInstance();
-
 	List<BbsDto> list = null;
 	String search = request.getParameter("search");
+	
 	if (search != null) {
 		list = dao.getSearchList(search);
 		if (list.size() == 0) {

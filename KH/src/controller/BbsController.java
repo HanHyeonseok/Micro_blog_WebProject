@@ -16,10 +16,13 @@ import javax.servlet.jsp.JspWriter;
 
 import com.oreilly.servlet.MultipartRequest;
 import com.oreilly.servlet.multipart.DefaultFileRenamePolicy;
+import com.sun.glass.ui.Application;
+import com.sun.java.swing.plaf.windows.resources.windows;
 
 import dao.BbsDAO;
 import dao.BbsDAOImpl;
 import dto.BbsDto;
+import dto.FavoriteDto;
 import dto.MemberDto;
 
 public class BbsController extends HttpServlet {
@@ -46,7 +49,7 @@ public class BbsController extends HttpServlet {
 		PrintWriter out = resp.getWriter();
 
 		if (command.equals("addreply")) {
-
+			System.out.println("sdfawe");
 		}
 
 		// 게시판글 작성
@@ -104,12 +107,59 @@ public class BbsController extends HttpServlet {
 			req.setAttribute("dto", dto);
 
 			dispatch("bbsdetail.jsp", req, resp);
-
 		}
 
 		// 업데이트
 		else if (command.equals("update")) {
-
+						
+			String title = req.getParameter("title");
+			
+			String content = req.getParameter("content");
+			
+			int b_seq = Integer.parseInt(req.getParameter("sequence"));
+						
+			BbsDAOImpl bbsdao = BbsDAO.getInstance();
+			boolean yes = bbsdao.BbsUpdate(title, content, b_seq);
+			
+			if (yes == true) {
+				out.println("<script>alert(\"게시물을 수정 완료 하였습니다.\");location.href = \"bbsdetail.jsp\"</script>");
+				BbsDto dto = bbsdao.getContent(b_seq);
+				req.setAttribute("dto", dto);
+				
+				dispatch("bbsdetail.jsp", req, resp);
+			}else {
+				out.println("<script>alert(\"게시물 수정에 실패 하였습니다.\");location.href = \"bbsdetail.jsp\"</script>");
+				BbsDto dto = bbsdao.getContent(b_seq);
+				req.setAttribute("dto", dto);
+				
+				dispatch("bbsdetail.jsp", req, resp);
+			}
+			
+		}
+		
+		// 삭제
+		else if (command.equals("delete")) {
+			
+			System.out.println("들어왔음");
+			
+			String seq = req.getParameter("sequence");
+			int b_seq = Integer.parseInt(seq);
+			
+			System.out.println("sequence = " + b_seq);
+			BbsDAOImpl bbsdao = BbsDAO.getInstance();
+			
+			boolean yes = bbsdao.BbsDelete(b_seq);
+			
+			if(yes == true){
+				out = resp.getWriter();						
+				out.println("<script>alert(\"삭제했습니다.\");location.href = \"bbslist.jsp\"</script>");		
+				
+			}else{
+				out = resp.getWriter();				
+				out.println("<script>alert(\"삭제 실패 했습니다.\");location.href = \"bbslist.jsp\"</script>");		
+			}
+			
+			//resp.sendRedirect("bbslist.jsp");
 		}
 		
 		// 좋아요 체크
@@ -158,6 +208,25 @@ public class BbsController extends HttpServlet {
 	         writer.close();
 	      }
 		
+	      else if(command.equals("Like")) {
+	          String id = req.getParameter("memId");
+	          int bbsSeq = Integer.parseInt(req.getParameter("bbsSeq"));
+	          
+	          BbsDAOImpl bbsdao = BbsDAO.getInstance();
+	          //FavoriteDto dto = bbsdao.Like(id, bbsSeq);
+	          
+	          StringBuffer json = new StringBuffer();
+	          /* json.append("{");
+	          json.append(" \"status\" : \"success\", "); 
+	          json.append(" \"result\" : " + dto); 
+	          json.append(" } ");
+	          */
+	          PrintWriter writer = resp.getWriter();
+	          writer.write(json.toString());
+	          writer.flush();
+	          writer.close();
+	       }
+		
 		// 페이지이동 확인
 		else if(command.equals("movePage")) {
 			HttpSession session = req.getSession();
@@ -168,6 +237,7 @@ public class BbsController extends HttpServlet {
 				dispatch("bbslist.jsp", req, resp);
 			}
 		}
+		
 
 		out.close(); // printwriter 마무리
 	}
