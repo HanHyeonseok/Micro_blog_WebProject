@@ -282,8 +282,8 @@
 	               alert(xhr + " : " + status)
 	            }
 	         })
-	         
 	      }
+<<<<<<< HEAD
 		
 		
 		 $("#btn1").toggle(
@@ -297,6 +297,8 @@
 
 				  });
 						
+=======
+>>>>>>> 71e994c461dc9e51b2697207fa466be5a3bbb641
 	</script>
 </body>
 </html>
