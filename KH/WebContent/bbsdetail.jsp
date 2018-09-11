@@ -1,14 +1,21 @@
 <%@page import="dto.FavoriteDto"%>
 <%@page import="dao.BbsDAOImpl"%>
 <%@page import="dao.BbsDAO"%>
+<%@page import="dto.ReplyDto"%>
+<%@page import="java.util.List"%>
 <%@page import="dto.BbsDto"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 	
 <%@ include file="/WEB-INF/include/header.jsp" %>
+<%
+	BbsDto dto = (BbsDto)request.getAttribute("dto");
+	List<ReplyDto> commentview = (List<ReplyDto>)request.getAttribute("Replylist");
+%>
 
 <html>
 
+<html lang="en">
 <head>
 	
     <title>Honey Jam</title>
@@ -25,6 +32,28 @@
 	
     
 <style type="text/css">
+/*댓글부분 css  */
+.purple-border textarea {
+    border: 1px solid #ba68c8;
+}
+.purple-border .form-control:focus {
+    border: 1px solid #ba68c8;
+    box-shadow: 0 0 0 0.2rem rgba(186, 104, 200, .25);
+}
+/* 댓글부분 css부분 끝 */
+
+/* 파일 버튼 css */
+.btn-file{
+	position: relative;
+    overflow: hidden;
+}
+.btn-file input[type=file] {
+
+	cursor: inherit;
+	display: none;
+        }
+/* 파일 버튼 css 끝 */
+
 .div-hearder-navbar {
 	margin-top: 15px;
 	margin-left: auto;
@@ -75,18 +104,16 @@ img {
 <body id="page-top" class="index-page">
 
 <%
-	
-	BbsDto dto = (BbsDto)request.getAttribute("dto");
-	
+		
 	if (mem == null) {
 		RequestDispatcher rd = request.getRequestDispatcher("login.jsp");
 		rd.forward(request, response);
 	}
 	
 	BbsDAOImpl bbsdao = BbsDAO.getInstance();
-	//FavoriteDto likeDto = bbsdao.getCheckLike(mem.getId(), dto.getSeq());
 %>
 
+<div class="container" style="margin-bottom: 30px">
 <div class="wrap-body">
 
 
@@ -101,13 +128,7 @@ img {
 					<div class="wrap-post"><!--Start Box-->
 						<div class="entry-header text-center">
 							<h1 class="entry-title"><%=dto.getTitle() %></h1>
-							<!-- <span class="entry-meta">
-								<ul class="list-inline link">
-									<li>By <a href="#">Tufo</a></li>
-									<li><a href="#">September, 22 2017</a></li>
-									<li><a href="#">0 comments</a></li>
-								</ul>
-							</span> -->
+						
 						</div>
 						
 						<!--Carousel Wrapper-->
@@ -125,16 +146,7 @@ img {
         <div style="height: auto; max-width: 780px; " class="carousel-item active contents">
             <img class="d-block w-100" src="upload/<%=dto.getFilename() %>" alt="이미지가 없습니다">
         </div>
-        <!--/First slide-->
-        <!--Second slide-->
-      <!--   <div class="carousel-item">
-            <img class="d-block w-100" src="https://mdbootstrap.com/img/Photos/Slides/img%20(129).jpg" alt="Second slide">
-        </div>
-        /Second slide
-        Third slide
-        <div class="carousel-item">
-            <img class="d-block w-100" src="https://mdbootstrap.com/img/Photos/Slides/img%20(70).jpg" alt="Third slide">
-        </div>  /Third slide -->
+      
         
     </div>
     <!--/.Slides-->
@@ -162,19 +174,13 @@ img {
 						
 						
 						<!-- 사진 추가/수정 -->
-			
-						 <form class="md-form">
-						    <div class="file-field big" align="center">
-						        <a class="btn-floating btn-lg pink lighten-1 mt-0 float-left">
+		
+						        <a class=" btn btn-default btn-file">
 						            <i class="fa fa-paperclip" aria-hidden="true"></i>
-						            <input type="file" multiple>
+						            <label for="ex_file">파일수정</label>
+						            <input type="file" id="ex_file">
 						        </a>
-						        <div class="file-path-wrapper">
-						           <input class="file-path validate" type="text" placeholder="Upload one or more files">
-						        </div>
-						    </div>
-						</form>
-									
+					
 					
 </div>
                		   
@@ -183,9 +189,12 @@ img {
 
 
 <!--/.Carousel Wrapper-->
+<br><br>
+						<!-- 글내용들어오는곳  -->
 						<div class="entry-content">
-							<p><%=dto.getContent()%></p>
+							<p align="center"><%=dto.getContent()%></p>
 						</div>
+							
 					</div>
 				</article>
 			</div>	
@@ -197,7 +206,7 @@ img {
 	<!-- 내용 수정 -->
 	
 <div align="right">
-<button type="button" class="btn btn-rounded btn-amber"><i class="fa fa-th-list pr-2" aria-hidden="true"></i>목록</button>
+<button type="button" class="btn btn-rounded btn-amber" onclick="location.href='bbslist.jsp'"><i class="fa fa-th-list pr-2" aria-hidden="true"></i>목록</button>
 
 <%if(mem.getId().equals(dto.getId())){ %> 
 
@@ -211,46 +220,70 @@ img {
 </div>
 		
 		
-		
 <div class="media">
-    <img class="d-flex rounded-circle avatar z-depth-1-half mr-3" src="https://mdbootstrap.com/img/Photos/Avatars/avatar-5.jpg" alt="Avatar">
     <div class="media-body">
-        <h5 class="mt-0 font-weight-bold blue-text">Anna Smith</h5>
-        Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque ante sollicitudin. Cras purus odio, vestibulum in vulputate at, tempus viverra turpis. Fusce condimentum nunc ac nisi vulputate fringilla. Donec lacinia congue felis in faucibus.
-
-        <div class="media mt-3 shadow-textarea">
-            <img class="d-flex rounded-circle avatar z-depth-1-half mr-3" src="https://mdbootstrap.com/img/Photos/Avatars/avatar-8.jpg" alt="Generic placeholder image">
-            <div class="media-body">
-                
+       <div class="diary-commant">
+          <h4>댓글</h4>
+            <div class="diary-commant"style="padding: 30px;  -moz-border-radius: 10px;  
+ 					-webkit-border-radius: 10px; text-align: center; background: #E6E6FA !important;">
+            
+            <%
+               for(int i=0; i<commentview.size(); i++ ){
+            %>
+            <div class="commant-view" style="margin-bottom: 20px;padding-left: 38px; padding-right: 38px;">
+           	<div class="commant-id"style="text-align: left;font-weight: 700;margin-bottom: 8px;display: table;width: 100%;">
+           	
+               <p style="float: left;"><%=commentview.get(i).getId() %></p>
+               <p style="float: left;margin-left: 10px;font-weight: 300;font-size: 12px;margin-top: 5px;">
+               		<%=commentview.get(i).getWdate().substring(0,16) %></p>
                
-               <!-- reply 작성자 --> 
-                <h5 class="mt-0 font-weight-bold blue-text">Danny Tatuum</h5>
-                <div class="form-group basic-textarea rounded-corners">
-                    <textarea class="form-control z-depth-1" id="reply" rows="3" placeholder="Write your comment..."></textarea><div align="right"><button type="button" class="btn btn-info">등록</button></div>
-                </div>
-            </div>
-        </div>
-    </div>
+          
+               <form action="BbsController">
+               <input type="hidden" name="command" value="deletecomment">
+               <input type="hidden" name="seq" value="<%=dto.getSeq() %>">
+               <input type="hidden" name="commentseq" value="<%=commentview.get(i).getSeq() %>">
+               <button type="submit" class="btn btn-outline-secondary waves-effect px-3" style="float: right; cursor: pointer;">
+               		<i class="fa fa-close" aria-hidden="true"></i></button>
+               </form>
+               
+             </div>
+             
+     		 <div class="commant-content"style="width: 88%;word-break: break-all;text-align: left;  color:#696969">
+     		 	<%=commentview.get(i).getContent() %>
+     		 </div>
+             <hr>               
+             </div>
+            
+            <%
+               }
+            %>
+         	<form action="BbsController" method="get" >
+           	 	<input type="hidden" name="command" value="commentwrite">
+           	 	
+           	 	<div class="form-group purple-border" style="text-align: left; margin-left: 40px;font-weight: 700; margin-bottom: 8px;">
+   				<label for="exampleFormControlTextarea4"><%=mem.getId() %></label>
+           	 		<textarea class="form-control" id="exampleFormControlTextarea4" name="dcomment" style="width: 80%; height: 80px; vertical-align: text-bottom;"></textarea>
+          	      	<input type="hidden" name="seq" value="<%=dto.getSeq() %>">
+           	    	
+           	    	<button type="submit" class="btn btn-secondary px-3" style="height: 68px; vertical-align: text-bottom;">
+           	    	<i class="fa fa-commenting" aria-hidden="true"></i>댓글달기</button>
+           	   	</div>
+            </form>
+		</div>
+	</div>
+	</div>
 </div>
-<div class="media">
-    <img class="d-flex rounded-circle avatar z-depth-1-half mr-3" src="https://mdbootstrap.com/img/Photos/Avatars/avatar-10.jpg" alt="Avatar">
-    <div class="media-body">
-        <h5 class="mt-0 font-weight-bold blue-text">Caroline Horwitz</h5>
-        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Corporis odit minima eaque dignissimos recusandae officiis commodi nulla est, tempore atque voluptas non quod maxime, iusto, debitis aliquid? Iure ipsum, itaque.
-    </div>
-</div><br><br>
 
-    <!--Grid row-->
-    <div class="row">
 
+<%-- 
       <!--Grid column-->
       <div class="col-lg-2 col-md-12 mb-4">
 
         <!--Image-->
         <div class="view overlay z-depth-1-half">
           <img src="https://mdbootstrap.com/img/Photos/Horizontal/Nature/4-col/img%20(73).jpg" class="img-fluid" alt="">
-<%--           <a href="BbsController?command=detailOnClick&sequence=<%=//list.get(index).getSeq()%>">
- --%>            <div class="mask rgba-white-light"></div>
+          <a href="BbsController?command=detailOnClick&sequence=<%=//list.get(index).getSeq()%>">
+            <div class="mask rgba-white-light"></div>
           </a>
         </div>
 
@@ -322,13 +355,11 @@ img {
           <a href="">
             <div class="mask rgba-white-light"></div>
           </a>
-        </div>
+        </div> --%>
+</div>
+</div>
 
-      </div>
-      <!--Grid column-->
 
-    </div>
-    <!--Grid row-->
 
 <!-- 내용 수정 Modal -->
 <form method="post" action="BbsController?command=update&sequence=<%=dto.getSeq() %>">
@@ -437,6 +468,11 @@ $(function () {
 </html>
 
 <%@ include file="/WEB-INF/include/footer.jsp" %>
+
+
+
+
+
 
   
   

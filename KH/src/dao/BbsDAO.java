@@ -12,6 +12,7 @@ import db.DBClose;
 import db.DBConnection;
 import dto.BbsDto;
 import dto.MemberDto;
+import dto.ReplyDto;
 
 public class BbsDAO implements BbsDAOImpl {
 
@@ -29,7 +30,7 @@ public class BbsDAO implements BbsDAOImpl {
 	public BbsDto getContent(int seq) {
 
 		String sql1 = " UPDATE BBS SET READCOUNT = READCOUNT + 1 " + " WHERE SEQ = ? ";
-
+		
 		String sql2 = " SELECT SEQ, ID, TITLE, CONTENT, WDATE, DEL, READCOUNT, REPLYCNT, "
 				+ " FILENAME, PROFILENAME, FAVORITE, HASHTAG FROM BBS" + " WHERE SEQ = ? ";
 
@@ -40,9 +41,8 @@ public class BbsDAO implements BbsDAOImpl {
 		int count = 0;
 		BbsDto dto = null;
 
-		System.out.println("1/6 getBbsDetail success");
-
 		try {
+			
 			conn = DBConnection.makeConnection();
 			conn.setAutoCommit(false);
 
@@ -62,9 +62,10 @@ public class BbsDAO implements BbsDAOImpl {
 			System.out.println("4/6 getBbsDetail success");
 
 			if (rs.next()) {
-				dto = new BbsDto(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getString(5),
-						rs.getInt(6), rs.getInt(7), rs.getInt(8), rs.getString(9), rs.getString(10), rs.getInt(11),
-						rs.getString(12));
+				dto = new BbsDto(rs.getInt(1), rs.getString(2), rs.getString(3), 
+						rs.getString(4), rs.getString(5),rs.getInt(6), 
+						rs.getInt(7), rs.getInt(8), rs.getString(9),
+						rs.getString(10), rs.getInt(11), rs.getString(12));
 			}
 			System.out.println("5/6 getBbsDetail success");
 		} catch (SQLException e) {
@@ -78,7 +79,7 @@ public class BbsDAO implements BbsDAOImpl {
 			}
 			DBClose.close(psmt, conn, null);
 		}
-		System.out.println("END getBbsDetail success");
+			
 		return dto;
 	}
 
@@ -169,7 +170,7 @@ public class BbsDAO implements BbsDAOImpl {
 	public List<BbsDto> getBestList() {
 		String sql = " SELECT SEQ, ID, TITLE, CONTENT, WDATE, DEL, READCOUNT, REPLYCNT, FILENAME, PROFILENAME, FAVORITE, HASHTAG "
 				+ " FROM BBS " + "WHERE DEL = 0 ORDER BY FAVORITE DESC, READCOUNT DESC, WDATE DESC";
-
+				
 		Connection conn = null;
 		PreparedStatement psmt = null;
 		ResultSet rs = null;
@@ -534,80 +535,6 @@ public class BbsDAO implements BbsDAOImpl {
 		return FAVORITE;
 	}
 
-	@Override
-	public FavoriteDto Like(String id, int b_seq) {
-
-		String sql = " UPDATE FAVORITE " + " SET LIKECHECK = LIKECHECK + 1 " + " WHERE ID = ? AND BSEQ = ? ";
-
-		String sql2 = " UPDATE FAVORITE " + " SET LIKECHECK = 0 " + " WHERE ID = ? AND BSEQ = ? ";
-
-		String sql3 = " UPDATE BBS " + " SET FAVORITE = FAVORITE + 1 WHERE SEQ = ? ";
-
-		String sql4 = " UPDATE BBS " + " SET FAVORITE = FAVORITE - 1 WHERE SEQ = ? ";
-
-		String sql5 = " SELECT BSEQ, LIKECHECK, ID FROM FAVORITE " + " WHERE BSEQ = ? AND ID = ? ";
-
-		Connection conn = null;
-		PreparedStatement psmt = null;
-		ResultSet rs = null;
-
-		FavoriteDto dto = null;
-		int count = 0;
-
-		try {
-
-			conn = DBConnection.makeConnection();
-			conn.setAutoCommit(false);
-			System.out.println("1/6 putLike Success");
-
-			psmt = conn.prepareStatement(sql);
-			psmt.setString(1, id);
-			psmt.setInt(2, b_seq);
-			System.out.println("2/6 putLike Success");
-
-			count = psmt.executeUpdate();
-			System.out.println("3/6 putLike Success");
-
-			psmt.clearParameters();
-
-			// =============================================
-
-			psmt = conn.prepareStatement(sql3);
-			psmt.setInt(1, b_seq);
-			System.out.println("4/6 putLikeAfter Success");
-
-			rs = psmt.executeQuery();
-			System.out.println("5/6 putLikeAfter Success");
-
-			// =============================================
-
-			psmt = conn.prepareStatement(sql5);
-			psmt.setInt(1, b_seq);
-			psmt.setString(2, id);
-
-			if (rs.next()) {
-				int B_Seq = rs.getInt(1);
-				int LikeCheck = rs.getInt(2);
-				String UserId = rs.getString(3);
-
-				dto = new FavoriteDto(B_Seq, LikeCheck, UserId);
-			}
-
-		} catch (SQLException e) {
-			e.printStackTrace();
-		} finally {
-			try {
-				conn.setAutoCommit(true);
-			} catch (SQLException e) {
-				e.printStackTrace();
-			}
-
-			DBClose.close(psmt, conn, rs);
-			System.out.println("6/6 Like success");
-		}
-
-		return dto;
-	}
 
 	@Override
 	public FavoriteDto getCheckLike(String id, int b_seq) {
@@ -713,5 +640,98 @@ public class BbsDAO implements BbsDAOImpl {
 		return count>0?true:false;
 	}
 	
-	
+	// 댓글 쓰기
+	@Override
+	public int CommentWrite(int seq, String id, String dcomment) {
+
+		String sql = " INSERT INTO REPLY(SEQ, DSEQ, ID, CONTENT, WDATE)" + " VALUES( R_SEQ.NEXTVAL, ?, ?,?, SYSDATE)";
+
+		Connection conn = null;
+		PreparedStatement psmt = null;
+
+		int count = 0;
+
+		try {
+			conn = DBConnection.makeConnection();
+			psmt = conn.prepareStatement(sql);
+			System.out.println("1/6 CommentWrite success");
+
+			psmt.setInt(1, seq);
+			psmt.setString(2, id);
+			psmt.setString(3, dcomment);
+			
+			count = psmt.executeUpdate();
+			System.out.println("2/6 CommentWrite success");
+
+		} catch (SQLException e) {
+			System.out.println("CommentWrite failed");
+			e.printStackTrace();
+		} finally {
+			DBClose.close(psmt, conn, null);
+			System.out.println("3/6 CommentWrite success");
+		}
+		return count;
+	}
+	//댓글삭제
+	@Override
+	public int CommentDelete(int seq) {
+		String sql = " DELETE REPLY " + " WHERE SEQ = ? ";
+
+		Connection conn = null;
+		PreparedStatement psmt = null;
+		int count = 0;
+
+		try {
+			conn = DBConnection.makeConnection();
+			psmt = conn.prepareStatement(sql);
+			System.out.println("1/4 CommentDelete success");
+			
+			psmt.setInt(1, seq);
+
+			count = psmt.executeUpdate();
+			System.out.println("2/4 CommentDelete success");
+			
+		} catch (SQLException e) {
+			System.out.println("CommentDelete failed");
+			e.printStackTrace();
+		}
+		return count;
+	}
+
+	@Override
+	public List<ReplyDto> commentview(int seq) {
+		String sql = " SELECT SEQ, ID, CONTENT, WDATE" + " FROM REPLY" + " WHERE DSEQ=?" + " ORDER BY WDATE DESC";
+
+		Connection conn = null;
+		PreparedStatement psmt = null;
+		ResultSet rs = null;
+
+		List<ReplyDto> list = new ArrayList<>();
+
+		try {
+			conn = DBConnection.makeConnection();
+			System.out.println("1/6 commentview suceess");
+
+			psmt = conn.prepareStatement(sql);
+			System.out.println("2/6 commentview suceess");
+
+			psmt.setInt(1, seq);
+
+			rs = psmt.executeQuery();
+			System.out.println("3/6 commentview suceess");
+
+			while (rs.next()) {
+
+				list.add(new ReplyDto(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getString(4)));
+
+			}
+		} catch (SQLException e) {
+			System.out.println("commentview failed");
+
+		} finally {
+			DBClose.close(psmt, conn, rs);
+		}
+		return list;
+	}
+
 }
