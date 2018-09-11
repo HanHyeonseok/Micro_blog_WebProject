@@ -247,10 +247,47 @@ public class MemberController extends HttpServlet {
 				out.flush();
 			}
 		}
-		
-		else if(command.equals("gooleLogin")) {
+
+		else if (command.equals("gooleLogin")) {
 			String id = req.getParameter("id");
-			System.out.println(id);
+			String name = req.getParameter("name");
+			String email = req.getParameter("email");
+			String img = req.getParameter("img");
+			
+			MemberDto dto = new MemberDto(id, "google", name, email, "google", "google", img, 0);
+			System.out.println(dto.toString());
+			HttpSession session = null;
+
+			if (memDao.checkId(id) == false) {
+				// 아이디 조회 후 회원정보가 없을 경우
+				if (memDao.addMember(dto)) {
+					// 첫 구글로그인시 회원 정보 등록 및 세션값 등록 후 서비스 이용
+					session = req.getSession(true);
+					session.setAttribute("login", dto);
+					session.setMaxInactiveInterval(30 * 60);
+
+					out.println("<script>alert('구글 로그인 성공'); location.href='index.jsp';</script>");
+					out.flush();
+				} else {
+					out.println("<script>alert('구글아이디 등록 실패'); location.href='index.jsp';</script>");
+					out.flush();
+				}
+			} else {
+				// 첫 로그인이 아닌 유저는 로그인
+				if (memDao.login(dto) != null && !memDao.login(dto).getId().equals("")) {
+					// 회원정보가 있습니다.
+					if (session == null) {
+						session = req.getSession(true);
+						session.setAttribute("login", dto);
+						session.setMaxInactiveInterval(30 * 60);
+
+						out.println("<script>alert('" + id + "님 로그인하였습니다'); location.href='index.jsp';</script>");
+						out.flush();
+					}
+				}else {
+					System.out.println("구글 로그인 실패");
+				}
+			}
 		}
 
 		out.close();

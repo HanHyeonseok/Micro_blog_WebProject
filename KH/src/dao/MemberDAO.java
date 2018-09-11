@@ -168,7 +168,7 @@ public class MemberDAO implements MemberDAOImpl {
 		PreparedStatement psmt = null; // sql query
 		ResultSet rs = null; // result value
 
-		Boolean findId = false;
+		boolean findId = false;
 
 		try {
 			conn = DBConnection.makeConnection();
@@ -186,10 +186,9 @@ public class MemberDAO implements MemberDAOImpl {
 			e.printStackTrace();
 		} finally {
 			DBClose.close(psmt, conn, rs);
+			System.out.println("ID check = "+findId);
 		}
-
 		return findId;
-
 	}
 
 	// 멤버 리스트 가져오기

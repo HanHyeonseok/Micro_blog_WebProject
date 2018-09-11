@@ -105,8 +105,8 @@ table.table td a.delete {
 <input type="hidden" name="command" value="detail">
 
      <div class="table-wrapper" align="center">
-	<h3 align="center">Event List</h3>
-	<hr>
+   <h3 align="center">Event List</h3>
+   <hr>
          <table border="1" align="center"
             class="table table-striped table-hover table-bordered">
             <col width="100">
@@ -168,13 +168,13 @@ table.table td a.delete {
          </table>
          <div align="center">
          <button type="button" class="btn btn-outline-info waves-effect" onclick="location.href='calendar.jsp'">
-					<i class="fa fa-undo" aria-hidden="true"></i>목록	</button>
-		</div>		
+               <i class="fa fa-undo" aria-hidden="true"></i>목록   </button>
+      </div>      
       </div>
    </form>
 </div>
 
-			
+         
 <script type="text/javascript">
 $(document).ready(function() {
    $('[data-toggle="tooltip"]').tooltip();
