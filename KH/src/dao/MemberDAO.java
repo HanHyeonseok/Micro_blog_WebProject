@@ -81,7 +81,7 @@ public class MemberDAO implements MemberDAOImpl {
 	public boolean addMember(MemberDto dto) {
 
 		String sql = " INSERT INTO MEMBER " + " (ID, PWD, NAME, EMAIL, ADDRESS, PHONE, IMG, AUTH) "
-				+ " VALUES(?, ?, ?, ?, ?, ?, ?, 0) ";
+				+ " VALUES(?, ?, ?, ?, ?, ?, ?, ?) ";
 
 		Connection conn = null;
 		PreparedStatement psmt = null;
@@ -100,6 +100,7 @@ public class MemberDAO implements MemberDAOImpl {
 			psmt.setString(5, dto.getAddress());
 			psmt.setString(6, dto.getPhone());
 			psmt.setString(7, dto.getImg());
+			psmt.setInt(8, dto.getAuth());
 
 			System.out.println("3");
 			count = psmt.executeUpdate();

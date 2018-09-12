@@ -254,11 +254,11 @@ public class MemberController extends HttpServlet {
 			String email = req.getParameter("email");
 			String img = req.getParameter("img");
 			
-			MemberDto dto = new MemberDto(id, "google", name, email, "google", "google", img, 0);
+			MemberDto dto = new MemberDto(email, id, name, email, "비공개", "비공개", img, 2);
 			System.out.println(dto.toString());
 			HttpSession session = null;
 
-			if (memDao.checkId(id) == false) {
+			if (memDao.checkId(email) == false) {
 				// 아이디 조회 후 회원정보가 없을 경우
 				if (memDao.addMember(dto)) {
 					// 첫 구글로그인시 회원 정보 등록 및 세션값 등록 후 서비스 이용
@@ -281,7 +281,7 @@ public class MemberController extends HttpServlet {
 						session.setAttribute("login", dto);
 						session.setMaxInactiveInterval(30 * 60);
 
-						out.println("<script>alert('" + id + "님 로그인하였습니다'); location.href='index.jsp';</script>");
+						out.println("<script>alert('" + email + "님 로그인하였습니다'); location.href='index.jsp';</script>");
 						out.flush();
 					}
 				}else {
