@@ -43,11 +43,6 @@
 					class="font-small dark-grey-text text-right d-flex justify-content-center mb-3 pt-2">
 					or Sign in with:</p>
 				<div class="row my-3 d-flex justify-content-center">
-					<!--Facebook-->
-					<button type="button"
-						class="btn btn-white btn-rounded mr-md-3 z-depth-1a">
-						<i class="fa fa-facebook blue-text text-center"></i>
-					</button>
 					<!--Google +-->
 					<button type="button" id="loginBtn" class="btn btn-white btn-rounded z-depth-1a" 
 					onclick="login()">
