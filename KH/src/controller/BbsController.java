@@ -148,26 +148,16 @@ public class BbsController extends HttpServlet {
 			String title = req.getParameter("title");
 			
 			String content = req.getParameter("content");
-			
+			String id = req.getParameter("userId");
 			int b_seq = Integer.parseInt(req.getParameter("sequence"));
 						
-			BbsDAOImpl bbsdao = BbsDAO.getInstance();
-			boolean yes = bbsdao.BbsUpdate(title, content, b_seq);
+			boolean yes = bbsDao.BbsUpdate(title, content, b_seq);
 			
 			if (yes == true) {
-				out.println("<script>alert(\"게시물을 수정 완료 하였습니다.\");location.href = \"bbsdetail.jsp\"</script>");
-				BbsDto dto = bbsdao.getContent(b_seq);
-				req.setAttribute("dto", dto);
-				
-				dispatch("bbsdetail.jsp", req, resp);
+				updateBbsDetail(b_seq,id,req,resp);
 			}else {
-				out.println("<script>alert(\"게시물 수정에 실패 하였습니다.\");location.href = \"bbsdetail.jsp\"</script>");
-				BbsDto dto = bbsdao.getContent(b_seq);
-				req.setAttribute("dto", dto);
-				
-				dispatch("bbsdetail.jsp", req, resp);
+				updateBbsDetail(b_seq,id,req,resp);
 			}
-			
 		}
 		
 		// 삭제
@@ -252,28 +242,20 @@ public class BbsController extends HttpServlet {
 	    	  try {
 					MultipartRequest multi = new MultipartRequest(req, savePath, sizeLimit, "utf-8",
 							new DefaultFileRenamePolicy());
-
-					
 					
 					int seq = Integer.parseInt(multi.getParameter("bseq"));
 					String imgname = multi.getFilesystemName("imgname");
-					
-					
-					System.out.println("seq === " + seq);
-					System.out.println("imgname === " + imgname);
+					String id = req.getParameter("userId");
 
 					if (!checkFileForm(imgname)) {
-						out.println(
-								"<script>alert('png, jpg, jpeg의 확장자의 이미지 파일을 사용할 수 있습니다.'); location.href='userMyPage.jsp';</script>");
-						out.flush();
+						updateBbsDetail(seq,id,req,resp);
 						return;
 					}
 
 					boolean isS = bbsDao.setBbsImg(seq, imgname);
 
 					if (isS) {
-						out.println("<script>alert('수정되었습니다'); location.href='bbslist.jsp';</script>");
-						out.flush();
+						updateBbsDetail(seq,id,req,resp);
 					}
 				} catch (Exception e) {
 
@@ -298,7 +280,19 @@ public class BbsController extends HttpServlet {
 		out.close(); // printwriter 마무리
 	}
 	
-	
+	// bbsDetail 수정 함수
+	public void updateBbsDetail(int seq,String id, HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		BbsDAOImpl bbsDao = BbsDAO.getInstance();
+		BbsDto dto = bbsDao.getContent(seq);
+		List<ReplyDto> list = bbsDao.commentview(seq);
+		int b = bbsDao.checkF(id, seq);
+		
+		req.setAttribute("likeCheck", b);
+		req.setAttribute("Replylist", list);
+		req.setAttribute("dto", dto);
+		
+		dispatch("bbsdetail.jsp", req, resp);
+	}
 
 	// 업로드파일 확장자 확인
 	public boolean checkFileForm(String fileName) {
