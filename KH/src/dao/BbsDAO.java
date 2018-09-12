@@ -241,7 +241,7 @@ public class BbsDAO implements BbsDAOImpl {
 
 	@Override
 	public List<BbsDto> getUserBbsList(String id) {
-		String sql = " SELECT * FROM BBS WHERE id = '" + id + "' ORDER BY WDATE DESC ";
+		String sql = " SELECT * FROM BBS WHERE DEL = 0 AND id = '" + id + "' ORDER BY WDATE DESC ";
 
 		Connection conn = null;
 		PreparedStatement psmt = null;
@@ -529,9 +529,6 @@ public class BbsDAO implements BbsDAOImpl {
 
 		return FAVORITE;
 	}
-
-
-	
 
 	@Override
 	public boolean BbsUpdate(String title, String content, int b_seq) {
