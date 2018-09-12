@@ -1,4 +1,5 @@
-<%@page import="dto.FavoriteDto"%>
+
+<%@page import="dto.LiketoDto"%>
 <%@page import="dao.BbsDAOImpl"%>
 <%@page import="dao.BbsDAO"%>
 <%@page import="dto.ReplyDto"%>
@@ -11,6 +12,8 @@
 <%
 	BbsDto dto = (BbsDto)request.getAttribute("dto");
 	List<ReplyDto> commentview = (List<ReplyDto>)request.getAttribute("Replylist");
+	int likeCheck = (int)request.getAttribute("likeCheck");
+	System.out.println("likeCheck = "+ likeCheck);
 %>
 
 
@@ -185,14 +188,25 @@ img {
 											<i class="fa fa-television" aria-hidden="true"></i>&nbsp View
 											:
 											<%=dto.getReadcount() %></button>
+											
+										<%if(bbsdao.checkF(mem.getId(), dto.getSeq()) == 1){ %>
 										<button type="button"
 											class="btn btn-purple btn-rounded btn-sm heart" id="btn_fav"
 											onclick="check_like()" value="<%=dto.getFavorite() %>">
-											<i class="fa fa-heart-o heart-1" aria-hidden="true"></i>
+											<i class="fa fa-heart-o heart-1" aria-hidden="true"></i>&nbsp<span id="favcount"><%=dto.getFavorite() %></span>
 										</button>
-										<input type="button"
+										<%} else{%>
+											
+										<button type="button"
+											class="btn btn-rounded btn-sm heart" id="btn_fav"
+											onclick="check_like()" value="<%=dto.getFavorite() %>">
+											<i class="fa fa-heart-o heart-1" aria-hidden="true"></i>&nbsp<span id="favcount"><%=dto.getFavorite() %></span>
+										</button>
+										<%} %>
+										
+										<%-- <input type="button"
 											class="btn btn-purple btn-rounded btn-sm heart" id="favcount"
-											value="<%=dto.getFavorite() %>" readonly="readonly">
+											value="<%=dto.getFavorite() %>" readonly="readonly"> --%>
 										<!-- <i class="fa fa-heart-o heart-1" aria-hidden="true"></i> -->
 										<button type="button"
 											class="btn btn-purple btn-rounded btn-sm">
@@ -526,7 +540,7 @@ img {
 function check_like() {
 	var id = $("#m_id").val();
     var bbsSeq  = $("#b_seq").val();
-    var favorite = $("#b_fav").val();
+    var favorite = $("#favcount").text();
 
     
     alert("id =" + id);
@@ -546,13 +560,14 @@ function check_like() {
           var jsonObj = JSON.parse(obj);
           if (jsonObj.duplicated == 1) {
              alert("체크했었음 -> 좋아요 취소");
-             $("#favcount").val(jsonObj.favorite);
+             $("#favcount").text(jsonObj.favorite);
+             offLike();
           }
 
           else {
              alert("체크 가능  -> 좋아요");
-             $("#favcount").val(jsonObj.favorite);
-             
+             $("#favcount").text(jsonObj.favorite);
+             onLike();
           }
           
          // document.location.reload();
@@ -567,6 +582,18 @@ function check_like() {
 }
 
 
+
+function onLike(){
+	
+	$("#btn_fav").addClass("btn-purple");
+	
+}
+
+function offLike(){
+	
+	$("#btn_fav").removeClass("btn-purple");
+	
+}
 
 
 	

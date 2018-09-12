@@ -22,7 +22,7 @@ import com.sun.java.swing.plaf.windows.resources.windows;
 import dao.BbsDAO;
 import dao.BbsDAOImpl;
 import dto.BbsDto;
-import dto.FavoriteDto;
+
 import dto.MemberDto;
 import dto.ReplyDto;
 
@@ -116,7 +116,8 @@ public class BbsController extends HttpServlet {
 					out.println("<script>alert('게시글등록 실패'); location.href='bbslist.jsp';</script>");
 					out.flush();
 				}
-				dispatch("bbslist.jsp", req, resp);
+				//dispatch("bbslist.jsp", req, resp);
+				resp.sendRedirect("bbslist.jsp");
 			} catch (Exception e) {
 
 			}
@@ -130,6 +131,11 @@ public class BbsController extends HttpServlet {
 
 			BbsDto dto = bbsDao.getContent(seq);
 			List<ReplyDto> list = bbsDao.commentview(seq);
+			
+			String id = req.getParameter("userId");
+			int b = bbsDao.checkF(id, seq);
+			
+			req.setAttribute("likeCheck", b);
 			req.setAttribute("Replylist", list);
 			req.setAttribute("dto", dto);
 
@@ -220,7 +226,7 @@ public class BbsController extends HttpServlet {
 	         }
 	         
 	        favorite = bbsDao.getLikeCount(seq);
-	         
+	    
 	         
 	         StringBuffer json = new StringBuffer();
 	         json.append("{");
@@ -234,6 +240,9 @@ public class BbsController extends HttpServlet {
 	         writer.flush();
 	         writer.close();
 	      }
+		
+	     
+	      
 		
 
 		// 페이지이동 확인
@@ -249,6 +258,8 @@ public class BbsController extends HttpServlet {
 		
 		out.close(); // printwriter 마무리
 	}
+	
+	
 
 	// 업로드파일 확장자 확인
 	public boolean checkFileForm(String fileName) {
