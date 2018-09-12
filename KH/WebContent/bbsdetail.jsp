@@ -453,7 +453,7 @@ img {
       </div>
       <%} %>
       <!--Grid column-->
-	  
+		
       <!--Grid column-->
       <%for(int i = 0; i < bigger.size(); i++){ if(i == 3){break;}%> <!-- 큰 시퀀스 게시물 3개 -->
       <div class="col-lg-2 col-md-6 mb-4">
@@ -463,7 +463,7 @@ img {
           <img src="upload/<%=bigger.get(i).getFilename() %>" class="img-fluid" alt="이미지 없음">
           <a href="BbsController?command=detail&sequence=<%=bigger.get(i).getSeq() %>">
             <div class="mask flex-center waves-effect waves-light raba-red-slight">
-            	<p class="red-text">[클릭] 다음글 보기</p>
+            	<p class="white-text"><b><strong>[클릭] 다음글 보기</strong></b></p>
             </div>
           </a>
         </div>
