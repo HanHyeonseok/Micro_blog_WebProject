@@ -82,11 +82,11 @@ public class BbsController extends HttpServlet {
 			String savePath = req.getServletContext().getRealPath("/upload");
 
 			int sizeLimit = 1024 * 1024 * 15;
-
+			System.out.println("check1");
 			try {
 				MultipartRequest multi = new MultipartRequest(req, savePath, sizeLimit, "utf-8",
 						new DefaultFileRenamePolicy());
-
+				
 				String id = multi.getParameter("userId");
 				String profilename = multi.getParameter("userImg");
 				String title = multi.getParameter("title");
@@ -94,7 +94,7 @@ public class BbsController extends HttpServlet {
 				String hashtag = multi.getParameter("hashtag");
 
 				String fileName = multi.getFilesystemName("files");
-
+				System.out.println("check2");
 				if (title.equals("") || content.equals("") || hashtag.equals("") || fileName == null) {
 					out.println("<script>alert('양식을 모두 작성해 주세요'); location.href='bbslist.jsp';</script>");
 					out.flush();
@@ -110,7 +110,7 @@ public class BbsController extends HttpServlet {
 
 				BbsDto dto = new BbsDto(0, id, title, content, null, 0, 0, 0, fileName, profilename, 0, hashtag);
 				boolean isS = bbsDao.addBbs(dto);
-
+System.out.println("check3");
 				if (!isS) {
 					out.println("<script>alert('게시글등록 실패'); location.href='bbslist.jsp';</script>");
 					out.flush();
