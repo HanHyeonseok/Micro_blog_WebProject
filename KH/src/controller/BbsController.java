@@ -22,6 +22,7 @@ import com.sun.java.swing.plaf.windows.resources.windows;
 import dao.BbsDAO;
 import dao.BbsDAOImpl;
 import dto.BbsDto;
+
 import dto.MemberDto;
 import dto.ReplyDto;
 
@@ -110,12 +111,13 @@ public class BbsController extends HttpServlet {
 
 				BbsDto dto = new BbsDto(0, id, title, content, null, 0, 0, 0, fileName, profilename, 0, hashtag);
 				boolean isS = bbsDao.addBbs(dto);
-System.out.println("check3");
+				System.out.println("check3");
 				if (!isS) {
 					out.println("<script>alert('게시글등록 실패'); location.href='bbslist.jsp';</script>");
 					out.flush();
 				}
-				dispatch("bbslist.jsp", req, resp);
+				//dispatch("bbslist.jsp", req, resp);
+				resp.sendRedirect("bbslist.jsp");
 			} catch (Exception e) {
 
 			}
@@ -129,6 +131,11 @@ System.out.println("check3");
 
 			BbsDto dto = bbsDao.getContent(seq);
 			List<ReplyDto> list = bbsDao.commentview(seq);
+			
+			String id = req.getParameter("userId");
+			int b = bbsDao.checkF(id, seq);
+			
+			req.setAttribute("likeCheck", b);
 			req.setAttribute("Replylist", list);
 			req.setAttribute("dto", dto);
 
@@ -219,7 +226,7 @@ System.out.println("check3");
 	         }
 	         
 	        favorite = bbsDao.getLikeCount(seq);
-	         
+	    
 	         
 	         StringBuffer json = new StringBuffer();
 	         json.append("{");
@@ -233,6 +240,48 @@ System.out.println("check3");
 	         writer.flush();
 	         writer.close();
 	      }
+		
+		// 게시판 디테일 이미지 변경
+	      else if(command.equals("imgchange")) {
+	    	  
+	    	  System.out.println("doProcess 실행");
+	    	  
+	    	  String savePath = req.getServletContext().getRealPath("/upload");
+	    	  int sizeLimit = 1024 * 1024 * 15;
+	    	  
+	    	  try {
+					MultipartRequest multi = new MultipartRequest(req, savePath, sizeLimit, "utf-8",
+							new DefaultFileRenamePolicy());
+
+					
+					
+					int seq = Integer.parseInt(multi.getParameter("bseq"));
+					String imgname = multi.getFilesystemName("imgname");
+					
+					
+					System.out.println("seq === " + seq);
+					System.out.println("imgname === " + imgname);
+
+					if (!checkFileForm(imgname)) {
+						out.println(
+								"<script>alert('png, jpg, jpeg의 확장자의 이미지 파일을 사용할 수 있습니다.'); location.href='userMyPage.jsp';</script>");
+						out.flush();
+						return;
+					}
+
+					boolean isS = bbsDao.setBbsImg(seq, imgname);
+
+					if (isS) {
+						out.println("<script>alert('수정되었습니다'); location.href='bbslist.jsp';</script>");
+						out.flush();
+					}
+				} catch (Exception e) {
+
+				}
+	      }
+		
+	     
+	      
 		
 
 		// 페이지이동 확인
@@ -248,6 +297,8 @@ System.out.println("check3");
 		
 		out.close(); // printwriter 마무리
 	}
+	
+	
 
 	// 업로드파일 확장자 확인
 	public boolean checkFileForm(String fileName) {

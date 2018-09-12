@@ -1,3 +1,4 @@
+<%@page import="dto.LiketoDto"%>
 <%@page import="dto.BbsDto"%>
 <%@page import="java.util.List"%>
 <%@page import="dao.BbsDAO"%>
@@ -24,6 +25,7 @@
 	}
 
 	List<BbsDto> bestList = dao.getBestList();
+	
 %>
 </head>
 <body>
@@ -202,13 +204,23 @@
 							<div class="btn-group btn-group-sm" role="group"
 								aria-label="Basic example">
 								<%-- <input type="text" id="bbsSeq" value="<%=list.get(i).getSeq() %>"> --%>
-								<button type="button" id=bbsSeq class="btn btn-unique btn-sm"
-									onclick="check_like(<%=list.get(i).getSeq()%>)">
-									<i class="fa fa-heart" aria-hidden="true"></i>
-								</button>
-								<input type="text" id="likecount" size="3"
-									class="btn btn-unique btn-sm"
-									value="<%=list.get(i).getFavorite()%>" readonly="readonly">
+								<%if(dao.checkF(mem.getId(), list.get(i).getSeq()) == 1){ %>
+										<button type="button" id=bbsSeq class="btn btn-unique btn-sm" onclick="check_like(<%=list.get(i).getSeq() %>)" >
+										<i class="fa fa-heart" aria-hidden="true" ></i><span id="likecount"><%=list.get(i).getFavorite() %></span>
+										</button> 
+										<%} else{%>
+											
+										<button type="button" id=bbsSeq class="btn btn-sm" onclick="check_like(<%=list.get(i).getSeq() %>)" >
+										<i class="fa fa-heart" aria-hidden="true" ></i><span id="likecount"><%=list.get(i).getFavorite() %></span>
+										</button>
+										<%} %>
+								
+							<%-- 	<button type="button" id=bbsSeq class="btn btn-sm" onclick="check_like(<%=list.get(i).getSeq() %>)" >
+									<i class="fa fa-heart" aria-hidden="true" ></i>
+								</button> --%>
+							<%-- 	<input type="hidden" id="likecount" value="<%=list.get(i).getFavorite() %>"> --%>
+								
+								
 
 							</div>
 						</div>
@@ -269,13 +281,13 @@
 		function check_like(seq) {
 	         var id = $("#userId").val();
 	         var bbsSeq  = seq;
-	         var favorite =  $("#likecount").val();   
+	         var favorite =  $("#likecount").text(); 
 	   
 	         
-	         alert("id =" + id);
+	       /*   alert("id =" + id);
 	         alert("bbsSeq =" + bbsSeq);
 	         alert("favorite =" + favorite);
-	              
+	               */
 	         $.ajax({
 	            url : "BbsController?command=favorite",
 	            type : "get",
@@ -289,16 +301,18 @@
 	               var jsonObj = JSON.parse(obj);
 	               if (jsonObj.duplicated == 1) {
 	                  alert("체크했었음 -> 좋아요 취소");
-	                  
+	                  //$("#likecount").val(jsonObj.favorite);
+	                  //offLike();
 	               }
 
 	               else {
 	                  alert("체크 가능  -> 좋아요");
-	               //   $("#likecount").val(jsonObj.favorite);
-	                  
+	                 // $("#likecount").val(jsonObj.favorite);
+	                 // onLike();
+	               
 	               }
 	               
-	               document.location.reload();
+	             	location.reload();
 
 	            },
 
@@ -309,18 +323,21 @@
 	      }
 
 		
+		function onLike(){
+			
+			$("#bbsSeq").addClass("btn-unique");
+			
+		}
 		
-		 $("#btn1").toggle(
-				  function()
-				  {
-				   $("#bbsSeq").css("display",'none');
-				  },
-				  function()
-				  {
-				   $("#bbsSeq").css("display","block");
+		function offLike(){
+			
+			$("#bbsSeq").removeClass("btn-unique");
+			
+		}
+		
+	
 
-				  });
-						
+
 
 	</script>
 </body>

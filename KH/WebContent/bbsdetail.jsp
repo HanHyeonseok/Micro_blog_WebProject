@@ -1,3 +1,7 @@
+
+
+<%@page import="dto.LiketoDto"%>
+
 <%@page import="dao.BbsDAOImpl"%>
 <%@page import="dao.BbsDAO"%>
 <%@page import="dto.ReplyDto"%>
@@ -10,11 +14,15 @@
 <%
 	BbsDto dto = (BbsDto)request.getAttribute("dto");
 	List<ReplyDto> commentview = (List<ReplyDto>)request.getAttribute("Replylist");
-	
+
+	int likeCheck = (int)request.getAttribute("likeCheck");
+	System.out.println("likeCheck = "+ likeCheck);
+
 	BbsDAOImpl bbsdao = BbsDAO.getInstance();
 	
 	List<BbsDto> smaller = bbsdao.getSmallerSeq(dto.getSeq());
 	List<BbsDto> bigger = bbsdao.getBiggerSeq(dto.getSeq());
+
 %>
 
 
@@ -173,14 +181,25 @@ img {
 											<i class="fa fa-television" aria-hidden="true"></i>&nbsp View
 											:
 											<%=dto.getReadcount() %></button>
+											
+										<%if(bbsdao.checkF(mem.getId(), dto.getSeq()) == 1){ %>
 										<button type="button"
 											class="btn btn-purple btn-rounded btn-sm heart" id="btn_fav"
 											onclick="check_like()" value="<%=dto.getFavorite() %>">
-											<i class="fa fa-heart-o heart-1" aria-hidden="true"></i>
+											<i class="fa fa-heart-o heart-1" aria-hidden="true"></i>&nbsp<span id="favcount"><%=dto.getFavorite() %></span>
 										</button>
-										<input type="button"
+										<%} else{%>
+											
+										<button type="button"
+											class="btn btn-rounded btn-sm heart" id="btn_fav"
+											onclick="check_like()" value="<%=dto.getFavorite() %>">
+											<i class="fa fa-heart-o heart-1" aria-hidden="true"></i>&nbsp<span id="favcount"><%=dto.getFavorite() %></span>
+										</button>
+										<%} %>
+										
+										<%-- <input type="button"
 											class="btn btn-purple btn-rounded btn-sm heart" id="favcount"
-											value="<%=dto.getFavorite() %>" readonly="readonly">
+											value="<%=dto.getFavorite() %>" readonly="readonly"> --%>
 										<!-- <i class="fa fa-heart-o heart-1" aria-hidden="true"></i> -->
 										<button type="button"
 											class="btn btn-purple btn-rounded btn-sm">
@@ -194,13 +213,6 @@ img {
 									</div>
 
 
-									<!-- 사진 추가/수정 -->
-									<%if(mem.getId().equals(dto.getId())){ %>
-									<a class=" btn btn-default btn-file"> <i
-										class="fa fa-paperclip" aria-hidden="true"></i> <label
-										for="ex_file">파일수정</label> <input type="file" id="ex_file">
-									</a>
-									<%} %>
 
 								</div>
 
@@ -237,12 +249,29 @@ img {
 					class="btn btn-danger btn-rounded">
 					<i class="fa fa-trash"></i>삭제
 				</button>
+				
+				
+			
 
 				<button type="button" data-toggle="modal" data-target="#updateModal"
 					class="btn btn-primary">
 					<i class="fa fa-magic mr-1"></i>내용 수정
 				</button>
 
+				<!-- 사진 추가/수정 -->
+
+									<!--  <a class=" btn btn-default btn-file"> <i
+										class="fa fa-paperclip" aria-hidden="true"></i> <label
+										for="ex_file">파일수정</label> <input type="file" id="ex_file">
+									</a> -->
+									
+				<button type="button" data-toggle="modal" data-target="#modalYT"
+					class="btn btn-primary">
+					<i class="fa fa-magic mr-1"></i>사진 수정
+				</button>					
+									
+									
+									
 				<% 
 }
 %>
@@ -413,6 +442,47 @@ img {
 		</div>
 	</form>
 	<!-- 게시글 삭제 Modal -->
+	
+	
+	<!-- 사진 수정  modal-->
+<!--Modal: modalYT-->
+<div class="modal fade" id="modalYT" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+
+        <!--Content-->
+        <div class="modal-content">
+
+            <!--Body-->
+            <div class="modal-body mb-0 p-0">
+
+            
+            	<img id="bbsimg" alt="" src="upload/<%=dto.getFilename() %>">
+            	
+              
+
+            </div>
+
+            <!--Footer-->
+            <div class="modal-footer justify-content-center flex-column flex-md-row">
+            	<form action="BbsController?command=imgchange" method="post" enctype="multipart/form-data">
+					<input type="file" name="imgname" onchange="readURL(this);">     
+					<input type="hidden" name="bseq" value="<%=dto.getSeq() %>">
+					<button type="submit" class="btn btn-outline-primary btn-rounded btn-md ml-4">완료</button>
+            		
+            	</form>
+            	
+            
+                <button type="button" class="btn btn-outline-primary btn-rounded btn-md ml-4" data-dismiss="modal">취소</button>
+
+
+            </div>
+
+        </div>
+        <!--/.Content-->
+
+    </div>
+</div>
+<!--Modal: modalYT-->
 
 
 
@@ -492,7 +562,7 @@ img {
 function check_like() {
 	var id = $("#m_id").val();
     var bbsSeq  = $("#b_seq").val();
-    var favorite = $("#b_fav").val();
+    var favorite = $("#favcount").text();
 
     
     alert("id =" + id);
@@ -512,13 +582,14 @@ function check_like() {
           var jsonObj = JSON.parse(obj);
           if (jsonObj.duplicated == 1) {
              alert("체크했었음 -> 좋아요 취소");
-             $("#favcount").val(jsonObj.favorite);
+             $("#favcount").text(jsonObj.favorite);
+             offLike();
           }
 
           else {
              alert("체크 가능  -> 좋아요");
-             $("#favcount").val(jsonObj.favorite);
-             
+             $("#favcount").text(jsonObj.favorite);
+             onLike();
           }
           
          // document.location.reload();
@@ -533,6 +604,29 @@ function check_like() {
 }
 
 
+
+function onLike(){
+	
+	$("#btn_fav").addClass("btn-purple");
+	
+}
+
+function offLike(){
+	
+	$("#btn_fav").removeClass("btn-purple");
+	
+}
+
+function readURL(input) {
+	if (input.files && input.files[0]) {
+		var reader = new FileReader();
+		reader.onload = function(e) {
+			$('#bbsimg').attr('src', e.target.result);
+
+		}
+		reader.readAsDataURL(input.files[0]);
+	}
+}
 
 
 	
