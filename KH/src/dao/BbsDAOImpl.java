@@ -52,6 +52,10 @@ public interface BbsDAOImpl {
 	public int CommentWrite(int seq, String id, String dcomment);
 	public List<ReplyDto> commentview(int seq);
 	public int CommentDelete(int seq);
+	
+	public List<BbsDto> getBiggerSeq(int seq);
+	public List<BbsDto> getSmallerSeq(int seq);
+	
 	   
 
 }
