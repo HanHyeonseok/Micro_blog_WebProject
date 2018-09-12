@@ -111,7 +111,7 @@ public class BbsController extends HttpServlet {
 
 				BbsDto dto = new BbsDto(0, id, title, content, null, 0, 0, 0, fileName, profilename, 0, hashtag);
 				boolean isS = bbsDao.addBbs(dto);
-System.out.println("check3");
+				System.out.println("check3");
 				if (!isS) {
 					out.println("<script>alert('게시글등록 실패'); location.href='bbslist.jsp';</script>");
 					out.flush();
@@ -272,7 +272,7 @@ System.out.println("check3");
 					boolean isS = bbsDao.setBbsImg(seq, imgname);
 
 					if (isS) {
-						out.println("<script>alert('수정되었습니다'); location.href='bbsdetail.jsp';</script>");
+						out.println("<script>alert('수정되었습니다'); location.href='bbslist.jsp';</script>");
 						out.flush();
 					}
 				} catch (Exception e) {
