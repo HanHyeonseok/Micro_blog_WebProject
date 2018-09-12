@@ -203,25 +203,16 @@
 							style="padding-right: 10px; margin-top: 5px; margin-bottom: 5px;">
 							<div class="btn-group btn-group-sm" role="group"
 								aria-label="Basic example">
-								<%-- <input type="text" id="bbsSeq" value="<%=list.get(i).getSeq() %>"> --%>
 								<%if(dao.checkF(mem.getId(), list.get(i).getSeq()) == 1){ %>
 										<button type="button" id=bbsSeq class="btn btn-unique btn-sm" onclick="check_like(<%=list.get(i).getSeq() %>)" >
-										<i class="fa fa-heart" aria-hidden="true" ></i><span id="likecount"><%=list.get(i).getFavorite() %></span>
+										<i class="fa fa-heart" aria-hidden="true" ></i>Like : <span id="likecount"><%=list.get(i).getFavorite() %></span>
 										</button> 
 										<%} else{%>
 											
 										<button type="button" id=bbsSeq class="btn btn-sm" onclick="check_like(<%=list.get(i).getSeq() %>)" >
-										<i class="fa fa-heart" aria-hidden="true" ></i><span id="likecount"><%=list.get(i).getFavorite() %></span>
+										<i class="fa fa-heart" aria-hidden="true" ></i>Like : <span id="likecount"><%=list.get(i).getFavorite() %></span>
 										</button>
 										<%} %>
-								
-							<%-- 	<button type="button" id=bbsSeq class="btn btn-sm" onclick="check_like(<%=list.get(i).getSeq() %>)" >
-									<i class="fa fa-heart" aria-hidden="true" ></i>
-								</button> --%>
-							<%-- 	<input type="hidden" id="likecount" value="<%=list.get(i).getFavorite() %>"> --%>
-								
-								
-
 							</div>
 						</div>
 						<div class="card-body" style="padding-top: 0px">
