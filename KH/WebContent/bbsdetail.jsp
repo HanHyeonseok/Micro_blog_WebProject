@@ -263,8 +263,7 @@ img {
 }
 %>
 			</div>
-
-			<!--댓글부분 시작  -->
+<!--댓글부분 시작  -->
 			<div class="media">
 				<div class="media-body">
 
@@ -272,7 +271,8 @@ img {
 					<div class="diary-commant">
 						<h4>댓글</h4>
 						<div class="diary-commant"
-							style="padding: 30px; -moz-border-radius: 10px; -webkit-border-radius: 10px; text-align: center; background: #E6E6FA !important;">
+							style="padding: 30px; -moz-border-radius: 10px; -webkit-border-radius: 10px; text-align: center; 
+								background: #E6E6FA !important;">
 
 							<%
                for(int i=0; i<commentview.size(); i++ ){
@@ -294,13 +294,10 @@ img {
                            if(commentview.get(i).getId().equals(mem.getId())){
                               System.out.print(commentview.get(i).getId());
                               %>
-									<form
-										action="BbsController?command=deletecomment&dtoseq=<%=dto.getSeq() %>&coseq=<%=commentview.get(i).getSeq() %>"
-										method="post">
-										<!-- <input type="hidden" name="command" value="deletecomment"> -->
-										<%-- <input type="hidden" name="seq" value="<%=dto.getSeq() %>"> --%>
-										<%-- <input type="hidden" name="commentseq"
-                                 value="<%=commentview.get(i).getSeq() %>"> --%>
+									<form action="BbsController">
+               <input type="hidden" name="command" value="deletecomment">
+               <input type="hidden" name="seq" value="<%=dto.getSeq() %>">
+               <input type="hidden" name="commentseq" value="<%=commentview.get(i).getSeq() %>">
 										<button type="submit"
 											class="btn btn-outline-secondary waves-effect px-3"
 											style="float: right; cursor: pointer;">
@@ -322,30 +319,36 @@ img {
 							<%
                            }
                         %>
+							<form action="BbsController" method="get">
+								<input type="hidden" name="command" value="commentwrite">
 
-                     <form action="BbsController" method="get">
-                        <input type="hidden" name="command" value="commentwrite">
-
-                        <div class="form-group purple-border"
-                           style="text-align: left; margin-left: 40px; font-weight: 700; margin-bottom: 8px;">
-                           <label for="exampleFormControlTextarea4"><%=mem.getId() %></label>
-                           
-                           <textarea class="form-control" id="exampleFormControlTextarea4"
-                              name="dcomment"
-                              style="width: 80%; height: 80px; vertical-align: text-bottom;"></textarea>
-                           <input type="hidden" name="seq" value="<%=dto.getSeq()%>">
-
-                           <button type="submit" class="btn btn-secondary px-3"
-                              style="height: 68px; vertical-align: text-bottom;">
-                              <i class="fa fa-commenting" aria-hidden="true"></i>&nbsp댓글달기
-                           </button>
-                        </div>
-                     </form>
-                  </div>
-               </div>
-            </div>
-         </div>
-         <!--댓글부분 끝  -->
+								<div class="form-group purple-border"
+									style="text-align: left; margin-left: 40px; font-weight: 700; margin-bottom: 8px; padding-left: 20px">
+									<label for="exampleFormControlTextarea4"><%=mem.getId() %></label>
+									
+									<div class="row">
+									<div class="col-md-8" style="padding-left: 40px">
+									<textarea class="form-control" id="exampleFormControlTextarea4"
+										name="dcomment"
+										style=" height: 80px; vertical-align: text-bottom;"></textarea>
+									<input type="hidden" name="seq" value="<%=dto.getSeq()%>">
+									</div>
+									
+									  <div class="col-md-3" style="padding-left: 50px">
+									<button type="submit" class="btn btn-secondary px-3"
+										style="height: 68px; vertical-align: text-bottom;">
+										<i class="fa fa-commenting" aria-hidden="true"></i>댓글달기
+									</button>
+									  </div>
+									</div>
+									
+								</div>
+							</form>
+						</div>
+					</div>
+				</div>
+			</div>
+			<!--댓글부분 끝  -->
 
 
 		</div>
