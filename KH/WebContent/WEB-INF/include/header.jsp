@@ -186,15 +186,12 @@ body {
 		
 		function login() {
 			console.log('로그인 준비 '+loginStatusCheck.value);
-			if(loginStatusCheck.value == 'false'){
-				loginStatusCheck.value = 'true';
 				gauth.signIn().then(function() {
 			          var profile = gauth.currentUser.get().getBasicProfile();
 			          location.href = "MemberController?command=gooleLogin&id="+profile.getId()+"&email="+profile.getEmail()+
 						"&name="+profile.getName()+"&img="+profile.getImageUrl();
 			        })
 				console.log('로그인 성공');
-			}
 		}
 		
 		function logout() {

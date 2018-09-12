@@ -12,7 +12,7 @@
 	BbsDAOImpl dao = BbsDAO.getInstance();
 	List<BbsDto> list = null;
 	String search = request.getParameter("search");
-	
+
 	if (search != null) {
 		list = dao.getSearchList(search);
 		if (list.size() == 0) {
@@ -77,6 +77,14 @@
 								alt="avatar">
 							<%
 								} else {
+									int temp = mem.getImg().indexOf("http");
+									if (temp != -1) { // url 이미지 : true
+							%>
+							<img
+								style="width: auto; height: auto; max-height: 50px; max-width: 50px"
+								src="<%=mem.getImg()%>" class="rounded-circle mr-3" alt="avatar">
+							<%
+								} else {
 							%>
 							<img
 								style="width: auto; height: auto; max-height: 50px; max-width: 50px"
@@ -84,11 +92,13 @@
 								alt="avatar">
 							<%
 								}
+								}
 							%>
 
 							<!-- userId -->
-							<input type="hidden" name="userId" id="userId" value="<%=mem.getId()%>">
-							<h5 style="font-family: inherit; margin: 0; padding-top: 10px"><%=mem.getId()%></h5>
+							<input type="hidden" name="userId" id="userId"
+								value="<%=mem.getId()%>">
+							<h6 style="font-family: inherit; margin: 0; padding-top: 10px"><%=mem.getId()%></h6>
 						</div>
 						<!-- input title -->
 						<div class="z-depth-1" style="padding: 10px">
@@ -139,6 +149,17 @@
 								class="rounded-circle mr-3" height="50px" width="50px" alt="">
 							<%
 								} else {
+									int temp = list.get(i).getProfilename().indexOf("http");
+									if(temp != -1){	// url 이미지 : true
+										%>
+							<img
+								style="width: auto; height: auto; max-height: 50px; max-width: 50px"
+								src="
+								<%=list.get(i).getProfilename()%>"
+								class="rounded-circle mr-3" height="50px" width="50px"
+								alt="https://user-images.githubusercontent.com/38531104/45137275-e0615300-b1e2-11e8-9dbb-05378ea956b6.png">
+							<%
+									}else{
 							%>
 							<img
 								style="width: auto; height: auto; max-height: 50px; max-width: 50px"
@@ -147,7 +168,7 @@
 								class="rounded-circle mr-3" height="50px" width="50px"
 								alt="https://user-images.githubusercontent.com/38531104/45137275-e0615300-b1e2-11e8-9dbb-05378ea956b6.png">
 							<%
-								}
+									}}
 							%>
 							<!-- Content -->
 							<div>
@@ -181,11 +202,14 @@
 							<div class="btn-group btn-group-sm" role="group"
 								aria-label="Basic example">
 								<%-- <input type="text" id="bbsSeq" value="<%=list.get(i).getSeq() %>"> --%>
-								<button type="button" id=bbsSeq class="btn btn-unique btn-sm" onclick="check_like(<%=list.get(i).getSeq() %>)" >
-									<i class="fa fa-heart" aria-hidden="true" ></i>
+								<button type="button" id=bbsSeq class="btn btn-unique btn-sm"
+									onclick="check_like(<%=list.get(i).getSeq()%>)">
+									<i class="fa fa-heart" aria-hidden="true"></i>
 								</button>
-								<input type="text" id="likecount" size="3" class="btn btn-unique btn-sm"  value="<%=list.get(i).getFavorite()%>" readonly="readonly">
-								
+								<input type="text" id="likecount" size="3"
+									class="btn btn-unique btn-sm"
+									value="<%=list.get(i).getFavorite()%>" readonly="readonly">
+
 							</div>
 						</div>
 						<div class="card-body" style="padding-top: 0px">

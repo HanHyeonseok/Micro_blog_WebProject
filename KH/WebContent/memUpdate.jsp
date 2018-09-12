@@ -14,8 +14,7 @@
 
 			<!-- Material form register -->
 			<form action="MemberController?command=replace" method="post"
-				onsubmit="return joincheck()">
-
+				<% if(mem.getAuth() != 2){%>onsubmit="return joincheck()"<%}%>>
 				<!-- Material input text -->
 				<div class="md-form row">
 					<div class="col-md-8">
@@ -25,7 +24,40 @@
 					</div>
 					<div class="col-md-4">수정불가</div>
 				</div>
-
+				<%
+					if(mem.getAuth() == 2){
+						%>
+				<!-- Password confirm -->
+				<div class="md-form row" style="margin-bottom: 0px">
+					<!-- Material input password -->
+					<div class="col-md-6">
+						<i class="fa fa-lock prefix grey-text"></i> <input type="password"
+							name="pwd" id="pwd" class="form-control" onkeyup=""
+							required disabled> <label for="pwd" class="font-weight-light"
+							style="margin-left: 3.5rem;"> -보안-</label>
+					</div>
+					<!-- Material input password confirm -->
+					<div class="col-md-6">
+						<i class="fa fa-lock prefix grey-text"></i> <input type="password"
+							id="pwd2" class="form-control" onkeyup="" required disabled>
+						<label for="pwd2" class="font-weight-light"
+							style="margin-left: 3.5rem;"> -보안-</label>
+					</div>
+				</div>
+				
+				<input type="hidden" name="pwd" value="<%=mem.getPwd() %>">
+				<input type="hidden" name="pwd2" value="<%=mem.getPwd() %>">
+				
+				<!-- Material input password confirm message -->
+				<div class="md-form" style="margin-top: 0px;">
+					<input type="text" id="pwdname" class="form-control" value=""
+						placeholder="비밀번호 수정불가" disabled
+						style="border-bottom: none"> <label for="pwdname"
+						class="font-weight-light"></label>
+				</div>
+				<%
+					}else{
+				%>
 				<!-- Password confirm -->
 				<div class="md-form row" style="margin-bottom: 0px">
 					<!-- Material input password -->
@@ -51,7 +83,7 @@
 						style="border-bottom: none"> <label for="pwdname"
 						class="font-weight-light"></label>
 				</div>
-
+				<%} %>
 				<!-- Material input name -->
 				<div class="md-form">
 					<i class="fa fa-user prefix grey-text"></i> <input type="text"
