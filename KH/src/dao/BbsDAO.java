@@ -719,5 +719,96 @@ public class BbsDAO implements BbsDAOImpl {
 		return count > 0 ? true : false;
 	}
 
+	@Override
+	public List<BbsDto> getBiggerSeq(int seq) {
+		
+		String sql = " SELECT SEQ, TITLE, FILENAME FROM BBS WHERE SEQ > ? AND DEL = 0 ORDER BY SEQ ASC ";
+		
+		Connection conn = null;
+		PreparedStatement psmt = null;
+		ResultSet rs = null;
+		
+		List<BbsDto> bigger = new ArrayList<>();
+		
+		try {
+		
+			conn = DBConnection.makeConnection();
+			System.out.println("1/6 getBiggerSeq");
+			
+			psmt = conn.prepareStatement(sql);
+			psmt.setInt(1, seq);
+			System.out.println("2/6 getBiggerSeq");
+			
+			rs = psmt.executeQuery();
+			System.out.println("3/6 getBiggerSeq");
+			
+			int i = 0;
+			while(rs.next()) {
+				int b_seq = rs.getInt(1);
+				String title = rs.getString(2);
+				String filename = rs.getString(3);
+				
+				bigger.add(new BbsDto(b_seq, title, filename));
+				System.out.println("bigger" + bigger.get(i).toString());
+				i++;
+			}
+			System.out.println("4/6 getBiggerSeq");
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			DBClose.close(psmt, conn, rs);
+		}
+		System.out.println("ENd getBiggerSeq");
+
+		return bigger;
+	}
+
+	@Override
+	public List<BbsDto> getSmallerSeq(int seq) {
+		
+		String sql = " SELECT SEQ, TITLE, FILENAME FROM BBS WHERE SEQ < ? AND DEL = 0 ORDER BY SEQ DESC ";
+		
+		Connection conn = null;
+		PreparedStatement psmt = null;
+		ResultSet rs = null;
+		
+		List<BbsDto> smaller = new ArrayList<>();
+		
+		try {
+		
+			conn = DBConnection.makeConnection();
+			System.out.println("1/6 getSmallerSeq");
+			
+			psmt = conn.prepareStatement(sql);
+			psmt.setInt(1, seq);
+			System.out.println("2/6 getSmallerSeq");
+			
+			rs = psmt.executeQuery();
+			System.out.println("3/6 getSmallerSeq");
+			
+			int i = 0;
+			while(rs.next()) {
+				int b_seq = rs.getInt(1);
+				String title = rs.getString(2);
+				String filename = rs.getString(3);
+				
+				smaller.add(new BbsDto(b_seq, title, filename));
+				System.out.println("smaller" + smaller.get(i).toString());
+				i++;
+			}
+			System.out.println("4/6 getSmallerSeq");
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			DBClose.close(psmt, conn, rs);
+		}
+		System.out.println("End getSmallerSeq");
+
+		return smaller;
+
+	}
+
 
 }
