@@ -15,13 +15,14 @@
 
    Calendar cal = Calendar.getInstance();
    int tyear = cal.get(Calendar.YEAR);
-   int tmonth = cal.get(Calendar.MONTH);
+   int tmonth = cal.get(Calendar.MONTH)+ 1;
    int tday = cal.get(Calendar.DATE);
-   int thour = cal.get(Calendar.HOUR);
+   int thour = cal.get(Calendar.HOUR_OF_DAY);
    int tmin = cal.get(Calendar.MINUTE);
 %>
 <html>
 <head>
+<script src="https://code.jquery.com/jquery-3.2.1.min.js"></script> 
 <style type="text/css">
 #box {
    margin: 2px 0;
@@ -73,7 +74,9 @@
                         <%
                            }
                         %>
-                     </select>년 <select name="month">
+                     </select>년 
+                     
+                     <select name="month">
                         <%
                            for (int i = 1; i <= 12; i++) {
                         %>
@@ -82,16 +85,21 @@
                         <%
                            }
                         %>
-                     </select>월 <select name="day" id="day">
+                     </select>월
+                     
+                      <select name="day" id="day">
                         <%
                            for (int i = 1; i <= cal.getActualMaximum(Calendar.DAY_OF_MONTH); i++) {
+                        	   
                         %>
                         <option <%=day.equals(i + "") ? "selected='selected'" : ""%>
                            value="<%=i%>"><%=i%></option>
                         <%
                            }
                         %>
-                     </select>일 <select name="hour">
+                     </select>일
+                     
+                      <select name="hour">
                         <%
                            for (int i = 0; i < 24; i++) {
                         %>
@@ -101,7 +109,9 @@
                         <%
                            }
                         %>
-                     </select>시 <select name="min">
+                     </select>시 
+                     
+                     <select name="min">
                         <%
                            for (int i = 0; i < 60; i++) {
                         %>
@@ -147,23 +157,26 @@
    <script type="text/javascript">
 // 지정된 달의 끝 날짜를 설정
 
-$("#day").val("<%=day%>");
+// 지정된 달의 끝 날짜를 설정
+setDay();
 
-      $(document).ready(function() {
-         $("select[name='month']").change(setDay);
-      });
+$("#day").val("<%=day %>"); 
+ 
+$(document).ready(function() {
+	$("select[name='month']").change(setDay);
+});
 
-      function setDay() {
-         var lastday = (new Date($("select[name='year']").val() + "", $(
-               "select[name='month']").val()
-               + "", 0)).getDate();
-         // 적용
-         var str = "";
-         for (i = 1; i <= lastday; i++) {
-            str += "<option value='" + i + "'>" + i + "</option>";
-         }
-         $("select[name='day']").html(str);
-      }
+function setDay() {
+	var lastday = (new Date($("select[name='year']").val()+ "", 
+			$("select[name='month']").val()+"", 0)).getDate();
+	// 적용
+	var str = "";
+	for(i = 1;i <= lastday; i++){
+	str += "<option value='" + i + "'>" + i + "</option>";
+	}
+	$("select[name='day']").html(str);
+}
+
    </script>
    <%@ include file="/WEB-INF/include/footer.jsp"%>
 </body>
