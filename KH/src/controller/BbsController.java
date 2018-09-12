@@ -241,6 +241,45 @@ public class BbsController extends HttpServlet {
 	         writer.close();
 	      }
 		
+		// 게시판 디테일 이미지 변경
+	      else if(command.equals("imgchange")) {
+	    	  
+	    	  System.out.println("doProcess 실행");
+	    	  
+	    	  String savePath = req.getServletContext().getRealPath("/upload");
+	    	  int sizeLimit = 1024 * 1024 * 15;
+	    	  
+	    	  try {
+					MultipartRequest multi = new MultipartRequest(req, savePath, sizeLimit, "utf-8",
+							new DefaultFileRenamePolicy());
+
+					
+					
+					int seq = Integer.parseInt(multi.getParameter("bseq"));
+					String imgname = multi.getFilesystemName("imgname");
+					
+					
+					System.out.println("seq === " + seq);
+					System.out.println("imgname === " + imgname);
+
+					if (!checkFileForm(imgname)) {
+						out.println(
+								"<script>alert('png, jpg, jpeg의 확장자의 이미지 파일을 사용할 수 있습니다.'); location.href='userMyPage.jsp';</script>");
+						out.flush();
+						return;
+					}
+
+					boolean isS = bbsDao.setBbsImg(seq, imgname);
+
+					if (isS) {
+						out.println("<script>alert('수정되었습니다'); location.href='bbsdetail.jsp';</script>");
+						out.flush();
+					}
+				} catch (Exception e) {
+
+				}
+	      }
+		
 	     
 	      
 		

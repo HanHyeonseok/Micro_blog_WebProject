@@ -691,5 +691,33 @@ public class BbsDAO implements BbsDAOImpl {
 		return list;
 	}
 
+	// 게시판 디테일 사진 수정
+	@Override
+	public boolean setBbsImg(int seq, String imgname) {
+		String sql = " UPDATE BBS SET FILENAME = '"+imgname+"' WHERE SEQ = '"+seq+"' ";
+		
+		Connection conn = null;
+		PreparedStatement psmt = null;
+		System.out.println("setBbsImg1");
+		int count = 0;
+
+		try {
+			conn = DBConnection.makeConnection();
+			psmt = conn.prepareStatement(sql);
+
+			System.out.println("setBbsImg2");
+		
+			count = psmt.executeUpdate();
+			System.out.println("setBbsImg3");
+		} catch (SQLException e) {
+			System.out.println("setBbsImg fail");
+		} finally {
+			DBClose.close(psmt, conn, null);
+		}
+		System.out.println("End setBbsImg success");
+
+		return count > 0 ? true : false;
+	}
+
 
 }

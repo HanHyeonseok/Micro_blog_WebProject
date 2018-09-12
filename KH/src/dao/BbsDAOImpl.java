@@ -52,6 +52,12 @@ public interface BbsDAOImpl {
 	public int CommentWrite(int seq, String id, String dcomment);
 	public List<ReplyDto> commentview(int seq);
 	public int CommentDelete(int seq);
+	
+	// 게시판 디테일 사진 수정
+	public boolean setBbsImg(int seq, String imgname);
+	
+	
+	
 	   
 
 }

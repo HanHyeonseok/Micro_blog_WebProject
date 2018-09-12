@@ -222,12 +222,7 @@ img {
 									</div>
 
 
-									<!-- 사진 추가/수정 -->
-
-									<a class=" btn btn-default btn-file"> <i
-										class="fa fa-paperclip" aria-hidden="true"></i> <label
-										for="ex_file">파일수정</label> <input type="file" id="ex_file">
-									</a>
+									
 
 
 								</div>
@@ -265,12 +260,29 @@ img {
 					class="btn btn-danger btn-rounded">
 					<i class="fa fa-trash"></i>삭제
 				</button>
+				
+				
+			
 
 				<button type="button" data-toggle="modal" data-target="#updateModal"
 					class="btn btn-primary">
 					<i class="fa fa-magic mr-1"></i>내용 수정
 				</button>
 
+				<!-- 사진 추가/수정 -->
+
+									<!--  <a class=" btn btn-default btn-file"> <i
+										class="fa fa-paperclip" aria-hidden="true"></i> <label
+										for="ex_file">파일수정</label> <input type="file" id="ex_file">
+									</a> -->
+									
+				<button type="button" data-toggle="modal" data-target="#modalYT"
+					class="btn btn-primary">
+					<i class="fa fa-magic mr-1"></i>사진 수정
+				</button>					
+									
+									
+									
 				<% 
 }
 %>
@@ -521,6 +533,47 @@ img {
 		</div>
 	</form>
 	<!-- 게시글 삭제 Modal -->
+	
+	
+	<!-- 사진 수정  modal-->
+<!--Modal: modalYT-->
+<div class="modal fade" id="modalYT" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+
+        <!--Content-->
+        <div class="modal-content">
+
+            <!--Body-->
+            <div class="modal-body mb-0 p-0">
+
+            
+            	<img id="bbsimg" alt="" src="upload/<%=dto.getFilename() %>">
+            	
+              
+
+            </div>
+
+            <!--Footer-->
+            <div class="modal-footer justify-content-center flex-column flex-md-row">
+            	<form action="BbsController?command=imgchange" method="post" enctype="multipart/form-data">
+					<input type="file" name="imgname" onchange="readURL(this);">     
+					<input type="hidden" name="bseq" value="<%=dto.getSeq() %>">
+					<button type="submit" class="btn btn-outline-primary btn-rounded btn-md ml-4">완료</button>
+            		
+            	</form>
+            	
+            
+                <button type="button" class="btn btn-outline-primary btn-rounded btn-md ml-4" data-dismiss="modal">취소</button>
+
+
+            </div>
+
+        </div>
+        <!--/.Content-->
+
+    </div>
+</div>
+<!--Modal: modalYT-->
 
 	<div>
 		<input type="hidden" id="m_id" value="<%=mem.getId() %>"> <input
@@ -599,6 +652,17 @@ function offLike(){
 	
 	$("#btn_fav").removeClass("btn-purple");
 	
+}
+
+function readURL(input) {
+	if (input.files && input.files[0]) {
+		var reader = new FileReader();
+		reader.onload = function(e) {
+			$('#bbsimg').attr('src', e.target.result);
+
+		}
+		reader.readAsDataURL(input.files[0]);
+	}
 }
 
 
