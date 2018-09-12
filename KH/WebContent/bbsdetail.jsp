@@ -10,6 +10,11 @@
 <%
 	BbsDto dto = (BbsDto)request.getAttribute("dto");
 	List<ReplyDto> commentview = (List<ReplyDto>)request.getAttribute("Replylist");
+	
+	BbsDAOImpl bbsdao = BbsDAO.getInstance();
+	
+	List<BbsDto> smaller = bbsdao.getSmallerSeq(dto.getSeq());
+	List<BbsDto> bigger = bbsdao.getBiggerSeq(dto.getSeq());
 %>
 
 
@@ -21,16 +26,16 @@
 
 
 
-<link rel="stylesheet"
+<!-- <link rel="stylesheet"
 	href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
-<!-- Bootstrap core CSS -->
+Bootstrap core CSS
 <link
 	href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.3/css/bootstrap.min.css"
 	rel="stylesheet">
-<!-- Material Design Bootstrap -->
+Material Design Bootstrap
 <link
 	href="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.5.9/css/mdb.min.css"
-	rel="stylesheet">
+	rel="stylesheet"> -->
 
 
 
@@ -114,7 +119,7 @@ img {
 		rd.forward(request, response);
 	}
 	
-	BbsDAOImpl bbsdao = BbsDAO.getInstance();
+	
 %>
 
 	<div class="container" style="margin-bottom: 30px">
@@ -206,12 +211,12 @@ img {
 
 
 									<!-- 사진 추가/수정 -->
-
+									<%if(mem.getId().equals(dto.getId())){ %>
 									<a class=" btn btn-default btn-file"> <i
 										class="fa fa-paperclip" aria-hidden="true"></i> <label
 										for="ex_file">파일수정</label> <input type="file" id="ex_file">
 									</a>
-
+									<%} %>
 
 								</div>
 
@@ -258,8 +263,7 @@ img {
 }
 %>
 			</div>
-
-			<!--댓글부분 시작  -->
+<!--댓글부분 시작  -->
 			<div class="media">
 				<div class="media-body">
 
@@ -267,7 +271,8 @@ img {
 					<div class="diary-commant">
 						<h4>댓글</h4>
 						<div class="diary-commant"
-							style="padding: 30px; -moz-border-radius: 10px; -webkit-border-radius: 10px; text-align: center; background: #E6E6FA !important;">
+							style="padding: 30px; -moz-border-radius: 10px; -webkit-border-radius: 10px; text-align: center; 
+								background: #E6E6FA !important;">
 
 							<%
                for(int i=0; i<commentview.size(); i++ ){
@@ -289,13 +294,10 @@ img {
                            if(commentview.get(i).getId().equals(mem.getId())){
                               System.out.print(commentview.get(i).getId());
                               %>
-									<form
-										action="BbsController?command=deletecomment&dtoseq=<%=dto.getSeq() %>&coseq=<%=commentview.get(i).getSeq() %>"
-										method="post">
-										<!-- <input type="hidden" name="command" value="deletecomment"> -->
-										<%-- <input type="hidden" name="seq" value="<%=dto.getSeq() %>"> --%>
-										<%-- <input type="hidden" name="commentseq"
-                                 value="<%=commentview.get(i).getSeq() %>"> --%>
+									<form action="BbsController">
+               <input type="hidden" name="command" value="deletecomment">
+               <input type="hidden" name="seq" value="<%=dto.getSeq() %>">
+               <input type="hidden" name="commentseq" value="<%=commentview.get(i).getSeq() %>">
 										<button type="submit"
 											class="btn btn-outline-secondary waves-effect px-3"
 											style="float: right; cursor: pointer;">
@@ -321,18 +323,25 @@ img {
 								<input type="hidden" name="command" value="commentwrite">
 
 								<div class="form-group purple-border"
-									style="text-align: left; margin-left: 40px; font-weight: 700; margin-bottom: 8px;">
+									style="text-align: left; margin-left: 40px; font-weight: 700; margin-bottom: 8px; padding-left: 20px">
 									<label for="exampleFormControlTextarea4"><%=mem.getId() %></label>
-
+									
+									<div class="row">
+									<div class="col-md-8" style="padding-left: 40px">
 									<textarea class="form-control" id="exampleFormControlTextarea4"
 										name="dcomment"
-										style="width: 80%; height: 80px; vertical-align: text-bottom;"></textarea>
+										style=" height: 80px; vertical-align: text-bottom;"></textarea>
 									<input type="hidden" name="seq" value="<%=dto.getSeq()%>">
-
+									</div>
+									
+									  <div class="col-md-3" style="padding-left: 50px">
 									<button type="submit" class="btn btn-secondary px-3"
 										style="height: 68px; vertical-align: text-bottom;">
 										<i class="fa fa-commenting" aria-hidden="true"></i>댓글달기
 									</button>
+									  </div>
+									</div>
+									
 								</div>
 							</form>
 						</div>
@@ -341,87 +350,7 @@ img {
 			</div>
 			<!--댓글부분 끝  -->
 
-			<%-- 
-      <!--Grid column-->
-      <div class="col-lg-2 col-md-12 mb-4">
 
-        <!--Image-->
-        <div class="view overlay z-depth-1-half">
-          <img src="https://mdbootstrap.com/img/Photos/Horizontal/Nature/4-col/img%20(73).jpg" class="img-fluid" alt="">
-          <a href="BbsController?command=detailOnClick&sequence=<%=//list.get(index).getSeq()%>">
-            <div class="mask rgba-white-light"></div>
-          </a>
-        </div>
-
-      </div>
-      <!--Grid column-->
-
-      <!--Grid column-->
-      <div class="col-lg-2 col-md-6 mb-4">
-
-        <!--Image-->
-        <div class="view overlay z-depth-1-half">
-          <img src="https://mdbootstrap.com/img/Photos/Horizontal/Nature/4-col/img%20(78).jpg" class="img-fluid" alt="">
-          <a href="">
-            <div class="mask rgba-white-light"></div>
-          </a>
-        </div>
-
-      </div>
-      <!--Grid column-->
-
-      <!--Grid column-->
-      <div class="col-lg-2 col-md-6 mb-4">
-
-        <!--Image-->
-        <div class="view overlay z-depth-1-half">
-          <img src="https://mdbootstrap.com/img/Photos/Horizontal/Nature/4-col/img%20(79).jpg" class="img-fluid" alt="">
-          <a href="">
-            <div class="mask rgba-white-light"></div>
-          </a>
-        </div>
-
-      </div>
-      <!--Grid column-->
-
-      <!--Grid column-->
-      <div class="col-lg-2 col-md-12 mb-4">
-
-        <!--Image-->
-        <div class="view overlay z-depth-1-half">
-          <img src="https://mdbootstrap.com/img/Photos/Horizontal/Nature/4-col/img%20(81).jpg" class="img-fluid" alt="">
-          <a href="">
-            <div class="mask rgba-white-light"></div>
-          </a>
-        </div>
-
-      </div>
-      <!--Grid column-->
-
-      <!--Grid column-->
-      <div class="col-lg-2 col-md-6 mb-4">
-
-        <!--Image-->
-        <div class="view overlay z-depth-1-half">
-          <img src="https://mdbootstrap.com/img/Photos/Horizontal/Nature/4-col/img%20(82).jpg" class="img-fluid" alt="">
-          <a href="">
-            <div class="mask rgba-white-light"></div>
-          </a>
-        </div>
-
-      </div>
-      <!--Grid column-->
-
-      <!--Grid column-->
-      <div class="col-lg-2 col-md-6 mb-4">
-
-        <!--Image-->
-        <div class="view overlay z-depth-1-half">
-          <img src="https://mdbootstrap.com/img/Photos/Horizontal/Nature/4-col/img%20(84).jpg" class="img-fluid" alt="">
-          <a href="">
-            <div class="mask rgba-white-light"></div>
-          </a>
-        </div> --%>
 		</div>
 	</div>
 
@@ -501,25 +430,79 @@ img {
 	</form>
 	<!-- 게시글 삭제 Modal -->
 
+
+
+<!-- before & next -->
+
+  <div class="container">
+
+    <!--Grid row-->
+    <div class="row">
+		<%for(int i = 0; i < smaller.size(); i++){ if(i == 3){break;}
+		%> <!-- 작은 시퀀스 게시물 3개 -->
+      <!--Grid column-->
+      <div class="col-lg-2 col-md-6 mb-4">
+
+        <!--Image-->
+        <div class="view overlay z-depth-1-half">
+          <img src="upload/<%=smaller.get(i).getFilename() %>" class="img-fluid" alt="이미지 없음">
+          <a href="BbsController?command=detail&sequence=<%=smaller.get(i).getSeq() %>">
+            <div class="mask flex-center waves-effect waves-light raba-red-slight">
+            	<p class="white-text"><b><strong>[클릭] 이전글 보기</strong></b></p>
+            </div>
+          </a>
+        </div>
+		
+      </div>
+      <%} %>
+      <!--Grid column-->
+	  
+      <!--Grid column-->
+      <%for(int i = 0; i < bigger.size(); i++){ if(i == 3){break;}%> <!-- 큰 시퀀스 게시물 3개 -->
+      <div class="col-lg-2 col-md-6 mb-4">
+
+        <!--Image-->
+         <div class="view overlay z-depth-1-half">
+          <img src="upload/<%=bigger.get(i).getFilename() %>" class="img-fluid" alt="이미지 없음">
+          <a href="BbsController?command=detail&sequence=<%=bigger.get(i).getSeq() %>">
+            <div class="mask flex-center waves-effect waves-light raba-red-slight">
+            	<p class="red-text">[클릭] 다음글 보기</p>
+            </div>
+          </a>
+        </div>
+
+      </div>
+      <%} %>
+      <!--Grid column-->
+
+    </div>
+    <!--Grid row-->
+
+  </div>
+  <!-- Footer Elements -->
+
+<!-- before & next -->
+	
 	<div>
-		<input type="hidden" id="m_id" value="<%=mem.getId() %>"> <input
-			type="hidden" id="b_seq" value="<%=dto.getSeq() %>"> <input
-			type="hidden" id="b_fav" value="<%=dto.getFavorite() %>">
+		<input type="hidden" id="m_id" value="<%=mem.getId() %>"> 
+		<input type="hidden" id="b_seq" value="<%=dto.getSeq() %>"> 
+		<input type="hidden" id="b_fav" value="<%=dto.getFavorite() %>">
 	</div>
 
 	<!-- JQuery -->
-	<script type="text/javascript"
+	
+	<!-- <script type="text/javascript"
 		src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-	<!-- Bootstrap tooltips -->
+	Bootstrap tooltips
 	<script type="text/javascript"
 		src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.13.0/umd/popper.min.js"></script>
-	<!-- Bootstrap core JavaScript -->
+	Bootstrap core JavaScript
 	<script type="text/javascript"
 		src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.3/js/bootstrap.min.js"></script>
-	<!-- MDB core JavaScript -->
+	MDB core JavaScript
 	<script type="text/javascript"
 		src="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.5.9/js/mdb.min.js"></script>
-
+ -->
 	<script type="text/javascript">
 		
 function check_like() {

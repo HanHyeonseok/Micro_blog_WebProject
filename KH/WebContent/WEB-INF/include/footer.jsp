@@ -12,23 +12,29 @@
 		<footer class="page-footer font-small unique-color-dark pt-4"
 			style="margin-left: auto; margin-right: auto;"> <!-- Footer Elements -->
 		<div class="container" id="footer">
-
+				
+				  <div class="row" align="center">
+    <div class="col">
+    
+    </div>
+    <div class="col-6">
+    <img alt="이미지없읍" src="https://user-images.githubusercontent.com/41100556/45397882-e640b380-b67c-11e8-9b79-32b7321e2848.png">
+  
+    </div>
+    <div class="col">
+   
+    </div>
+  </div>
 			<!-- Call to action -->
-			<ul class="list-unstyled list-inline text-center py-2">
-				<li class="list-inline-item">
-					<h5 class="mb-1">Register for free</h5>
-				</li>
-				<li class="list-inline-item"><a href="join.jsp"
-					class="btn btn-outline-white btn-rounded">Sign up!</a></li>
+			<ul class="list-unstyled list-inline text-center" style="margin-top: 10px">
+				<a href='join.jsp' style="color: white;"><font size="4px" face="Fixedsys">Sign up!</a></font>
+					<br><br>
+					© 2018 Copyright: <a
+				href="https://mdbootstrap.com/bootstrap-tutorial/">
+				MDBootstrap.com</a>
 			</ul>
 			<!-- Call to action -->
 
-		</div>
-		<!-- Footer Elements --> <!-- Copyright -->
-		<div class="footer-copyright text-center py-3">
-			© 2018 Copyright: <a
-				href="https://mdbootstrap.com/bootstrap-tutorial/">
-				MDBootstrap.com</a>
 		</div>
 		</footer>
 	</div>

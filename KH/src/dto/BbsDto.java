@@ -52,6 +52,17 @@ public class BbsDto {
 	public BbsDto() {
 	}
 
+	
+	
+	public BbsDto(int seq, String title, String filename) {
+		super();
+		this.seq = seq;
+		this.title = title;
+		this.filename = filename;
+	}
+
+
+
 	public BbsDto(int seq, String id, String title, String content, 
 			String wdate, int del, int readcount, int replycnt,
 			String filename, String profilename, int favorite, String hashtag) {

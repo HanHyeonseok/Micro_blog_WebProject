@@ -307,6 +307,21 @@
 	            }
 	         })
 	      }
+
+		
+		
+		 $("#btn1").toggle(
+				  function()
+				  {
+				   $("#bbsSeq").css("display",'none');
+				  },
+				  function()
+				  {
+				   $("#bbsSeq").css("display","block");
+
+				  });
+						
+
 	</script>
 </body>
 </html>
