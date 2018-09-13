@@ -1,7 +1,5 @@
 
-
 <%@page import="dto.LiketoDto"%>
-
 <%@page import="dao.BbsDAOImpl"%>
 <%@page import="dao.BbsDAO"%>
 <%@page import="dto.ReplyDto"%>
@@ -24,9 +22,6 @@
 	List<BbsDto> bigger = bbsdao.getBiggerSeq(dto.getSeq());
 
 %>
-
-
-
 <html>
 <head>
 
@@ -95,19 +90,12 @@ img {
 	box-shadow: 0 0 0 0.2rem rgba(139, 195, 74, .25);
 }
 </style>
-
-
-
 </head>
-
-
 
 <body id="page-top" class="index-page">
 
 	<div class="container" style="margin-bottom: 30px">
 		<div class="wrap-body">
-
-
 
 			<!-- /////////////////////////////////////////Content -->
 			<div id="page-content">
@@ -201,9 +189,6 @@ img {
 											Author :
 											<%=dto.getId() %></button>
 									</div>
-
-
-
 								</div>
 
 
@@ -216,13 +201,10 @@ img {
 								<div class="entry-content">
 									<p align="center"><%=dto.getContent()%></p>
 								</div>
-
 							</div>
 						</article>
 					</div>
-
 				</div>
-
 			</div>
 
 			<!-- 내용 수정 -->
@@ -239,9 +221,6 @@ img {
 					class="btn btn-danger btn-rounded">
 					<i class="fa fa-trash"></i>삭제
 				</button>
-				
-				
-			
 
 				<button type="button" data-toggle="modal" data-target="#updateModal"
 					class="btn btn-primary">
@@ -249,27 +228,18 @@ img {
 				</button>
 
 				<!-- 사진 추가/수정 -->
-
-									<!--  <a class=" btn btn-default btn-file"> <i
-										class="fa fa-paperclip" aria-hidden="true"></i> <label
-										for="ex_file">파일수정</label> <input type="file" id="ex_file">
-									</a> -->
-									
 				<button type="button" data-toggle="modal" data-target="#modalYT"
 					class="btn btn-primary">
 					<i class="fa fa-magic mr-1"></i>사진 수정
-				</button>					
-									
-									
-									
-				<% 
-}
-%>
+				</button>
+
+				<%
+					}
+				%>
 			</div>
 <!--댓글부분 시작  -->
 			<div class="media">
 				<div class="media-body">
-
 
 					<div class="diary-commant">
 						<h4>댓글</h4>
@@ -278,37 +248,38 @@ img {
 								background: #E6E6FA !important;">
 
 							<%
-               for(int i=0; i<commentview.size(); i++ ){
-                  System.out.println(mem.getId());
-                  System.out.println(commentview.get(i).getId());
-            %>
+								for (int i = 0; i < commentview.size(); i++) {
+									System.out.println(mem.getId());
+									System.out.println(commentview.get(i).getId());
+							%>
 							<div class="commant-view"
 								style="margin-bottom: 20px; padding-left: 38px; padding-right: 38px;">
 								<div class="commant-id"
 									style="text-align: left; font-weight: 700; margin-bottom: 8px; display: table; width: 100%;">
 
-									<p style="float: left;"><%=commentview.get(i).getId() %></p>
+									<p style="float: left;"><%=commentview.get(i).getId()%></p>
 									<p
 										style="float: left; margin-left: 10px; font-weight: 300; font-size: 12px; margin-top: 5px;">
-										<%=commentview.get(i).getWdate().substring(0,16) %></p>
+										<%=commentview.get(i).getWdate().substring(0, 16)%></p>
 
-
-									<% 
-                           if(commentview.get(i).getId().equals(mem.getId())){
-                              System.out.print(commentview.get(i).getId());
-                              %>
+									<%
+										if (commentview.get(i).getId().equals(mem.getId())) {
+												System.out.print(commentview.get(i).getId());
+									%>
 									<form action="BbsController">
-               <input type="hidden" name="command" value="deletecomment">
-               <input type="hidden" name="seq" value="<%=dto.getSeq() %>">
-               <input type="hidden" name="commentseq" value="<%=commentview.get(i).getSeq() %>">
+										<input type="hidden" name="command" value="deletecomment">
+										<input type="hidden" name="seq" value="<%=dto.getSeq()%>">
+										<input type="hidden" name="commentseq"
+											value="<%=commentview.get(i).getSeq()%>">
 										<button type="submit"
 											class="btn btn-outline-secondary waves-effect px-3"
 											style="float: right; cursor: pointer;">
 											<i class="fa fa-close" aria-hidden="true"></i>
 										</button>
 									</form>
-									<%} %>
-
+									<%
+										}
+									%>
 
 								</div>
 
@@ -352,11 +323,8 @@ img {
 				</div>
 			</div>
 			<!--댓글부분 끝  -->
-
-
 		</div>
 	</div>
-
 
 
 	<!-- 내용 수정 Modal -->
@@ -367,7 +335,6 @@ img {
 
 			<!-- Add .modal-dialog-centered to .modal-dialog to vertically center the modal -->
 			<div class="modal-dialog modal-dialog-centered" role="document">
-
 
 				<div class="modal-content">
 					<div class="modal-header">
@@ -402,7 +369,6 @@ img {
 	<!-- 내용 수정 Modal -->
 
 	<!-- 게시글 삭제 Modal -->
-
 	<form method="post"
 		action="BbsController?command=delete&sequence=<%=dto.getSeq() %>">
 		<div class="modal fade" id="deleteModal" tabindex="-1" role="dialog"
@@ -444,11 +410,8 @@ img {
 
             <!--Body-->
             <div class="modal-body mb-0 p-0">
-
             
             	<img id="bbsimg" alt="" src="upload/<%=dto.getFilename() %>">
-            	
-              
 
             </div>
 
@@ -458,23 +421,15 @@ img {
 					<input type="file" name="imgname" onchange="readURL(this);">     
 					<input type="hidden" name="bseq" value="<%=dto.getSeq() %>">
 					<button type="submit" class="btn btn-outline-primary btn-rounded btn-md ml-4">완료</button>
-            		
             	</form>
-            	
             
                 <button type="button" class="btn btn-outline-primary btn-rounded btn-md ml-4" data-dismiss="modal">취소</button>
-
-
-            </div>
-
+			</div>
         </div>
         <!--/.Content-->
-
     </div>
 </div>
 <!--Modal: modalYT-->
-
-
 
 <!-- before & next -->
 
@@ -500,7 +455,7 @@ img {
       </div>
       <%} %>
       <!--Grid column-->
-		
+		<hr style="border-left:1px black solid; position:absolute; left:50%; height:100px;" >
       <!--Grid column-->
       <%for(int i = 0; i < bigger.size(); i++){ if(i == 3){break;}%> <!-- 큰 시퀀스 게시물 3개 -->
       <div class="col-lg-2 col-md-6 mb-4">
@@ -533,20 +488,6 @@ img {
 		<input type="hidden" id="b_fav" value="<%=dto.getFavorite() %>">
 	</div>
 
-	<!-- JQuery -->
-	
-	<!-- <script type="text/javascript"
-		src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-	Bootstrap tooltips
-	<script type="text/javascript"
-		src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.13.0/umd/popper.min.js"></script>
-	Bootstrap core JavaScript
-	<script type="text/javascript"
-		src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.3/js/bootstrap.min.js"></script>
-	MDB core JavaScript
-	<script type="text/javascript"
-		src="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.5.9/js/mdb.min.js"></script>
- -->
 	<script type="text/javascript">
 		
 function check_like() {
@@ -594,7 +535,6 @@ function check_like() {
 }
 
 
-
 function onLike(){
 	
 	$("#btn_fav").addClass("btn-purple");
@@ -618,22 +558,9 @@ function readURL(input) {
 	}
 }
 
-
-	
 </script>
-
-
 	<!-- Definity JS -->
 	<script type="text/javascript" src="resources/js/sticky-kit.min.js"></script>
-
 </body>
 </html>
-
 <%@ include file="/WEB-INF/include/footer.jsp"%>
-
-
-
-
-
-
-
