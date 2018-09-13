@@ -57,6 +57,11 @@
    border: 1px solid;
    border-color: #afeeee;
 }
+::-webkit-scrollbar {
+
+display:none;
+
+}
 </style>
 <title>Honey Jam</title>
 </head>
@@ -65,44 +70,44 @@
       <div style="margin-top: 20px; margin-bottom: 20px">
          <h3 align="center">Event Detail</h3>
       </div>
-      <div style="padding: 8%; padding-bottom: 1%; margin: 5px" id="box">
-         <!-- 제목 -->
-         <div class="form-group row">
-            <!-- Material input -->
-            <label class="col-sm-2 col-form-label">제목</label>
-            <div class="col-sm-10">
-               <div class="md-form mt-0">
-                  <input type="text" class="form-control"
-                     value="<%=dto.getTitle()%>" disabled>
-               </div>
-            </div>
-         </div>
-         <!-- 제목끝 -->
-         <!--일정 -->
-         <div class="form-group row">
-            <!-- Material input -->
-            <label class="col-sm-2 col-form-label">일정</label>
-            <div class="col-sm-10">
-               <div class="md-form mt-0">
-                  <input type="text" class="form-control"
-                     value=" <%=toDates(dto.getRdate())%>" disabled>
+		<div style="padding: 8%; padding-bottom: 1%; margin: 5px" id="box">
+			<!-- 제목 -->
+			<div class="form-group row">
+				<!-- Material input -->
+				<label class="col-sm-2 col-form-label">제목</label>
+				<div class="col-sm-10">
+					<div class="md-form mt-0">
+						<input type="text" class="form-control"
+							value="<%=dto.getTitle()%>" disabled>
+					</div>
+				</div>
+			</div>
+			<!-- 제목끝 -->
+			<!--일정 -->
+			<div class="form-group row">
+				<!-- Material input -->
+				<label class="col-sm-2 col-form-label">일정</label>
+				<div class="col-sm-10">
+					<div class="md-form mt-0">
+						<input type="text" class="form-control"
+							value=" <%=toDates(dto.getRdate())%>" disabled>
 
-               </div>
-            </div>
-         </div>
-         <!--일정끝 -->
-         <!--내용들어오기-->
-         <div class="form-group">
-    <label for="exampleFormControlTextarea3">내용</label>
-    <textarea class="form-control" id="exampleFormControlTextarea3" rows="10"><%=dto.getContent()%> </textarea>
-</div>
-      
-         </div>
-         <!--내용들어오기 끝-->
+					</div>
+				</div>
+			</div>
+			<!--일정끝 -->
+			<!--내용들어오기-->
+			<div class="form-group">
+				<label for="exampleFormControlTextarea3">내용</label>
+				<textarea class="form-control" id="exampleFormControlTextarea3"
+					rows="10" style="-ms-overflow-style: none;"><%=dto.getContent()%> </textarea>
+			</div>
+		</div>
+		<!--내용들어오기 끝-->
          <div align="center">
             <!--버튼부분  -->
             <%
-               if (mem.getAuth() == 1) {
+            	if (mem.getAuth() == 1) {
             %>
             <button type="button" class="btn btn-outline-info waves-effect"
                onclick="location.href='CalendarController?command=update&seq=<%=dto.getSeq()%>'">

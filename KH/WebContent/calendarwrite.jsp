@@ -29,6 +29,11 @@
    border: 1px solid;
    border-color: #afeeee;
 }
+::-webkit-scrollbar {
+
+display:none;
+
+}
 </style>
 <title>Honey Jam</title>
 </head>
@@ -128,12 +133,15 @@
             <!--일정끝 -->
 
             <!--내용 작성-->
-            <div class="md-form">
-               <i class="fa fa-pencil prefix"></i>
-               <textarea type="text" id="form10" class="md-textarea form-control"
-                  name="content" rows="8"></textarea>
-               <label for="form10">내용</label>
-            </div>
+            
+            <div class="form-group">
+				<label for="exampleFormControlTextarea3">내용</label>
+				<textarea class="form-control" id="exampleFormControlTextarea3"
+				 name="content"	rows="10" style="-ms-overflow-style: none;"> </textarea>
+			</div>
+            
+            
+            
             <!--내용 작성끝-->
 
             <!--올리기버튼-->
