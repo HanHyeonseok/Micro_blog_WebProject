@@ -196,10 +196,17 @@
 								style="padding-right: 10px; margin-top: 5px; margin-bottom: 5px;">
 								<div class="btn-group btn-group-sm" role="group"
 									aria-label="Basic example">
-									<button type="button" class="btn btn-unique btn-sm">
-										<i class="fa fa-heart" aria-hidden="true"></i>
-										<%=bbslist.get(i).getFavorite()%>
-									</button>
+									<%if(bbsdao.checkF(mem.getId(), bbslist.get(i).getSeq()) == 1){ %>
+										<button type="button" id=bbsSeq class="btn btn-unique btn-sm" onclick="check_like(<%=bbslist.get(i).getSeq() %>)" >
+										<i class="fa fa-heart" aria-hidden="true" ></i>Like : <span id="likecount"><%=bbslist.get(i).getFavorite() %></span>
+										</button> 
+										<%} else{%>
+											
+										<button type="button" id=bbsSeq class="btn btn-sm" onclick="check_like(<%=bbslist.get(i).getSeq() %>)" >
+										<i class="fa fa-heart" aria-hidden="true" ></i>Like : <span id="likecount"><%=bbslist.get(i).getFavorite() %></span>
+										</button>
+										<%} %>
+										<input type="hidden" id="loginId" value="<%=mem.getId() %>">
 								</div>
 							</div>
 							<div class="card-body" style="padding-top: 0px">
@@ -324,6 +331,50 @@
 				reader.readAsDataURL(input.files[0]);
 			}
 		}
+		
+		function check_like(seq) {
+	         var id = $("#loginId").val();
+	         var bbsSeq  = seq;
+	         var favorite =  $("#likecount").text(); 
+	   
+	         
+	         alert("id =" + id);
+	         alert("bbsSeq =" + bbsSeq);
+	         alert("favorite =" + favorite);
+	             
+	         $.ajax({
+	            url : "BbsController?command=favorite",
+	            type : "get",
+	            data : {
+	               id : id ,
+	               bbsSeq : bbsSeq,
+	               favorite : favorite
+	            },
+	            success : function(obj) {
+
+	               var jsonObj = JSON.parse(obj);
+	               if (jsonObj.duplicated == 1) {
+	                  alert("체크했었음 -> 좋아요 취소");
+	                  //$("#likecount").val(jsonObj.favorite);
+	                  //offLike();
+	               }
+
+	               else {
+	                  alert("체크 가능  -> 좋아요");
+	                 // $("#likecount").val(jsonObj.favorite);
+	                 // onLike();
+	               
+	               }
+	               
+	             	location.reload();
+
+	            },
+
+	            error : function(xhr, status) {
+	               alert(xhr + " : " + status)
+	            }
+	         })
+	      }
 	</script>
 </body>
 </html>
