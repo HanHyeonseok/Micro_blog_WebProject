@@ -338,9 +338,9 @@
 	         var favorite =  $("#likecount").text(); 
 	   
 	         
-	         alert("id =" + id);
+	       /*   alert("id =" + id);
 	         alert("bbsSeq =" + bbsSeq);
-	         alert("favorite =" + favorite);
+	         alert("favorite =" + favorite); */
 	             
 	         $.ajax({
 	            url : "BbsController?command=favorite",
@@ -354,13 +354,13 @@
 
 	               var jsonObj = JSON.parse(obj);
 	               if (jsonObj.duplicated == 1) {
-	                  alert("체크했었음 -> 좋아요 취소");
+	                 // alert("체크했었음 -> 좋아요 취소");
 	                  //$("#likecount").val(jsonObj.favorite);
 	                  //offLike();
 	               }
 
 	               else {
-	                  alert("체크 가능  -> 좋아요");
+	                  //alert("체크 가능  -> 좋아요");
 	                 // $("#likecount").val(jsonObj.favorite);
 	                 // onLike();
 	               

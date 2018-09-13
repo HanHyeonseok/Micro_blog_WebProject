@@ -291,13 +291,13 @@
 
 	               var jsonObj = JSON.parse(obj);
 	               if (jsonObj.duplicated == 1) {
-	                  alert("체크했었음 -> 좋아요 취소");
+	                  //alert("체크했었음 -> 좋아요 취소");
 	                  //$("#likecount").val(jsonObj.favorite);
 	                  //offLike();
 	               }
 
 	               else {
-	                  alert("체크 가능  -> 좋아요");
+	                 // alert("체크 가능  -> 좋아요");
 	                 // $("#likecount").val(jsonObj.favorite);
 	                 // onLike();
 	               
