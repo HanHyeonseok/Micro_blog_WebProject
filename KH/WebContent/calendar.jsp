@@ -167,6 +167,7 @@
 </style>
 </head>
 <body>
+
    <div class="container" style="margin-bottom: 20px">
       <h3 align="center">Event</h3><hr>
       <div id="calendar-wrap">

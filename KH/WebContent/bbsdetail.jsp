@@ -115,12 +115,7 @@ img {
 								<div id="carousel-example-1z"
 									class="carousel slide carousel-fade" data-ride="carousel">
 									<!--Indicators-->
-									<ol class="carousel-indicators">
-										<li data-target="#carousel-example-1z" data-slide-to="0"
-											class="active"></li>
-										<li data-target="#carousel-example-1z" data-slide-to="1"></li>
-										<li data-target="#carousel-example-1z" data-slide-to="2"></li>
-									</ol>
+								
 									<!--/.Indicators-->
 									<!--Slides-->
 									<div class="carousel-inner" role="listbox">
@@ -443,8 +438,8 @@ img {
       <div class="col-lg-2 col-md-6 mb-4">
 
         <!--Image-->
-        <div class="view overlay z-depth-1-half">
-          <img src="upload/<%=smaller.get(i).getFilename() %>" class="img-fluid" alt="이미지 없음">
+        <div class="view overlay z-depth-1-half" align="center">
+          <img style="width: auto; height: auto; max-height: 178px; max-width: 320px" src="upload/<%=smaller.get(i).getFilename() %>" class="img-fluid" alt="이미지 없음">
           <a href="BbsController?command=detail&sequence=<%=smaller.get(i).getSeq() %>">
             <div class="mask flex-center waves-effect waves-light raba-red-slight">
             	<p class="white-text"><b><strong>[클릭] 이전글 보기</strong></b></p>
@@ -461,8 +456,8 @@ img {
       <div class="col-lg-2 col-md-6 mb-4">
 
         <!--Image-->
-         <div class="view overlay z-depth-1-half">
-          <img src="upload/<%=bigger.get(i).getFilename() %>" class="img-fluid" alt="이미지 없음">
+         <div class="view overlay z-depth-1-half" align="center">
+          <img style="width: auto; height: auto; max-height: 178px; max-width: 320px" src="upload/<%=bigger.get(i).getFilename() %>" class="img-fluid" alt="이미지 없음">
           <a href="BbsController?command=detail&sequence=<%=bigger.get(i).getSeq() %>">
             <div class="mask flex-center waves-effect waves-light raba-red-slight">
             	<p class="white-text"><b><strong>[클릭] 다음글 보기</strong></b></p>
