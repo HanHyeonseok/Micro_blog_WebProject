@@ -92,10 +92,11 @@
          </div>
          <!--일정끝 -->
          <!--내용들어오기-->
-         <div class="md-form mb-4 pink-textarea active-pink-textarea-2">
-            <i class="fa fa-angle-double-right prefix"></i>
-            <textarea type="text" id="form23" class="md-textarea form-control"
-               rows="10" disabled><%=dto.getContent()%> </textarea>
+         <div class="form-group">
+    <label for="exampleFormControlTextarea3">내용</label>
+    <textarea class="form-control" id="exampleFormControlTextarea3" rows="10"><%=dto.getContent()%> </textarea>
+</div>
+      
          </div>
          <!--내용들어오기 끝-->
          <div align="center">
