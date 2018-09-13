@@ -104,16 +104,6 @@ img {
 
 <body id="page-top" class="index-page">
 
-	<%
-		
-	if (mem == null) {
-		RequestDispatcher rd = request.getRequestDispatcher("login.jsp");
-		rd.forward(request, response);
-	}
-	
-	
-%>
-
 	<div class="container" style="margin-bottom: 30px">
 		<div class="wrap-body">
 

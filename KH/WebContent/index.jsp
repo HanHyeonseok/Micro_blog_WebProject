@@ -148,31 +148,25 @@
 						</tr>
 					</thead>
 					<tbody>
-						<%
-                     if (indexCalList == null || indexCalList.size() == 0 || mem == null) {
-                        /* 로그인 안하면 리스트 안보여주기  */
-                  %>
+						<%if(mem == null){ %>
+						<tr>
+							<td colspan="2" align="center">로그인이 필요합니다.</td>
+						</tr>
+						<%}else{ %>
+						<%if (indexCalList == null || indexCalList.size() == 0) {%>
 						<tr>
 							<td colspan="2" align="center">다가오는 일정이 없습니다.</td>
 						</tr>
 
-						<%
-                     } else if (mem != null && !mem.getId().equals("")) {
-                        /* 로그인하면 리스트 보여줌  */
-                  %>
+						<% } else if (mem != null && !mem.getId().equals("")) { %>
 
-						<%
-                     for (int i = 0; i < indexCalList.size(); i++) {
-                  %>
+						<%for (int i = 0; i < indexCalList.size(); i++) { %>
 						<tr>
 							<th><%=toDates(indexCalList.get(i).getRdate())%></th>
 							<th><a
 								href="calendardetail.jsp?seq=<%=indexCalList.get(i).getSeq()%>"><%=indexCalList.get(i).getTitle()%></a></th>
-
 						</tr>
-						<%
-                     }
-                  %>
+						<% } %>
 						<tr>
 							<td align="center" colspan="2">
 								<div>
@@ -208,7 +202,7 @@
 							</td>
 						</tr>
 						<%
-                     }
+                     }}
                   %>
 					</tbody>
 
@@ -233,6 +227,11 @@
 						</tr>
 					</thead>
 					<tbody>
+						<%if(mem == null){ %>
+						<tr>
+							<td style="font-family: fantasy" colspan="3">로그인이 필요합니다.</td>
+						</tr>
+						<%}else{ %>
 						<%if (bbslist == null || bbslist.size() == 0) {%>
 						<tr>
 							<td style="font-family: fantasy" colspan="3">게시글이 없습니다</td>
@@ -254,7 +253,8 @@
 							</td>
 							<td><%=bbslist.get(i).getId() %></td>
 						</tr>
-						<%}} %>
+						<%}}} %>
+						
 					</tbody>
 				</table>
 			</div>

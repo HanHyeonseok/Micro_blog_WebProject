@@ -272,8 +272,6 @@ public class BbsController extends HttpServlet {
 			MemberDto ss = (MemberDto) session.getAttribute("login");
 			if (ss == null) {
 				dispatch("login.jsp", req, resp);
-			} else if (ss != null) {
-				dispatch("bbslist.jsp", req, resp);
 			}
 		}
 		
