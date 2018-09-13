@@ -554,11 +554,11 @@ function check_like() {
     var bbsSeq  = $("#b_seq").val();
     var favorite = $("#favcount").text();
 
-    
+    /* 
     alert("id =" + id);
     alert("bbsSeq =" + bbsSeq);
     alert("favorite =" + favorite);
-         
+          */
     $.ajax({
        url : "BbsController?command=favorite",
        type : "get",
@@ -571,13 +571,13 @@ function check_like() {
 
           var jsonObj = JSON.parse(obj);
           if (jsonObj.duplicated == 1) {
-             alert("체크했었음 -> 좋아요 취소");
+           //  alert("체크했었음 -> 좋아요 취소");
              $("#favcount").text(jsonObj.favorite);
              offLike();
           }
 
           else {
-             alert("체크 가능  -> 좋아요");
+          //   alert("체크 가능  -> 좋아요");
              $("#favcount").text(jsonObj.favorite);
              onLike();
           }
